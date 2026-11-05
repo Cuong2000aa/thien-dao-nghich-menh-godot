@@ -37,7 +37,11 @@ static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : 
 	player._looping = bool(meta.get("loop", false)) and not forceOneShot
 	player.autoFree = forceOneShot or not player._looping
 	if key == "dragon_golden_spiral":
-		player.lifetimeCap = 2.5
+		# ~49 frames @ 30fps; residual dark plate must not paint a black box
+		player.lifetimeCap = 3.5
+		var mat := CanvasItemMaterial.new()
+		mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		player.material = mat
 	elif forceOneShot:
 		player.lifetimeCap = 1.25
 	parent.add_child(player)
