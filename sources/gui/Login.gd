@@ -105,6 +105,12 @@ func FillWarningLabel(err : NetworkCommons.AuthError):
 			warn = "Mật khẩu đã được thay đổi thành công. Mời đạo hữu đăng nhập."
 			isWarn = false
 			SetRecoveryState(RecoveryState.NONE)
+		NetworkCommons.AuthError.ERR_TIMEOUT:
+			if LauncherCommons.isWeb:
+				warn = "Hết thời gian chờ (Mã lỗi 2).\nTải lại trang bằng Ctrl+Shift+R rồi thử [b]Vào Trò Chơi[/b] (Ngoại Tuyến).\nNếu vẫn lỗi khi tạo đạo hào, đợi vài giây sau khi load rồi thử lại."
+			else:
+				warn = "Hết thời gian chờ phản hồi máy chủ. Vui lòng thử lại."
+			RequestFocus(passwordTextControl)
 		_:
 			if LauncherCommons.isWeb:
 				warn = "Không vào được trò chơi (Mã lỗi %d).\nBản web hãy ở chế độ [b]Tu Luyện Ngoại Tuyến[/b], rồi bấm [b]Vào Trò Chơi[/b].\nTài khoản trống cũng được — hệ thống sẽ dùng DaoHuu." % err
@@ -400,6 +406,8 @@ func CreateAccount():
 	if authError == NetworkCommons.AuthError.ERR_OK:
 		if Network.CreateAccount(nameText, passwordText, emailText, rememberMeCheckBox.button_pressed, NetworkCommons.GetPlatform()):
 			FSM.EnterState(FSM.States.LOGIN_PROGRESS)
+		else:
+			FillWarningLabel(NetworkCommons.AuthError.ERR_TIMEOUT)
 	else:
 		FillWarningLabel(authError)
 

@@ -500,6 +500,11 @@ func Backup(targetPath : String) -> bool:
 func _post_launch():
 	var dbPath : String = SQLCommons.GetDBPath()
 	if not FileSystem.FileExists(dbPath) and not SQLCommons.CopyDatabase(dbPath):
+		Util.PrintLog("SQL", "Could not prepare database at %s" % dbPath)
+		return
+
+	if not ClassDB.class_exists("SQLite"):
+		Util.PrintLog("SQL", "SQLite GDExtension missing (web needs nothreads.wasm on GitHub Pages)")
 		return
 
 	db = SQLite.new()
@@ -507,7 +512,10 @@ func _post_launch():
 	db.verbosity_level = SQLCommons.Verbosity
 
 	if not db.open_db():
+		Util.PrintLog("SQL", "Failed to open database: " + db.error_message)
 		assert(false, "Failed to open database: "+ db.error_message)
+		db = null
+		return
 	else:
 		if not LauncherCommons.isWeb:
 			Query("PRAGMA journal_mode=WAL;")

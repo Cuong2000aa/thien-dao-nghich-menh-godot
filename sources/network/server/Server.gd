@@ -9,6 +9,9 @@ func CreateAccount(accountName : String, password : String, email : String, reme
 	var peer : Peers.Peer = Peers.GetPeer(peerID)
 	if not peer:
 		err = NetworkCommons.AuthError.ERR_NO_PEER_DATA
+	elif Launcher.SQL == null or not Launcher.SQL.isInitialized or Launcher.SQL.db == null:
+		Util.PrintLog("Server", "CreateAccount blocked: SQL not ready")
+		err = NetworkCommons.AuthError.ERR_TIMEOUT
 	else:
 		err = NetworkCommons.CheckAuthInformation(accountName, password)
 		if err == NetworkCommons.AuthError.ERR_OK:
@@ -28,6 +31,9 @@ func LoginWithPassword(accountName : String, password : String, rememberMe : boo
 	var peer : Peers.Peer = Peers.GetPeer(peerID)
 	if not peer:
 		err = NetworkCommons.AuthError.ERR_NO_PEER_DATA
+	elif Launcher.SQL == null or not Launcher.SQL.isInitialized or Launcher.SQL.db == null:
+		Util.PrintLog("Server", "LoginWithPassword blocked: SQL not ready")
+		err = NetworkCommons.AuthError.ERR_TIMEOUT
 	else:
 		err = NetworkCommons.CheckAuthInformation(accountName, password)
 		if err == NetworkCommons.AuthError.ERR_OK:

@@ -599,12 +599,17 @@ func CallServer(methodName : StringName, args : Array, peerID : int, actionDelta
 			WebRTCClient.multiplayerAPI.rpc(NetworkCommons.PeerAuthorityID, self, methodName, args + [WebRTCClient.interfaceID])
 		else:
 			Client.multiplayerAPI.rpc(peerID, self, methodName, args + [Client.interfaceID])
-	elif Peers.IsUsingWebRTC(peerID):
+	elif Peers.IsUsingWebRTC(peerID) and WebRTCServer:
 		WebRTCServer.callv.call_deferred(methodName, args + [peerID])
-	elif Peers.IsUsingWebSocket(peerID):
+	elif Peers.IsUsingWebSocket(peerID) and WebSocketServer:
 		WebSocketServer.callv.call_deferred(methodName, args + [peerID])
 	else:
-		ENetServer.callv.call_deferred(methodName, args + [peerID])
+		# Offline / ENet path — on web, offline handle may live on WebSocketServer
+		var server = ENetServer if ENetServer else WebSocketServer
+		if server == null:
+			Util.PrintLog("Network", "CallServer(%s) failed: no server instance (SQL/network not ready)" % methodName)
+			return false
+		server.callv.call_deferred(methodName, args + [peerID])
 	return true
 
 func CallClient(methodName : StringName, args : Array, peerID : int):
@@ -626,12 +631,16 @@ func Mode(isClient : bool, isServer : bool):
 			WebRTCClient = NetClient.new(false, true, isOffline, isOffline or NetworkCommons.IsLocal)
 
 	if isServer:
-		if NetworkCommons.UseENet:
-			ENetServer = NetServer.new(false, false, false if SessionManager.isHosting else isOffline, NetworkCommons.IsLocal)
-		if NetworkCommons.UseWebSocket and not isOffline:
-			WebSocketServer = NetServer.new(true, false, isOffline, NetworkCommons.IsLocal)
-		if NetworkCommons.UseWebRTC and not isOffline:
-			WebRTCServer = NetServer.new(false, true, isOffline, NetworkCommons.IsLocal)
+		if isOffline and LauncherCommons.isWeb:
+			# Browser: avoid ENet peer object; offline in-process handle via WebSocket NetServer (no listen socket).
+			WebSocketServer = NetServer.new(true, false, true, true)
+		else:
+			if NetworkCommons.UseENet:
+				ENetServer = NetServer.new(false, false, false if SessionManager.isHosting else isOffline, NetworkCommons.IsLocal)
+			if NetworkCommons.UseWebSocket and not isOffline:
+				WebSocketServer = NetServer.new(true, false, isOffline, NetworkCommons.IsLocal)
+			if NetworkCommons.UseWebRTC and not isOffline:
+				WebRTCServer = NetServer.new(false, true, isOffline, NetworkCommons.IsLocal)
 
 func _ready():
 	NetworkCommons.ProtocolVersion = NetworkCommons.ComputeProtocolVersion(self)
