@@ -2,6 +2,7 @@ extends WindowPanel
 class_name PreviewGalleryWindow
 
 ## In-game preview: PixelFX, skills cast FX, temporary character morph (2A).
+## Compact panel — lists scroll inside a viewport-clamped window so items stay clickable.
 
 const PixelFxLibraryClass = preload("res://sources/effects/PixelFxLibrary.gd")
 const CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
@@ -11,9 +12,13 @@ var tabs : TabContainer = null
 var fxList : ItemList = null
 var skillList : ItemList = null
 var entityList : ItemList = null
+var filterEdit : LineEdit = null
 var detailLabel : RichTextLabel = null
 var statusLabel : Label = null
 
+var _fxKeysAll : PackedStringArray = []
+var _skillsAll : Array = []
+var _entitiesAll : Array = []
 var _fxKeys : PackedStringArray = []
 var _skills : Array = []
 var _entities : Array = []
@@ -21,17 +26,56 @@ var _previewShapeBackup : int = DB.UnknownHash
 
 func _init():
 	name = "PreviewGalleryWindow"
-	custom_minimum_size = Vector2(640, 520)
-	size = Vector2(640, 520)
+	# Compact default; FitToViewport tightens further on open
+	custom_minimum_size = Vector2(380, 300)
+	size = Vector2(420, 340)
+	maxSize = Vector2(520, 420)
 	floating = true
 	draggable = true
 	visible = false
 	blockActions = false
+	clip_contents = true
+	allowAutomaticResize = false
 
 func _ready():
 	_BuildUI()
 	ThemeClass.AttachJadeFrame(self)
+	visibility_changed.connect(_OnVisibilityChanged)
 	Refresh()
+
+func EnableControl(state : bool):
+	super.EnableControl(state)
+	if state:
+		FitToViewport()
+		Refresh()
+		if filterEdit:
+			filterEdit.grab_focus()
+
+func _OnVisibilityChanged():
+	if visible:
+		FitToViewport()
+
+func FitToViewport():
+	var avail := Vector2(960, 540)
+	if Launcher.GUI and Launcher.GUI.windows:
+		avail = Launcher.GUI.windows.size
+	elif get_viewport():
+		avail = get_viewport().get_visible_rect().size
+	# Leave margin so the panel never eats the whole screen / goes off-edge
+	var target := Vector2(
+		clampf(avail.x * 0.55, 340.0, 480.0),
+		clampf(avail.y * 0.62, 280.0, 400.0)
+	)
+	if maxSize.x > 0:
+		target.x = minf(target.x, maxSize.x)
+	if maxSize.y > 0:
+		target.y = minf(target.y, maxSize.y)
+	custom_minimum_size = Vector2(minf(340.0, target.x), minf(260.0, target.y))
+	size = target
+	position = Vector2(
+		clampf((avail.x - size.x) * 0.5, 4.0, maxf(4.0, avail.x - size.x - 4.0)),
+		clampf((avail.y - size.y) * 0.35, 4.0, maxf(4.0, avail.y - size.y - 4.0))
+	)
 
 func _BuildUI():
 	for c in get_children():
@@ -39,94 +83,102 @@ func _BuildUI():
 
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 12)
-	margin.add_theme_constant_override("margin_right", 12)
-	margin.add_theme_constant_override("margin_top", 10)
-	margin.add_theme_constant_override("margin_bottom", 12)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.add_theme_constant_override("margin_left", 10)
+	margin.add_theme_constant_override("margin_right", 10)
+	margin.add_theme_constant_override("margin_top", 8)
+	margin.add_theme_constant_override("margin_bottom", 8)
 	add_child(margin)
 
 	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 8)
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	root.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root.add_theme_constant_override("separation", 6)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_child(root)
 
 	var title := Label.new()
-	title.text = "Xem Trước — Hiệu Ứng · Chiêu Thức · Nhân Vật"
+	title.text = "Xem Trước"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 15)
+	title.add_theme_font_size_override("font_size", 14)
 	title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.35))
 	root.add_child(title)
 
-	var hint := Label.new()
-	hint.text = "Chọn mục rồi bấm Phát / Thử / Mượn hình. Morph chỉ xem tạm — bấm Trả hình để về dạng gốc."
-	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hint.add_theme_font_size_override("font_size", 11)
-	hint.add_theme_color_override("font_color", Color(0.75, 0.78, 0.72))
-	root.add_child(hint)
-
-	var body := HBoxContainer.new()
-	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	body.add_theme_constant_override("separation", 10)
-	root.add_child(body)
+	filterEdit = LineEdit.new()
+	filterEdit.placeholder_text = "Lọc tên…"
+	filterEdit.clear_button_enabled = true
+	filterEdit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	filterEdit.custom_minimum_size = Vector2(0, 28)
+	filterEdit.text_changed.connect(_OnFilterChanged)
+	root.add_child(filterEdit)
 
 	tabs = TabContainer.new()
 	tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	tabs.custom_minimum_size = Vector2(300, 320)
-	body.add_child(tabs)
+	tabs.clip_contents = true
+	# Do NOT set a large custom_minimum_size — that was blowing the window past the viewport
+	root.add_child(tabs)
 
 	fxList = _MakeList()
 	fxList.item_selected.connect(_OnFxSelected)
 	fxList.item_activated.connect(_OnFxActivated)
 	tabs.add_child(fxList)
-	tabs.set_tab_title(0, "Hiệu ứng")
+	tabs.set_tab_title(0, "FX")
 
 	skillList = _MakeList()
 	skillList.item_selected.connect(_OnSkillSelected)
 	skillList.item_activated.connect(_OnSkillActivated)
 	tabs.add_child(skillList)
-	tabs.set_tab_title(1, "Chiêu thức")
+	tabs.set_tab_title(1, "Chiêu")
 
 	entityList = _MakeList()
 	entityList.item_selected.connect(_OnEntitySelected)
 	entityList.item_activated.connect(_OnEntityActivated)
 	tabs.add_child(entityList)
-	tabs.set_tab_title(2, "Nhân vật")
-
-	var side := VBoxContainer.new()
-	side.custom_minimum_size = Vector2(260, 0)
-	side.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	side.add_theme_constant_override("separation", 8)
-	body.add_child(side)
+	tabs.set_tab_title(2, "NV")
 
 	detailLabel = RichTextLabel.new()
 	detailLabel.bbcode_enabled = true
 	detailLabel.fit_content = false
 	detailLabel.scroll_active = true
-	detailLabel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	detailLabel.custom_minimum_size = Vector2(0, 220)
-	detailLabel.add_theme_font_size_override("normal_font_size", 12)
-	side.add_child(detailLabel)
+	detailLabel.clip_contents = true
+	detailLabel.custom_minimum_size = Vector2(0, 56)
+	detailLabel.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	detailLabel.add_theme_font_size_override("normal_font_size", 11)
+	root.add_child(detailLabel)
+
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 6)
+	actions.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	root.add_child(actions)
 
 	var btnPlay := Button.new()
-	btnPlay.text = "Phát / Thử mục đang chọn"
+	btnPlay.text = "Phát"
+	btnPlay.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btnPlay.custom_minimum_size = Vector2(0, 32)
 	btnPlay.pressed.connect(_OnPlayPressed)
 	ThemeClass.AccentButton(btnPlay)
-	side.add_child(btnPlay)
+	actions.add_child(btnPlay)
 
 	var btnRestore := Button.new()
-	btnRestore.text = "Trả hình gốc"
+	btnRestore.text = "Trả hình"
+	btnRestore.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btnRestore.custom_minimum_size = Vector2(0, 32)
 	btnRestore.pressed.connect(RestoreOriginalShape)
-	side.add_child(btnRestore)
+	actions.add_child(btnRestore)
 
 	var btnClose := Button.new()
 	btnClose.text = "Đóng"
+	btnClose.custom_minimum_size = Vector2(72, 32)
 	btnClose.pressed.connect(func(): set_visible(false))
-	side.add_child(btnClose)
+	actions.add_child(btnClose)
 
 	statusLabel = Label.new()
 	statusLabel.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	statusLabel.add_theme_font_size_override("font_size", 11)
+	statusLabel.add_theme_font_size_override("font_size", 10)
 	statusLabel.add_theme_color_override("font_color", Color(0.55, 0.9, 0.65))
+	statusLabel.custom_minimum_size = Vector2(0, 18)
 	root.add_child(statusLabel)
 
 func _MakeList() -> ItemList:
@@ -134,50 +186,79 @@ func _MakeList() -> ItemList:
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	list.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	list.allow_reselect = true
+	list.same_column_width = true
+	list.clip_contents = true
+	list.focus_mode = Control.FOCUS_ALL
+	list.mouse_filter = Control.MOUSE_FILTER_STOP
+	# Keep intrinsic min tiny so hundreds of entities don't inflate the WindowPanel
+	list.custom_minimum_size = Vector2(120, 80)
 	return list
 
 func Refresh():
-	_FillFx()
-	_FillSkills()
-	_FillEntities()
-	detailLabel.text = "[color=#c8d0c0]Chọn một mục bên trái để xem chi tiết.[/color]"
-	_SetStatus("Sẵn sàng. Phím: V · Tay cầm Xbox: Start (≡).")
+	_LoadCatalogs()
+	_ApplyFilter(filterEdit.text if filterEdit else "")
+	if detailLabel:
+		detailLabel.text = "[color=#c8d0c0]Chọn mục trong danh sách (cuộn được). Lọc bằng ô phía trên.[/color]"
+	_SetStatus("V · Start (≡) · cửa sổ giữ trong màn hình.")
 
-func _FillFx():
-	fxList.clear()
-	_fxKeys.clear()
+func _LoadCatalogs():
+	_fxKeysAll.clear()
 	var keys : Array = PixelFxLibraryClass.CATALOG.keys()
 	keys.sort()
 	for key in keys:
-		_fxKeys.append(key)
-		fxList.add_item(str(key))
+		_fxKeysAll.append(String(key))
 
-func _FillSkills():
-	skillList.clear()
-	_skills.clear()
-	var entries : Array = []
+	_skillsAll.clear()
+	var skillEntries : Array = []
 	for skillID in DB.SkillsDB:
 		var cell : SkillCell = DB.SkillsDB[skillID]
 		if cell:
-			entries.append(cell)
-	entries.sort_custom(func(a, b): return String(a.name) < String(b.name))
-	for cell in entries:
-		_skills.append(cell)
-		var cat := _SkillCategoryName(cell.category)
-		skillList.add_item("%s  [%s]" % [cell.name, cat])
+			skillEntries.append(cell)
+	skillEntries.sort_custom(func(a, b): return String(a.name) < String(b.name))
+	_skillsAll = skillEntries
 
-func _FillEntities():
-	entityList.clear()
-	_entities.clear()
-	var entries : Array = []
+	_entitiesAll.clear()
+	var entityEntries : Array = []
 	for eid in DB.EntitiesDB:
 		var data : EntityData = DB.EntitiesDB[eid]
 		if data and data._spritePreset:
-			entries.append(data)
-	entries.sort_custom(func(a, b): return String(a._name) < String(b._name))
-	for data in entries:
-		_entities.append(data)
-		entityList.add_item(data._name if not data._name.is_empty() else ("#%d" % data._id))
+			entityEntries.append(data)
+	entityEntries.sort_custom(func(a, b): return String(a._name) < String(b._name))
+	_entitiesAll = entityEntries
+
+func _OnFilterChanged(text : String):
+	_ApplyFilter(text)
+
+func _ApplyFilter(text : String):
+	var q := text.strip_edges().to_lower()
+
+	_fxKeys.clear()
+	if fxList:
+		fxList.clear()
+		for key in _fxKeysAll:
+			if q.is_empty() or q in key.to_lower():
+				_fxKeys.append(key)
+				fxList.add_item(key)
+
+	_skills.clear()
+	if skillList:
+		skillList.clear()
+		for cell in _skillsAll:
+			var label := "%s  [%s]" % [cell.name, _SkillCategoryName(cell.category)]
+			if q.is_empty() or q in String(cell.name).to_lower() or q in label.to_lower():
+				_skills.append(cell)
+				skillList.add_item(label)
+
+	_entities.clear()
+	if entityList:
+		entityList.clear()
+		for data in _entitiesAll:
+			var displayName : String = String(data._name)
+			if displayName.is_empty():
+				displayName = "#%d" % data._id
+			if q.is_empty() or q in displayName.to_lower():
+				_entities.append(data)
+				entityList.add_item(displayName)
 
 func _SkillCategoryName(cat : int) -> String:
 	match cat:
@@ -191,8 +272,8 @@ func _OnFxSelected(index : int):
 		return
 	var key : String = _fxKeys[index]
 	var path : String = PixelFxLibraryClass.ResolvePath(key)
-	detailLabel.text = "[b]%s[/b]\n[color=#9ab]/nĐường:[/color] %s\n[color=#9ab]\nScale mặc định:[/color] %.2f\n\nNhấn đúp hoặc [b]Phát[/b] để xem trên nhân vật." % [
-		key, path, PixelFxLibraryClass.GetScale(key)
+	detailLabel.text = "[b]%s[/b]  ·  scale %.2f\n[color=#9ab]%s[/color]" % [
+		key, PixelFxLibraryClass.GetScale(key), path
 	]
 
 func _OnFxActivated(index : int):
@@ -203,8 +284,8 @@ func _OnSkillSelected(index : int):
 	if index < 0 or index >= _skills.size():
 		return
 	var cell : SkillCell = _skills[index]
-	detailLabel.text = "[b]%s[/b]\n[color=#9ab]\nLoại:[/color] %s\n[color=#9ab]Tầm:[/color] %d\n[color=#9ab]Niệm chú:[/color] %.2fs\n[color=#9ab]Hồi chiêu:[/color] %.2fs\n\nThử sẽ phát hiệu ứng gắn với chiêu (không tốn tài nguyên)." % [
-		cell.name, _SkillCategoryName(cell.category), cell.skillRange, cell.castTime, cell.cooldownTime
+	detailLabel.text = "[b]%s[/b]  ·  %s  ·  tầm %d\nHồi %.1fs · niệm %.1fs" % [
+		cell.name, _SkillCategoryName(cell.category), cell.skillRange, cell.cooldownTime, cell.castTime
 	]
 
 func _OnSkillActivated(index : int):
@@ -215,7 +296,7 @@ func _OnEntitySelected(index : int):
 	if index < 0 or index >= _entities.size():
 		return
 	var data : EntityData = _entities[index]
-	detailLabel.text = "[b]%s[/b]\n[color=#9ab]\nID:[/color] %d\n[color=#9ab]Bán kính:[/color] %d\n\n[b]Mượn hình[/b] sẽ morph tạm lên thân bạn. Bấm [b]Trả hình gốc[/b] khi xem xong." % [
+	detailLabel.text = "[b]%s[/b]  ·  id %d  ·  r=%d\nMượn hình tạm — nhớ Trả hình." % [
 		data._name, data._id, data._radius
 	]
 
@@ -312,7 +393,6 @@ func _PreviewEntity(index : int):
 	if _previewShapeBackup == DB.UnknownHash:
 		_previewShapeBackup = player.stat.shape if player.stat.shape != DB.UnknownHash else player.stat.currentShape
 
-	# Prefer server agent morph so peers see it; fallback to local visual.
 	var agent = _ActiveAgent()
 	if agent and agent.has_method("Morph"):
 		agent.Morph(true, data._id)
@@ -320,7 +400,7 @@ func _PreviewEntity(index : int):
 		player.stat.Morph(data)
 		player.SetVisual(data, true)
 
-	_SetStatus("Đang mượn hình: %s — nhớ Trả hình gốc khi xong." % data._name, true)
+	_SetStatus("Đang mượn hình: %s — nhớ Trả hình." % data._name, true)
 
 func RestoreOriginalShape():
 	var player = _ActiveEntity()
@@ -358,7 +438,6 @@ func RestoreOriginalShape():
 func _ActiveEntity() -> Entity:
 	if Launcher.Player and Launcher.Player is Entity:
 		return Launcher.Player
-	# Character setup screen: preview on the selected / creating sprite.
 	if Launcher.GUI and Launcher.GUI.characterPanel and Launcher.GUI.characterPanel.has_method("GetSelectedEntity"):
 		var selected = Launcher.GUI.characterPanel.GetSelectedEntity()
 		if selected is Entity:
