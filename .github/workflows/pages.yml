@@ -59,14 +59,18 @@ jobs:
               mv "$dir"/* site/
             fi
           fi
-          # Fail the deploy if a threaded side module slipped back in
-          if [ -f site/index.side.wasm ]; then
-            echo "::error::Threaded Web export detected (index.side.wasm). Set variant/thread_support=false."
+          # Godot may still emit unused index.side.wasm; threads mode is authoritative in index.html
+          if [ -f site/index.html ] && grep -q 'GODOT_THREADS_ENABLED = true' site/index.html; then
+            echo "::error::Threaded Web export detected (GODOT_THREADS_ENABLED=true)."
             exit 1
           fi
-          # Prefer nothreads sqlite filename if present
+          rm -f site/index.side.wasm
+          if ! ls site/libgdsqlite*.nothreads.wasm >/dev/null 2>&1; then
+            echo "::warning::No nothreads sqlite wasm found — account create may fail on Pages."
+          fi
           ls -lah site | head -40
           test -f site/index.html
+          grep -n 'GODOT_THREADS_ENABLED' site/index.html || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
