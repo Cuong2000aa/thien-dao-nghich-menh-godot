@@ -66,7 +66,7 @@ static var actionNames : Dictionary[String, String] = {
 	"ui_progress": "Progress Window",
 	"ui_social": "Social Window",
 	"ui_multiplayer": "Đạo Lữ Đồng Hành (Co-op)",
-	"ui_preview": "Xem Trước (FX / Chiêu / Nhân Vật)",
+	"ui_preview": "Xem Trước (F10 / Start)",
 	"ui_fullscreen": "Toggle Fullscreen",
 	"gp_shortcut_1" : "Shortcut 1",
 	"gp_shortcut_2" : "Shortcut 2",
