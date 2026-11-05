@@ -68,30 +68,18 @@ jobs:
           # Sentry web GDExtension has been crashing assignWasmExports on Pages; strip if present
           rm -f site/libsentry*.wasm site/sentry-bundle.js
           if [ -f site/index.html ]; then
-            python3 - <<'PY'
-from pathlib import Path
-import re
-p = Path("site/index.html")
-t = p.read_text()
-t2 = re.sub(r',"libsentry[^"]*"', "", t)
-t2 = re.sub(r'"libsentry[^"]*",?', "", t2)
-t2 = t2.replace(",,", ",").replace("[,", "[").replace(",]", "]")
-# Kill stale PWA service workers from older threaded deploys
-bust = """<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); });
-  if (window.caches) caches.keys().then(function(ks){ ks.forEach(function(k){ caches.delete(k); }); });
-}
-</script>
-"""
-if "serviceWorker.getRegistrations" not in t2:
-    t2 = t2.replace("<head>", "<head>\n" + bust, 1)
-    # also try after <head ...>
-    if bust.strip() not in t2:
-        t2 = re.sub(r"(<head[^>]*>)", r"\1\n" + bust, t2, count=1)
-p.write_text(t2)
-print(re.search(r"gdextensionLibs\":\[[^\]]*\]", t2).group(0) if re.search(r"gdextensionLibs\":\[[^\]]*\]", t2) else "no libs")
-PY
+            # Strip libsentry from GODOT_CONFIG gdextensionLibs
+            sed -E -i \
+              -e 's/,"libsentry[^"]*"//g' \
+              -e 's/"libsentry[^"]*",?//g' \
+              -e 's/,,/,/g' \
+              -e 's/\[,/[/g' \
+              -e 's/,\]/]/g' \
+              site/index.html
+            # Kill stale PWA service workers from older threaded deploys
+            if ! grep -q 'serviceWorker.getRegistrations' site/index.html; then
+              sed -i 's|<head>|<head><script>if("serviceWorker"in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})});if(window.caches)caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})})}</script>|' site/index.html
+            fi
           fi
           if ! ls site/libgdsqlite*.nothreads.wasm >/dev/null 2>&1; then
             echo "::warning::No nothreads sqlite wasm found — account create may fail on Pages."
