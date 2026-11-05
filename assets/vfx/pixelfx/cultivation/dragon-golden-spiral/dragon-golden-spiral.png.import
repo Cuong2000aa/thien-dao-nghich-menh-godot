@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://01777584cdc84"
-path="res://.godot/imported/dragon-golden-spiral.png-01777584cdc84.ctex"
+uid="uid://cur0otqlw43pj"
+path="res://.godot/imported/dragon-golden-spiral.png-719f2c198fe76396e793e64c4e9263c9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,13 +11,15 @@ metadata={
 [deps]
 
 source_file="res://assets/vfx/pixelfx/cultivation/dragon-golden-spiral/dragon-golden-spiral.png"
-dest_files=["res://.godot/imported/dragon-golden-spiral.png-01777584cdc84.ctex"]
+dest_files=["res://.godot/imported/dragon-golden-spiral.png-719f2c198fe76396e793e64c4e9263c9.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0

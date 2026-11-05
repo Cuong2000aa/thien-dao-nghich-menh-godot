@@ -365,7 +365,8 @@ func _EnsurePreviewButton():
 	previewButton.custom_minimum_size = Vector2(128, 40)
 	previewButton.pressed.connect(OpenPreviewGallery)
 	# Host on GUI overlay (not this VBox) so layout không đẩy nút.
-	var host : Control = Launcher.GUI if Launcher.GUI else get_parent()
+	# Gui is CanvasLayer — use Node, not Control, for the host type.
+	var host : Node = Launcher.GUI if Launcher.GUI else get_parent()
 	if host == null:
 		host = self
 	host.add_child(previewButton)

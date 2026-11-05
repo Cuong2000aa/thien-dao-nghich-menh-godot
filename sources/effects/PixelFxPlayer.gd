@@ -13,10 +13,11 @@ var _looping : bool = false
 static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : float = 1.0, flipH : bool = false, zOff : int = 8, forceOneShot : bool = false) -> PixelFxPlayer:
 	if parent == null or not is_instance_valid(parent):
 		return null
-	var frames : SpriteFrames = PixelFxLibrary.GetSpriteFrames(key)
+	var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+	var frames : SpriteFrames = Lib.GetSpriteFrames(key)
 	if frames == null:
 		return null
-	var meta : Dictionary = PixelFxLibrary.GetMeta(key)
+	var meta : Dictionary = Lib.GetMeta(key)
 	var player := PixelFxPlayer.new()
 	player.effectKey = key
 	player.sprite_frames = frames

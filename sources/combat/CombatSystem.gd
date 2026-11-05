@@ -79,6 +79,43 @@ signal combat_feedback_emitted(targetRID: int, text: String, color: Color)
 # ==============================================================================
 # 3. MARTIAL ARTS DEFINITION CATALOG
 # ==============================================================================
+## SkillCell.id (presets/cells/skills/*.tres) → martial catalog key.
+## Fixes Interactive/combat looking up MARTIAL_CATALOG with the wrong id space.
+const SKILL_CELL_TO_MARTIAL : Dictionary = {
+	182736401: 1002, # Thanh Phong Kiếm Khí
+	182736402: 1003, # Trúc Sơn Kiếm Trận
+	182736403: 1004, # Đạp Phong Bộ
+	182736404: 1005, # Bát Hoang Liệt Không Quyền
+	182736405: 1006, # Quy Nguyên Hộ Thể Thuẫn
+}
+
+## Display / fallback name → martial id (when only SkillCell.name is known).
+const SKILL_NAME_TO_MARTIAL : Dictionary = {
+	"Thanh Phong Kiếm Quyết": 1001,
+	"Thanh Phong Kiếm Khí": 1002,
+	"Trúc Sơn Kiếm Trận": 1003,
+	"Đạp Phong Bộ": 1004,
+	"Bát Hoang Liệt Không Quyền": 1005,
+	"Quy Nguyên Hộ Thể Thuẫn": 1006,
+	"Bản Nguyên Kiếm Ý": 1007,
+}
+
+## Resolve martial data from SkillCell.id, martial id, or skill display name.
+static func GetMartialForSkill(skillID : int, skillName : String = "") -> Dictionary:
+	if MARTIAL_CATALOG.has(skillID):
+		return MARTIAL_CATALOG[skillID]
+	if SKILL_CELL_TO_MARTIAL.has(skillID):
+		var mid : int = int(SKILL_CELL_TO_MARTIAL[skillID])
+		return MARTIAL_CATALOG.get(mid, {})
+	if not skillName.is_empty() and SKILL_NAME_TO_MARTIAL.has(skillName):
+		var mid2 : int = int(SKILL_NAME_TO_MARTIAL[skillName])
+		return MARTIAL_CATALOG.get(mid2, {})
+	return {}
+
+static func GetMartialIdForSkill(skillID : int, skillName : String = "") -> int:
+	var data : Dictionary = GetMartialForSkill(skillID, skillName)
+	return int(data.get("id", 0))
+
 const MARTIAL_CATALOG : Dictionary = {
 	1001: {
 		"id": 1001,

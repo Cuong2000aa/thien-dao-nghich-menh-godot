@@ -96,27 +96,24 @@ static func SpawnImpactVfx(parent : Node2D, pos : Vector2, element : int = 0, is
 	if not parent or not is_instance_valid(parent):
 		return null
 
-	# BUILD 12 — PixelFX hit/crit sheets enhance SoM combat events
+	# BUILD 12 — PixelFX hit/crit (always one-shot; never leave looping weather/element sheets)
+	# Always return ImpactVfxNode so callers/tests can read .isCrit / .element.
 	var PixelFxLibraryClass = preload("res://sources/effects/PixelFxLibrary.gd")
 	var PixelFxPlayerClass = preload("res://sources/effects/PixelFxPlayer.gd")
-	var fxKey : String = PixelFxLibraryClass.ElementKey(element, isCrit)
-	var sheet = PixelFxPlayerClass.Spawn(parent, fxKey, pos, PixelFxLibraryClass.GetScale(fxKey), false, 12)
-	if sheet:
-		# Soft procedural spark under sheet for silhouette punch without replacing character anims
-		var soft = ImpactVfxNode.new()
-		soft.position = pos
-		soft.element = element
-		soft.isCrit = isCrit
-		soft.duration = 0.12 if not isCrit else 0.16
-		soft.name = "ImpactVFX_Soft"
-		soft.z_index = 11
-		parent.add_child(soft)
-		return sheet
+	var fxKey : String = PixelFxLibraryClass.ImpactKey(element, isCrit)
+	var sheet = PixelFxPlayerClass.Spawn(parent, fxKey, pos, PixelFxLibraryClass.GetScale(fxKey), false, 12, true)
 
 	var vfxNode = ImpactVfxNode.new()
 	vfxNode.position = pos
 	vfxNode.element = element
 	vfxNode.isCrit = isCrit
+	if sheet:
+		# Soft procedural spark — skip denser draw on web to cut GPU; sheet carries the look
+		vfxNode.duration = 0.08 if OS.has_feature("web") else (0.12 if not isCrit else 0.16)
+		vfxNode.name = "ImpactVFX"
+		vfxNode.z_index = 11
+		parent.add_child(vfxNode)
+		return vfxNode
 	vfxNode.name = "ImpactVFX"
 	parent.add_child(vfxNode)
 	return vfxNode

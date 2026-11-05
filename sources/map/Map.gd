@@ -68,12 +68,18 @@ func LoadMapNode(mapID : int):
 		var AmbientWeatherClass = preload("res://sources/effects/AmbientWeatherSystem.gd")
 		currentMapNode.modulate = AmbientWeatherClass.GetRegionalTint(mapID)
 		if mapID == 995840901 or mapID == 4111682275:
-			AmbientWeatherClass.SpawnBambooLeaves(currentMapNode, Rect2(0, 0, 3000, 3000))
-			AmbientWeatherClass.SpawnSpiritualQiMotes(currentMapNode, Vector2(1000, 1000), 250.0)
-			# BUILD 12 — PixelFX atmosphere loops (selective; keeps procedural leaves)
-			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-			CombatVisualSystemClass.SpawnPixelFx(currentMapNode, "cherry_blossoms", Vector2(900, 700))
-			CombatVisualSystemClass.SpawnPixelFx(currentMapNode, "fireflies", Vector2(1100, 900))
+			# Web: skip heavy looping ambient (WASM GPU budget); desktop keeps full atmosphere
+			var isWeb := OS.has_feature("web")
+			if not isWeb:
+				AmbientWeatherClass.SpawnBambooLeaves(currentMapNode, Rect2(0, 0, 3000, 3000))
+				AmbientWeatherClass.SpawnSpiritualQiMotes(currentMapNode, Vector2(1000, 1000), 250.0)
+				# BUILD 12 — PixelFX atmosphere loops (selective; keeps procedural leaves)
+				var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
+				CombatVisualSystemClass.SpawnPixelFx(currentMapNode, "cherry_blossoms", Vector2(900, 700))
+				CombatVisualSystemClass.SpawnPixelFx(currentMapNode, "fireflies", Vector2(1100, 900))
+			else:
+				# Light qi motes only — one soft layer for mood without leaf/petal sheets
+				AmbientWeatherClass.SpawnSpiritualQiMotes(currentMapNode, Vector2(1000, 1000), 120.0)
 
 		# Build 10: Automatic Zone Exploration & First Discovery Banner
 		var ExplorationSystemClass = preload("res://sources/world/ExplorationSystem.gd")

@@ -50,7 +50,7 @@ const CATALOG : Dictionary = {
 	"xp_orb": "pickups/xp-orb",
 }
 
-## Ngũ Hành → preferred sheet key
+## Ngũ Hành → preferred sheet key (may include looping sheets — cast/ambient only)
 const ELEMENT_FX : Dictionary = {
 	0: "hit_spark",
 	1: "slash",
@@ -58,6 +58,16 @@ const ELEMENT_FX : Dictionary = {
 	3: "frost_nova",
 	4: "fire_spirit",
 	5: "earth_spike",
+}
+
+## Hit impacts must be short one-shots (no looping weather/element sheets)
+const IMPACT_FX : Dictionary = {
+	0: "hit_spark",
+	1: "slash",
+	2: "hit_spark",
+	3: "ice_spikes",
+	4: "crit_hit",
+	5: "ground_slam",
 }
 
 ## Default world scale so PixelFX sheets fit SoM isometric character size
@@ -124,6 +134,11 @@ static func ElementKey(element : int, isCrit : bool = false) -> String:
 		return "crit_hit"
 	return ELEMENT_FX.get(element, "hit_spark")
 
+static func ImpactKey(element : int, isCrit : bool = false) -> String:
+	if isCrit:
+		return "crit_hit"
+	return IMPACT_FX.get(element, "hit_spark")
+
 static func _EnsureLoaded(key : String) -> void:
 	if _framesCache.has(key):
 		return
@@ -140,7 +155,14 @@ static func _EnsureLoaded(key : String) -> void:
 		Util.PrintInfo("PixelFx", "Missing JSON for '%s' (%s)" % [key, jsonPath])
 		return
 
-	var tex : Texture2D = load(pngPath) as Texture2D
+	var tex : Texture2D = null
+	if ResourceLoader.exists(pngPath):
+		tex = load(pngPath) as Texture2D
+	# Headless / fresh checkout: PNG may exist on disk without .import yet
+	if tex == null and FileAccess.file_exists(pngPath):
+		var img := Image.new()
+		if img.load(pngPath) == OK:
+			tex = ImageTexture.create_from_image(img)
 	if tex == null:
 		return
 
@@ -176,9 +198,12 @@ static func _EnsureLoaded(key : String) -> void:
 
 	var sf := SpriteFrames.new()
 	var animName := StringName("default")
-	sf.add_animation(animName)
+	# SpriteFrames ships with a built-in "default" animation — reuse it
+	if not sf.has_animation(animName):
+		sf.add_animation(animName)
 	sf.set_animation_loop(animName, loop)
 	sf.set_animation_speed(animName, 1.0) # durations are absolute seconds via add_frame duration
+	sf.clear(animName)
 
 	for fr in frameList:
 		if typeof(fr) != TYPE_DICTIONARY:

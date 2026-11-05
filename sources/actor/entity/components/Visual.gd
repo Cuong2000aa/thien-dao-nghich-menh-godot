@@ -227,7 +227,19 @@ func SetHair(applyOverrides : bool = true):
 
 func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = true):
 	var slotName : String = ActorCommons.GetSlotName(slot)
-	var sprite : Sprite2D = preset.get_node_or_null(slotName)
+	var sprite : Sprite2D = preset.get_node_or_null(slotName) if preset else null
+	var cell : ItemCell = null
+	if not entity.stat.IsMorph():
+		if entity.inventory:
+			cell = entity.inventory.GetEquipmentCell(slot)
+		elif data and data._equipment.has(slot):
+			cell = data._equipment[slot]
+
+	# Swordsman (AnimatedSprite2D) has no paperdoll slots — show weapon/shield overlay + tint.
+	if not sprite and animatedSprite:
+		_ApplySwordsmanEquipOverlay(slot, cell)
+		return
+
 	if not sprite:
 		return
 
@@ -237,17 +249,10 @@ func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = 
 
 	var slotTexture : Texture2D = null
 	var slotMaterial : Material = null
-	var cell : ItemCell = null
 
-	if not entity.stat.IsMorph():
-		if entity.inventory:
-			cell = entity.inventory.GetEquipmentCell(slot)
-		elif data:
-			cell = data._equipment[slot]
-
-		if cell != null:
-			slotTexture = cell.textures[entity.stat.gender]
-			slotMaterial = cell.shader
+	if cell != null:
+		slotTexture = cell.textures[entity.stat.gender]
+		slotMaterial = cell.shader
 
 	sprite.set_texture(slotTexture)
 	sprite.set_material(slotMaterial)
@@ -263,6 +268,39 @@ func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = 
 	LoadSpriteSlot(slot, sprite)
 	if applyOverrides:
 		ApplyAnimationOverrides()
+
+## Minimal paperdoll bridge for Swordsman: weapon/shield icon overlay + body tint when armed.
+func _ApplySwordsmanEquipOverlay(slot : int, cell : ItemCell) -> void:
+	if slot != ActorCommons.Slot.WEAPON and slot != ActorCommons.Slot.SHIELD:
+		return
+	var overlayName := "SwordsmanEquip_%d" % slot
+	var overlay : Sprite2D = get_node_or_null(overlayName) as Sprite2D
+	if cell == null:
+		if overlay:
+			overlay.queue_free()
+		if slot == ActorCommons.Slot.WEAPON and animatedSprite:
+			animatedSprite.modulate = Color.WHITE
+		SetEquipmentMetadata(slot, null)
+		return
+	if overlay == null:
+		overlay = Sprite2D.new()
+		overlay.name = overlayName
+		overlay.z_index = 6
+		overlay.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		add_child(overlay)
+	var tex : Texture2D = null
+	if cell.textures.size() > entity.stat.gender:
+		tex = cell.textures[entity.stat.gender]
+	if tex == null and cell.textures.size() > 0:
+		tex = cell.textures[0]
+	overlay.texture = tex
+	overlay.scale = Vector2(0.45, 0.45)
+	overlay.position = Vector2(14, -6) if slot == ActorCommons.Slot.WEAPON else Vector2(-12, -4)
+	overlay.visible = tex != null
+	if slot == ActorCommons.Slot.WEAPON and animatedSprite:
+		# Soft jade/metal tint so equip is readable even when item has no gender texture
+		animatedSprite.modulate = Color(1.08, 1.05, 0.92, 1.0)
+	SetEquipmentMetadata(slot, cell)
 
 func AddEquipmentEffect(slot : int, light : Node2D):
 	if slot < 0 or slot >= equipmentEffects.size() or equipmentEffects[slot] != light:

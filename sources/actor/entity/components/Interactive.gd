@@ -186,18 +186,42 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					skillFx.lifetime = skill.skillTime
 					skillFx.emitting = true
 					emitter.add_child(skillFx)
-			# PixelFX on cast: skills only (melee stays clean — slash happens on hit).
+			# PixelFX / xianxia VFX on cast: skills only (melee stays clean — slash happens on hit).
 			var isMelee : bool = skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
 			if not isMelee and Launcher.Map and Launcher.Map.currentFringe and emitter:
 				var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
 				var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-				var martial = CombatSystemClass.MARTIAL_CATALOG.get(skillID, {})
-				var elem : int = int(martial.get("element", 0))
-				var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
-				var key : String = Lib.ElementKey(elem, false)
-				if key == "hit_spark":
-					key = "mana_burst"
-				CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position, -1.0, false, true)
+				var martial : Dictionary = CombatSystemClass.GetMartialForSkill(skillID, skill.name)
+				var martialId : int = int(martial.get("id", 0))
+				var facing : Vector2 = Vector2.RIGHT
+				if emitter.entityVelocity.length_squared() > 4.0:
+					facing = emitter.entityVelocity
+				elif emitter.velocity.length_squared() > 4.0:
+					facing = emitter.velocity
+				elif emitter.has_method("get") and emitter.get("entityOrientation"):
+					facing = emitter.entityOrientation
+				match martialId:
+					1002: # Thanh Phong Kiếm Khí — blade gust
+						CombatVisualSystemClass.SpawnBladeGustVfx(Launcher.Map.currentFringe, emitter.global_position, facing)
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "slash", emitter.global_position, -1.0, facing.x < 0.0, true)
+					1003: # Trúc Sơn Kiếm Trận — sword array
+						CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position)
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "double_slash", emitter.global_position, -1.0, false, true)
+					1004: # Đạp Phong Bộ — dash trail
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "lightning_charge", emitter.global_position, -1.0, false, true)
+					1005: # Bát Hoang — fist shockwave
+						CombatVisualSystemClass.SpawnFistShockwaveVfx(Launcher.Map.currentFringe, emitter.global_position, facing)
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "ground_slam", emitter.global_position, -1.0, false, true)
+					1006: # Quy Nguyên — spiritual shield
+						CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "divine_shield", emitter.global_position, -1.0, false, true)
+					_:
+						var elem : int = int(martial.get("element", 0))
+						var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+						var key : String = Lib.ElementKey(elem, false)
+						if key == "hit_spark":
+							key = "mana_burst"
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position, -1.0, false, true)
 
 func DisplayProjectile(targetPos : Vector2, skill : SkillCell):
 	if Launcher.Map.currentFringe and skill and skill.projectilePreset:
@@ -222,10 +246,13 @@ func DisplayAlteration(target : Entity, emitter : Entity, value : int, alteratio
 		var newLabel : Label = ActorCommons.AlterationLabel.instantiate()
 		newLabel.SetPosition(visibleNode.get_global_position(), target.get_global_position())
 
-		# Resolve elemental affinity from skill/martial data
+		# Resolve elemental affinity from skill/martial data (SkillCell.id ≠ martial id)
 		var elem : int = 0
 		var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
-		var martialData = CombatSystemClass.MARTIAL_CATALOG.get(skillID, {})
+		var skillNameHint : String = ""
+		if DB.SkillsDB.has(skillID):
+			skillNameHint = DB.SkillsDB[skillID].name
+		var martialData = CombatSystemClass.GetMartialForSkill(skillID, skillNameHint)
 		if not martialData.is_empty():
 			elem = martialData.get("element", 0)
 
