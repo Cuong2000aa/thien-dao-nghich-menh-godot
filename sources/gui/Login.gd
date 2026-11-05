@@ -106,7 +106,10 @@ func FillWarningLabel(err : NetworkCommons.AuthError):
 			isWarn = false
 			SetRecoveryState(RecoveryState.NONE)
 		_:
-			warn = "Không thể kết nối đến máy chủ tiên giới (Mã lỗi %d).\nVui lòng liên hệ tiên môn qua [url=%s][color=#%s]Discord[/color][/url].\nTrong thời gian này, đạo hữu có thể trải nghiệm chế độ tu luyện ngoại tuyến!" % [err, LauncherCommons.DiscordInviteLink, UICommons.WarnTextColor]
+			if LauncherCommons.isWeb:
+				warn = "Không vào được trò chơi (Mã lỗi %d).\nBản web hãy ở chế độ [b]Tu Luyện Ngoại Tuyến[/b], rồi bấm [b]Vào Trò Chơi[/b].\nTài khoản trống cũng được — hệ thống sẽ dùng DaoHuu." % err
+			else:
+				warn = "Không thể kết nối đến máy chủ tiên giới (Mã lỗi %d).\nVui lòng liên hệ tiên môn qua [url=%s][color=#%s]Discord[/color][/url].\nTrong thời gian này, đạo hữu có thể trải nghiệm chế độ tu luyện ngoại tuyến!" % [err, LauncherCommons.DiscordInviteLink, UICommons.WarnTextColor]
 
 	var textColor : Color = UICommons.WarnTextColor if isWarn else UICommons.TextColor
 
@@ -273,9 +276,13 @@ func EnableButtons(state : bool):
 				else:
 					Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.PRIMARY, "Vào Trò Chơi", Connect)
 					Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.SECONDARY, "Tạo Đạo Hào", EnableAccountCreator.bind(true))
-				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Chuyển Chế Độ", SwitchOnlineMode.bind(onlineIndicator.button_pressed))
+				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Chuyển Chế Độ", ToggleOnlineMode)
 				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.CANCEL, "Quên Mật Khẩu", SetRecoveryState.bind(RecoveryState.REQUEST_EMAIL))
 				RefreshOnlineMode()
+				if LauncherCommons.isWeb:
+					# Web build is Offline-first; online public gateway is not playable here.
+					Launcher.GUI.buttonBoxes.Rename(UICommons.ButtonBox.TERTIARY, "Chỉ Ngoại Tuyến (Web)")
+					Launcher.GUI.buttonBoxes.Enable(UICommons.ButtonBox.TERTIARY, false)
 			RefreshServerButtons()
 		else:
 			onlineIndicator.text = "Đang Kết Nối..."
@@ -463,10 +470,33 @@ func _on_visibility_changed():
 		else:
 			FocusDefault()
 
+## Toggle Offline (client+server in-process) <-> Online (client-only → gateway).
+## Do not bind a stale checkbox bool — read live topology each click.
+func ToggleOnlineMode():
+	var currentlyOffline : bool = Network.ENetServer != null or Network.WebSocketServer != null
+	if currentlyOffline:
+		if LauncherCommons.isWeb:
+			Launcher.GUI.notificationLabel.AddNotification(
+				"[color=#%s]Bản web chỉ chơi Ngoại Tuyến. Online cần máy chủ riêng (không dùng được trên GitHub Pages).[/color]" % UICommons.WarnTextColor.to_html(false)
+			)
+			return
+		EnableButtons(true)
+		if Launcher.Mode(true, false, true):
+			EnableButtons(false)
+	else:
+		EnableButtons(true)
+		if Launcher.Mode(true, true, true):
+			EnableButtons(false)
+
 func SwitchOnlineMode(toggled : bool):
-	EnableButtons(true)
-	if Launcher.Mode(true, toggled):
-		EnableButtons(false)
+	# Legacy entry — keep for any remaining binds; prefer ToggleOnlineMode.
+	if toggled:
+		# Request offline
+		if not (Network.ENetServer != null or Network.WebSocketServer != null):
+			ToggleOnlineMode()
+	else:
+		if Network.ENetServer != null or Network.WebSocketServer != null:
+			ToggleOnlineMode()
 
 func _on_name_text_changed(_newText : String):
 	if recoveryState == RecoveryState.NONE and not isAccountCreatorEnabled and isConnectPrimary != IsConnectPreferred():
