@@ -141,7 +141,7 @@ func Refresh():
 	_FillSkills()
 	_FillEntities()
 	detailLabel.text = "[color=#c8d0c0]Chọn một mục bên trái để xem chi tiết.[/color]"
-	_SetStatus("Sẵn sàng. Phím: F10 · Tay cầm Xbox: Start (≡).")
+	_SetStatus("Sẵn sàng. Phím: V · Tay cầm Xbox: Start (≡).")
 
 func _FillFx():
 	fxList.clear()
