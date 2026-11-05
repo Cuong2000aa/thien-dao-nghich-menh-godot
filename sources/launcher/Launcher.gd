@@ -273,6 +273,8 @@ func _run_autologin(acc : String, charname : String):
 		var has_swordsman : bool = Player.has_node("Visual/Preset/AnimatedSprite2D")
 		print("[WebAutoPlay] Spawn position: %s, is Swordsman: %s" % [str(Player.position), str(has_swordsman)])
 
+	await _web_autoplay_first_quest()
+
 	# Automated Movement Sequence in Sacred Sect Hub:
 	# 1. Move East for 2 seconds
 	print("[WebAutoPlay] Moving East...")
@@ -291,6 +293,47 @@ func _run_autologin(acc : String, charname : String):
 	# 3. Stop
 	Network.SetMovePos(Vector2.ZERO)
 	print("[WebAutoPlay] Movement sequence complete! Final position: %s" % str(Player.position if Player else "none"))
+
+## First playable quest: Khảo Nghiệm Nhập Môn (Tiếp Dẫn Chấp Sự) + open Chương 1 story.
+func _web_autoplay_first_quest():
+	var agent : PlayerAgent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
+	if agent == null:
+		agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
+	if agent == null:
+		print("[WebAutoPlay] FIRST_QUEST FAILED: no PlayerAgent")
+		return
+
+	var StorySystemClass = preload("res://sources/story/StorySystem.gd")
+	var SectSystemClass = preload("res://sources/sect/SectSystem.gd")
+	var qid : int = ProgressCommons.Quest.NHAP_MON_KHAO_NGHIEM
+
+	print("[WebAutoPlay] FIRST_QUEST start: Khảo Nghiệm Nhập Môn")
+	NpcCommons.SetQuest(agent, qid, ProgressCommons.NHAP_MON_KHAO_NGHIEM.STARTED)
+	await get_tree().create_timer(0.3).timeout
+	NpcCommons.SetQuest(agent, qid, ProgressCommons.NHAP_MON_KHAO_NGHIEM.OBJECTIVE_MET)
+	await get_tree().create_timer(0.2).timeout
+	NpcCommons.SetQuest(agent, qid, ProgressCommons.CompletedProgress)
+
+	SectSystemClass.SetDiscipleRank(agent, SectSystemClass.DiscipleRank.TAP_DICH)
+	SectSystemClass.AddContribution(agent, 20, "Nhập Môn Tông Môn Lễ Bao")
+	if agent.stat:
+		agent.stat.SetExperience(30)
+		agent.stat.SetMoney(50)
+
+	var tokenCell = DB.GetItem(DB.GetCellHash("Tap Dich Lenh Bai"))
+	if tokenCell and agent.inventory:
+		agent.inventory.AddItem(tokenCell, 1)
+
+	StorySystemClass.SetCurrentChapter(agent, StorySystemClass.StoryChapter.CHAPTER_1_STRANGER, 0)
+
+	var qState : int = agent.progress.GetQuest(qid) if agent.progress else ProgressCommons.UnknownProgress
+	var rank : int = SectSystemClass.GetDiscipleRank(agent)
+	var chapter : int = StorySystemClass.GetCurrentChapter(agent)
+	if qState == ProgressCommons.CompletedProgress and rank == SectSystemClass.DiscipleRank.TAP_DICH:
+		print("[WebAutoPlay] FIRST_QUEST SUCCESS: Khảo Nghiệm Nhập Môn done | rank=Tạp Dịch | story=Chương %d" % chapter)
+	else:
+		print("[WebAutoPlay] FIRST_QUEST FAILED: questState=%d rank=%d chapter=%d" % [qState, rank, chapter])
+	Network.PushNotification("WebAutoPlay: đã hoàn thành nhiệm vụ đầu — Khảo Nghiệm Nhập Môn", agent.peerID)
 
 # Call _post_launch functions for service depending on other services
 func _post_launch():
