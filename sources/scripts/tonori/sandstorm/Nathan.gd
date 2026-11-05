@@ -6,86 +6,86 @@ const QUEST_ID = ProgressCommons.Quest.SANDSTORM_NATHAN_WATER
 func OnStart():
 	match GetQuest(QUEST_ID):
 		ProgressCommons.SANDSTORM_NATHAN_WATER.INACTIVE:
-			Mes("Hi! I'm Watchman Nathan.")
-			Mes("I'm normally guarding the port of Tulimshar, but today I have the honour of GETTING ABSOLUTELY BAKED TO A CRISP OUT HERE.")
-			Mes("Sorry. My bad.")
-			Mes("The Sun is getting to me.")
-			Choice("Is this the entrance to the Sandstorm Mines?", OnEntrance)
+			Mes("Chào! Ta là tuần phòng Nathan.")
+			Mes("Thường ngày ta canh cảng Tulimshar, nhưng hôm nay ta được vinh dự... BỊ NẮNG QUAY CẢ NGƯỜI RA GIỮA SA MẠC NÀY.")
+			Mes("Xin lỗi. Ta nói nhảm rồi.")
+			Mes("Mặt trời làm ta loạn cả óc.")
+			Choice("Đây có phải lối vào Mỏ Bão Cát không?", OnEntrance)
 		ProgressCommons.SANDSTORM_NATHAN_WATER.STARTED:
-			Mes("Oh that's you! Sorry I didn't recognize you with all of this sand.")
-			Choice("About that bottle of water.", OnWaitingWater)
+			Mes("À, là ngươi! Xin lỗi, cát che mặt nên ta không nhận ra.")
+			Choice("Về chai nước kia.", OnWaitingWater)
 		ProgressCommons.SANDSTORM_NATHAN_WATER.REWARDS_WITHDREW:
 			OnComplete()
-	Choice("Nevermind, I thought you were a sandman.", Farewell)
+	Choice("Thôi, ta tưởng ngươi là ma cát.", Farewell)
 
 func Farewell():
-	Express("I got sand everywhere... EVERYWHERE.")
+	Express("Cát dính khắp người... KHẮP NƠI.")
 
 # Default dialogue flow
 func OnEntrance():
-	Mes("It is indeed! I can see why this place was abandoned.")
-	Mes("I have sand in my teeth from the storm. I can only imagine what the miners who used to work here went though, walking here every day.")
-	Mes("Now those people inside will have to deal with this.")
-	Mes("I just hope I can go back to guarding the port. If they station me here permanently I might just go feed myself to a goblin.")
+	Mes("Đúng vậy! Ta hiểu vì sao nơi này bị bỏ hoang.")
+	Mes("Bão cát làm cát dính cả giữa răng. Không dám tưởng thợ mỏ ngày xưa phải đi lại đây mỗi ngày thế nào.")
+	Mes("Giờ bọn trong đó cũng phải chịu cảnh này.")
+	Mes("Ta chỉ mong được về canh cảng. Nếu bị giam ở đây mãi, ta có khi tự ném mình cho goblin ăn.")
 
-	Choice("I'm actually supposed to join them.", OnJoinThem)
+	Choice("Thực ra ta vào cùng bọn họ.", OnJoinThem)
 
 func OnJoinThem():
-	Mes("Really? You don't look like a miner. Where is your pickaxe?")
+	Mes("Thật sao? Trông ngươi không giống thợ mỏ. Cuốc đâu rồi?")
 
-	Choice("I'm not here to mine, just scout the place.", OnJustScouting)
+	Choice("Ta không đến đào, chỉ trinh sát.", OnJustScouting)
 
 func OnJustScouting():
-	Mes("Ah, I see.")
-	Mes("Well, sorry for keeping you. It gets boring standing out here all alone.")
-	Mes("Come on, go inside. They must be waiting for you.")
+	Mes("À, vậy à.")
+	Mes("Xin lỗi vì cản đường. Đứng một mình ngoài này chán lắm.")
+	Mes("Vào đi, chắc họ đang đợi ngươi.")
 
-	Choice("Thanks Nathan. Have a nice day!", OnNiceDay)
+	Choice("Cảm ơn Nathan. Chúc một ngày tốt lành!", OnNiceDay)
 	if GetQuest(QUEST_ID) == ProgressCommons.SANDSTORM_NATHAN_WATER.INACTIVE:
-		Choice("Is there anything I can do to make your job here easier?", OnJobEasier)
+		Choice("Có gì ta giúp cho đỡ bớt khổ ngoài này không?", OnJobEasier)
 
 func OnNiceDay():
-	Express("I'll have a great day when I can get back to staring at the sea! See you later.")
+	Express("Ta sẽ có ngày tuyệt khi được về nhìn biển! Hẹn gặp lại.")
 
 # Water quest
 func OnJobEasier():
-	Mes("Well, since you're asking... I could use some extra water!")
-	Mes("There's a well here, but it's been dry for a long time.")
-	Mes("I'm going to be honest with you. It's not even for drinking. I have that with me.")
-	Mes("I just want to pour it on my face so I feel less cooked by this heat.")
-	Mes("Is that a silly request?")
+	Mes("Ngươi hỏi thì ta nói... Ta cần thêm nước!")
+	Mes("Có giếng ở đây nhưng khô lâu rồi.")
+	Mes("Nói thật: không phải để uống. Ta mang theo rồi.")
+	Mes("Ta chỉ muốn đổ lên mặt cho bớt cảm giác bị luộc chín dưới nắng.")
+	Mes("Yêu cầu có ngớ ngẩn không?")
 
-	Choice("Not at all. I understand what it's like to overheat in this land.", AcceptQuest)
-	Choice("Yes, actually. I have more important things to do.", RefuseQuest)
+	Choice("Không hề. Ta hiểu cảm giác quá nhiệt ở vùng này.", AcceptQuest)
+	Choice("Có, thật đấy. Ta còn việc quan trọng hơn.", RefuseQuest)
 
 func RefuseQuest():
-	Mes("Oh... I understand. No problem. Forget I even asked.")
-	Mes("I guess this is why they put me out here... I must be so annoying.")
+	Mes("Ồ... ta hiểu. Không sao. Coi như ta chưa hỏi.")
+	Mes("Chắc vì thế họ mới đóng ta gác ngoài này... Ta phiền lắm nhỉ.")
 	Action(Farewell)
 
 func AcceptQuest():
-	Mes("I knew you'd understand. Hydration is important! I'll be waiting for you, friend.")
-	Think("Nathan thinks to himself")
-	Mes("Not that I can go anywhere, even if I wanted to...")
+	Mes("Ta biết ngươi sẽ hiểu. Giữ nước là quan trọng! Ta đợi ngươi, bằng hữu.")
+	Think("Nathan tự nghĩ bụng")
+	Mes("Dù muốn đi cũng không đi được...")
 	SetQuest(QUEST_ID, ProgressCommons.SANDSTORM_NATHAN_WATER.STARTED)
 	if HasItem(DB.GetCellHash("Water Bottle")):
-		Choice("I have one with me.", OnDeliverWater)
-	Choice("I'll try to find you that!", Farewell)
+		Choice("Ta mang theo một chai.", OnDeliverWater)
+	Choice("Ta sẽ tìm giúp!", Farewell)
 
 func OnWaitingWater():
-	Mes("Did you manage to find a bottle of water?")
+	Mes("Ngươi tìm được chai nước chưa?")
 	if HasItem(DB.GetCellHash("Water Bottle")):
-		Choice("I have it.", OnDeliverWater)
-	Choice("Not yet, I'll keep looking.", Farewell)
+		Choice("Có rồi.", OnDeliverWater)
+	Choice("Chưa, ta sẽ tiếp tục tìm.", Farewell)
 
 func OnDeliverWater():
 	var waterBottleHash : int = DB.GetCellHash("Water Bottle")
 	if HasItem(waterBottleHash):
 		RemoveItem(waterBottleHash)
 		SetQuest(QUEST_ID, ProgressCommons.SANDSTORM_NATHAN_WATER.REWARDS_WITHDREW)
-		Mes("Thank you, friend! It's good to have some relief, finally!")
-		Think("Nathan quickly pours all the water you have brought to him all over himself.")
-		Think("You watch as the water you carefully carried all the way here runs down his body and soaks into the sand below.")
+		Mes("Cảm ơn, bằng hữu! Cuối cùng cũng được nhẹ người!")
+		Think("Nathan nhanh chóng đổ hết nước ngươi mang tới lên người mình.")
+		Think("Ngươi đứng nhìn nước cẩn thận mang cả đoạn đường chảy xuống thân hắn rồi thấm vào cát bên dưới.")
 		AddExp(50)
 		AddGP(100)
 		Action(OnComplete)
@@ -93,6 +93,6 @@ func OnDeliverWater():
 		Action(Farewell)
 
 func OnComplete():
-	Mes("That was exactly what I needed. You have no idea.")
-	Mes("Now I just need someone to bring me another one...")
-	Express("I'm joking. Mostly.")
+	Mes("Đúng thứ ta cần. Ngươi không tưởng được đâu.")
+	Mes("Giờ chỉ cần ai đó mang thêm một chai nữa...")
+	Express("Đùa thôi. Phần lớn là đùa.")

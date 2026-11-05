@@ -12,9 +12,9 @@ func OnStart():
 	if questState < ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED or questState == ProgressCommons.CompletedProgress:
 		return
 
-	Narrate("You notice a crack in the cave wall. A faint blue light seems to come from the other side.")
-	Narrate("It looks like you can squeeze through.")
-	Narrate("A calm voice fills your head.")
-	Mes("I don't feel the same dark presence that I felt with the first one who came through here. Please come forward.")
-	Mes("For the first time in thousands of years, I will be needing someone's help.")
+	Narrate("Ngươi thấy một khe nứt trên vách hang. Ánh sáng xanh nhạt lọt từ bên kia.")
+	Narrate("Có vẻ ngươi lách qua được.")
+	Narrate("Một giọng bình thản vang trong đầu.")
+	Mes("Ta không cảm thấy u ám như kẻ đầu tiên lọt qua đây. Xin hãy tiến lại.")
+	Mes("Lần đầu sau hàng ngàn năm, ta cần sự giúp đỡ của ai đó.")
 	WarpInstance(npc.ownScript.mapName, Vector2(npc.ownScript.mapPos))

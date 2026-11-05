@@ -2,34 +2,34 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("Being stationed in this inner wall section is the best thing you could expect.")
-	Mes("I can stay in the shade all day and rest while other guards keep the wildlife outside our walls.")
-	Mes("All I have to do is to prevent people from bothering our queen while she works on her garden.")
+	Mes("Được đóng quân đoạn tường trong này là may nhất có thể.")
+	Mes("Ta ngồi bóng mát cả ngày, lính khác giữ thú hoang ngoài tường.")
+	Mes("Việc ta chỉ là không để ai làm phiền Nữ hoàng khi nàng làm vườn.")
 	OnMainChoice()
 
 # Main choice loop
 func OnMainChoice():
-	Choice("What's this large building?", OnCastle)
-	Choice("What's to the west?", OnWest)
-	Choice("What's to the south?", OnSouth)
-	Choice("I have to go.", Farewell)
+	Choice("Tòa lớn kia là gì?", OnCastle)
+	Choice("Phía tây có gì?", OnWest)
+	Choice("Phía nam có gì?", OnSouth)
+	Choice("Ta phải đi.", Farewell)
 
 # Answers
 func OnCastle():
-	Mes("That's the Red Queen's castle.")
-	Mes("You can request an audience to Her Majesty if you have something important to say but I wouldn't recommend to distract her from her gardens.")
-	Mes("You can also find the second largest library from the continent, it almost matches the number of books from the Manayir tower!")
+	Mes("Đó là lâu đài Red Queen.")
+	Mes("Có thể xin kiến Nữ hoàng nếu việc quan trọng — nhưng đừng làm nàng bỏ vườn.")
+	Mes("Trong đó còn thư viện lớn thứ hai lục địa — gần bằng số sách tháp Manayir!")
 	OnMainChoice()
 
 func OnWest():
 	Mes("ARGH.")
-	Mes("...Sorry. That region just irritates me.")
-	Mes("It's dangerous. Lots of snakes, and that's the friendly part. Some native people live out there too, I don't want to deal with them, I heard they eat raw birds and dance with their feathers.")
-	Mes("Stick to the paths if you have to go. Better yet, don't.")
+	Mes("...Xin lỗi. Vùng đó làm ta khó chịu.")
+	Mes("Nguy hiểm. Rắn nhiều — đó còn là phần dễ chịu. Có dân bản địa — ta không muốn dính; nghe họ ăn chim sống, nhảy múa lông vũ.")
+	Mes("Bắt buộc phải đi thì bám đường. Tốt hơn là đừng.")
 	OnMainChoice()
 
 func OnSouth():
-	Mes("You can find our old cactus fields and habitation outside these walls, they are completely uninhabited.")
-	Mes("The sandstorm ate all of it and forced us to barricade ourselves at the end of the valley.")
-	Mes("That's not ideal as that sandstorm keeps getting bigger year after year.")
+	Mes("Ngoài tường còn ruộng xương rồng và khu ở cũ — hoang không hết.")
+	Mes("Bão cát nuốt hết, ép ta chốt chặt cuối thung lũng.")
+	Mes("Không lý tưởng — bão càng lớn mỗi năm.")
 	OnMainChoice()

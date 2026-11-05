@@ -21,38 +21,38 @@ func OnStart():
 			QuestCompleted()
 
 func QuestInactive():
-	Mes("Careful where you step. The cacti are just coming in.")
-	Mes("Sorry, I don't get many visitors. Not since I used to be a counsellor up in the palace.")
-	Mes("Quit a few years back. Too much weight on everyone's shoulders up there, you know?")
-	Mes("Out here it's just me and the dirt. Farming is useful for the city though, so I don't mind it.")
-	Mes("Do you ever run the same scenario over and over in your head and wonder how different things would be if you took a different decision?")
-	Choice("What's on your mind?", Lore)
-	Choice("I should get going", Dismiss)
+	Mes("Cẩn thận chân. Xương rồng mới mọc.")
+	Mes("Xin lỗi, ít khách. Từ khi ta còn làm cố vấn trong cung.")
+	Mes("Ta bỏ vài năm rồi. Trên kia gánh nặng quá.")
+	Mes("Ở đây chỉ ta và đất. Nông nghiệp có ích cho thành — ta không phiền.")
+	Mes("Đạo hữu có bao giờ lặp đi lặp lại một kịch bản trong đầu, tự hỏi nếu chọn khác thì sao?")
+	Choice("Ngươi đang nghĩ gì?", Lore)
+	Choice("Ta đi đây", Dismiss)
 
 func QuestStarted():
-	Mes("Still at it? Those corridors aren't friendly.")
-	Choice("Tell me about Ben again", Lore)
-	Choice("Where are the letters?", Directions)
-	Choice("I'm on it", Dismiss)
+	Mes("Vẫn làm à? Hành lang đó không thân thiện.")
+	Choice("Kể lại về Ben", Lore)
+	Choice("Thư ở đâu?", Directions)
+	Choice("Ta đang làm", Dismiss)
 
 func QuestEnvelopesFound():
-	Mes("You found them. Good, good.")
-	Mes("Bring the sealed letters to Ben. I just saw him walk into the corridor as soon as you left.")
-	Mes("He has good instincts, or maybe you made noise while focusing on not being seen. Anyway, he'll be in there.")
+	Mes("Tìm được rồi. Tốt.")
+	Mes("Mang thư niêm phong đến Ben. Ta vừa thấy anh ấy bước vào hành lang ngay sau khi đạo hữu đi.")
+	Mes("Anh ấy nhạy bén — hoặc đạo hữu ồn khi né ánh sáng. Dù sao anh ấy cũng ở trong đó.")
 
 func QuestRewards():
 	if HasItem(heavyEnvelopeID):
-		Mes("You're back. What did he...")
-		Mes("This envelope. It's heavy.")
+		Mes("Đạo hữu về rồi. Anh ấy...")
+		Mes("Phong bì này. Nặng.")
 		Mes("...")
-		Mes("Gold. He put gold in here. With my name on it.")
-		Mes("When the Queen first stationed us together, we each set aside a share for the other. In case things got bad enough that one of us needed to get out.")
-		Mes("I thought he'd spent this after I left. I would have understood if he did.")
-		Mes("I don't deserve this. It should belong to someone who is a better friend than I managed to be.")
-		Mes("Here. You take it. You've done more for us in one afternoon than we managed in years.")
+		Mes("Vàng. Anh ấy bỏ vàng. Ghi tên ta.")
+		Mes("Khi Nữ hoàng lần đầu đóng quân cho ta cùng chỗ, mỗi người dành phần cho kia — phòng khi một người cần trốn.")
+		Mes("Ta tưởng anh ấy đã tiêu sau khi ta đi. Ta hiểu nếu anh ấy làm vậy.")
+		Mes("Ta không xứng. Nên thuộc về ai là bạn tốt hơn ta từng là.")
+		Mes("Cầm lấy. Một buổi chiều đạo hữu làm hơn ta và Ben cả năm.")
 		ExchangeItems([heavyEnvelopeID], [], OnEnvelopeExchanged)
 	else:
-		Mes("Did you find Ben? He's in the western wall corridor.")
+		Mes("Tìm Ben chưa? Anh ấy ở hành lang tường tây.")
 
 func OnEnvelopeExchanged(result : ActorInventory.ExchangeResult):
 	match result:
@@ -60,54 +60,54 @@ func OnEnvelopeExchanged(result : ActorInventory.ExchangeResult):
 			SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.REWARDS_WITHDREW)
 			AddGP(1000)
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Mes("Wait, where did the envelope go? Bring it back to me.")
+			Mes("Khoan, phong bì đâu? Mang lại cho ta.")
 
 func QuestCompleted():
-	Mes("Cacti are coming in nicely this year.")
-	Mes("I keep thinking I should walk over there. To the corridor. Not today, but I decided I will.")
-	Mes("He kept those letters. That's something, right?")
+	Mes("Xương rồng năm nay mọc tốt.")
+	Mes("Ta cứ nghĩ nên đi bộ tới hành lang. Không phải hôm nay, nhưng ta quyết sẽ đi.")
+	Mes("Anh ấy giữ thư. Cũng là gì đó, phải không?")
 
 func Lore():
-	Mes("There was someone I worked with. Ben. Brilliant man. Could fix anything, build anything.")
-	Mes("Quiet, though. He'd rather tear down a wall and rebuild it than explain why it needed fixing.")
-	Mes("Me, I was the one who talked to people. Organized shifts, sorted out disagreements, kept things running.")
-	Mes("We held these walls together for years. Under the Queen, that's no small thing.")
-	Choice("What happened?", Conflict)
-	Choice("I should get going", Dismiss)
+	Mes("Có người ta từng làm cùng. Ben. Tài giỏi — sửa được mọi thứ, dựng được mọi thứ.")
+	Mes("Im lặng. Anh ấy thà phá tường rồi dựng lại còn hơn giải thích.")
+	Mes("Ta là người nói chuyện với dân. Sắp ca, giải quyết cãi vã, giữ mọi thứ chạy.")
+	Mes("Ta và anh ấy giữ tường này nhiều năm. Dưới Nữ hoàng, không dễ.")
+	Choice("Chuyện gì xảy ra?", Conflict)
+	Choice("Ta đi đây", Dismiss)
 
 func Conflict():
-	Mes("The Queen happened. Or kept happening I guess. Always more demands, always her way.")
-	Mes("I started making rules. Procedures for everything. I thought if I could just organize it all, maybe the pressure wouldn't crush us.")
-	Mes("Ben saw it differently. Said I was piling even more pressure on top of what we were already under.")
-	Mes("And he just did things. Decided things. Without telling me, without telling anyone. I'd find out after the fact.")
-	Mes("We were both trying to keep the same walls standing. But somewhere along the way we stopped talking about it and started fighting about it instead.")
-	Mes("I've made too many mistakes to think I was right about everything. But back then, neither of us would bend.")
-	Mes("He told me to leave. And I just did. I'm not proud of how I handled it, but I got out of the way.")
-	Mes("That was years ago. I still think about it more than I should.")
+	Mes("Nữ hoàng. Hoặc nàng cứ như vậy. Luôn đòi hỏi, luôn theo ý nàng.")
+	Mes("Ta bắt đầu đặt quy tắc. Quy trình mọi thứ. Ta nghĩ nếu sắp xếp hết, áp lực sẽ nhẹ.")
+	Mes("Ben nghĩ khác. Bảo ta chồng thêm áp lực lên gánh sẵn có.")
+	Mes("Anh ấy cứ làm. Tự quyết. Không báo ai. Ta biết sau.")
+	Mes("Cả hai cùng giữ một bức tường. Rồi ta ngừng nói chuyện, bắt đầu cãi nhau.")
+	Mes("Ta mắc quá nhiều lỗi để nghĩ mình đúng hết. Nhưng hồi đó không ai nhún nhường.")
+	Mes("Anh ấy bảo ta đi. Ta đi. Ta không tự hào cách xử lý, nhưng ta nhường đường.")
+	Mes("Vài năm rồi. Ta vẫn nghĩ nhiều hơn nên.")
 	if GetQuest(QUEST_ID) == ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.INACTIVE:
-		Choice("Is there anything I can do?", Quest)
-		Choice("I'm sorry to hear that", Dismiss)
+		Choice("Ta có thể giúp gì không?", Quest)
+		Choice("Ta tiếc khi nghe vậy", Dismiss)
 
 func Quest():
-	Mes("Actually... there might be.")
-	Mes("At the far end of the western wall corridor near us, past Ben's patrols, there's a small chamber with a library shelf.")
-	Mes("There's an envelope on that shelf. Letters we wrote each other, back when the Queen had us stationed apart. Before everything went wrong.")
-	Mes("I don't know if it'll change anything. But maybe if he read them again he'd remember we weren't always like this.")
-	Mes("The corridors are patrolled, though. You should stick to the shadows. If you step into the light, the guards will catch you.")
-	Choice("I'll do it", Accept)
-	Choice("Not now", Decline)
+	Mes("Thực ra... có thể.")
+	Mes("Cuối hành lang tường tây, qua tuần tra của Ben, có phòng nhỏ với kệ thư viện.")
+	Mes("Trên kệ có phong bì. Thư ta và Ben viết cho nhau khi Nữ hoàng đóng quân cho ta xa nhau — trước khi mọi thứ hỏng.")
+	Mes("Không chắc đổi được gì. Nhưng nếu anh ấy đọc lại, có lẽ nhớ ta không lúc nào cũng như nay.")
+	Mes("Hành lang có tuần tra. Bám bóng tối. Bước vào sáng, lính bắt.")
+	Choice("Ta sẽ làm", Accept)
+	Choice("Để sau", Decline)
 
 func Directions():
-	Mes("Far end of the western wall corridor to our left, on top of the library shelf.")
-	Mes("And stay out of the light. The guards are on strict orders to escort any unauthorised citizens out.")
+	Mes("Cuối hành lang tường tây bên trái ta, trên kệ thư viện.")
+	Mes("Và tránh ánh sáng. Lính có lệnh đuổi dân không phép.")
 
 func Accept():
 	SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.STARTED)
-	Mes("Thank you, really.")
+	Mes("Đa tạ thật.")
 	Directions()
 
 func Decline():
-	Chat("No I understand. It's a lot to ask of a stranger.")
+	Chat("Ta hiểu. Nhờ người lạ quá nhiều.")
 
 func Dismiss():
-	Chat("Right. Well, the cacti won't take care of themselves.")
+	Chat("Ừ. Xương rồng không tự chăm được.")

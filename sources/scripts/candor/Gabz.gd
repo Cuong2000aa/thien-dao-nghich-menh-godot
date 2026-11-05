@@ -8,67 +8,67 @@ const playerLevelRequirement : int		= 1
 #
 func OnStart():
 	if IsTriggering():
-		Chat("Focus on your mission!")
+		Chat("Tập trung vào nhiệm vụ đi!")
 	else:
-		Mes("Welcome to the Heart of Candor, where Mana comes to die!")
+		Mes("Hoan nghênh đến Tim Candor — nơi Linh Khí đi để tàn!")
 		QuestionStart()
 
 func QuestionStart():
-	Choice("Let's get this started, Gabz.", StartFight)
-	Choice("I changed my mind, I need to go.", Farewell)
-	Choice("What is this place?", ExplainCave)
-	Choice("Do you know where these waves of monsters come from?", ExplainWaves)
+	Choice("Bắt đầu thôi, Gabz.", StartFight)
+	Choice("Ta đổi ý, phải đi đây.", Farewell)
+	Choice("Đây là nơi nào?", ExplainCave)
+	Choice("Ngươi biết sóng quái từ đâu à?", ExplainWaves)
 
 func ExplainCave():
-	Mes("This is the Heart of Candor. It is a cave system that has always contained high concentrations of Kaore.")
-	Mes("As Mana flows across Aemil, some of the energy decays and settles in particular areas.")
-	Mes("This is one of those areas. A place where Mana stops flowing and becomes Kaore.")
+	Mes("Đây là Tim Candor — hệ hang động luôn chứa nồng độ Kaore cao.")
+	Mes("Khi Linh Khí chảy qua Aemil, một phần năng lượng mục nát và đọng lại ở những vùng đặc biệt.")
+	Mes("Đây là một trong số đó — nơi Linh Khí ngừng chảy và hóa thành Kaore.")
 	QuestionsCave()
 
 func QuestionsCave():
-	Choice("No more questions.", QuestionStart)
-	Choice("Who are you? You seem off.", ExplainNpc)
-	Choice("Why is the cave like this?", ExplainCaveOrigin)
+	Choice("Không hỏi thêm.", QuestionStart)
+	Choice("Ngươi là ai? Trông hơi lạ.", ExplainNpc)
+	Choice("Sao hang lại như thế?", ExplainCaveOrigin)
 
 func ExplainWaves():
-	Mes("The board where we are standing is a catalyst that uses the energy of this cave to summon all sorts of creatures.")
-	Mes("They will come in progressive waves and try to wear you down.")
-	Mes("If you survive enough waves, the summoning will stop and you will have conquered the Heart of Candor.")
+	Mes("Bệ đứng chúng ta là chất xúc tác, dùng năng lượng hang này triệu hồi muôn loại sinh vật.")
+	Mes("Chúng tấn công theo từng sóng, cố làm kiệt sức đạo hữu.")
+	Mes("Sống sót đủ sóng, phép triệu hồi dừng — đạo hữu chinh phục Tim Candor.")
 
 
 func QuestionsWaves():
-	Choice("No more questions.", QuestionStart)
-	Choice("What happens if I fail?", ExplainFailure)
-	Choice("Is there no way to cleanse the corruption?", ExplainCorruption)
-	Choice("Why does Kaore make things this way?", ExplainKaore)
+	Choice("Không hỏi thêm.", QuestionStart)
+	Choice("Thua thì sao?", ExplainFailure)
+	Choice("Không có cách thanh lọc sao?", ExplainCorruption)
+	Choice("Vì sao Kaore khiến mọi thứ như vậy?", ExplainKaore)
 
 func ExplainNpc():
-	Mes("I never thought about that... I don't know! I have always been here, I think?")
-	Think("Gabz looks at you slightly confused.")
-	Mes("I am Gabz.")
+	Mes("Ta chưa từng nghĩ... Không biết! Ta luôn ở đây, hình như vậy?")
+	Think("Gabz nhìn đạo hữu hơi bối rối.")
+	Mes("Ta là Gabz.")
 	QuestionsCave()
 
 func ExplainCaveOrigin():
-	Mes("No one really knows. Some say its tunnels lead down to the core of Aemil and that it's all filled with Kaore.")
-	Mes("Others think that something about the rock attracts Kaore from all directions.")
-	Mes("I don't ask myself too many questions.")
+	Mes("Không ai rõ. Có người bảo đường hang xuống tận lõi Aemil, toàn Kaore.")
+	Mes("Kẻ khác cho rằng đá ở đây hút Kaore từ mọi phía.")
+	Mes("Ta không hỏi nhiều.")
 	QuestionsCave()
 
 func ExplainFailure():
-	Mes("Luckily for you, I hold the power of life and death in this place!")
-	Mes("When you perish in this cave, I will use your Zielite Amulet to have your living essence restored at a Soul Menhir.")
-	Mes("If I didn't save you, I'd quickly run out of pawns to play with.")
+	Mes("May cho đạo hữu, ta nắm quyền sinh tử nơi này!")
+	Mes("Khi đạo hữu vong trong hang, ta dùng Zielite Amulet để hồi phục bản thể sống tại Soul Menhir.")
+	Mes("Không cứu thì chẳng bao lâu hết quân cờ để chơi.")
 	QuestionsWaves()
 
 func ExplainCorruption():
-	Mes("A high concentration of Mana could perhaps change the balance of energies.")
-	Mes("But I am here to keep the Kaore at bay, so why not let me enjoy it?")
+	Mes("Nồng độ Linh Khí cao có lẽ đổi cân bằng năng lượng.")
+	Mes("Nhưng ta ở đây giữ Kaore, sao không để ta vui chút?")
 	QuestionsWaves()
 	
 func ExplainKaore():
-	Mes("Kaore can turn creatures hostile and, over time, undead.")
-	Mes("It powers them to act against living creatures and their connection to Mana.")
-	Mes("You might feel it too if you stay here too long.")
+	Mes("Kaore khiến sinh vật hung dữ, lâu dần thành undead.")
+	Mes("Nó nuôi chúng chống lại kẻ sống và liên kết Linh Khí của họ.")
+	Mes("Ở lâu đây, đạo hữu cũng có thể cảm nhận.")
 	QuestionsWaves()
 
 func StartFight():
@@ -77,13 +77,13 @@ func StartFight():
 		if alivePlayerCount == 0:
 			CallGlobal("OnCancel")
 		else:
-			Mes("The fight has already begun. You can't start another one now.")
+			Mes("Trận đã bắt đầu. Giờ không mở trận mới được.")
 	elif alivePlayerCount > 0:
 		if not HasItem(tributeItemID, tributeItemCount):
-			Mes("You'll need to bring me 5 apples as a tribute before we begin.")
+			Mes("Đạo hữu cần mang 5 quả táo làm cống vật trước khi bắt đầu.")
 		elif own.stat.level < playerLevelRequirement:
-			Mes("You're not strong enough for this fight. Come back when you've reached level %d." % playerLevelRequirement)
+			Mes("Đạo hữu chưa đủ sức cho trận này. Hãy đạt cấp %d rồi quay lại." % playerLevelRequirement)
 		else:
 			RemoveItem(tributeItemID, tributeItemCount)
-			Chat("Ah, you're ready for this! The fight begins in 10 seconds, brace yourself!")
+			Chat("Ha, đạo hữu sẵn sàng rồi! Mười giây nữa trận bắt đầu — chuẩn bị!")
 			Action(Trigger)

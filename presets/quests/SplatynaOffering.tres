@@ -6,13 +6,13 @@
 script = ExtResource("1_7vvcv")
 id = 665326971
 name = "Splatyna's Offering"
-description = "Bicies waits at the cave entrance, obsessed with a giant slime named Splatyna. He says she loves gold and keeps the corruption away.
-To reach her, you’ll need to defeat her three followers. Each one holds a key.
+description = "Bicies đợi ở cửa hang, say mê đại slime tên Splatyna. Hắn bảo nàng thích vàng và giữ tà khí xa.
+Muốn đến chỗ nàng, đạo hữu phải hạ ba thuộc hạ — mỗi kẻ giữ một chìa khóa.
 
-Bring all three keys to the end of the cave, unlock the gate, and face Splatyna."
+Mang đủ ba chìa đến cuối hang, mở cổng và đối đầu Splatyna."
 giver = "Bicies"
-giverLocation = "Splatyna Cave Entrance"
+giverLocation = "Cửa Hang Splatyna"
 target = "Splatyna"
-targetLocation = "Splatyna's Chamber"
-reward = "Unknown"
+targetLocation = "Điện Splatyna"
+reward = "Chưa biết"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

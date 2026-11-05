@@ -6,6 +6,6 @@
 script = ExtResource("1_quest")
 id = 2409290506
 name = "Veteran Cave Explorer"
-description = "For those who once walked these lands before the world was reborn."
-reward = "Unknown"
+description = "Dành cho những đạo hữu từng bước chân trên sơn hà này trước khi thiên địa tái sinh."
+reward = "Chưa biết"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

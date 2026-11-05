@@ -6,19 +6,19 @@ const SNAKE_SKIN_AMOUNT : int = 10
 
 #
 func OnStart():
-	Mes("For generations my tribe has been crafting special clothes out of different materials.")
-	Mes("Maybe if you bring me the right ones I could make something for you.")
-	Choice("What can you make?", OnShowRecipe)
-	Choice("Where is your tribe?", OnAskTribe)
-	Choice("What happened to this land?", OnAskLand)
-	Choice("Maybe later.", OnFarewell)
+	Mes("Bao đời bộ tộc ta chế trang phục đặc biệt từ đủ loại vật liệu.")
+	Mes("Mang đúng thứ ta có thể may cho ngươi.")
+	Choice("Ngươi làm được gì?", OnShowRecipe)
+	Choice("Bộ tộc ngươi ở đâu?", OnAskTribe)
+	Choice("Vùng đất này sao rồi?", OnAskLand)
+	Choice("Để sau.", OnFarewell)
 
 func OnShowRecipe():
-	Mes("I don't have all my tools here, let me think... Does a pair of jean chaps interest you?")
-	Mes("For that I would need a regular Jeans Shorts and about 10 Snake Skins as those tends to tear when we manipulate them.")
-	Mes("Do we have a deal?")
-	Choice("Yes, that's fine.", OnAttemptCraft)
-	Choice("On second thought, maybe later.", OnNoDeal)
+	Mes("Ta không mang đủ dụng cụ, để ta nghĩ... Quần jean chaps ngươi có thích không?")
+	Mes("Cần một Jeans Shorts thường và khoảng 10 Snake Skin — da rắn dễ rách khi ta xử lý.")
+	Mes("Thỏa thuận chứ?")
+	Choice("Được.", OnAttemptCraft)
+	Choice("Nghĩ lại, để sau.", OnNoDeal)
 
 func OnAttemptCraft():
 	var shortsID : int = DB.GetCellHash("Shorts")
@@ -26,28 +26,28 @@ func OnAttemptCraft():
 	var chapsID : int = DB.GetCellHash("Jean Chaps")
 
 	if not HasItem(shortsID):
-		Mes("Oh dear, it seems you don't have any jeans shorts.")
+		Mes("Ôi, hình như ngươi không có jeans shorts.")
 		return
 	if not HasItem(snakeSkinID, SNAKE_SKIN_AMOUNT):
-		Mes("Oh dear, it seems you don't have enough snake skins.")
+		Mes("Ôi, hình như ngươi không đủ snake skins.")
 		return
 
 	RemoveItem(shortsID)
 	RemoveItem(snakeSkinID, SNAKE_SKIN_AMOUNT)
 	AddItem(chapsID)
-	Mes("Here you are!")
-	Mes("Come back any time.")
+	Mes("Xong!")
+	Mes("Ghé lại bất cứ lúc nào.")
 
 func OnAskTribe():
-	Mes("We are living in the desert cliff, west from here. The road is not open to outsiders.")
-	Mes("I come out here to trade. That is as far as most strangers get.")
+	Mes("Ta sống trên vách đá sa mạc, phía tây đây. Đường không mở cho người ngoài.")
+	Mes("Ta ra đây giao thương. Người lạ thường chỉ tới đây thôi.")
 
 func OnAskLand():
-	Mes("The kingdom pulled out of this land a long time ago. Said it was not worth keeping.")
-	Mes("My people were here before them and we are still here today. We trade with Tulimshar when we need to but otherwise we prefer to keep our distances.")
+	Mes("Vương quốc rút khỏi vùng này từ lâu. Bảo không đáng giữ.")
+	Mes("Dân ta ở đây trước họ và vẫn còn. Cần thì giao thương với Tulimshar, còn không thì giữ khoảng cách.")
 
 func OnNoDeal():
-	Mes("Alright, but you won't get a better deal anywhere else!")
+	Mes("Ừ, nhưng không chỗ nào rẻ hơn đâu!")
 
 func OnFarewell():
-	Chat("Come back when you're ready.")
+	Chat("Sẵn sàng thì quay lại.")

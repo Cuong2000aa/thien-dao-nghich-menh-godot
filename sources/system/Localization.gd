@@ -222,7 +222,26 @@ const GLOSSARY : Dictionary = {
 	# Breakthrough & Feedback Messages
 	"Breakthrough Failed": "Đột Phá Thất Bại.",
 	"Insufficient Cultivation": "Tu Vi Chưa Đủ, Chưa Thể Phá Cảnh.",
-	"Breakthrough Successful": "Chúc Mừng Đạo Hữu, Cảnh Giới Đã Được Đột Phá!"
+	"Breakthrough Successful": "Chúc Mừng Đạo Hữu, Cảnh Giới Đã Được Đột Phá!",
+
+	# Side quests (English name hash → Vietnamese display title)
+	"Desert Seed": "Hạt Giống Mana",
+	"Elanore's Potions": "Đan Dược Elanore",
+	"Grain in the desert": "Lúa Mì Sa Mạc",
+	"Mine Exploration": "Thám Sát Khoáng Trường",
+	"Nina's Snack": "Bánh cho Nina",
+	"A Drop of Relief": "Giọt Nước Giải Khát",
+	"A Miner's Helping Hand": "Giúp Tay Khai Khoáng",
+	"Sandstorm Mine Abandoned Treasure": "Bảo Vật Mỏ Hoang",
+	"Peter's Bounty": "Ủy Thác Peter",
+	"A Biting Thirst": "Khát Đến Cháy Ruột",
+	"Snake Pit Thief": "Đạo Tặc Hố Rắn",
+	"Splatyna's Offering": "Cống Phẩm Splatyna",
+	"Found a Chest in the Outskirts": "Rương Ngoại Thành",
+	"When the desert gives you sand...": "Sa mạc cho cát...",
+	"An Old Friendship": "Cũ Duyên Tri Kỷ",
+	"Tutorial": "Nhập Môn",
+	"Veteran Cave Explorer": "Tiền Bối Thám Hang"
 }
 
 ## 2. GIẢI THÍCH THUỘC TÍNH (ATTRIBUTE & STAT TOOLTIPS)

@@ -2,30 +2,30 @@ extends Node
 class_name NpcCommons
 
 const Greetings : PackedStringArray = [
-	"Hello %s!",
-	"Greetings, %s.",
-	"Ah, %s.",
-	"Welcome.",
-	"Salutations.",
-	"Good to see you, %s.",
-	"Ahoy!",
-	"Well met, %s.",
-	"Hey there.",
-	"Good day.",
-	"Well met."
+	"Đạo hữu %s!",
+	"Kính chào đạo hữu %s.",
+	"À, %s đạo hữu.",
+	"Hoan nghênh.",
+	"Bái kiến.",
+	"Gặp lại đạo hữu %s thật vui.",
+	"Ha hai, đạo hữu!",
+	"Hữu duyên gặp đạo hữu %s.",
+	"Này đạo hữu.",
+	"Ngày tốt lành.",
+	"Hữu duyên."
 ]
 
 static var Farewells : PackedStringArray = [
-	"Goodbye, %s.",
-	"Farewell.",
-	"See you later, %s.",
-	"Until next time.",
-	"Safe travels, %s.",
-	"Take care.",
-	"Good journey.",
-	"Until we meet again, %s.",
-	"Stay safe.",
-	"Goodbye for now."
+	"Tạm biệt, %s đạo hữu.",
+	"Tạm biệt.",
+	"Hẹn gặp lại, %s đạo hữu.",
+	"Hẹn khi tái ngộ.",
+	"Lữ đạo bình an, %s đạo hữu.",
+	"Giữ gìn sức khỏe.",
+	"Lữ trình thuận lợi.",
+	"Mong sớm gặp lại đạo hữu %s.",
+	"Bình an.",
+	"Tạm hẹn."
 ]
 
 # Display
@@ -35,12 +35,13 @@ static func DisplayActions(agent : BaseAgent, actions : PackedStringArray):
 
 static func PushNotification(agent : BaseAgent, text : String):
 	if agent:
+		var localized : String = Localization.Get(text, text)
 		if agent is PlayerAgent and agent.peerID != NetworkCommons.PeerUnknownID:
-			Network.PushNotification(text, agent.peerID)
+			Network.PushNotification(localized, agent.peerID)
 		elif agent is NpcAgent:
 			var inst : WorldInstance = WorldAgent.GetInstanceFromAgent(agent)
 			if inst:
-				Network.NotifyInstance(inst, "PushNotification", [text])
+				Network.NotifyInstance(inst, "PushNotification", [localized])
 
 static func PushTracker(agent : BaseAgent, label : String, value : int, maxValue : int, unit : String = ""):
 	if agent:
@@ -171,10 +172,10 @@ static func SetQuest(caller : BaseAgent, questID : int, state : int):
 			return
 
 		if caller.progress.GetQuest(questID) == ProgressCommons.UnknownProgress:
-			PushNotification(caller, "Quest Started: " + questData.name)
+			PushNotification(caller, "Bắt đầu ủy thác: " + Localization.Get(questData.name, questData.name))
 		caller.progress.SetQuest(questID, state)
 		if state == ProgressCommons.CompletedProgress:
-			PushNotification(caller, "Quest Completed: " + questData.name)
+			PushNotification(caller, "Hoàn thành ủy thác: " + Localization.Get(questData.name, questData.name))
 
 static func AddBestiary(caller : BaseAgent, monsterID : int, count : int):
 	if caller is PlayerAgent and caller.progress:

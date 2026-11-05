@@ -6,20 +6,20 @@ func OnStart():
 		0: SeenClay()
 		1: GoingToSea()
 		2: Circles()
-		3: Chat("Oh, I really like that stone!")
-		4: Chat("Beware of hiding pirates, they are dangerous.")
-		5: Chat("Don't wipe away the chalk, please!")
+		3: Chat("Ồ, ta thích hòn đá kia!")
+		4: Chat("Cẩn thận hải tặc ẩn nấp — nguy hiểm lắm.")
+		5: Chat("Đừng xóa phấn nhé!")
 
 func SeenClay():
-	Mes("Have you seen my chalk?")
-	Mes("I bet the guards took it to play with on their own.")
+	Mes("Đạo hữu thấy phấn của ta không?")
+	Mes("Ta cá lính canh lấy đi chơi riêng.")
 
 func GoingToSea():
-	Mes("One day, I'm going to the sea to explore the world.")
-	Mes("I heard there's a city to the north with cold, white sand.")
+	Mes("Một ngày ta sẽ ra biển khám phá thế giới.")
+	Mes("Nghe có thành phía bắc cát trắng lạnh.")
 
 func Circles():
-	Mes("Can you draw a perfect circle? I can! My dad taught me.")
-	Mes("Wie can't draw circles. When she tries they look like fat squares.")
-	Mes("They look so funny, but she doesn't like when I laugh at them, so she always wants to be the X.")
-	Mes("I started calling her \"the wild X\".")
+	Mes("Đạo hữu vẽ tròn hoàn hảo được không? Ta được! Cha dạy.")
+	Mes("Wie không vẽ tròn. Cô ấy vẽ giống hình vuông béo.")
+	Mes("Buồn cười lắm, nhưng cô ấy không thích bị cười nên luôn muốn làm X.")
+	Mes("Ta gọi cô ấy \"X hoang dã\".")

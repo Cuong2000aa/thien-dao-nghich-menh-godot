@@ -32,10 +32,10 @@ func OnChestExchanged(result : ActorInventory.ExchangeResult):
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
 			OnLocked()
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Chat("Your bag is too full to take anything from this chest.")
+			Chat("Túi đầy, không lấy thêm gì từ rương này.")
 
 func OnEmpty():
-	Chat("This chest is empty.")
+	Chat("Rương trống.")
 
 func OnLocked():
-	Chat("This chest is locked. You need a key.")
+	Chat("Rương đang khóa. Cần chìa khóa.")

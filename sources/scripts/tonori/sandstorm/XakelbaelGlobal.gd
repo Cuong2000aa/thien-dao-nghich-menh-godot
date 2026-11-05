@@ -64,7 +64,7 @@ func OnMonsterKilled(mob : BaseAgent):
 
 	if player and NpcCommons.ExchangeItems(player, [], [DB.GetCellHash("Sandstorm Kano")]) != ActorInventory.ExchangeResult.OK:
 		SetState(ActorCommons.State.IDLE)
-		NpcCommons.PushNotification(player, "Your bag is too full to take the Kano. Make some room and face Xakelbael again.")
+		NpcCommons.PushNotification(player, "Túi trữ vật đầy, không nhặt được Kano. Dọn chỗ rồi đối đầu Xakelbael lần nữa.")
 		return
 
 	SetState(ActorCommons.State.DEATH)

@@ -73,18 +73,18 @@ func Trade(sellEntries : Array, buyEntries : Array):
 			balance -= price * buyCounts[cell]
 
 	if not isValid:
-		Notification("This trade is not valid.")
+		Notification("Giao dịch này không hợp lệ.")
 		return
 	if own.stat.gp + balance < 0:
-		Notification("You don't have enough GP.")
+		Notification("Đạo hữu không đủ linh thạch (GP).")
 		return
 
 	match own.inventory.ValidateExchange(sellCounts, buyCounts, true):
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Notification("You no longer have the offered items.")
+			Notification("Đạo hữu không còn đủ vật phẩm đã đề nghị.")
 			return
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Notification("You don't have enough inventory space.")
+			Notification("Túi trữ vật không còn chỗ trống.")
 			return
 
 	own.inventory.ApplyExchange(sellCounts, buyCounts)
@@ -95,7 +95,7 @@ func Trade(sellEntries : Array, buyEntries : Array):
 	Launcher.SQL.RefreshCharacter(own)
 
 	Util.PrintLog("Merchant", "%s traded with %s, sold %s, bought %s, balance %d GP" % [own.nick, npc.nick, sellEntries, buyEntries, balance])
-	Network.TradeClosed("Trade completed.", own.peerID)
+	Network.TradeClosed("Giao dịch hoàn tất.", own.peerID)
 	CloseShop()
 
 func HasValidPrices() -> bool:
@@ -115,8 +115,8 @@ func HasValidPrices() -> bool:
 
 #
 func OnStart():
-	Choice("Trade", OpenShop)
-	Choice("Cancel")
+	Choice("Giao dịch", OpenShop)
+	Choice("Hủy")
 
 func OnQuit():
 	if isShopOpen:

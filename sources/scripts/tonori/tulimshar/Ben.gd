@@ -18,39 +18,39 @@ func OnStart():
 
 func ReceiveLetters():
 	if HasItem(sealedLettersID):
-		Mes("Who are you?")
-		Choice("I was sent by Frost. He gave me these...", GiveLetters)
+		Mes("Ngươi là ai?")
+		Choice("Frost cử ta. Anh ấy đưa ta mấy thứ này...", GiveLetters)
 	else:
-		Mes("You look like you want to say something. But your hands are empty.")
-		Mes("Come back when you've got something to show me. I have work to do.")
+		Mes("Trông ngươi muốn nói gì. Nhưng tay trống.")
+		Mes("Có gì mang đến. Ta còn việc.")
 
 func GiveLetters():
-	Mes("What. He sent you here with these?")
-	Think("Ben looks through the letters, shifting them in his hands.")
-	Mes("I know this handwriting.")
-	Mes("These are old. Back when the Queen had us stationed apart, before we even shared the same wall.")
-	Mes("Frost handled the people. I handled the stone. That was the deal.")
-	Mes("It worked, for a while.")
-	Mes("Then the Queen kept pushing. More demands, always her way. No room to just do the work.")
-	Mes("Frost started making rules. Procedures for everything. I told him we didn't need more pressure on top of what we already dealt with.")
-	Mes("He said I was shutting him out, making decisions without telling anyone.")
-	Mes("Maybe I was, words aren't my tool. Never were.")
-	Mes("I just wanted to build things and have people stop arguing about how I build them.")
-	Mes("Anyway. I told him to leave. He left. End of story.")
+	Mes("Cái gì. Anh ấy cử ngươi mang những thứ này?")
+	Think("Ben lướt thư, xếp trên tay.")
+	Mes("Ta biết chữ viết này.")
+	Mes("Cũ rồi. Hồi Nữ hoàng đóng quân cho ta xa nhau, trước khi cùng một đoạn tường.")
+	Mes("Frost lo người. Ta lo đá. Thỏa thuận vậy.")
+	Mes("Một thời ổn.")
+	Mes("Rồi Nữ hoàng cứ đẩy. Đòi hỏi, luôn ý nàng. Không chỗ làm việc.")
+	Mes("Frost đặt quy tắc. Quy trình mọi thứ. Ta bảo không cần thêm áp lực.")
+	Mes("Anh ấy bảo ta loại anh ấy, tự quyết không báo ai.")
+	Mes("Có lẽ ta có. Lời không phải vũ khí ta. Chưa bao giờ.")
+	Mes("Ta chỉ muốn xây và để người ta thôi cãi cách xây.")
+	Mes("Dù sao. Ta bảo anh ấy đi. Anh ấy đi. Hết chuyện.")
 	Mes("...")
-	Mes("Except it wasn't, obviously. Because here I am, guarding walls nobody's trying to break through.")
-	Mes("Except for you... but I guess Frost sent you, so it's different.")
+	Mes("Trừ là chưa hết. Vì ta đang canh tường chẳng ai đập.")
+	Mes("Trừ đạo hữu... nhưng Frost cử thì khác.")
 	ExchangeItems([sealedLettersID], [], OnLettersExchanged)
 
 func OnLettersExchanged(result : ActorInventory.ExchangeResult):
 	match result:
 		ActorInventory.ExchangeResult.OK:
 			SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.LETTERS_DELIVERED)
-			Mes("Take this envelope back to him. He'll know what's inside.")
-			Mes("And tell him the walls still stand. He'll... Yeah. Tell him that.")
+			Mes("Mang phong bì này về anh ấy. Anh ấy biết bên trong gì.")
+			Mes("Và bảo tường vẫn đứng. Anh ấy sẽ... Ừ. Bảo vậy.")
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Mes("Where did those letters go? Come back when you have them.")
+			Mes("Thư đâu? Mang lại khi có.")
 
 func FreeRoaming():
-	Mes("You again. Corridors are open to you now, I meant that.")
-	Mes("There's a passage behind the library next to me. Goes outside the walls. Not many know about it.")
+	Mes("Lại ngươi. Hành lang mở cho ngươi rồi — ta có ý vậy.")
+	Mes("Có lối sau thư viện cạnh ta. Ra ngoài tường. Ít người biết.")

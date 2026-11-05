@@ -19,7 +19,7 @@ var dealerHand : Array					= []
 
 # Helper
 static func _CardName(card : int) -> String:
-	return "%s of %s" % [RANKS[card % 13], SUITS[floori(card / 13.0)]]
+	return "%s %s" % [RANKS[card % 13], SUITS[floori(card / 13.0)]]
 
 static func _CardValue(card : int) -> int:
 	var rank : int = card % 13
@@ -55,27 +55,27 @@ static func _NewDeck() -> Array:
 
 # General flow
 func OnStart():
-	Mes("Welcome, welcome! Are you here for a game of cards?")
-	Mes("Do you know a game called blackjack? I happen to be the inventor of it!")
-	Mes("Sit down, sit down. Show me what you can do. The cards are waiting.")
+	Mes("Hoan nghênh! Đạo hữu đến chơi bài?")
+	Mes("Biết blackjack không? Ta là người nghĩ ra trò đó!")
+	Mes("Ngồi xuống. Cho ta xem tay đạo hữu. Bài đang chờ.")
 	DisplayChoices()
 
 func DisplayChoices():
-	Choice("Challenge Hyland", StartDealer)
-	Choice("Find me a worthy opponent", StartPvP)
-	Choice("Rules", ShowRules)
-	Choice("Not today", Decline)
+	Choice("Thách Hyland", StartDealer)
+	Choice("Tìm đối thủ xứng tầm", StartPvP)
+	Choice("Luật chơi", ShowRules)
+	Choice("Hôm nay thôi", Decline)
 
 func ShowRules():
-	Mes("The rules are simple. I should know, I made them!")
-	Mes("Get as close to 21 as you can without going over.")
-	Mes("Number cards are face value, face cards are 10, and Aces... Well, Aces are tricky. They can be 1 or 11. Whatever suits you best.")
-	Mes("Beat me, and I'll tip my hat. Go over 21, and you bust. That's the game.")
-	Mes("Even the guards could learn this one, and that's saying something.")
+	Mes("Luật đơn giản. Ta biết — ta đặt ra mà!")
+	Mes("Gần 21 nhất mà không vượt.")
+	Mes("Bài số theo mặt, J Q K là 10, Át... Át khó. 1 hoặc 11, tùy đạo hữu.")
+	Mes("Thắng ta, ta gật mũ. Quá 21 là bust. Vậy thôi.")
+	Mes("Lính canh cũng học được — nói lên tầm dễ.")
 	DisplayChoices()
 
 func Decline():
-	Chat("You know where to find me if you want to play a game of cards.")
+	Chat("Muốn chơi cứ tìm ta.")
 
 func OnQuit():
 	if npc and npc.ownScript:
@@ -93,19 +93,19 @@ func _DealerTurn():
 	if _HandValue(playerHand) == 21:
 		_DealerReveal()
 	else:
-		Mes("Your hand: %s" % _HandStr(playerHand))
-		Mes("And I'm showing: %s." % _CardName(dealerHand[0]))
-		Choice("Hit", _DealerHit)
-		Choice("Stand", _DealerReveal)
+		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Ta lật: %s." % _CardName(dealerHand[0]))
+		Choice("Rút", _DealerHit)
+		Choice("Dừng", _DealerReveal)
 
 func _DealerHit():
 	playerHand.append(deck.pop_back())
 	var value : int = _HandValue(playerHand)
 	if value > 21:
-		Mes("Your hand: %s" % _HandStr(playerHand))
-		Mes("Oho, bust! Greed will do that to you. I've seen it a thousand times.")
-		Choice("Play again", StartDealer)
-		Choice("Leave", Decline)
+		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Ồ hò, bust! Tham lam vậy đó. Ta thấy nghìn lần rồi.")
+		Choice("Chơi lại", StartDealer)
+		Choice("Rời bàn", Decline)
 	elif value == 21:
 		_DealerReveal()
 	else:
@@ -116,35 +116,35 @@ func _DealerReveal():
 		dealerHand.append(deck.pop_back())
 	var pv : int = _HandValue(playerHand)
 	var dv : int = _HandValue(dealerHand)
-	Mes("Your hand: %s" % _HandStr(playerHand))
-	Mes("My hand: %s" % _HandStr(dealerHand))
+	Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+	Mes("Bài ta: %s" % _HandStr(dealerHand))
 	if dv > 21:
-		Mes("Bah! Even an old master overreaches sometimes. Well played.")
+		Mes("Bah! Kể cả cao thủ cũng vượt đôi khi. Hay lắm.")
 	elif pv > dv:
-		Mes("Heh... Not bad.")
+		Mes("Heh... Không tệ.")
 	elif dv > pv:
-		Mes("Experience wins again. Don't feel bad, most people lose to me.")
+		Mes("Kinh nghiệm thắng lại. Đừng buồn — đa số thua ta.")
 	else:
-		Mes("A tie at %d! You've got guts, I'll give you that." % pv)
-	Choice("Play again", StartDealer)
-	Choice("Leave", Decline)
+		Mes("Hòa %d! Gan dạ đấy." % pv)
+	Choice("Chơi lại", StartDealer)
+	Choice("Rời bàn", Decline)
 
 # Player vs Player Mode
 func StartPvP():
 	var result : int = npc.ownScript.call("JoinPvP", own)
 	if result == 0:
-		Mes("Alright, let's see who else is brave enough. Hang tight.")
-		Choice("Check", _PvPCheck)
-		Choice("Cancel", _PvPCancel)
+		Mes("Được, xem ai đủ gan. Chờ chút.")
+		Choice("Kiểm tra", _PvPCheck)
+		Choice("Hủy", _PvPCancel)
 	else:
 		_PvPBegin()
 
 func _PvPCheck():
 	var game : Dictionary = npc.ownScript.call("GetGame", own)
 	if game.is_empty():
-		Mes("Patience... A good card player learns to wait.")
-		Choice("Check", _PvPCheck)
-		Choice("Cancel", _PvPCancel)
+		Mes("Kiên nhẫn... Tay bài giỏi biết chờ.")
+		Choice("Kiểm tra", _PvPCheck)
+		Choice("Hủy", _PvPCancel)
 	elif game.has("result"):
 		_PvPShowResult(game)
 	else:
@@ -152,20 +152,20 @@ func _PvPCheck():
 
 func _PvPCancel():
 	npc.ownScript.call("LeavePvP", own)
-	Chat("No game? What a shame. Oh well, maybe you'll change your mind.")
+	Chat("Không chơi? Tiếc. Biết đâu đạo hữu đổi ý.")
 func _PvPBegin():
 	playerHand = npc.ownScript.call("GetHand", own)
-	Mes("Ha! We've got a match! Let's see what you're both made of.")
+	Mes("Ha! Có trận! Xem hai người ra sao.")
 	_PvPTurn()
 
 func _PvPTurn():
-	Mes("Your hand: %s" % _HandStr(playerHand))
+	Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
 	if _HandValue(playerHand) == 21:
-		Mes("Blackjack!")
+		Mes("Xì dách!")
 		_PvPStand()
 	else:
-		Choice("Hit", _PvPHit)
-		Choice("Stand", _PvPStand)
+		Choice("Rút", _PvPHit)
+		Choice("Dừng", _PvPStand)
 
 func _PvPHit():
 	var card : int = npc.ownScript.call("DrawCard", own)
@@ -175,12 +175,12 @@ func _PvPHit():
 	playerHand.append(card)
 	var value : int = _HandValue(playerHand)
 	if value > 21:
-		Mes("Your hand: %s" % _HandStr(playerHand))
-		Mes("Bust! Should've listened to your gut.")
+		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Quắc! Lẽ ra nghe linh cảm.")
 		npc.ownScript.call("FinishHand", own, value, true)
 		_PvPWait()
 	elif value == 21:
-		Mes("Your hand: %s" % _HandStr(playerHand))
+		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
 		_PvPStand()
 	else:
 		_PvPTurn()
@@ -194,18 +194,18 @@ func _PvPWait():
 	if game.has("result"):
 		_PvPShowResult(game)
 	else:
-		Mes("Your part's done. Now we wait for your opponent...")
-		Choice("Check", _PvPWaitCheck)
-		Choice("Forfeit", _PvPForfeit)
+		Mes("Phần đạo hữu xong. Chờ đối thủ...")
+		Choice("Kiểm tra", _PvPWaitCheck)
+		Choice("Bỏ cuộc", _PvPForfeit)
 
 func _PvPWaitCheck():
 	var game : Dictionary = npc.ownScript.call("GetGame", own)
 	if game.has("result"):
 		_PvPShowResult(game)
 	else:
-		Mes("Still thinking... Good players take their time!")
-		Choice("Check", _PvPWaitCheck)
-		Choice("Forfeit", _PvPForfeit)
+		Mes("Vẫn suy nghĩ... Tay giỏi không vội!")
+		Choice("Kiểm tra", _PvPWaitCheck)
+		Choice("Bỏ cuộc", _PvPForfeit)
 
 func _PvPShowResult(game : Dictionary):
 	var isP1 : bool = game.get("p1") == own
@@ -213,21 +213,21 @@ func _PvPShowResult(game : Dictionary):
 	var oppBust : bool = game.get("p2Busted") if isP1 else game.get("p1Busted")
 	var oppHand : Array = game.get("p2Hand") if isP1 else game.get("p1Hand")
 	var myBust : bool = game.get("p1Busted") if isP1 else game.get("p2Busted")
-	Mes("Your score: %d%s" % [myVal, " (Bust)" if myBust else ""])
-	Mes("Opponent's hand: %s%s" % [_HandStr(oppHand), " (Bust)" if oppBust else ""])
+	Mes("Điểm đạo hữu: %d%s" % [myVal, " (Quắc)" if myBust else ""])
+	Mes("Bài đối thủ: %s%s" % [_HandStr(oppHand), " (Quắc)" if oppBust else ""])
 	var result : String = game.get("result", "")
 	if result == "draw":
-		Mes("A draw! Evenly matched. That doesn't happen often at my table.")
+		Mes("Hòa! Ngang tài. Hiếm ở bàn ta.")
 	elif (result == "p1" and isP1) or (result == "p2" and not isP1):
-		Mes("Victory is yours! Well done, the cards favoured you today.")
+		Mes("Thắng! Hay lắm — bài nghiêng về đạo hữu hôm nay.")
 	else:
-		Mes("Tough break. The cards are fickle, but they always come back around.")
+		Mes("Tiếc. Bài hay đổi ý — nhưng luôn quay lại.")
 	npc.ownScript.call("CleanupGame", own)
-	Choice("Play again", StartPvP)
-	Choice("Leave", Decline)
+	Choice("Chơi lại", StartPvP)
+	Choice("Rời bàn", Decline)
 
 func _PvPForfeit():
 	npc.ownScript.call("ForfeitPvP", own)
-	Mes("Walking away mid-game? In my day, that'd cost you a round of drinks.")
-	Choice("Play again", StartPvP)
-	Choice("Leave", Decline)
+	Mes("Bỏ giữa ván? Hồi ta, mất một vòng rượu đấy.")
+	Choice("Chơi lại", StartPvP)
+	Choice("Rời bàn", Decline)

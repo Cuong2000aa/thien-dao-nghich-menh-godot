@@ -5,5 +5,5 @@ func GetStock() -> PackedStringArray:
 	return ["Short Sword", "Cleaver", "Gladius"]
 
 func OnStart():
-	Mes("Need a blade? The guards come to me for theirs.")
+	Mes("Cần lưỡi? Lính canh mua ở ta.")
 	super.OnStart()

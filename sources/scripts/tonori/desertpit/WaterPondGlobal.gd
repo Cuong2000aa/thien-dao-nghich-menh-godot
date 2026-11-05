@@ -44,7 +44,7 @@ static func Spill(player : PlayerAgent):
 	StopJugTransport(player)
 	NpcCommons.SetQuest(player, QUEST_ID, ProgressCommons.SNAKE_PIT_BITING_THIRST.STARTED)
 	NpcCommons.ClearTracker(player)
-	NpcCommons.PushNotification(player, "You were bitten too many times! Return to the water source to refill.")
+	NpcCommons.PushNotification(player, "Bị cắn quá nhiều lần! Hãy về nguồn nước để bù đầy.")
 
 # Jug filling handling
 func OnFillTick(player : PlayerAgent, startPos : Vector2, tick : int):

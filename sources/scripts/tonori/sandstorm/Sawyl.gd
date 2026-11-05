@@ -2,44 +2,44 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("If you follow this road the the east you'll be leaving the Tulimshar Valley and heading towards the Manayir Coast.")
-	Mes("Are you lost?")
+	Mes("Theo con đường phía đông là rời Thung Lũng Tulimshar, hướng tới Bờ Biển Manayir.")
+	Mes("Ngươi lạc đường à?")
 	DisplayChoices()
 
 func DisplayChoices(hideChoice : int = -1):
 	if hideChoice != 1:
-		Choice("I am looking for the Sandstorm Mines.", OnMines)
+		Choice("Ta tìm Mỏ Bão Cát.", OnMines)
 	if hideChoice != 2:
-		Choice("What can you tell me about this valley?", OnValley)
+		Choice("Kể cho ta về thung lũng này.", OnValley)
 	if hideChoice != 3:
-		Choice("What can you tell me about the Manayir Coast?", OnManayir)
+		Choice("Kể cho ta về Bờ Biển Manayir.", OnManayir)
 	if hideChoice != 4:
-		Choice("Thank you for your time.", Farewell)
+		Choice("Cảm ơn đã dành thời gian.", Farewell)
 
 func OnMines():
 	LookAtNpc("To Mines")
-	Mes("You'll find them directly south of here.")
+	Mes("Mỏ nằm ngay phía nam đây.")
 	ResetCamera()
-	Mes("They've been abandonded for a long time, but I just saw a group of people heading in that direction earlier.")
-	Mes("Looked like Tulimshar folks. I wonder what they're up to...")
+	Mes("Bỏ hoang lâu rồi, nhưng ta vừa thấy một nhóm đi hướng đó.")
+	Mes("Trông như dân Tulimshar. Không biết họ làm gì...")
 	DisplayChoices()
 
 func OnValley():
-	Mes("Tulimshar Valley is a low-lying protected area where the city of Tulimshar hides from the open Tonori Desert.")
-	Mes("The city walls close off the city between the valley and the open sea.")
-	Mes("Apart from the sand storm that blows through the valley, this area is relatively safe compared to farther parts of Tonori where all sorts of dangers hide among the hot sands.")
+	Mes("Thung Lũng Tulimshar là vùng trũng được che chắn, nơi thành Tulimshar trú ẩn khỏi Sa Mạc Tonori bên ngoài.")
+	Mes("Tường thành khép thành giữa thung lũng và biển mở.")
+	Mes("Ngoài bão cát thổi qua thung lũng, vùng này tương đối an toàn so với xa hơn trong Tonori, nơi đủ loại nguy hiểm ẩn trong cát nóng.")
 	DisplayChoices()
 
 func OnManayir():
-	Mes("It's a quiet area of Tonori close to the sea. It probably has the mildest climate out of any area in this desert.")
-	Mes("The most notable feature is the peninsula that extends from the beach.")
-	Mes("We call it Nawah in our language. It's where the Manayir Order makes their home.")
+	Mes("Vùng Tonori yên tĩnh gần biển. Chắc là khí hậu dễ chịu nhất trong sa mạc này.")
+	Mes("Nổi bật nhất là bán đảo kéo dài từ bãi biển.")
+	Mes("Theo ngôn ngữ ta, gọi là Nawah — nơi Manayir Order sinh sống.")
 
-	Choice("Manyir Order?", OnManayirOrder)
+	Choice("Manayir Order là gì?", OnManayirOrder)
 	DisplayChoices(3)
 
 func OnManayirOrder():
-	Mes("They are a powerful organisation of wise mages and experts of Mana. They have been around for a very long time, almost as long as my people.")
-	Mes("Our old tales talk of how they used to rule Tulimshar in ancient times. Now they mostly keep to themselves.")
-	Mes("We trade with them occasionally and we have always shared our knowledge and admiration of The Spirit - Mana - with them.")
+	Mes("Họ là tổ chức quyền lực của các pháp sư uyên bác, chuyên gia Mana. Tồn tại từ rất lâu, gần bằng dân ta.")
+	Mes("Truyền thuyết xưa kể họ từng cai trị Tulimshar. Nay họ chủ yếu ẩn mình.")
+	Mes("Ta đôi khi giao thương với họ; ta luôn chia sẻ tri thức và sự ngưỡng mộ Linh Hồn — Mana — với họ.")
 	DisplayChoices()

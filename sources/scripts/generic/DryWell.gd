@@ -2,5 +2,5 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("You lower the bucket but it comes back up empty.")
-	Mes("This well has run dry.")
+	Mes("Đạo hữu hạ xô nhưng kéo lên trống không.")
+	Mes("Giếng này đã cạn.")

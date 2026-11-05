@@ -31,7 +31,7 @@ static func CallGuard(player : PlayerAgent):
 			var guard : BaseAgent = SpawnGuard(inst)
 			if guard:
 				activeCatches[playerRID] = guard
-				NpcCommons.PushNotification(player, "A guard saw you!")
+				NpcCommons.PushNotification(player, "Lính canh đã phát hiện đạo hữu!")
 				Callback.AddCallback(player.tree_exiting, Cleanup, [player, guard, playerRID], ConnectFlags.CONNECT_ONE_SHOT)
 				Callback.OneShotCallback(guard.ready, OnGuardReady.bind(player, guard, playerRID))
 

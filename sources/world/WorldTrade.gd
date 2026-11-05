@@ -29,20 +29,20 @@ static func Request(requester : PlayerAgent, target : PlayerAgent):
 	if not requester or not target or requester == target:
 		return
 	if not CanTrade(requester):
-		NpcCommons.PushNotification(requester, "You can't trade right now.")
+		NpcCommons.PushNotification(requester, "Đạo hữu chưa thể giao dịch lúc này.")
 	elif not CanTrade(target):
-		NpcCommons.PushNotification(requester, "%s is busy." % target.nick)
+		NpcCommons.PushNotification(requester, "%s đang bận." % target.nick)
 	elif not SkillCommons.IsTargetable(requester, target):
-		NpcCommons.PushNotification(requester, "%s is too far away to trade." % target.nick)
+		NpcCommons.PushNotification(requester, "%s ở quá xa, không thể giao dịch." % target.nick)
 	elif HasPendingRequest(target):
-		NpcCommons.PushNotification(requester, "%s already has a pending trade request." % target.nick)
+		NpcCommons.PushNotification(requester, "%s đang có lời mời giao dịch chờ xử lý." % target.nick)
 	else:
 		requests[target.get_rid().get_id()] = {
 			"requester": requester.get_rid().get_id(),
 			"tick": Time.get_ticks_msec()
 		}
 		Network.TradeRequested(requester.nick, target.peerID)
-		NpcCommons.PushNotification(requester, "Trade request sent to %s." % target.nick)
+		NpcCommons.PushNotification(requester, "Đã gửi lời mời giao dịch tới %s." % target.nick)
 
 static func Respond(target : PlayerAgent, accept : bool):
 	var request : Dictionary = requests.get(target.get_rid().get_id(), {})
@@ -52,15 +52,15 @@ static func Respond(target : PlayerAgent, accept : bool):
 
 	var requester : PlayerAgent = WorldAgent.GetAgent(request["requester"])
 	if not requester or IsRequestExpired(request):
-		NpcCommons.PushNotification(target, "This trade request has expired.")
+		NpcCommons.PushNotification(target, "Lời mời giao dịch đã hết hạn.")
 	elif not accept:
-		NpcCommons.PushNotification(requester, "%s declined your trade request." % target.nick)
+		NpcCommons.PushNotification(requester, "%s đã từ chối lời mời giao dịch của đạo hữu." % target.nick)
 	elif not CanTrade(target):
-		NpcCommons.PushNotification(target, "You can't trade right now.")
+		NpcCommons.PushNotification(target, "Đạo hữu chưa thể giao dịch lúc này.")
 	elif not CanTrade(requester):
-		NpcCommons.PushNotification(target, "%s is busy." % requester.nick)
+		NpcCommons.PushNotification(target, "%s đang bận." % requester.nick)
 	elif not SkillCommons.IsTargetable(target, requester):
-		NpcCommons.PushNotification(target, "%s is too far away to trade." % requester.nick)
+		NpcCommons.PushNotification(target, "%s ở quá xa, không thể giao dịch." % requester.nick)
 	else:
 		Open(requester, target)
 
@@ -102,7 +102,7 @@ static func SetOffer(player : PlayerAgent, entries : Array, gpValue : int):
 			session.revision += 1
 			session.Unlock()
 	else:
-		NpcCommons.PushNotification(player, "Your offer is no longer valid.")
+		NpcCommons.PushNotification(player, "Đề nghị trao đổi không còn hợp lệ.")
 
 	SendUpdate(session)
 
@@ -143,7 +143,7 @@ static func Commit(session : Session):
 		or not ActorInventory.GetExchangeCounts(session.offers[1], firstGets) \
 		or not ActorInventory.GetExchangeCounts(session.offers[1], secondGives) \
 		or not ActorInventory.GetExchangeCounts(session.offers[0], secondGets):
-		Close(session, "Trade cancelled, an offer is invalid.")
+		Close(session, "Hủy giao dịch: một bên đề nghị không hợp lệ.")
 		return
 
 	var failure : String = GetExchangeFailure(first, first.inventory.ValidateExchange(firstGives, firstGets, true), session.gp[0])
@@ -172,19 +172,19 @@ static func Commit(session : Session):
 
 	Util.PrintLog("Trade", "%s gave %s and %d GP, %s gave %s and %d GP" % [first.nick, session.offers[0], session.gp[0], second.nick, session.offers[1], session.gp[1]])
 	for player in session.parties:
-		Network.TradeClosed("Trade completed.", player.peerID)
+		Network.TradeClosed("Giao dịch hoàn tất.", player.peerID)
 
 static func GetExchangeFailure(player : PlayerAgent, result : ActorInventory.ExchangeResult, gpValue : int) -> String:
 	match result:
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			return "%s no longer has the offered items." % player.nick
+			return "%s không còn đủ vật phẩm đã đề nghị." % player.nick
 		ActorInventory.ExchangeResult.NO_SPACE:
-			return "%s doesn't have enough inventory space." % player.nick
+			return "%s không đủ chỗ trong túi trữ vật." % player.nick
 		ActorInventory.ExchangeResult.INVALID:
-			return "Trade failed, an offer is invalid."
+			return "Giao dịch thất bại: đề nghị không hợp lệ."
 
 	if player.stat.gp < gpValue:
-		return "%s no longer has the offered GP." % player.nick
+		return "%s không còn đủ linh thạch (GP) đã đề nghị." % player.nick
 
 	return ""
 

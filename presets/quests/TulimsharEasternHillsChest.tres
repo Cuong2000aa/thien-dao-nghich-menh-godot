@@ -6,8 +6,8 @@
 script = ExtResource("1_quest")
 id = 4235969129
 name = "Found a Chest in the Outskirts"
-description = "Found a chest in the Tulimshar eastern outskirts."
+description = "Đạo hữu phát hiện một rương ở ngoại vi phía đông Tulimshar."
 target = "Chest"
-targetLocation = "Tulimshar Eastern Hills"
+targetLocation = "Đồi Đông Tulimshar"
 reward = "Desert Shield"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

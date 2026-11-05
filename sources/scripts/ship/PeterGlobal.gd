@@ -133,7 +133,7 @@ func OnVictory(playerRID : int):
 		return
 
 	ClearRunTimers(run)
-	NpcCommons.PushNotification(player, "The hold is clear. Time to leave this place")
+	NpcCommons.PushNotification(player, "Khoang tàu đã sạch. Đã đến lúc rời nơi này.")
 
 	var holdMap : WorldMap = Launcher.World.GetMap(HOLD_SPAWN_MAP.hash())
 	var inst : WorldInstance = holdMap.instances.get(playerRID, null) if holdMap else null
@@ -190,7 +190,7 @@ func OnRunTimeout(playerRID : int):
 
 	var player : PlayerAgent = run.player
 	if player and is_instance_valid(player):
-		NpcCommons.PushNotification(player, "The foul air overwhelms you. You stagger back up to the deck.")
+		NpcCommons.PushNotification(player, "Khí độc tràn ngập. Đạo hữu loạng choạng trở lại sàn tàu.")
 		NpcCommons.Warp(player, SECOND_DECK_MAP.hash(), RETURN_POS)
 
 	EndRun(playerRID)
@@ -202,7 +202,7 @@ func OnWarnTimeout(playerRID : int):
 
 	var player : PlayerAgent = run.player
 	if player and is_instance_valid(player):
-		NpcCommons.PushNotification(player, "This air is foul, better finish this fast.")
+		NpcCommons.PushNotification(player, "Khí ở đây độc lắm, nên làm nhanh thôi.")
 
 	run.warnTimer = null
 

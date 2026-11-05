@@ -80,7 +80,7 @@ func NextWave():
 	if waveCount > maxWave:
 		Reward()
 	else:
-		Notification("Wave %d." % waveCount)
+		Notification("Đợt %d." % waveCount)
 		SpawnMonsters()
 		waveMaxMonsters = AliveMonsterCount()
 		DisplayTracker("Monsters", 0, waveMaxMonsters)
@@ -94,7 +94,7 @@ func Reset():
 	waveMaxMonsters = 0
 
 func Reward():
-	Notification("Congrats, you won")
+	Notification("Chúc mừng đạo hữu, đã thắng!")
 	ClearTracker()
 	for player : PlayerAgent in playerList:
 		NpcCommons.AddExp(player, rewardExp)
@@ -133,5 +133,5 @@ func CheckWave():
 			NextWave()
 
 func TimeoutWave():
-	Notification("You were not able to clear the corruption in time.")
+	Notification("Đạo hữu không kịp thanh trừ tà khí kịp thời.")
 	OnCancel()

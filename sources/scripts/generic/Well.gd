@@ -12,11 +12,11 @@ var WATER_BOTTLE_ID : int								= "Water Bottle".hash()
 #
 func OnStart():
 	if not HasItem(BOTTLE_ID):
-		Mes("You would need a bottle to draw water from this well.")
+		Mes("Cần một bình rỗng mới múc nước từ giếng này.")
 	elif not HasItemsSpace([[BOTTLE_ID, -1], [WATER_BOTTLE_ID, 1]]):
-		Mes("You don't have any available space on your inventory.")
+		Mes("Túi đồ không còn chỗ trống.")
 	else:
-		Mes("Hold still while your bottle is filling...")
+		Mes("Đứng yên trong lúc bình đang đầy...")
 		Action(StartFill)
 
 func StartFill():
@@ -25,7 +25,7 @@ func StartFill():
 func OnFillTick(startPos : Vector2, tick : int):
 	if own.position.distance_squared_to(startPos) > MOVE_TOLERANCE_SQUARED:
 		ClearTracker()
-		Notification("You moved too far from the well!")
+		Notification("Đạo hữu đã đi quá xa giếng nước!")
 	elif not HasItem(BOTTLE_ID):
 		ClearTracker()
 	elif tick >= FILL_TICKS:
@@ -40,12 +40,12 @@ func CompleteFill():
 		ActorInventory.ExchangeResult.OK:
 			PromptNext()
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Notification("You don't have any available space on your inventory.")
+			Notification("Túi trữ vật không còn chỗ trống.")
 
 func PromptNext():
 	if HasItem(BOTTLE_ID):
-		Mes("Your bottle is now filled with fresh water. You have another empty bottle.")
-		Choice("Fill another bottle", StartFill)
-		Choice("Leave")
+		Mes("Bình đã đầy nước trong. Đạo hữu còn một bình rỗng nữa.")
+		Choice("Múc thêm một bình", StartFill)
+		Choice("Rời đi")
 	else:
-		Mes("Your bottle is now filled with fresh water.")
+		Mes("Bình đã đầy nước trong.")

@@ -7,79 +7,79 @@ func OnStart():
 		TicTacToeGlobal.State.NONE:
 			if steps.is_empty():
 				match randi_range(0, 2):
-					0: Mes("Do you want to play tic-tac-toe? I drew the board myself!")
+					0: Mes("Chơi cờ ca-rô không? Ta tự vẽ bàn!")
 					1:
-						Mes("I can't draw round circles, so I just draw squares instead. But Andi keeps making fun of me.")
-						Mes("Wanna play tic-tac-toe?")
+						Mes("Ta không vẽ tròn được nên vẽ vuông. Andi cứ trêu ta.")
+						Mes("Chơi cờ ca-rô không?")
 					2:
-						Mes("I saw a pirate crew playing tic-tac-toe against some guards the other day.")
-						Mes("Wanna play?")
+						Mes("Ta thấy hải tặc chơi cờ ca-rô với lính hôm qua.")
+						Mes("Chơi không?")
 			else:
-				Mes("Do you want to play tic-tac-toe?")
-			Choice("Play against you", StartPvE)
-			Choice("Play against someone else", StartPvP)
-			Choice("How do you play?", ShowRules)
-			Choice("Maybe later", Decline)
+				Mes("Chơi cờ ca-rô không?")
+			Choice("Đánh với ngươi", StartPvE)
+			Choice("Đánh với người khác", StartPvP)
+			Choice("Chơi thế nào?", ShowRules)
+			Choice("Để sau", Decline)
 		TicTacToeGlobal.State.X:
 			if globalScript.playerX != own:
-				Mes("Hey, someone's already waiting to play! You should go against them!")
-				Choice("I'll play them!", StartPvP)
-				Choice("How do you play?", ShowRules)
-				Choice("Maybe later", Decline)
+				Mes("Này, đã có người chờ rồi! Đánh với họ đi!")
+				Choice("Ta đánh với họ!", StartPvP)
+				Choice("Chơi thế nào?", ShowRules)
+				Choice("Để sau", Decline)
 			else:
-				Mes("Nobody showed up yet... Wanna keep waiting?")
-				Choice("I'll wait a bit more", WaitPvP)
-				Choice("How do you play?", ShowRules)
-				Choice("I have to go", CancelPvP)
+				Mes("Chưa ai tới... Chờ thêm không?")
+				Choice("Ta chờ thêm", WaitPvP)
+				Choice("Chơi thế nào?", ShowRules)
+				Choice("Ta phải đi", CancelPvP)
 		TicTacToeGlobal.State.O:
 			var isPlaying : bool = globalScript.playerX == own or globalScript.playerO == own
 			if isPlaying:
-				Mes("Hey, no cheating! Go play your game!")
+				Mes("Này, đừng gian lận! Về bàn chơi đi!")
 			else:
-				Mes("Shhh, they're playing! You can watch though.")
-			Choice("Ok ok", OnQuit)
-			Choice("How do you play?", ShowRules)
+				Mes("Suỵt, họ đang chơi! Xem thôi.")
+			Choice("Ừ ừ", OnQuit)
+			Choice("Chơi thế nào?", ShowRules)
 			if isPlaying:
-				Choice("I have to go", CancelPvP)
+				Choice("Ta phải đi", CancelPvP)
 
 func ShowRules():
-	Mes("So you pick a square and put your mark on it, then the other person goes.")
-	Mes("If you get three in a row you win! Like across, up and down, or the diagonal ones.")
-	Mes("And if the whole board fills up and nobody won, it's a tie. Those are boring though.")
+	Mes("Chọn ô rồi đánh dấu, rồi đến lượt người kia.")
+	Mes("Ba ô liên tiếp là thắng! Ngang, dọc, hoặc chéo.")
+	Mes("Hết ô mà không ai thắng là hòa. Hòa chán lắm.")
 	OnStart()
 
 func Decline():
-	Chat("Okaaay... Come back if you change your mind!")
+	Chat("Ừ mà... Đổi ý cứ quay lại!")
 
 # Player vs NPC
 func StartPvE():
 	var globalScript : TicTacToeGlobal = (npc.ownScript as TicTacToeGlobal)
 	if globalScript.startStep == TicTacToeGlobal.State.NONE and globalScript.StartPvE(own):
 		DisplayActions(["gp_target", "gp_untarget"])
-		Mes("You're X! Pick a square, go go go!")
+		Mes("Đạo hữu là X! Chọn ô, nhanh nhanh!")
 	else:
-		Mes("Hang on, someone's already playing! Wait your turn.")
+		Mes("Khoan, có người chơi rồi! Xếp hàng.")
 
 # Player vs Player
 func StartPvP():
 	var globalScript : TicTacToeGlobal = (npc.ownScript as TicTacToeGlobal)
 	match globalScript.StartPvP(own):
 		TicTacToeGlobal.State.X:
-			Mes("Now we wait for someone to show up...")
+			Mes("Giờ chờ ai đó tới...")
 			return
 		TicTacToeGlobal.State.O:
 			DisplayActions(["gp_target", "gp_untarget"])
-			Mes("Yay, you're both here! Have fun!")
+			Mes("Hay, đủ hai người! Chơi vui nhé!")
 			return
 		TicTacToeGlobal.State.NONE:
-			Mes("Nuh-uh, the board's taken right now!")
+			Mes("Không, bàn có người rồi!")
 
 func WaitPvP():
 	if (npc.ownScript as TicTacToeGlobal).playerX == own:
-		Chat("I'm sure someone will come soon... Probably!")
+		Chat("Chắc sẽ có người... Chắc vậy!")
 
 func CancelPvP():
 	var globalScript : TicTacToeGlobal = (npc.ownScript as TicTacToeGlobal)
 	if globalScript.playerX == own:
 		globalScript.LeaveQueue(own)
-		Chat("Aww, already? Fine...")
+		Chat("Huh, đi rồi à? Ừ...")

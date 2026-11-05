@@ -14,130 +14,130 @@ func OnStart():
 		if questState == ProgressCommons.NINA_HUNGRY.INACTIVE:
 			OnIntro()
 		else:
-			Mes("Hello again.")
+			Mes("Chào lại đạo hữu.")
 			OnPlayerChoice()
 
 # Intro
 func OnIntro():
-	Mes("Hello. Elanore sent you? Welcome.")
-	Mes("We are standing before Tulimshar's ancient Soul Menhir. I am its guardian and use its powers to protect the people of this city, or as much as I am allowed to.")
+	Mes("Xin chào. Elanore cử đạo hữu đến? Hoan nghênh.")
+	Mes("Chúng ta đang đứng trước Soul Menhir cổ xưa của Tulimshar. Ta là người giữ gìn nó, dùng sức mạnh của đá để bảo vệ dân thành — trong phạm vi được phép.")
 	OnPlayerChoice()
 
 func OnPlayerChoice():
 	if GetQuest(ProgressCommons.Quest.NINA_HUNGRY) == ProgressCommons.NINA_HUNGRY.STARTED and HasItem(DB.GetCellHash("Croissant")):
-		Choice("I found a croissant for you!", OnCroissantTurnIn)
+		Choice("Ta mang bánh sừng bò cho ngươi!", OnCroissantTurnIn)
 	else:
-		Choice("Is someone trying to stop you?", OnExplainOpposition)
-		Choice("Can you tell me more about Mana and Kaore?", OnExplainMana)
-		Choice("What is a Soul Menhir?", OnExplainMenhir)
-	Choice("See you.", Farewell)
+		Choice("Có ai cản trở ngươi không?", OnExplainOpposition)
+		Choice("Kể thêm về Mana và Kaore được không?", OnExplainMana)
+		Choice("Soul Menhir là gì?", OnExplainMenhir)
+	Choice("Hẹn gặp lại.", Farewell)
 
 # Opposition and faith
 func OnExplainOpposition():
-	Mes("Not exactly. Kahwes, or Druids, have always been allowed in Tulimshar. If anything because without us the city would not survive the worst droughts and other perils of Tonori's climate.")
-	Mes("The Kingdom however officially follows the Savean Creed. They believe, like half of the people around you, that Mana is also a corrupting force just like Kaore and that both should be avoided unless strictly necessary.")
-	Mes("Our Menhir still stands because it makes people's lives easier. Even those who have opposing beliefs cannot deny the benefit of Mana use. They will oppose it publicly, but when a personal need arises, they will seek Kahwes like myself to heal a loved one or bring some needed rain.")
-	Mes("I just wish that more people embraced the ancient traditions more openly. The Savean beliefs have brought much trouble to our world. Now they have even spawned these new cultists, the Varunian, who essentially worship Kaore.")
-	Mes("None of this is how the relationship with Mana has been for most of Aemil's existence.")
-	Choice("What is your people's position?", OnKahwePosition)
-	Choice("I have some other topics I wanted to discuss.", OnPlayerChoice)
-	Choice("Thank you for your time.", Farewell)
+	Mes("Không hẳn vậy. Kahwe — người ngoài gọi là Druid — luôn được chấp nhận ở Tulimshar. Không có chúng ta, thành không sống nổi qua hạn hán và hiểm họa khí hậu Tonori.")
+	Mes("Vương quốc tuy theo chính thức Giáo lý Savean. Họ tin, như nửa dân chung quanh, rằng Mana cũng là lực phá hoại như Kaore và cả hai đều nên tránh trừ khi bất đắc dĩ.")
+	Mes("Menhir vẫn đứng vì nó làm đời sống dễ chịu hơn. Kẻ bất đồng cũng không phủ nhận lợi ích của Mana. Họ chống công khai, nhưng khi cần chữa người thân hay cầu mưa, họ lại tìm Kahwe như ta.")
+	Mes("Ta chỉ mong nhiều người mở lòng với truyền thống cổ hơn. Niềm tin Savean đã mang bao rắc rối. Nay còn sinh ra tín đồ Varunian — gần như thờ Kaore.")
+	Mes("Không phải lúc nào quan hệ với Mana cũng như thế trong phần lớn lịch sử Aemil.")
+	Choice("Lập trường của dân ngươi?", OnKahwePosition)
+	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
+	Choice("Đa tạ đã dành thời gian.", Farewell)
 
 func OnKahwePosition():
-	Mes("The Kahwe carry on the knowledge of times when Mana was a harmonious force of good in our world. We seek to restore the balance that was lost when the Uru were destroyed.")
-	Choice("What are the Uru?", OnExplainUru)
-	Choice("I have some other topics I wanted to discuss.", OnPlayerChoice)
-	Choice("Thank you for your time.", Farewell)
+	Mes("Kahwe giữ tri thức thời Mana còn hài hòa, lành trên thế giới. Ta muốn khôi phục cân bằng đã mất khi Uru bị hủy.")
+	Choice("Uru là gì?", OnExplainUru)
+	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
+	Choice("Đa tạ đã dành thời gian.", Farewell)
 
 func OnExplainUru():
-	Mes("Uru, also known as Mana Trees, used to be the heart of the world's lifeforce, acting as a natural conductor for Mana energy.")
-	Mes("In ancient times, there were many, each serving as a stabilizing force, preventing Mana from decaying into Kaore.")
-	Mes("The Mana Trees were destroyed many years ago after a devastating war where the Savean Creed took hold among the ruling elites of Aemil.")
-	Mes("The decision was made to destroy the Uru and attempt to create a world without Mana.")
-	Choice("Where do things stand now?", OnCurrentSituation)
-	Choice("I have some other topics I wanted to discuss.", OnPlayerChoice)
-	Choice("Thank you for your time.", Farewell)
+	Mes("Uru, hay Cây Mana, từng là tim của sinh mệnh thế giới, dẫn Linh Khí tự nhiên.")
+	Mes("Xưa có rất nhiều cây, mỗi cây ổn định Mana, ngăn nó mục thành Kaore.")
+	Mes("Cây Mana bị hủy nhiều năm trước sau cuộc chiến tàn khốc, khi Giáo lý Savean thống trị quyền quý Aemil.")
+	Mes("Họ quyết định tiêu diệt Uru và tạo thế giới không Mana.")
+	Choice("Hiện tình thế ra sao?", OnCurrentSituation)
+	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
+	Choice("Đa tạ đã dành thời gian.", Farewell)
 
 func OnCurrentSituation():
-	Mes("It depends on who you ask. Some people, like the Red Queen, would say that life is better without magic.")
-	Mes("But then, she still uses it in her palace. She only means that it's better for the common people to not have it, claims that it's too dangerous.")
-	Mes("If you ask me, I believe that magic is a natural part of our world. It has led us to where we are today, and despite being the most dangerous force of nature, we need it.")
-	Mes("Water is a dangerous force of nature too if you think about it, but no one is suggesting to close the wells.")
-	Choice("Who is the Red Queen?", OnRedQueen)
-	Choice("Is there anything I can do for you?", OnAskForHelp)
+	Mes("Tùy người hỏi. Có kẻ như Red Queen bảo đời tốt hơn không ma thuật.")
+	Mes("Nhưng nàng vẫn dùng trong cung. Ý nàng là dân thường không nên có — bảo quá nguy hiểm.")
+	Mes("Theo ta, ma thuật là phần tự nhiên của thế giới. Dù nguy hiểm nhất trong các lực tự nhiên, ta vẫn cần nó.")
+	Mes("Nước cũng nguy hiểm nếu nghĩ kỹ, nhưng không ai bảo đóng giếng cả.")
+	Choice("Red Queen là ai?", OnRedQueen)
+	Choice("Ta có thể giúp gì không?", OnAskForHelp)
 
 func OnRedQueen():
-	Mes("She's the ruler of our city and the whole Kingdom of Tonori, though she doesn't have much power outside of the city walls.")
-	Mes("The Zuni tribes of Tonori never recognised our Kingdom so she really only rules over the city.")
-	Mes("Another reason for her to keep magic away from her people. The Zuni still practice their ancient magic and it makes them very hard to fight.")
-	Mes("She'd rather not have the same problem here in Tulimshar.")
-	Choice("What can you tell me about the Zuni?", OnZuni)
-	Choice("Is there anything I can do for you?", OnAskForHelp)
+	Mes("Nàng cai trị thành và cả Vương quốc Tonori, dù quyền lực ngoài tường thành hạn chế.")
+	Mes("Bộ lạc Zuni chưa công nhậ Vương quốc — nàng thực sự chỉ cai Tulimshar.")
+	Mes("Đó cũng là lý nàng giữ ma thuật xa dân. Zuni vẫn tu cổ thuật, rất khó đối đầu.")
+	Mes("Nàng không muốn vấn đề tương tự trong thành.")
+	Choice("Zuni là ai?", OnZuni)
+	Choice("Ta có thể giúp gì không?", OnAskForHelp)
 
 func OnZuni():
-	Mes("They have lived in the Tonori desert for a very long time. In fact, they still tell stories of this land before it was even a desert.")
-	Mes("They've always traded with Tulimshar and are mostly friendly towards us, but only as long as we don't send our soldiers too far outside our walls.")
-	Mes("Whenever that has happened in the past they've fought us back until we gave up. I respect that about them, they have clear boundaries and will defend their homeland.")
-	Choice("It would be interesting to meet them!", OnZuniMarket)
-	Choice("Bah! They seem like uncivilised nomads to me.", OnZuniDismissal)
+	Mes("Họ sống trong sa mạc Tonori từ rất lâu. Họ còn kể chuyện vùng đất trước khi thành sa mạc.")
+	Mes("Họ luôn giao thương với Tulimshar, phần lớn thân thiện — miễn ta không đưa binh quá xa tường thành.")
+	Mes("Mỗi lần như vậy họ đánh trả đến khi ta rút lui. Ta trọng họ: ranh giới rõ, bảo vệ quê hương.")
+	Choice("Gặp họ chắc thú vị!", OnZuniMarket)
+	Choice("Huh! Du mục thô lỗ.", OnZuniDismissal)
 
 func OnZuniDismissal():
-	Mes("Right...")
+	Mes("Ừm...")
 	OnZuniMarket()
 
 func OnZuniMarket():
-	Mes("You can find some of their traders in the marketplace north of here.")
-	Mes("I'm sure they'll be happy to chat, especially if you buy some of their wares.")
-	Choice("Is there anything I can do for you?", OnAskForHelp)
+	Mes("Một số thương nhân của họ ở chợ phía bắc đây.")
+	Mes("Họ sẽ vui trò chuyện, nhất là nếu đạo hữu mua hàng.")
+	Choice("Ta có thể giúp gì không?", OnAskForHelp)
 
 # Mana and Kaore
 func OnExplainMana():
-	Mes("Mana, often called \"lifepower,\" is the essence of all living things.")
-	Mes("It flows through the world's biomass, forming an interconnected web of energy. Properly channelled, it can be harnessed to produce magic, heal the land, and sustain life.")
-	Mes("Kaore is what remains when Mana is severed from its source.")
-	Mes("Instead of nourishing life, it festers, corrupts, and decays. It seeps into the land, warping living beings into hostile, aggressive forms.")
-	Mes("Kaore in many ways is a form of Mana, which is the main energy we can perceive.")
-	Mes("Mana flows through all living things, but also infuses a particular mineral known as Zielite. That's what this Soul Menhir is made of.")
+	Mes("Mana, thường gọi là \"sinh lực\", là tinh túy mọi sinh linh.")
+	Mes("Nó chảy qua sinh khối thế giới, thành mạng lưới năng lượng. Điều khiển đúng có thể tạo phép, hồi phục đất, nuôi sự sống.")
+	Mes("Kaore là phần còn lại khi Mana bị cắt khỏi nguồn.")
+	Mes("Thay vì nuôi sống, nó thối, hủy, mục nát. Thấm vào đất, biến sinh vật thành hung dữ.")
+	Mes("Kaore theo nhiều cách cũng là dạng Mana — năng lượng chính ta cảm nhận được.")
+	Mes("Mana chảy trong mọi sinh linh và ngấm khoáng Zielite. Soul Menhir này làm từ đó.")
 	OnPlayerChoice()
 
 # Soul Menhir and Zielite
 func OnExplainMenhir():
-	Mes("Soul Menhirs are ancient monoliths carved from massive blocks of Zielite, once erected by the Kahwe, known as druids around here, to channel and radiate Mana.")
-	Mes("When active, they generate a protective aura, repelling Kaore-infected creatures and stabilizing the land.")
-	Mes("With the help of a Kahwe, a Soul Menhir can be used to heal those who are injured and even to prevent death in some cases, giving people multiple chances at life.")
-	Choice("What do you know about Zielite?", OnExplainZielite)
-	Choice("I have some other topics I wanted to discuss.", OnPlayerChoice)
-	Choice("Thank you for your time.", Farewell)
+	Mes("Soul Menhir là bia cổ khắc từ khối Zielite khổng lồ, Kahwe dựng để dẫn và tỏa Mana.")
+	Mes("Khi hoạt động, chúng tạo hào quang bảo vệ, đuổi sinh vật nhiễm Kaore và ổn định đất.")
+	Mes("Có Kahwe, Soul Menhir có thể chữa thương, thậm chí ngăn tử vong — cho người thêm cơ hội sống.")
+	Choice("Ngươi biết gì về Zielite?", OnExplainZielite)
+	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
+	Choice("Đa tạ đã dành thời gian.", Farewell)
 
 func OnExplainZielite():
-	Mes("Zielite is a rare mineral with a natural affinity for Mana. It can absorb, store, and emit Mana energy, making it invaluable for both magic and protection.")
-	Mes("Though once abundant, Zielite has become scarce due to the purge that took place when the Savean Creed turned society against the use of Mana.")
-	Mes("Zielite craftsmanship still exists in hidden talismans, forgotten ruins, and the few remaining Soul Menhirs that continue to stand as bastions against Kaore.")
+	Mes("Zielite là khoáng hiếm thân Mana. Hấp thu, lưu và phát Linh Khí — quý cho phép thuật và bảo vệ.")
+	Mes("Xưa còn nhiều, nay khan hiếm sau cuộc thanh trừng khi Giáo lý Savean khiến xã hội chống Mana.")
+	Mes("Nghề Zielite còn trong bùa ẩn, tàn tích, và vài Soul Menhir còn đứng chống Kaore.")
 	OnPlayerChoice()
 
 # Hungry quest
 func OnAskForHelp():
 	var questState : int = GetQuest(ProgressCommons.Quest.NINA_HUNGRY)
 	if questState == ProgressCommons.NINA_HUNGRY.STARTED:
-		Mes("Not at the moment. I am still hoping for that snack, if you happen to find one!")
+		Mes("Lúc này chưa. Ta vẫn mong món nhẹ — nếu đạo hữu tình cờ gặp!")
 		OnPlayerChoice()
 	elif questState == ProgressCommons.NINA_HUNGRY.REWARDS_WITHDREW:
-		Mes("Not at the moment, but thank you for asking.")
+		Mes("Lúc này không, nhưng đa tạ đã hỏi.")
 		OnPlayerChoice()
 	else:
-		Mes("Not at the moment...")
-		Mes("I am a bit hungry though. Not that I would ask you to bring me food! I'll take care of it later.")
-		Choice("I'll keep an eye out for snacks on the way to the market.", OnStartHungryQuest)
-		Choice("Ok bye.", Farewell)
+		Mes("Lúc này thì chưa...")
+		Mes("Hơi đói thật. Ta không nhờ đạo hữu mang đồ ăn! Ta tự lo sau.")
+		Choice("Ta sẽ để ý đồ ăn nhẹ trên đường ra chợ.", OnStartHungryQuest)
+		Choice("Ta đi đây.", Farewell)
 
 func OnStartHungryQuest():
-	Mes("That is very kind of you. I would not normally ask, but a croissant would be absolutely wonderful right now.")
-	Mes("You can usually find them at the bakery stand in the market. I would go myself but, well... this Menhir will not guard itself.")
+	Mes("Đạo hữu tốt bụng quá. Ta thường không nhờ, nhưng bánh sừng bò lúc này thật tuyệt.")
+	Mes("Thường có ở quầy bánh chợ. Ta muốn tự đi nhưng... Menhir này không tự canh được.")
 	SetQuest(ProgressCommons.Quest.NINA_HUNGRY, ProgressCommons.NINA_HUNGRY.STARTED)
 
 func OnCroissantTurnIn():
-	Mes("Oh my!")
-	Mes("A croissant! I cannot believe it. You are truly too kind, I did not expect this at all!")
+	Mes("Trời ơi!")
+	Mes("Bánh sừng bò! Không ngờ. Đạo hữu quá tử tế, ta không dám mong!")
 	ExchangeItems([DB.GetCellHash("Croissant")], [[DB.GetCellHash("Cactus Potion"), 10]], OnCroissantExchanged)
 
 func OnCroissantExchanged(result : ActorInventory.ExchangeResult):
@@ -145,73 +145,73 @@ func OnCroissantExchanged(result : ActorInventory.ExchangeResult):
 		ActorInventory.ExchangeResult.OK:
 			SetQuest(ProgressCommons.Quest.NINA_HUNGRY, ProgressCommons.NINA_HUNGRY.REWARDS_WITHDREW)
 			AddGP(100)
-			Mes("Please, take these Cactus Potions and a bit of gold to cover what you spent.")
+			Mes("Xin nhận Cactus Potion và chút vàng bù phần đạo hữu đã chi.")
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Mes("Oh... Where did it go? Never mind, maybe another time.")
+			Mes("Ồ... Bánh đâu rồi? Thôi, lần sau vậy.")
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Mes("I would like to give you something in return, but your bag is full. Make some room and come back to me.")
+			Mes("Ta muốn đáp lễ nhưng túi đầy. Dọn chỗ rồi quay lại.")
 
 # Desert Seed quest
 func OnDesertSeedIntro():
-	Mes("You're back!")
-	Mes("How was the expedition?")
-	Choice("You will not believe what happened. I found this...", OnRevealKano)
+	Mes("Đạo hữu đã về!")
+	Mes("Chuyến đi thế nào?")
+	Choice("Đạo hữu không tin được chuyện xảy ra. Ta tìm thấy cái này...", OnRevealKano)
 
 func OnRevealKano():
-	Mes("May I see it?")
+	Mes("Cho ta xem được không?")
 	Mes("...")
-	Mes("You're right. I can't believe this. This is a Kano. A Mana Seed!")
-	Mes("I have only ever read about these. I never imagined I would see one in my lifetime.")
-	Mes("How did you come to find this?")
-	Choice("There is a Mana Tree at the bottom of the mines. It gave it to me.", OnRevealManaTree)
+	Mes("Đạo hữu nói đúng. Đây là Kano. Hạt Mana!")
+	Mes("Ta chỉ đọc sách, chưa tưởng thấy một cái trong đời.")
+	Mes("Đạo hữu tìm được sao?")
+	Choice("Có Cây Mana đáy mỏ. Nó trao cho ta.", OnRevealManaTree)
 
 func OnRevealManaTree():
-	Mes("Excuse me?! Did you say a Mana Tree? Alive? In the Sandstorm Mines???")
-	Mes("I...")
-	Mes("I need a moment.")
-	Mes("I once felt something in that direction, a long time ago. I assumed it was a deep Zielite deposit. I had no idea.")
-	Mes("Were you able to communicate with it? Did it tell you what to do with that Kano?")
-	Choice("It said to bring it to you and that you could be trusted.", OnNinaReacts)
+	Mes("Xin lỗi?! Cây Mana? Còn sống? Trong Sandstorm Mines???")
+	Mes("Ta...")
+	Mes("Ta cần chút thời gian.")
+	Mes("Ta từng cảm thấy gì đó hướng đó, lâu rồi. Ta tưởng là mỏ Zielite sâu. Không ngờ.")
+	Mes("Đạo hữu giao tiếp được? Nó bảo làm gì với Kano?")
+	Choice("Nó bảo mang đến ngươi và tin ngươi được.", OnNinaReacts)
 
 func OnNinaReacts():
-	Mes("How does it know me? This is all... very hard to grasp.")
-	Mes("I'm glad it trusted me, but we will need to let the Manayir know about this. They are an ancient order of druids who were once guardians of these trees.")
-	Mes("They built a castle into a small peninsula, all the way across the beach on west side of the Tulimshar Valley, past the storm.")
-	Mes("Just head south past the city walls and then west.")
-	Mes("Find them and show them the Kano. Explain what you saw.")
-	Mes("Avoid telling anyone else about this for now. This is a very powerful item. Something that will surely attract the wrong attention.")
-	Mes("Before you go, take this.")
+	Mes("Sao nó biết ta? Khó tin quá...")
+	Mes("Mừng vì được tin, nhưng phải báo Manayir — dòng druid cổ từng canh các cây này.")
+	Mes("Họ xây thành trên bán đảo, bên kia bãi biển phía tây thung lũng Tulimshar, qua cơn bão cát.")
+	Mes("Ra khỏi tường thành rồi đi tây.")
+	Mes("Tìm họ, cho xem Kano. Kể những gì đạo hữu thấy.")
+	Mes("Đừng kể ai khác vội. Vật quá mạnh — chắc kéo tai để ý xấu.")
+	Mes("Trước khi đi, cầm lấy.")
 	ExchangeItems([], [DB.GetCellHash("Brass Zielite Amulet")], OnAmuletExchanged)
 
 func OnAmuletExchanged(result : ActorInventory.ExchangeResult):
 	match result:
 		ActorInventory.ExchangeResult.OK:
 			SetQuest(DESERT_SEED_ID, ProgressCommons.DESERT_SEED.SEEK_MANAYIR)
-			Mes("It is a Zielite Amulet. The stone at its centre is a fragment of pure Zielite, the same mineral this Menhir is made of.")
-			Mes("When worn, it allows you to channel Mana, and to connect with Soul Menhirs.")
-			Choice("What does connecting to a Soul Menhir do?", OnExplainMenhirSync)
+			Mes("Đây là Zielite Amulet. Hạt giữa là mảnh Zielite thuần, cùng loại Menhir này.")
+			Mes("Đeo vào có thể dẫn Mana và kết nối Soul Menhir.")
+			Choice("Kết nối Soul Menhir có tác dụng gì?", OnExplainMenhirSync)
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Mes("Your bag is too full to carry it. Make some room and come back to me.")
+			Mes("Túi đầy, không mang được. Dọn chỗ rồi quay lại.")
 
 func OnExplainMenhirSync():
-	Mes("When you touch a Soul Menhir while wearing a Zielite Amulet, the stone resonates with the Menhir's Zielite.")
-	Mes("This creates a bond between your soul and the Menhir. Should something happen to you, the Menhir acts as an anchor.")
-	Mes("Your soul returns here instead of being lost.")
-	Mes("It is how we Kahwe have always protected those under our care. I should have given you one sooner.")
-	Choice("[Touch the Soul Menhir]", OnTouchMenhir)
+	Mes("Chạm Soul Menhir khi đeo Zielite Amulet, đá cộng hưởng với Zielite trong Menhir.")
+	Mes("Tạo liên kết giữa hồn đạo hữu và Menhir. Gặp nạn, Menhir làm neo.")
+	Mes("Hồn quay về đây thay vì tan mất.")
+	Mes("Kahwe luôn bảo vệ người dưới trướng như vậy. Lẽ ra ta đã trao sớm hơn.")
+	Choice("[Chạm Soul Menhir]", OnTouchMenhir)
 
 func OnTouchMenhir():
-	Narrate("You place your hand on the Soul Menhir. The Zielite Amulet grows warm against your skin.")
-	Narrate("A strange sensasion passes through you. Like flowing water, but not wet. The stone briefly pulsates with a faint blue light.")
+	Narrate("Đạo hữu đặt tay lên Soul Menhir. Zielite Amulet ấm trên da.")
+	Narrate("Cảm giác lạ truyền qua — như nước chảy nhưng không ướt. Đá nhấp nháy ánh xanh nhạt.")
 	Action(SaveRespawnSoulMenhir)
-	Mes("Good. You are connected now.")
-	Mes("If you ever find another Soul Menhir, touch it. You will become attuned to the last on you have touched.")
-	Mes("Now, you should make your way to the Manayir. We cannot wait around with a Kano in our hands.")
+	Mes("Tốt. Đã kết nối.")
+	Mes("Gặp Soul Menhir khác, hãy chạm. Ngươi sẽ đồng điệu với cái chạm gần nhất.")
+	Mes("Giờ nên đi Manayir. Không thể cầm Kano mãi.")
 	OnPlayerChoice()
 
 func OnDesertSeedReminder():
-	Mes("Have you found the Manayir yet?")
-	Mes("You should head south, then west. Their tower is past the sandstorm, on a quiet peninsula. Ask around in that area, someone should be able to point you in the right direction.")
+	Mes("Đã tìm được Manayir chưa?")
+	Mes("Đi nam rồi tây. Tháp họ qua cơn bão cát, trên bán đảo yên tĩnh. Hỏi dân vùng đó, ai cũng chỉ đường được.")
 	OnPlayerChoice()
 
 func SaveRespawnSoulMenhir():

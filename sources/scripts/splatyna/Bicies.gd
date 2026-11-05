@@ -8,62 +8,62 @@ func OnStart():
 		_: OnFinish()
 
 func Inactive():
-	Mes("Praise Splatyna, the mighty Slime Queen!")
-	Mes("You, there! Do you come to offer gold to our viscous lady?")
+	Mes("Tụng danh Splatyna, Nữ Vương Slime uy mãnh!")
+	Mes("Ngươi kia! Đến dâng vàng cho nữ vương nhầy nhụa của chúng ta phải không?")
 	InfoChoice()
 
 func InfoChoice(previousText : int = -1):
 	var questState : int = GetQuest(ProgressCommons.Quest.SPLATYNA_OFFERING)
 	if previousText != 0:
 		if questState == ProgressCommons.SPLATYNA_OFFERING.INACTIVE:
-			Choice("Sure, I'll bring her the offering.", OnAcceptQuest)
+			Choice("Được, ta sẽ mang lễ vật đến cho nàng.", OnAcceptQuest)
 		else:
-			Choice("What should I do?", OnRecap)
+			Choice("Ta phải làm gì?", OnRecap)
 	if previousText != 1:
-		Choice("This is nonsense, I’m leaving.", OnDecline)
+		Choice("Vô lý! Ta cáo từ.", OnDecline)
 	if previousText != 2:
-		Choice("Who is Splatyna?", OnAskAboutSplatyna)
+		Choice("Splatyna là ai?", OnAskAboutSplatyna)
 	if previousText != 3:
-		Choice("What is this place?", OnAskAboutPlace)
+		Choice("Đây là nơi nào?", OnAskAboutPlace)
 
 func OnRecap():
-	Mes("You still haven’t offered any riches to Splatyna?")
-	Mes("Go into her cave, find her followers, and give her the gold!")
-	Mes("The three loyal ones hold the keys, remember that!")
+	Mes("Đạo hữu vẫn chưa dâng của cải cho Splatyna?")
+	Mes("Vào hang nàng, tìm tín đồ và dâng vàng!")
+	Mes("Ba kẻ trung thành giữ chìa khóa — nhớ kỹ!")
 	InfoChoice(0)
 
 func OnFinish():
-	Mes("Wait... I heard something. A scream!")
-	Mes("Did something happen to Splatyna?! What have you done?")
+	Mes("Khoan... ta nghe tiếng gì đó. Một tiếng hét!")
+	Mes("Splatyna có chuyện gì?! Đạo hữu đã làm gì?")
 
-	Choice("Nothing! Everything’s fine...", OnDeny)
-	Choice("She’s... gone.", OnAdmit)
+	Choice("Không có gì! Mọi thứ ổn...", OnDeny)
+	Choice("Nàng ấy... đã đi rồi.", OnAdmit)
 
 func OnDeny():
-	Mes("Good, good! I will be here making sure the Queen is happy.")
+	Mes("Tốt, tốt! Ta ở đây đảm bảo Nữ Vương vui vẻ.")
 
 func OnAdmit():
-	Mes("Gone?! No, no! You’re lying! Splatyna can’t die!")
-	Mes("Just... go, before I lose my mind!")
+	Mes("Đi rồi?! Không, không! Đạo hữu nói dối! Splatyna không thể chết!")
+	Mes("Cứ... đi đi, trước khi ta mất trí!")
 
 func OnAskAboutSplatyna():
-	Mes("Splatyna is not like the other slimes. She's powerful! She's been blessed by Kaore!")
-	Mes("She was once a great queen. Her soul was banished and found its way here. Now she can be a great queen again!")
-	Mes("My queen loves gold. It makes her new form so pretty! She likes it better that way.")
-	Mes("We must give her the gold she demands. If we anger her, she will consume us all!")
+	Mes("Splatyna không giống slime khác. Nàng mạnh mẽ! Nàng được Kaore ban phước!")
+	Mes("Nàng từng là nữ vương vĩ đại. Linh hồn nàng bị trục xuất và tìm đến đây. Giờ nàng lại có thể trị vì!")
+	Mes("Nữ vương ta yêu vàng. Vàng làm hình thể mới nàng thật đẹp! Nàng thích thế hơn.")
+	Mes("Phải dâng đủ vàng nàng đòi. Chọc giận nàng, nàng nuốt chúng ta hết!")
 	InfoChoice(2)
 
 func OnAskAboutPlace():
-	Mes("This is Splatyna's Golden Kingdom! It was once just a cave, but my queen now rules here.")
-	Mes("The slimes here are loyal to Splatyna. They guard her and her immense treasures.")
-	Mes("Three of them are special, real loyal ones. They have the keys to her chamber, but they won't just hand them over. You'll have to earn them!")
-	Mes("But don't worry. If you bring enough gold, maybe Splatyna will let you through...")
+	Mes("Đây là Vương Quốc Vàng của Splatyna! Trước chỉ là hang, giờ nữ vương ta cai trị.")
+	Mes("Slime ở đây trung thành với Splatyna. Chúng canh giữ nàng và kho báu khổng lồ.")
+	Mes("Ba con đặc biệt, trung thành thật sự. Chúng giữ chìa phòng nàng, không đưa dễ dàng — đạo hữu phải chịu khó!")
+	Mes("Đừng lo. Mang đủ vàng, có lẽ Splatyna cho đạo hữu qua...")
 	InfoChoice(3)
 
 func OnAcceptQuest():
-	Mes("Very well, take this gold and offer it to Splatyna. She will judge your worth.")
+	Mes("Hay lắm, cầm vàng này dâng Splatyna. Nàng sẽ phán xét giá trị đạo hữu.")
 	SetQuest(ProgressCommons.Quest.SPLATYNA_OFFERING, ProgressCommons.SPLATYNA_OFFERING.STARTED)
 	Farewell()
 
 func OnDecline():
-	Chat("Blasphemy! You dare refuse Splatyna’s offering?!")
+	Chat("Báo ngược! Dám từ chối lễ vật Splatyna?!")

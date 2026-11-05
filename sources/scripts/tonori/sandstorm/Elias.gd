@@ -2,19 +2,19 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("If you follow the western pass right there you'll leave Tulimshar Valley and venture into the Zuni Mesas.")
-	Mes("Do you know where you're going?")
-	Choice("I am looking for the Sandstorm Mines.", OnMines)
-	Choice("I am looking for Tulimshar.", OnTulimshar)
+	Mes("Theo đèo phía tây kia là rời Thung Lũng Tulimshar, bước vào Cao Nguyên Zuni.")
+	Mes("Ngươi biết mình đi đâu chứ?")
+	Choice("Ta tìm Mỏ Bão Cát.", OnMines)
+	Choice("Ta tìm Tulimshar.", OnTulimshar)
 
 func OnMines():
 	LookAtNpc("To Mines")
-	Mes("If you follow this road you will be walking further away from the Sandstorm Mines.")
+	Mes("Theo con đường này là xa Mỏ Bão Cát hơn.")
 	ResetCamera()
-	Mes("You should head back west and aim for the southern side of this valley.")
+	Mes("Ngươi nên quay về phía tây, hướng phía nam thung lũng.")
 
 func OnTulimshar():
 	LookAtNpc("To Tulimshar")
-	Mes("You can follow that path to the north up to the city wall.")
+	Mes("Theo lối kia về phía bắc tới tường thành.")
 	ResetCamera()
-	Mes("You can't miss it, the city wall is almost visible from there!")
+	Mes("Không thể nhầm, từ đó gần như thấy tường thành!")

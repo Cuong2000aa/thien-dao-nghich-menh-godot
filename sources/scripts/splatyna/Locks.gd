@@ -16,11 +16,11 @@ func OnStart():
 
 func AskChoice():
 	if HasItem(dorianKeyID) and HasItem(gabrielKeyID) and HasItem(marvinKeyID):
-		Mes("You notice three different key locks, what would you like to do?")
-		Choice("Open them", TryOpen)
-		Choice("Leave")
+		Mes("Ba ổ khóa khác nhau — đạo hữu muốn làm gì?")
+		Choice("Mở chúng", TryOpen)
+		Choice("Rời đi")
 	else:
-		Chat("You need three different keys to unlock this passage.")
+		Chat("Cần ba chìa khóa khác nhau mới mở được lối này.")
 
 func TryOpen():
 	# Check and remove items to open the chest
@@ -32,7 +32,7 @@ func TryOpen():
 			Warp(mapID, mapPosition)
 			Close()
 		else:
-			Chat("You need three different keys to unlock this passage.")
+			Chat("Cần ba chìa khóa khác nhau mới mở được lối này.")
 
 func Inactive():
-	Chat("Three locks are blocking this passage.")
+	Chat("Ba ổ khóa chặn lối đi này.")

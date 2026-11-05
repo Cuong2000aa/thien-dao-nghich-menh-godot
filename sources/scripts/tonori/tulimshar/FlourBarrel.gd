@@ -9,11 +9,11 @@ func OnStart():
 			OnSearch()
 
 func OnSearch():
-	Mes("A deep blue wax seal stamped with the Artis crest. This is the one.")
-	Mes("Inside, sacks of fine milled flour, just as Riskim described.")
+	Mes("Dấu sáp xanh đậm in huy hiệu Artis. Đúng thùng rồi.")
+	Mes("Trong là túi bột mịn — đúng như Riskim mô tả.")
 
 	if not HasSpace(1):
-		Mes("But your bag is too full to carry them.")
+		Mes("Nhưng túi đầy, không mang được.")
 		return
 
 	SetQuest(ProgressCommons.Quest.GRAIN_IN_THE_SAND, ProgressCommons.GRAIN_IN_THE_SAND.SEARCHED_CRATES)

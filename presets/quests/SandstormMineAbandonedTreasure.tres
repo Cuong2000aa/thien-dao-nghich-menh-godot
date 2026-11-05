@@ -6,11 +6,11 @@
 script = ExtResource("1_quest")
 id = 1083446768
 name = "Sandstorm Mine Abandoned Treasure"
-description = "A rusty key lies hidden in the depths of the abandoned mine
- Find it and use it to unlock the small chest nearby to claim what was left behind."
+description = "Ở tận sâu mỏ hoang, một chiếc chìa khóa gỉ sét đang ẩn mình.
+Tìm nó rồi dùng mở rương nhỏ gần đó để nhận phần bảo vật còn sót lại."
 giver = "Mine Key"
-giverLocation = "Abandoned Mine"
+giverLocation = "Mỏ Hoang"
 target = "Chest"
-targetLocation = "Abandoned Mine"
+targetLocation = "Mỏ Hoang"
 reward = "Piou Slayer"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

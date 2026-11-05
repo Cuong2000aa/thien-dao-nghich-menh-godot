@@ -2,10 +2,10 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("Would you like to change your hair style or color today?")
-	Choice("I want to try another style", OnHairstyle)
-	Choice("A new color", OnHaircolor)
-	Choice("None", OnQuit)
+	Mes("Hôm nay đạo hữu muốn đổi kiểu tóc hay màu tóc?")
+	Choice("Ta muốn thử kiểu khác", OnHairstyle)
+	Choice("Màu mới", OnHaircolor)
+	Choice("Thôi", OnQuit)
 
 func OnHairstyle():
 	var hairstyles : Array[HairstyleData] = DB.HairstylesDB.values()
@@ -18,8 +18,8 @@ func OnHairstyle():
 		newStyleIdx = hairstyles[randIdx]._id
 	own.stat.SetHairstyle(newStyleIdx)
 
-	Choice("Another style", OnHairstyle)
-	Choice("Perfect!", OnQuit)
+	Choice("Kiểu khác nữa", OnHairstyle)
+	Choice("Vừa ý!", OnQuit)
 
 func OnHaircolor():
 	var haircolors : Array = DB.PalettesDB[DB.Palette.HAIR].values()
@@ -32,5 +32,5 @@ func OnHaircolor():
 		newColorIdx = haircolors[randIdx]._id
 	own.stat.SetHaircolor(newColorIdx)
 
-	Choice("Another color", OnHaircolor)
-	Choice("Perfect!", OnQuit)
+	Choice("Màu khác nữa", OnHaircolor)
+	Choice("Vừa ý!", OnQuit)

@@ -10,66 +10,66 @@ func OnStart():
 		ProgressCommons.MINE_EXPLORATION.DEFEATED:
 			OnPostFight()
 		_:
-			Mes("Go forward. I will keep you safe.")
+			Mes("Hãy tiến lên. Ta sẽ giữ ngươi an toàn.")
 
 func OnPostFight():
-	Mes("Thank you.")
-	Mes("I could have defended myself just as I defended you, but he would have left, as he just did.")
-	Mes("My location is known now and I need an ally against this new threat.")
-	Choice("Are you... A tree?", OnTree)
+	Mes("Cảm tạ.")
+	Mes("Ta có thể tự vệ như lúc vì ngươi, nhưng hắn sẽ rời đi — và hắn vừa làm vậy.")
+	Mes("Vị trí ta đã lộ; ta cần đồng minh chống mối đe dọa mới.")
+	Choice("Ngươi... là cây?", OnTree)
 
 func OnTree():
-	Mes("Yes. I am an Uru, or a Mana Tree.")
-	Mes("My kind was the first life on our world of Aemil and, until today, I thought I would be the last.")
-	Mes("The person you just fought was after my Kano. You would call it a Mana Seed.")
-	Mes("It is an exceptionally rare thing, as it can sprout into a new Uru. It is particularly precious at this time in our history, as I am the last Uru that is left alive.")
+	Mes("Đúng. Ta là Uru — cây Mana.")
+	Mes("Loài ta là sinh mệnh đầu tiên trên Aemil; đến hôm nay ta tưởng mình là kẻ cuối.")
+	Mes("Kẻ ngươi vừa đánh đến vì Kano của ta. Các ngươi gọi là Mana Seed.")
+	Mes("Vật hiếm có thể nảy thành Uru mới. Đặc biệt quý giờ này, vì ta là Uru cuối cùng còn sống.")
 	Action(OnTreeBranch)
 
 func OnTreeBranch():
-	Choice("How do you survive down here?", OnHowSurvive)
-	Choice("What should I do now?", OnWhatNext)
-	Choice("How did you end up in this cave?", OnLocation)
-	Choice("What happened since that time?", OnWhatHappened)
+	Choice("Ngươi sống sót dưới đây thế nào?", OnHowSurvive)
+	Choice("Giờ ta nên làm gì?", OnWhatNext)
+	Choice("Sao ngươi lại ở hang này?", OnLocation)
+	Choice("Từ đó đến nay chuyện gì đã xảy ra?", OnWhatHappened)
 
 func OnHowSurvive():
-	Mes("Although I would like to see it, I do not need the Sun's light to live.")
-	Mes("My roots extend deep into the earth and share in the source of life that empowers all of us: Mana.")
-	Mes("As long as I can connect to its flow, I am alive.")
-	Mes("Many years ago this world was full of Uru like me. Our roots were interconnected and Mana flowed more powerfully than it does now.")
+	Mes("Dù ta muốn thấy, ta không cần ánh mặt trời để sống.")
+	Mes("Rễ ta ăn sâu vào đất, hưởng nguồn sinh mệnh nuôi mọi loài: Mana.")
+	Mes("Chỉ cần nối với dòng Mana, ta còn sống.")
+	Mes("Nhiều năm trước thế giới đầy Uru như ta. Rễ liên thông, Mana chảy mạnh hơn bây giờ.")
 	Action(OnTreeBranch)
 
 func OnWhatHappened():
-	Mes("Mana can behave in unexpected ways.")
-	Mes("When it disrupted the lives of people for a time, a belief that it could be harmful developed.")
-	Mes("This quickly spread to many cultures and it became customary to cut down the Uru to limit the flow of Mana.")
+	Mes("Mana đôi khi biến đổi bất ngờ.")
+	Mes("Khi nó làm đảo lộn đời người một thời, niềm tin rằng nó có hại lan rộng.")
+	Mes("Nhiều văn hóa chém Uru để hạn chế dòng Mana.")
 	Action(OnTreeBranch)
 
 func OnLocation():
-	Mes("When the Uru were threatened, a group of druids that intended to protect us planted a Kano here in this cave.")
-	Mes("Then, they founded an order called Manayir somewhere nearby, to study and use the flow of Mana close to my roots.")
-	Mes("I was born here, hidden from the world. Over time the Manayir let their knowledge of my existence fade, even from their own, so that I would remain hidden.")
+	Mes("Khi Uru bị uy hiếp, một nhóm druid muốn bảo vệ ta gieo Kano trong hang này.")
+	Mes("Sau đó họ lập Manayir gần đây, nghiên cứu và dùng dòng Mana quanh rễ ta.")
+	Mes("Ta sinh ra ở đây, ẩn khỏi thế gian. Manayir dần để kiến thức về ta phai mờ, kể cả trong chính họ, để ta vẫn kín.")
 	Action(OnTreeBranch)
 
 func OnWhatNext():
-	Mes("I would ask you to never speak to anyone of my existence.")
-	Mes("Take the Kano, the Mana Seed.")
-	Mes("The druid Nina of Tulimshar is someone I know you can trust with it. She is very attuned to the flow of Mana and I have come to know her presence.")
-	Mes("You should tell the guards inspecting the mines around here that you found great dangers and that it is not safe to access the lower levels.")
-	Mes("I have no choice but to trust that you will take good decisions.")
-	Mes("Whatever you do, it won't be as bad as what the person you fought here would have done.")
-	Choice("I will go to Nina then.", OnTellNina)
-	Choice("What do you know about that man?", OnXakelbael)
+	Mes("Ta nhờ ngươi đừng nói với ai về sự tồn tại của ta.")
+	Mes("Hãy lấy Kano — Mana Seed.")
+	Mes("Nina druid ở Tulimshar là người ta tin ngươi có thể giao phó. Nàng rất đồng điệu với Mana; ta quen cảm nhận nàng.")
+	Mes("Hãy bảo lính canh mỏ quanh đây rằng ngươi gặp nguy hiểm lớn, tầng dưới không an toàn.")
+	Mes("Ta không còn cách nào khác ngoài tin ngươi sẽ quyết định đúng.")
+	Mes("Dù ngươi làm gì, cũng không tệ bằng kẻ ngươi vừa đánh.")
+	Choice("Ta sẽ đến gặp Nina.", OnTellNina)
+	Choice("Ngươi biết gì về hắn?", OnXakelbael)
 
 func OnTellNina():
-	Mes("Be careful. What you have discovered here today has been hidden for thousands of years.")
-	Mes("As chance has dictated, you are now a warden of a powerful Source of Mana.")
+	Mes("Hãy cẩn thận. Điều ngươi phát hiện hôm nay đã được che giấu hàng ngàn năm.")
+	Mes("Theo duyên phận, giờ ngươi là hộ vệ một Nguồn Mana mạnh mẽ.")
 	SetQuest(QUEST_ID, ProgressCommons.MINE_EXPLORATION.MANA_TREE_MET)
 	SetQuest(ProgressCommons.Quest.DESERT_SEED, ProgressCommons.DESERT_SEED.SEEK_NINA)
 
 func OnXakelbael():
-	Mes("He used to be one of the Manayir. His intentions are different now.")
-	Mes("You should speak to those who belong to his order. They will tell you who he is.")
-	Choice("I will go to Nina then.", OnTellNina)
+	Mes("Hắn từng thuộc Manayir. Ý định hắn đã khác.")
+	Mes("Hãy hỏi những người cùng phe hắn. Họ sẽ nói hắn là ai.")
+	Choice("Ta sẽ đến gặp Nina.", OnTellNina)
 
 func OnComplete():
-	Chat("Remember what you carry.")
+	Chat("Nhớ thứ ngươi đang mang theo.")

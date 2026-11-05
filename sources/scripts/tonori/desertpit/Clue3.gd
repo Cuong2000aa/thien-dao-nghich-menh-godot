@@ -10,7 +10,7 @@ func OnStart():
 	if state >= ProgressCommons.SNAKE_PIT_THIEF.RIDDLE_SOLVED:
 		return
 
-	Mes("Clue 3")
+	Mes("Manh mối 3")
 
 	var newState : int = state | (1 << bitIndex)
 	if newState != state:
@@ -22,4 +22,4 @@ func OnStart():
 func OnAllCluesFound():
 	SetQuest(questID, ProgressCommons.SNAKE_PIT_THIEF.RIDDLE_SOLVED)
 	AddItem(thiefsKeyID, 1)
-	Mes("You find a key hidden beneath the clue 3.")
+	Mes("Ngươi tìm thấy chìa khóa giấu dưới manh mối 3.")

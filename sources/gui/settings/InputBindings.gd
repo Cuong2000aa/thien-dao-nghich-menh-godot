@@ -233,7 +233,7 @@ func BuildDeviceTab(tabName : String, deviceType : DeviceManager.DeviceType, isT
 		BuildCategory(vbox, category, actionCategories[category], deviceType, isTouch)
 
 	var resetButton := Button.new()
-	resetButton.text = "Reset to Default"
+	resetButton.text = "Khôi phục mặc định"
 	resetButton.pressed.connect(ResetBindings.bind(deviceType))
 	vbox.add_child(resetButton)
 

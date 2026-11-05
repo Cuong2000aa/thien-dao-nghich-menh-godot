@@ -6,9 +6,9 @@
 script = ExtResource("1_25ln0")
 id = 3532436717
 name = "Desert Seed"
-description = "Deep in the Sandstorm Mines, you discovered a living Mana Tree and recovered its Kano, a rare Mana Seed."
+description = "Sâu trong Khoáng Trường Sandstorm, đạo hữu phát hiện cây Mana Tree còn sống và thu hoạch được Kano — hạt giống Mana hiếm có."
 giver = "Mana Tree"
-giverLocation = "Sandstorm Mines"
-targetLocation = "Unknown"
-reward = "Unknown"
+giverLocation = "Khoáng Trường Sandstorm"
+targetLocation = "Chưa biết"
+reward = "Chưa biết"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

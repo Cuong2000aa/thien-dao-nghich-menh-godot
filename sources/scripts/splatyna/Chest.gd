@@ -16,11 +16,11 @@ func OnStart():
 		_: Empty()
 
 func Inactive():
-	Chat("This chest seems to be sealed.")
+	Chat("Rương này hình như đã bị phong ấn.")
 
 func TryOpen():
 	if IsMonsterAlive("Splatyna"):
-		Chat("A dark presence is still around.")
+		Chat("Vẫn còn một luồng u ám quanh đây.")
 	else:
 		# Chest is not open, try to open it
 		if not IsTriggering():
@@ -32,4 +32,4 @@ func TryOpen():
 			AddItem(appleID, 5)
 
 func Empty():
-	Chat("This chest is empty.")
+	Chat("Rương này đã trống.")

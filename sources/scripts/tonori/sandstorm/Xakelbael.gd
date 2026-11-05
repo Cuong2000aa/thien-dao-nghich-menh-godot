@@ -5,8 +5,8 @@ const QUEST_ID = ProgressCommons.Quest.MINE_EXPLORATION
 func OnStart():
 	match GetQuest(QUEST_ID):
 		ProgressCommons.MINE_EXPLORATION.DEFEATED:
-			Mes("You are stronger than I thought.")
-			Mes("We will meet again...")
+			Mes("Ngươi mạnh hơn ta nghĩ.")
+			Mes("Chúng ta sẽ gặp lại...")
 		_:
 			OnMeetXakelbael()
 
@@ -17,21 +17,21 @@ func OnQuit():
 		npc.ownScript.RunAway.call_deferred()
 
 func OnMeetXakelbael():
-	Mes("I came here for the Kano. I did not expect to find a living Uru hiding in the dark. How does it survive?")
-	Mes("Is it the last one or are there more?")
-	Choice("What are you talking about?", OnBadMoment)
+	Mes("Ta đến đây vì Kano. Không ngờ còn Uru sống ẩn trong bóng tối. Nó sống sao được?")
+	Mes("Đó là cây cuối cùng hay còn nữa?")
+	Choice("Ngươi nói gì vậy?", OnBadMoment)
 	Choice("Kano? Uru?", OnBadMoment)
-	Choice("Who are you?", OnBadMoment)
+	Choice("Ngươi là ai?", OnBadMoment)
 
 func OnBadMoment():
-	Mes("This is a bad time for you Tulimshar folk to intrude on this place.")
-	Mes("I already dealt with one of you earlier, but you followed me too far, I won't be as forgiving with you.")
-	Choice("What is this place?", OnNotSupposedToBeHere)
-	Choice("Can you explain what's happening?", OnNotSupposedToBeHere)
-	Choice("I don't even know who you are.", OnNotSupposedToBeHere)
+	Mes("Không phải lúc dân Tulimshar xâm nhập nơi này.")
+	Mes("Ta đã xử một kẻ các ngươi trước đó, nhưng ngươi theo quá xa — ta sẽ không khoan dung như vậy.")
+	Choice("Đây là nơi nào?", OnNotSupposedToBeHere)
+	Choice("Giải thích chuyện gì đang xảy ra được không?", OnNotSupposedToBeHere)
+	Choice("Ta còn chẳng biết ngươi là ai.", OnNotSupposedToBeHere)
 
 func OnNotSupposedToBeHere():
-	Mes("You are not supposed to be here. Neither am I, but that doesn't matter.")
-	Mes("I have what I want.")
-	Mes("I don't have time to satisfy your curiosity and I cannot let you leave this place.")
+	Mes("Ngươi không nên ở đây. Ta cũng vậy, nhưng không quan trọng.")
+	Mes("Ta đã có thứ ta cần.")
+	Mes("Ta không có thời gian thỏa mãn tò mò của ngươi, và không thể để ngươi rời khỏi nơi này.")
 	Action(npc.ownScript.StartFight)

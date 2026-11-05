@@ -51,20 +51,20 @@ func TakeMaterials(setCount : int):
 
 # Quest states
 func OnInactive():
-	Mes("Hey! Are you new to the city? I don't think I've seen you before. My name is Eridu. I'm a glassmaker.")
-	Mes("My family has always made glass. People find it useful to carry liquids out in this climate. That's why we mainly make bottles.")
-	Mes("We make our glass from the sand of Tonori. We also use salt, bones and sulphur powder.")
-	Mes("The sand is everywhere, as you can see, but the other components are harder to come by.")
+	Mes("Này! Mới đến thành phải không? Ta chưa thấy đạo hữu. Ta là Eridu — thợ thủy tinh.")
+	Mes("Gia đình ta làm thủy tinh đời nay. Dân dùng đựng nước trong khí hậu này — chủ yếu ta làm bình.")
+	Mes("Ta làm từ cát Tonori, thêm muối, xương và bột lưu huỳnh.")
+	Mes("Cát khắp nơi, ba thứ kia khó kiếm hơn.")
 
 	QuestChoice()
 
 func QuestChoice(previousChoice : int = -1):
-	Choice("I could get those things for you.", OnAccept)
+	Choice("Ta có thể kiếm giúp.", OnAccept)
 	if previousChoice != 1:
-		Choice("Why those three ingredients?", OnAskRecipe)
+		Choice("Sao cần ba nguyên liệu đó?", OnAskRecipe)
 	if previousChoice != 2:
-		Choice("Where can I find these things?", OnAskWhere)
-	Choice("Not right now.", OnDecline)
+		Choice("Kiếm ở đâu?", OnAskWhere)
+	Choice("Để sau.", OnDecline)
 
 func OnGathering():
 	if not HasSets(QUEST_SETS):
@@ -72,54 +72,54 @@ func OnGathering():
 		return
 
 	if not HasRoomFor(QUEST_SETS, QUEST_REWARD):
-		Mes("You seem to be carrying a lot of stuff. Maybe get rid of some of that and come back.")
+		Mes("Đạo hữu mang quá nhiều. Dọn bớt rồi quay lại.")
 		return
 
 	TakeMaterials(QUEST_SETS)
 	SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_GLASSMAKING.REWARDS_WITHDREW)
 
-	Mes("Salt, bones, sulphur. You seem to have everything!")
-	Mes("I'll get to making some new bottles right away.")
-	Mes("Meanwhile, I used up my last resources to make these. Take them.")
+	Mes("Muối, xương, lưu huỳnh. Đủ hết!")
+	Mes("Ta làm bình ngay.")
+	Mes("Trong lúc đó, đây là phần ta làm từ hàng cuối. Cầm lấy.")
 
 	AddItem(bottleID, QUEST_REWARD)
 	AddExp(QUEST_EXP)
 
-	Mes("%d bottles. Don't break them, they're fine Eridu glass!" % QUEST_REWARD)
-	Think("Eridu laughs.")
-	Mes("Bring me more materials any time. %d of each, and I will blow some more glass for you." % SET_INGREDIENT)
+	Mes("%d bình. Đừng làm vỡ — thủy tinh Eridu đấy!" % QUEST_REWARD)
+	Think("Eridu cười.")
+	Mes("Mang thêm nguyên liệu bất cứ lúc nào. Mỗi loại %d cái, ta thổi thêm bình." % SET_INGREDIENT)
 
 func OnKeepLooking():
-	Mes("Still short, by my eye. %d of each material. Anything less and the mix won't work." % QUEST_INGREDIENT)
-	Mes("Take your time. The furnace is not going anywhere and neither am I.")
+	Mes("Theo mắt ta còn thiếu. Mỗi loại %d. Ít hơn thì hỗn hợp không ăn." % QUEST_INGREDIENT)
+	Mes("Từ từ. Lò không đi đâu, ta cũng vậy.")
 
 func OnComplete():
-	Mes("Back for some glass? Good to see you.")
+	Mes("Mua thêm thủy tinh? Mừng gặp lại.")
 	CompleteChoice()
 
 func OnCompleteContinue():
-	Mes("Need anything else?")
+	Mes("Cần gì nữa không?")
 	CompleteChoice()
 
 func CompleteChoice(previousChoice : int = -1):
 	if GetTradeCount() > 0:
-		Choice("I brought more material.", OnTrade)
+		Choice("Ta mang thêm nguyên liệu.", OnTrade)
 	elif previousChoice != 0:
-		Choice("What do you need for another bottle?", OnTradeReminder)
+		Choice("Cần gì cho một bình nữa?", OnTradeReminder)
 	if previousChoice != 1:
-		Choice("Why those three ingredients?", OnAskRecipe)
+		Choice("Sao cần ba nguyên liệu đó?", OnAskRecipe)
 	if previousChoice != 2:
-		Choice("Where would I find them?", OnAskWhere)
-	Choice("Keep well, Eridu.", OnFarewell)
+		Choice("Kiếm ở đâu?", OnAskWhere)
+	Choice("Giữ sức khỏe, Eridu.", OnFarewell)
 
 # Optional dialogue
 func OnAskRecipe():
-	Mes("Sand is the glass. We melt it and then we cool down the resulting liquid.")
-	Mes("I have plenty of that, as you can see.")
-	Mes("We use salt to bring down the melting temperature, so that it's not too hot for our clay pots. ")
-	Mes("Then, we add calcium. That's the bones, crushed into a powder. This is essential so that the glass does not melt when in contact with water.")
-	Mes("Finally, sulphur clears the bubbles and takes the green out.")
-	Mes("Get the balance wrong and your glass will be weak. Or worse, ugly.")
+	Mes("Cát là thủy tinh. Ta nấu chảy rồi làm nguội.")
+	Mes("Cát thì ta có nhiều, như đạo hữu thấy.")
+	Mes("Muối hạ nhiệt nóng chảy — không quá nóng cho nồi đất.")
+	Mes("Canxi từ xương nghiền bột — để thủy tinh không tan khi gặp nước.")
+	Mes("Lưu huỳnh xử bọt và bớt màu xanh.")
+	Mes("Sai tỷ lệ thì yếu. Hoặc tệ hơn — xấu.")
 	if IsQuestCompleted(QUEST_ID):
 		CompleteChoice(1)
 	else:
@@ -127,30 +127,30 @@ func OnAskRecipe():
 
 func OnAskWhere():
 
-	Mes("Slimes often have high concentration of salts. Sometimes salt crystals form inside them. It's not easier than letting sea water dry, but it can be faster.")
-	Mes("Sulphur is trickier. The fire goblins out by the sandstorm carry it. I think that their body makes it. Maybe to produce their fire?")
-	Mes("Bones will need to come from the reanimated corpses that wander certain areas. I've heard they're created by Kaore. Certainly better than digging into graves.")
+	Mes("Slime hay chứa muối. Đôi khi tinh thể muối trong ruột — nhanh hơn để nước biển cạn nhưng vất vả hơn.")
+	Mes("Lưu huỳnh khó hơn. Goblin lửa gần cơn bão cát mang theo. Có lẽ cơ thể chúng tạo ra — để phun lửa?")
+	Mes("Xương lấy từ xác tái sinh lang thang vài vùng. Nghe bảo Kaore tạo ra. Tốt hơn đào mộ.")
 	if IsQuestCompleted(QUEST_ID):
 		CompleteChoice(2)
 	else:
 		QuestChoice(2)
 
 func OnFarewell():
-	Chat("Watch out for broken glass.")
+	Chat("Cẩn thận mảnh vỡ.")
 
 # Transitions to next states
 func OnAccept():
 	SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_GLASSMAKING.STARTED)
 
-	Mes("Good. You have everything.")
-	Mes("Bring them here and I will put %d bottles in your hands before they have finished cooling." % QUEST_REWARD)
+	Mes("Tốt. Đạo hữu biết rồi.")
+	Mes("Mang đến đây, ta giao %d bình trước khi nguội hẳn." % QUEST_REWARD)
 
 func OnDecline():
-	Mes("Suit yourself. The furnace keeps burning either way.")
+	Mes("Tùy đạo hữu. Lò vẫn cháy.")
 
 # Repeatable exchange
 func OnTradeReminder():
-	Mes("It takes %d Salt, %d Bone and %d Sulphur Powder for one bottle. Twice that and you get two. It's simple, really." % [SET_INGREDIENT, SET_INGREDIENT, SET_INGREDIENT])
+	Mes("Mỗi bình cần %d Salt, %d Bone và %d Sulphur Powder. Gấp đôi thì hai bình. Đơn giản." % [SET_INGREDIENT, SET_INGREDIENT, SET_INGREDIENT])
 	CompleteChoice(0)
 
 func OnTrade():
@@ -159,11 +159,11 @@ func OnTrade():
 		OnTradeReminder()
 		return
 
-	Mes("Let me weigh what you have brought...")
-	Choice("Just the one bottle.", OnExchange.bind(1))
+	Mes("Để ta cân đồ đạo hữu mang...")
+	Choice("Chỉ một bình.", OnExchange.bind(1))
 	if tradeCount > 1:
-		Choice("All of it, %d bottles." % tradeCount, OnExchange.bind(tradeCount))
-	Choice("On second thought, I'll hold on to it.", OnCompleteContinue)
+		Choice("Hết luôn, %d bình." % tradeCount, OnExchange.bind(tradeCount))
+	Choice("Ta giữ lại.", OnCompleteContinue)
 
 func OnExchange(bottleCount : int):
 	if bottleCount <= 0 or not HasSets(bottleCount):
@@ -171,7 +171,7 @@ func OnExchange(bottleCount : int):
 		return
 
 	if not HasRoomFor(bottleCount, bottleCount):
-		Mes("Your bag is fit to burst. How are you going to put glass in there? Go empty some stuff out!")
+		Mes("Túi sắp nổ. Sao nhét thủy tinh vào? Dọn bớt!")
 		Action(OnCompleteContinue)
 		return
 
@@ -179,8 +179,8 @@ func OnExchange(bottleCount : int):
 	AddItem(bottleID, bottleCount)
 
 	if bottleCount > 1:
-		Mes("%d bottles. Try not to break them!" % bottleCount)
+		Mes("%d bình. Đừng làm vỡ!" % bottleCount)
 	else:
-		Mes("One bottle. Don't go and break it now!")
+		Mes("Một bình. Đừng vỡ nhé!")
 
 	Action(OnCompleteContinue)

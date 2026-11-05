@@ -6,10 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 2893494389
 name = "Grain in the desert"
-description = "Riskim the baker is waiting for a grain shipment marked with a blue Artis seal. Check the barrels at the docks."
+description = "Riskim thợ bánh đang chờ lô lương mang ấn xanh Artis. Đạo hữu hãy kiểm tra các thùng gỗ ở bến cảng."
 giver = "Riskim"
-giverLocation = "Tulmshar Center"
+giverLocation = "Trung Tâm Tulimshar"
 target = "Barrel"
-targetLocation = "Tulimshar Bay"
-reward = "Unknown"
+targetLocation = "Vịnh Tulimshar"
+reward = "Chưa biết"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

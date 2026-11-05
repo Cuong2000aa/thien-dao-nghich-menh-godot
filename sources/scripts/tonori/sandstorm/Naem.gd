@@ -4,24 +4,24 @@ const QUEST_ID = ProgressCommons.Quest.SANDSTORM_NAEM_HELMET
 
 #
 func OnStart():
-	Mes("My grandad used to work in this mine. When I was younger he would tell me about it.")
-	Mes("It goes down deep. I wonder how far they want us to go; and I wonder if anything lives down there now.")
-	Mes("What do you think?")
-	Choice("I don't know, but I'll find out.", OnWillFindOut)
+	Mes("Ông nội ta từng làm trong mỏ này. Hồi nhỏ ông kể ta nghe.")
+	Mes("Mỏ sâu lắm. Không biết họ muốn ta đi tới đâu; cũng không biết dưới đó còn sinh vật gì.")
+	Mes("Ngươi nghĩ sao?")
+	Choice("Ta chưa biết, nhưng sẽ tìm hiểu.", OnWillFindOut)
 
 func OnWillFindOut():
 	if GetQuest(QUEST_ID) == ProgressCommons.SANDSTORM_NAEM_HELMET.GIVEN:
 		OnFarewell()
 		return
 
-	Mes("I'm not venturing much further if I can help it. Here, I have a spare helmet.")
+	Mes("Ta không đi sâu thêm nếu tránh được. Đây, ta có mũ dự phòng.")
 	SetQuest(QUEST_ID, ProgressCommons.SANDSTORM_NAEM_HELMET.GIVEN)
 	AddItem(DB.GetCellHash("Miner Helmet"))
-	Mes("There's an artisan in Tulimshar who makes these from palm fibers and a cactus-derived resin. Strong stuff. The quenchiest.")
-	Choice("The what?", OnNevermind)
+	Mes("Có thợ thủ công ở Tulimshar làm từ sợi cọ và nhựa xương rồng. Bền lắm. Giải khát nhất luôn.")
+	Choice("Giải khát?", OnNevermind)
 
 func OnNevermind():
-	Mes("Never mind. Good luck down there!")
+	Mes("Thôi kệ. Chúc may mắn dưới đó!")
 
 func OnFarewell():
-	Chat("Good luck down there!")
+	Chat("Chúc may mắn dưới đó!")

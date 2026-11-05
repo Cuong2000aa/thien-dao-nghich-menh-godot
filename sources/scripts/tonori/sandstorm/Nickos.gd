@@ -6,7 +6,7 @@ const QUEST_ID = ProgressCommons.Quest.MINE_EXPLORATION
 func OnStart():
 	var state : ProgressCommons.MINE_EXPLORATION = GetQuest(QUEST_ID) as ProgressCommons.MINE_EXPLORATION
 	if state <= ProgressCommons.MINE_EXPLORATION.STARTED:
-		Mes("Help.")
+		Mes("Cứu...")
 	elif state <= ProgressCommons.MINE_EXPLORATION.FIND_NICKOS:
 		OnMeetNickos()
 	elif state <= ProgressCommons.MINE_EXPLORATION.DEFEATED:
@@ -15,31 +15,31 @@ func OnStart():
 		OnComplete()
 
 func OnMeetNickos():
-	Mes("Who are you? Please, I need your help!")
-	Choice("I was sent by Watchman Ryan to find you.", OnFoundNickos)
+	Mes("Ngươi là ai? Làm ơn, giúp ta!")
+	Choice("Tuần phòng Ryan cử ta đến tìm ngươi.", OnFoundNickos)
 
 func OnFoundNickos():
-	Mes("Oh. I thought that he would leave me to die.")
-	Mes("He seemed to really not care what would happen to me down here when he sent me out alone.")
-	Choice("What happened to you?", OnWhatHappened)
+	Mes("Ồ. Ta tưởng hắn để ta chết.")
+	Mes("Hắn có vẻ chẳng quan tâm chuyện gì xảy ra khi bắt ta đi một mình xuống đây.")
+	Choice("Chuyện gì đã xảy ra?", OnWhatHappened)
 
 func OnWhatHappened():
-	Mes("I was attacked by... Someone?")
-	Mes("I didn't expect to find anyone down here, but there was a strange man wearing a dark robe.")
-	Mes("He seemed to be inspecting the walls of the cave. I tried talking to him, but he immediately attacked me without saying anything.")
-	Choice("Did you see where he went?", OnPursueStranger)
-	Choice("Are you okay?", OnCheckNickos)
+	Mes("Ta bị tấn công bởi... ai đó?")
+	Mes("Ta không ngờ gặp ai ở đây, nhưng có một người lạ mặc áo choàng đen.")
+	Mes("Hắn có vẻ đang xem vách hang. Ta cố nói chuyện, hắn lập tức đánh không nói gì.")
+	Choice("Ngươi thấy hắn đi đâu?", OnPursueStranger)
+	Choice("Ngươi ổn chứ?", OnCheckNickos)
 
 func OnCheckNickos():
-	Mes("I will be. I need to catch my breath.")
-	Mes("Do you have anything on you that could help?")
+	Mes("Sẽ ổn. Ta cần hít thở.")
+	Mes("Ngươi có gì giúp được không?")
 	var cactusPotionID : int = DB.GetCellHash("Cactus Potion")
 	var pitayaID : int = DB.GetCellHash("Pitaya")
 	if HasItem(cactusPotionID):
-		Choice("Yes. Try this. [x1 Cactus Potion]", OnCactusPotion)
+		Choice("Có. Thử cái này. [x1 Cactus Potion]", OnCactusPotion)
 	if HasItem(pitayaID):
-		Choice("Yes. Try this. [x1 Pitaya]", OnPitaya)
-	Choice("No, I'm sorry. I have nothing.", OnNothingOnMe)
+		Choice("Có. Thử cái này. [x1 Pitaya]", OnPitaya)
+	Choice("Không, xin lỗi. Ta không có gì.", OnNothingOnMe)
 
 func OnCactusPotion():
 	var id : int = DB.GetCellHash("Cactus Potion")
@@ -58,24 +58,24 @@ func OnPitaya():
 		Action(OnNothingOnMe)
 
 func OnUsedItem():
-	Mes("Thank you! I feel much better. I'll rest here for a bit and then make my way out of this place.")
-	Mes("Thanks for saving me! I was worried that the man would come back to finish me.")
-	Choice("Did you see where he went?", OnPursueStranger)
+	Mes("Cảm ơn! Ta khá hơn nhiều. Ta nghỉ chút rồi tự ra ngoài.")
+	Mes("Cảm ơn đã cứu ta! Ta lo người đó quay lại giết nốt.")
+	Choice("Ngươi thấy hắn đi đâu?", OnPursueStranger)
 
 func OnNothingOnMe():
-	Mes("That's fine. I will just need to rest here a bit and then I'll be able to make my way out of this place.")
-	Mes("I'm glad you found me. I was worried that the man would come back to finish me.")
-	Choice("Did you see where he went?", OnPursueStranger)
+	Mes("Không sao. Ta nghỉ chút là tự ra được.")
+	Mes("May vì ngươi tìm thấy ta. Ta lo hắn quay lại giết nốt.")
+	Choice("Ngươi thấy hắn đi đâu?", OnPursueStranger)
 
 func OnPursueStranger():
-	Mes("He walked away following this corridor. The last time I heard him was below this ledge.")
-	Mes("It sounded like he was walking in water. Then I heard crumbling rocks.")
-	Mes("The next time I heard something it turned out to be you walking towards me.")
+	Mes("Hắn đi theo hành lang này. Lần cuối ta nghe thấy là dưới bệ đá kia.")
+	Mes("Nghe như bước trong nước. Rồi đá rơi.")
+	Mes("Lần sau có tiếng động thì hóa ra là ngươi bước tới.")
 	SetQuest(QUEST_ID, ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED)
 
 func OnRemindStranger():
-	Mes("It sounded like he was walking in water. Then I heard crumbling rocks.")
-	Mes("There must be a crack in the walls somewhere below this ledge. That's where he disappeared.")
+	Mes("Nghe như bước trong nước. Rồi đá rơi.")
+	Mes("Chắc có khe nứt ở vách dưới bệ đá. Hắn biến mất ở đó.")
 
 func OnComplete():
-	Mes("I'm glad you found me. I was worried that the man would come back to finish me.")
+	Mes("May vì ngươi tìm thấy ta. Ta lo hắn quay lại giết nốt.")

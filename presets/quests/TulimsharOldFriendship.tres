@@ -6,10 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 1070913343
 name = "An Old Friendship"
-description = "Frost, a man sitting on a bench in Tulimshar, asks you to retrieve old letters from the castle corridor. Stay in the shadows to avoid the guards."
+description = "Frost — người ngồi ghế dài ở Tulimshar — nhờ đạo hữu lấy lại thư cũ trong hành lang thành. Hãy lẩn trong bóng tối, tránh hộ vệ."
 giver = "Frost"
-giverLocation = "Tulimshar Center"
+giverLocation = "Trung Tâm Tulimshar"
 target = "Ben"
-targetLocation = "Tulimshar West Wall Pathway"
-reward = "1000 GP"
+targetLocation = "Lối Tường Tây Tulimshar"
+reward = "1000 Linh Thạch"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

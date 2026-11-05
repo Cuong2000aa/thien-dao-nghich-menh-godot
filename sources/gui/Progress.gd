@@ -1,6 +1,7 @@
 extends WindowPanel
 
 const Cultivation = preload("res://sources/actor/Cultivation.gd")
+const Localization = preload("res://sources/system/Localization.gd")
 
 # Control accessors
 @onready var activeQuestContainer : Container		= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/Active
@@ -68,9 +69,10 @@ func RefreshQuest(questID : int, state : int):
 		return
 
 	var isComplete : bool = state == ProgressCommons.CompletedProgress
+	var questTitle : String = Localization.Get(questData.name, questData.name)
 	var menuLine : MenuLine = quests.get(questID)
 	if not menuLine:
-		menuLine = MenuLine.new(questID, questData.name)
+		menuLine = MenuLine.new(questID, questTitle)
 		menuLine.set_pressed(true)
 		menuLine.line_selected.connect(RefreshQuestDescription)
 		quests[questID] = menuLine
@@ -82,7 +84,7 @@ func RefreshQuest(questID : int, state : int):
 		if not completedQuests.get(questID, false):
 			completedQuestContainer.add_child.call_deferred(menuLine)
 			completedQuests[questID] = true
-			menuLine.set_text("%s (Hoàn Thành)" % questData.name)
+			menuLine.set_text("%s (Hoàn Thành)" % questTitle)
 	else:
 		if completedQuests.get(questID, false):
 			completedQuestContainer.remove_child.call_deferred(menuLine)
@@ -90,7 +92,7 @@ func RefreshQuest(questID : int, state : int):
 		if not activeQuests.get(questID, false):
 			activeQuestContainer.add_child.call_deferred(menuLine)
 			activeQuests[questID] = true
-			menuLine.set_text("%s" % questData.name)
+			menuLine.set_text("%s" % questTitle)
 
 	questSeparator.set_visible(not activeQuests.is_empty() and not completedQuests.is_empty())
 	menuLine.Enable(not isComplete)
@@ -118,7 +120,8 @@ func RefreshQuestDescription(questID : int):
 		qState = Launcher.Player.progress.GetQuest(questID)
 
 	if not questData.description.is_empty():
-		questDescription.text += "Mô Tả:\n[color=#%s]%s[/color]\n\n" % [UICommons.TextColor.to_html(false), questData.description]
+		var questDesc : String = Localization.Get(questData.description, questData.description)
+		questDescription.text += "Mô Tả:\n[color=#%s]%s[/color]\n\n" % [UICommons.TextColor.to_html(false), questDesc]
 	if not questData.giver.is_empty():
 		questDescription.text += "Người Giao:\n[color=#%s]%s" % [UICommons.WarnTextColor.to_html(false), questData.giver]
 		if not questData.giverLocation.is_empty():

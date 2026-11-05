@@ -17,7 +17,7 @@ func OnEnvelopesExchanged(result : ActorInventory.ExchangeResult):
 	match result:
 		ActorInventory.ExchangeResult.OK:
 			SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.ENVELOPES_FOUND)
-			Mes("You find two old envelopes tucked between the dusty books.")
-			Mes("One is sealed with care, the other feels surprisingly heavy.")
+			Mes("Hai phong bì cũ kẹp giữa sách bụi.")
+			Mes("Một niêm cẩn thận, một nặng bất ngờ.")
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Mes("You spot the envelopes, but your bag is too full to carry them.")
+			Mes("Thấy phong bì rồi, nhưng túi đầy không mang được.")

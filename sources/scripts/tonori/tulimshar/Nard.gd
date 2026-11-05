@@ -2,54 +2,54 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("Welcome aboard, or close enough.")
-	Mes("I'm the captain of La Johanne, the vessel docked right behind me.")
-	Mes("We are currently enjoying a well earned break far from cold weathers, as we've spent the last few weeks up north in the Kaizei region.")
+	Mes("Hoan nghênh lên tàu — hay gần vậy.")
+	Mes("Ta là thuyền trưởng La Johanne, con tàu neo ngay sau lưng ta.")
+	Mes("Ta đang nghỉ xứng đáng xa rét — vài tuần qua ta ở phía bắc vùng Kaizei.")
 	MainChoices()
 
 func MainChoices():
-	Choice("Can you take me somewhere by sea?", OnSailOffer)
-	Choice("Tell me about yourself.", OnAbout)
-	Choice("Safe travels, Captain.", Farewell)
+	Choice("Ngươi có thể chở ta ra biển không?", OnSailOffer)
+	Choice("Kể về bản thân.", OnAbout)
+	Choice("Bình an, Thuyền trưởng.", Farewell)
 
 func OnSailOffer():
-	Mes("We are sailing towards Candor soon, but in the meantime we can go for a short trip wherever you want.")
-	Mes("Our ship is sturdy and fast. We've travelled almost every shore on Aemil. Even as far as Thermin one time!")
-	Mes("When you're ready to go, head to La Johanne's helm. There we can discuss where exactly you want to go.")
-	Mes("It's been a while since I've ferried someone out to sea. We usually handle cargo, not people.")
-	Choice("Where can you take me?", OnDestinations)
-	Choice("Let me think about it.", MainChoices)
+	Mes("Sắp buồm Candor, nhưng tạm thời có thể đi chuyến ngắn đạo hữu muốn.")
+	Mes("Tàu chắc và nhanh. Ta đi gần hết bờ Aemil — từng tới tận Thermin!")
+	Mes("Sẵn sàng thì lên lái La Johanne. Ta bàn cụ thể đi đâu.")
+	Mes("Lâu rồi không chở khách. Ta thường chở hàng.")
+	Choice("Đi được những đâu?", OnDestinations)
+	Choice("Ta nghĩ thêm.", MainChoices)
 
 func OnDestinations():
-	Mes("Candor to the north, the Manayir coast west from here, or all the way to Artis on the north-east.")
-	Mes("For any other destination we'd need to prepare for a little longer.")
-	Mes("I wouldn't want to be paying Esperia's harbour fees without good reason! Or Hurnscald for that matter.")
+	Mes("Candor phía bắc, bờ Manayir tây từ đây, hoặc tới Artis đông bắc.")
+	Mes("Đích khác cần chuẩn bị lâu hơn.")
+	Mes("Ta không muốn trả phí cảng Esperia vô cớ! Hurnscald cũng vậy.")
 	MainChoices()
 
 func OnAbout():
-	Mes("I started out as carpenter in the port of Artis. I didn't have much at the time, but I was good at my job.")
-	Mes("I even taught some students at one point.")
-	Mes("Eventually I made enough to buy my own ship. It was almost a wreck, but I worked on it day and night until it was ready to sail again.")
-	Mes("I got some friends together: Gado, Julia and my old pal Magic Arpan. We had all worked together before at the port.")
-	Mes("We named our ship La Johanne. After its previous captain. I know you're not supposed to rename a ship, but I did almost rebuild it after all.")
-	Mes("Now we make our living going from coast to coast, ferrying goods back and forth. For a fair price too, I'd say.")
-	Choice("Do you miss Artis?", OnMissOldLife)
-	Choice("Tell me about your crew.", OnCrew)
-	Choice("Back to it.", MainChoices)
+	Mes("Ta bắt đầu làm mộc ở cảng Artis. Lúc đó ít của, nhưng tay nghề tốt.")
+	Mes("Ta còn dạy vài học trò.")
+	Mes("Rồi đủ tiền mua tàu — gần như xác ve chai, ta sửa ngày đêm đến khi ra khơi được.")
+	Mes("Ta gom bạn: Gado, Julia và Magic Arpan — từng làm chung ở cảng.")
+	Mes("Đặt tàu La Johanne — theo thuyền trưởng cũ. Biết không nên đổi tên tàu, nhưng ta gần như dựng lại.")
+	Mes("Giờ ta kiếm sống bờ này bờ kia, chở hàng. Giá công bằng, ta nghĩ vậy.")
+	Choice("Nhớ Artis không?", OnMissOldLife)
+	Choice("Kể về thủy thủ.", OnCrew)
+	Choice("Quay lại chuyện chính.", MainChoices)
 
 func OnMissOldLife():
-	Mes("The greatest city in the world, if you ask me. The atmosphere, the people, the wine...")
-	Mes("I do miss it, but we get to go back often, even if it's not for long. Lots of goods come in and out of Artis.")
-	Mes("I miss my students though. Maybe one day I'll go back to teaching. Who knows?")
+	Mes("Thành vĩ đại nhất thế giới — nếu hỏi ta. Không khí, dân, rượu...")
+	Mes("Ta nhớ, nhưng hay về — dù không lâu. Artis hàng ra hàng vào.")
+	Mes("Ta nhớ học trò. Có lẽ một ngày ta dạy lại. Ai biết?")
 	MainChoices()
 
 func OnCrew():
-	Mes("I had known some of them for a long time. Gado was my first mate for a time.  Julia was my cook.")
-	Mes("Problem was, Gado likes to argue and he's a great cook. Julia likes her peace... and she's terrible in the kitchen! So, I swapped them around.")
-	Mes("Magic Arpan... how could I not have him on board? We've been good friends for years. He's a charming guy. Literally, he can charm you with magic!")
-	Mes("All the others I picked up over time. People whose attitude I like. Everyone on board is with me for a reason.")
-	Mes("They're all useful and important... except maybe for Silvio. He's just here to drink and flirt with Julia, that old drunk!")
+	Mes("Ta quen vài người từ lâu. Gado từng đại phó. Julia là đầu bếp.")
+	Mes("Vấn đề: Gado hay cãi nhưng nấu giỏi. Julia thích yên — nấu thì tệ! Ta đổi vai cho nhau.")
+	Mes("Magic Arpan... sao không mời lên tàu? Bạn thân nhiều năm. Quyến rũ — đúng nghĩa, dùng phép quyến rũ!")
+	Mes("Người khác gom dần — ai hợp tính ta. Ai trên tàu đều có lý do.")
+	Mes("Họ đều hữu ích... trừ Silvio. Chỉ uống và tán tỉnh Julia — ông rượu già!")
 	MainChoices()
 
 func Farewell():
-	Chat("Goodbye for now! Come back whenever you want to talk. I like good company.")
+	Chat("Hẹn gặp! Ghé khi muốn trò chuyện. Ta thích có bạn.")

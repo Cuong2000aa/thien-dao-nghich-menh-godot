@@ -8,7 +8,7 @@ class_name Social
 #
 func UpdateCount() -> void:
 	var count : int = playerList.get_child_count()
-	onlineCount.text = str(count) + " player" + ("s" if count != 1 else "") + " online"
+	onlineCount.text = "%d đạo hữu đang trực tuyến" % count
 
 func AddPlayerLine(playerName : String) -> void:
 	var line : PlayerLine = PlayerLine.new(playerName)
