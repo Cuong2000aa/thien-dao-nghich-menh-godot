@@ -59,12 +59,12 @@ jobs:
               mv "$dir"/* site/
             fi
           fi
-          # Godot may still emit unused index.side.wasm; threads mode is authoritative in index.html
+          # Threads off is required on Pages (no COOP/COEP). side.wasm is NOT threads —
+          # GDExtension (sqlite) uses loadDylibs → index.side.wasm; deleting it causes 404 hang.
           if [ -f site/index.html ] && grep -q 'GODOT_THREADS_ENABLED = true' site/index.html; then
             echo "::error::Threaded Web export detected (GODOT_THREADS_ENABLED=true)."
             exit 1
           fi
-          rm -f site/index.side.wasm
           # Sentry web GDExtension has been crashing assignWasmExports on Pages; strip if present
           rm -f site/libsentry*.wasm site/sentry-bundle.js
           if [ -f site/index.html ]; then
@@ -81,12 +81,19 @@ jobs:
               sed -i 's|<head>|<head><script>if("serviceWorker"in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})});if(window.caches)caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})})}</script>|' site/index.html
             fi
           fi
+          if grep -q 'gdextensionLibs":\[[^]]' site/index.html 2>/dev/null; then
+            if [ ! -f site/index.side.wasm ]; then
+              echo "::error::GDExtension enabled but index.side.wasm missing (needed by loadDylibs)."
+              exit 1
+            fi
+          fi
           if ! ls site/libgdsqlite*.nothreads.wasm >/dev/null 2>&1; then
             echo "::warning::No nothreads sqlite wasm found — account create may fail on Pages."
           fi
           ls -lah site | head -40
           test -f site/index.html
           grep -n 'GODOT_THREADS_ENABLED\|gdextensionLibs' site/index.html || true
+          ls -lah site/index.side.wasm site/index.wasm site/libgdsqlite*.wasm 2>/dev/null || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
