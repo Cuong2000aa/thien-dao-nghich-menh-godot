@@ -121,21 +121,23 @@ static func SpawnImpactVfx(parent : Node2D, pos : Vector2, element : int = 0, is
 	parent.add_child(vfxNode)
 	return vfxNode
 
-## Play a named PixelFX key at world position (skills, cultivation, environment)
-static func SpawnPixelFx(parent : Node2D, key : String, pos : Vector2, scaleMul : float = -1.0, flipH : bool = false) -> Node2D:
+## Play a named PixelFX key at world position (skills, cultivation, environment).
+## Pass forceOneShot=true for combat cast/hit so looping sheets never litter the map.
+## Ambient loops (cherry blossoms / fireflies) keep forceOneShot=false.
+static func SpawnPixelFx(parent : Node2D, key : String, pos : Vector2, scaleMul : float = -1.0, flipH : bool = false, forceOneShot : bool = false) -> Node2D:
 	if not parent or not is_instance_valid(parent):
 		return null
 	var PixelFxLibraryClass = preload("res://sources/effects/PixelFxLibrary.gd")
 	var PixelFxPlayerClass = preload("res://sources/effects/PixelFxPlayer.gd")
 	var s : float = scaleMul if scaleMul > 0.0 else PixelFxLibraryClass.GetScale(key)
-	return PixelFxPlayerClass.Spawn(parent, key, pos, s, flipH, 10)
+	return PixelFxPlayerClass.Spawn(parent, key, pos, s, flipH, 10, forceOneShot)
 
 ## Melee slash smear tied to attack facing (does not replace character attack anim)
 static func SpawnMeleeSlashVfx(parent : Node2D, pos : Vector2, facing : Vector2 = Vector2.RIGHT, heavy : bool = false) -> Node2D:
 	var key := "heavy_cleave" if heavy else "slash"
 	if facing.x < -0.15:
-		return SpawnPixelFx(parent, key, pos, -1.0, true)
-	return SpawnPixelFx(parent, key, pos)
+		return SpawnPixelFx(parent, key, pos, -1.0, true, true)
+	return SpawnPixelFx(parent, key, pos, -1.0, false, true)
 
 # Internal node for procedural impact starburst & slash sparks
 class ImpactVfxNode extends Node2D:

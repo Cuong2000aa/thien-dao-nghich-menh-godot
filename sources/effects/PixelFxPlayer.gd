@@ -10,7 +10,7 @@ var lifetimeCap : float = 8.0
 var _elapsed : float = 0.0
 var _looping : bool = false
 
-static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : float = 1.0, flipH : bool = false, zOff : int = 8) -> PixelFxPlayer:
+static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : float = 1.0, flipH : bool = false, zOff : int = 8, forceOneShot : bool = false) -> PixelFxPlayer:
 	if parent == null or not is_instance_valid(parent):
 		return null
 	var frames : SpriteFrames = PixelFxLibrary.GetSpriteFrames(key)
@@ -32,8 +32,11 @@ static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : 
 	player.flip_h = flipH
 	player.z_index = zOff
 	player.position = worldPos
-	player._looping = bool(meta.get("loop", false))
-	player.autoFree = not player._looping
+	# Combat / world-ground FX must never leave looping assets stuck on the map.
+	player._looping = bool(meta.get("loop", false)) and not forceOneShot
+	player.autoFree = forceOneShot or not player._looping
+	if forceOneShot:
+		player.lifetimeCap = 1.25
 	parent.add_child(player)
 	player.play("default")
 	if not player._looping and not player.animation_finished.is_connected(player._OnFinished):

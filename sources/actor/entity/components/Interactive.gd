@@ -124,8 +124,8 @@ func DisplayLevelUp():
 	# BUILD 12 — PixelFX level-up burst (keeps existing particle)
 	if Launcher.Map and Launcher.Map.currentFringe and entity:
 		var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-		CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "level_up", entity.global_position)
-		CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "mana_burst", entity.global_position)
+		CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "level_up", entity.global_position, -1.0, false, true)
+		CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "mana_burst", entity.global_position, -1.0, false, true)
 
 #
 func DisplaySkillRange(skill : SkillCell):
@@ -186,8 +186,9 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					skillFx.lifetime = skill.skillTime
 					skillFx.emitting = true
 					emitter.add_child(skillFx)
-			# BUILD 12 — PixelFX skill release (elemental / cultivation), keeps skillPreset
-			if Launcher.Map and Launcher.Map.currentFringe and emitter:
+			# PixelFX on cast: skills only (melee stays clean — slash happens on hit).
+			var isMelee : bool = skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
+			if not isMelee and Launcher.Map and Launcher.Map.currentFringe and emitter:
 				var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
 				var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
 				var martial = CombatSystemClass.MARTIAL_CATALOG.get(skillID, {})
@@ -196,9 +197,7 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 				var key : String = Lib.ElementKey(elem, false)
 				if key == "hit_spark":
 					key = "mana_burst"
-				CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position)
-				if elem == 0:
-					CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "spell_charge", emitter.global_position)
+				CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position, -1.0, false, true)
 
 func DisplayProjectile(targetPos : Vector2, skill : SkillCell):
 	if Launcher.Map.currentFringe and skill and skill.projectilePreset:
@@ -248,9 +247,11 @@ func DisplayAlteration(target : Entity, emitter : Entity, value : int, alteratio
 			if target.visual:
 				target.visual.TriggerHurtFeedback()
 			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
+			var skillCell : SkillCell = DB.SkillsDB.get(skillID, null)
+			var isMeleeHit : bool = skillCell != null and (skillCell.name == SkillCommons.SkillMeleeName or skillID == 229218829)
+			# Light impact for all hits; slash smear only for normal attack (skills keep elemental cast FX).
 			CombatVisualSystemClass.SpawnImpactVfx(Launcher.Map.currentFringe, target.global_position, elem, alteration == ActorCommons.Alteration.CRIT)
-			# BUILD 12 — melee slash smear follows attacker facing; character anim remains primary motion
-			if emitter and emitter != target:
+			if isMeleeHit and emitter and emitter != target:
 				var facing : Vector2 = Vector2.RIGHT
 				if emitter is Entity and emitter.entityVelocity.length_squared() > 4.0:
 					facing = emitter.entityVelocity
@@ -259,7 +260,7 @@ func DisplayAlteration(target : Entity, emitter : Entity, value : int, alteratio
 				CombatVisualSystemClass.SpawnMeleeSlashVfx(Launcher.Map.currentFringe, target.global_position, facing, alteration == ActorCommons.Alteration.CRIT)
 		elif alteration == ActorCommons.Alteration.HEAL:
 			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-			CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "heal", target.global_position)
+			CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "heal", target.global_position, -1.0, false, true)
 
 		if emitter != target and Launcher.Player == emitter:
 			var skill : SkillCell = DB.SkillsDB.get(skillID, null)

@@ -13,12 +13,12 @@ func OnStart():
 		ProgressCommons.TUTORIAL.CLOTHES_GIVEN:
 			OnExplainUI()
 		ProgressCommons.TUTORIAL.UI_EXPLAINED: # Deprecated
-			Mes("Is there something else on your mind?")
+			Mes("Còn điều gì đạo hữu muốn hỏi không?")
 			SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.ELANORE_DONE)
 			OnSendToKael()
 			Action(OnMainChoice)
 		_:
-			Mes("Welcome back. What can I do for you?")
+			Mes("Hoan nghênh trở lại. Đạo hữu cần gì?")
 			OnMainChoice()
 
 # First meeting
@@ -26,67 +26,67 @@ func OnFirstMeeting():
 	var waterBottleID : int = DB.GetCellHash("Water Bottle")
 	var cactusSourCandyID : int = DB.GetCellHash("Cactus Sour Candy")
 
-	Mes("Hello, welcome to Tulimshar!")
-	Mes("You made it to the gates just in time. The guards found you on the ground, barely within sight.")
-	Mes("My name is Elanore. How are you feeling? You'll need to drink this water and please eat this as well, it will make you feel better.")
+	Mes("Chào đạo hữu, hoan nghênh đến Tulimshar!")
+	Mes("May mà đạo hữu kịp đến cổng thành. Lính canh thấy đạo hữu nằm bất tỉnh gần tường thành.")
+	Mes("Ta là Elanore. Đạo hữu cảm thấy thế nào? Hãy uống nước này và ăn chút kẹo xương rồng — sẽ dễ chịu hơn.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.INTRO_ITEMS_GIVEN)
 	AddItem(waterBottleID)
 	AddItem(cactusSourCandyID)
 	OnFeelingChoice()
 
 func OnFeelingChoice():
-	Choice("I am feeling better now, thank you.", OnFeelingBetter)
-	Choice("I am still feeling a bit weak...", OnFeelingWeak)
+	Choice("Ta đã khá hơn rồi, đa tạ.", OnFeelingBetter)
+	Choice("Vẫn còn hơi mệt...", OnFeelingWeak)
 
 func OnFeelingWeak():
 	var pitayaID : int = DB.GetCellHash("Pitaya")
 
-	Mes("Oh... Okay. Here, take one of these. Beyond that, you're going to need to take some time, darling.")
+	Mes("Ồ... Được rồi. Cầm lấy quả này. Ngoài ra đạo hữu cần nghỉ ngơi thêm một chút.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.POTION_GIVEN)
 	AddItem(pitayaID)
 	OnFeelingBetter()
 
 func OnFeelingBetter():
-	Mes("What were you doing wandering in the desert? It's been dangerous lately, you shouldn't go out there alone.")
-	Choice("I am a mercenary soldier trying to gain local fame.", OnGiveStarterClothes)
-	Choice("I am looking to start trades with natives of the region.", OnGiveStarterClothes)
-	Choice("I am a scholar seeking knowledge on Mana and magic.", OnGiveStarterClothes)
-	Choice("I am a sailor looking to explore new opportunities on and off land.", OnGiveStarterClothes)
+	Mes("Vì sao đạo hữu lại đi lạc trong sa mạc? Gần đây vùng ngoại vi rất nguy hiểm, đừng đi một mình.")
+	Choice("Ta là lính đánh thuê, muốn lập danh nơi này.", OnGiveStarterClothes)
+	Choice("Ta muốn giao thương với dân địa phương.", OnGiveStarterClothes)
+	Choice("Ta là học giả, tìm hiểu Linh Khí và pháp thuật.", OnGiveStarterClothes)
+	Choice("Ta là thủy thủ, tìm cơ hội mới trên bờ và dưới biển.", OnGiveStarterClothes)
 
 func OnGiveStarterClothes():
 	var cottonShirtID : int = DB.GetCellHash("Cotton Shirt")
 	var linenShortsID : int = DB.GetCellHash("Shorts")
 
-	Mes("Well, it's good to have you here. The city needs capable people to help keep it safe.")
-	Mes("Recently the desert has gotten more dangerous. A group of fanatics obsessed with Kaore has been hiding in the mountains to the east. They have been launching assaults on travellers and once during a major battle they came close to breaching the city wall.")
-	Mes("Anyway, here are some basic clothes to replace the rags we found you in.")
+	Mes("Tốt lắm khi đạo hữu còn ở đây. Thành phố cần người có năng lực giúp giữ an toàn.")
+	Mes("Gần đây sa mạc ngày càng nguy hiểm. Một nhóm cuồng tín Kaore ẩn trong núi phía đông, tấn công lữ khách và từng gần phá tường thành.")
+	Mes("Đây là quần áo cơ bản thay cho bộ giẻ rách lúc tìm thấy đạo hữu.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.CLOTHES_GIVEN)
 	AddItem(cottonShirtID, 1, "Used")
 	AddItem(linenShortsID, 1, "Used")
 	OnExplainUI()
 
 func OnExplainUI():
-	Mes("Before I let you go, allow me to walk you through a few things that will help keep you alive out there.")
+	Mes("Trước khi đi, để ta chỉ vài điều giúp đạo hữu sống sót ngoài kia.")
 	HighlightUI(UICommons.UITarget.STATINDICATOR)
-	Narrate("These are your vital resources. Keep an eye on them at all times.")
+	Narrate("Đây là các chỉ số sinh mệnh. Hãy luôn chú ý.")
 	HighlightUI(UICommons.UITarget.HEALTHBAR)
-	Narrate("Your health bar shows how much damage you can take before dying.")
+	Narrate("Thanh sinh lực cho biết chịu được bao nhiêu sát thương trước khi ngã xuống.")
 	HighlightUI(UICommons.UITarget.MANABAR)
-	Narrate("Your mana powers your skills. Without it, many abilities become unavailable.")
+	Narrate("Linh lực nuôi dưỡng kỹ năng. Hết linh lực thì nhiều tuyệt học không dùng được.")
 	HighlightUI(UICommons.UITarget.STAMINABAR)
-	Narrate("Stamina governs how long you can sprint and perform physical actions before tiring.")
+	Narrate("Thể lực quyết định chạy và động tác nặng trước khi kiệt sức.")
 	HighlightUI(UICommons.UITarget.MENUINDICATOR)
-	Narrate("The menu gives you access to your inventory, skills, quests, settings and more. Use it to manage everything you carry and know.")
+	Narrate("Thực đơn mở túi đồ, kỹ năng, nhiệm vụ, cài đặt và nhiều hơn nữa.")
 	HighlightUI(UICommons.UITarget.ACTION_BAR)
-	Narrate("The action bar lets you slot skills and items for quick access. Drag what you need most onto it as, in combat, every second counts.")
+	Narrate("Thanh hành động gắn kỹ năng và vật phẩm để dùng nhanh — trong chiến đấu từng giây đều quý.")
 	HighlightUI(UICommons.UITarget.INVENTORY)
-	Narrate("On the inventory window you can handle your items, equipment, potions and any collectibles you found.")
+	Narrate("Trong túi đồ có thể quản lý vật phẩm, trang bị, đan dược và những thứ nhặt được.")
 	HighlightUI(UICommons.UITarget.NONE)
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.ELANORE_DONE)
-	Mes("But I should not keep you here all day. You are new to the city and will want to find your footing.")
+	Mes("Ta không giữ đạo hữu lâu hơn. Người mới đến thành cần tìm chỗ đứng của mình.")
 	OnSendToKael()
 	DisplayActions(["gp_interact", "gp_target"])
-	Narrate("Use Interact near an NPC to talk to them. You can also use Target to select one first.")
+	Narrate("Dùng Tương Tác gần NPC để trò chuyện. Có thể dùng Nhắm Mục Tiêu để chọn trước.")
 	Action(Farewell)
 
 # Main choice loop
@@ -102,56 +102,56 @@ func GetPotionBatchCount() -> int:
 
 func OnMainChoice():
 	if GetQuest(ProgressCommons.Quest.TUTORIAL) < ProgressCommons.CompletedProgress:
-		Choice("Where should I go now?", OnDirections)
+		Choice("Bây giờ ta nên đi đâu?", OnDirections)
 
 	var potionQuestState : int = GetQuest(ProgressCommons.Quest.ELANORE_POTION)
 	var hasPotionIngredients : bool = GetPotionBatchCount() > 0
 	match potionQuestState:
 		ProgressCommons.ELANORE_POTION.INACTIVE:
-			Choice("Can I help you with anything?", OnHelpWithPotions)
+			Choice("Ta có thể giúp gì không?", OnHelpWithPotions)
 		ProgressCommons.ELANORE_POTION.STARTED:
 			if hasPotionIngredients:
-				Choice("I have your ingredients.", OnPotionQuestTurnIn)
+				Choice("Ta mang nguyên liệu rồi.", OnPotionQuestTurnIn)
 			else:
-				Choice("About those ingredients...", OnPotionQuestReminder)
+				Choice("Về mấy nguyên liệu kia...", OnPotionQuestReminder)
 		ProgressCommons.ELANORE_POTION.BREWED:
 			if hasPotionIngredients:
-				Choice("I brought you more ingredients.", OnPotionQuestTurnIn)
+				Choice("Ta mang thêm nguyên liệu.", OnPotionQuestTurnIn)
 			else:
-				Choice("About those ingredients...", OnPotionQuestReminder)
+				Choice("Về mấy nguyên liệu kia...", OnPotionQuestReminder)
 
-	Choice("What is Kaore?", OnExplainKaore)
-	Choice("Who are you?", OnExplainSelf)
+	Choice("Kaore là gì?", OnExplainKaore)
+	Choice("Ngươi là ai?", OnExplainSelf)
 
 	if GetQuest(ProgressCommons.Quest.TUTORIAL) == ProgressCommons.CompletedProgress:
-		Choice("Thank you again but I have to leave", Farewell)
+		Choice("Đa tạ lần nữa, ta phải đi đây.", Farewell)
 
 # Help with potions
 func OnHelpWithPotions():
-	Mes("Yes! I make lots of Healing Potions for our guards and the people of this city. They're quick remedies for most ailments and really help keep our people safer.")
-	Mes("Healing Potions require knowledge to make and also some key ingredients. Maybe you could get back on your feet by helping me gather some of these ingredients?")
-	Choice("I'll gather them for you.", OnPotionQuestAccept)
-	Choice("Maybe later.", OnPotionQuestDecline)
+	Mes("Được! Ta pha rất nhiều Đan Hồi Sinh cho lính canh và dân thành. Chúng trị nhanh hầu hết thương tích.")
+	Mes("Pha đan cần bí quyết và nguyên liệu. Đạo hữu có muốn giúp thu thập nguyên liệu để lấy lại sức không?")
+	Choice("Ta sẽ đi thu thập giúp.", OnPotionQuestAccept)
+	Choice("Để lần khác.", OnPotionQuestDecline)
 
 func OnPotionQuestAccept():
-	Mes("I need six Maggot Slimes, one Water and one Pitaya for each potion. Bring those to me and I will make you a Cactus Potion in return.")
+	Mes("Mỗi bình đan cần sáu Maggot Slime, một Bình Nước và một Pitaya. Mang đủ đến đây, ta sẽ đổi Cactus Potion.")
 	SetQuest(ProgressCommons.Quest.ELANORE_POTION, ProgressCommons.ELANORE_POTION.STARTED)
 	Action(OnMainChoice)
 
 func OnPotionQuestDecline():
-	Mes("The offer stands whenever you're ready.")
+	Mes("Khi nào sẵn sàng cứ đến tìm ta.")
 	Action(OnMainChoice)
 
 func OnPotionQuestReminder():
-	Mes("I still need six Maggot Slimes, one Water and one Pitaya for each potion. Come back when you have them.")
+	Mes("Vẫn cần sáu Maggot Slime, một Bình Nước và một Pitaya cho mỗi bình đan. Có đủ rồi hãy quay lại.")
 	OnMainChoice()
 
 func OnPotionQuestTurnIn():
 	var batchCount : int = GetPotionBatchCount()
 	if batchCount > 1:
-		Mes("You brought enough for %d potions! How many should I brew?" % batchCount)
-		Choice("Just one.", OnPotionBrew.bind(1))
-		Choice("All %d of them." % batchCount, OnPotionBrew.bind(batchCount))
+		Mes("Đủ nguyên liệu cho %d bình đan! Muốn pha bao nhiêu?" % batchCount)
+		Choice("Chỉ một bình.", OnPotionBrew.bind(1))
+		Choice("Cả %d bình." % batchCount, OnPotionBrew.bind(batchCount))
 	else:
 		OnPotionBrew(1)
 
@@ -165,41 +165,41 @@ func OnPotionBrewed(result : ActorInventory.ExchangeResult):
 			var isFirstBrew : bool = GetQuest(ProgressCommons.Quest.ELANORE_POTION) == ProgressCommons.ELANORE_POTION.STARTED
 			SetQuest(ProgressCommons.Quest.ELANORE_POTION, ProgressCommons.ELANORE_POTION.BREWED)
 			if isFirstBrew:
-				Mes("Thank you for your help. I'll get to work on making new healing potions right away!")
-				Mes("Helping the people out here is much better than being stuck in some tower or palace. More of the leaders of this city should think about that.")
+				Mes("Đa tạ giúp đỡ. Ta sẽ pha đan hồi sinh ngay!")
+				Mes("Giúp dân ngoài này tốt hơn ngồi trong tháp hay cung điện. Lãnh đạo thành nên nghĩ thêm về điều đó.")
 			else:
-				Mes("Thank you, here you go!")
+				Mes("Đa tạ, đây là phần của đạo hữu!")
 			Action(OnPotionBrewedChoice)
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Mes("Hmm, you don't seem to have the ingredients anymore.")
+			Mes("Hmm, hình như đạo hữu không còn đủ nguyên liệu.")
 			Action(OnMainChoice)
 		ActorInventory.ExchangeResult.NO_SPACE:
-			Mes("Your bags are full, make some room first.")
+			Mes("Túi đã đầy, hãy dọn chỗ trước.")
 			Action(OnMainChoice)
 
 func OnPotionBrewedChoice():
-	Choice("I have something else to ask.", OnMainChoice)
-	Choice("Goodbye.", Farewell)
+	Choice("Ta còn muốn hỏi chuyện khác.", OnMainChoice)
+	Choice("Cáo từ.", Farewell)
 
 # What is Kaore
 func OnExplainKaore():
-	Mes("Mana is the life energy that connects us all. Kaore is a decayed form of Mana that corrupts life rather than invigorating it. There is much more to it, but that's the general idea.")
+	Mes("Linh Khí (Mana) là sinh lực nối kết vạn vật. Kaore là dạng Linh Khí đã mục nát, làm tha hóa chứ không nuôi sống. Còn nhiều tầng nữa, nhưng đại khái là vậy.")
 	LookAtNpc("Nina")
-	Mes("If you want to know more, you'd better ask my apprentice, Nina. She is currently overseeing the city's Soul Menhir. You can learn a lot more from her.")
+	Mes("Muốn hiểu sâu hơn hãy hỏi đệ tử Nina. Cô ấy đang trông coi Soul Menhir của thành — học được rất nhiều từ cô ấy.")
 	ResetCamera()
 	OnMainChoice()
 
 # Who are you
 func OnExplainSelf():
-	Mes("My name is Elanore. I am the Kahwe of this city and the land that surrounds it. Those outside of our order call us Druids. I represent the Kaumatua, an order devoted to the most ancient tradition in our world.")
-	Mes("But don't you worry about that right now. We can chat more later. Right now I am just out here giving a hand with potions and receiving the injured from outside the walls.")
+	Mes("Ta là Elanore, Kahwe của thành này và vùng đất xung quanh. Người ngoài gọi chúng ta là Druid. Ta đại diện Kaumatua — dòng truyền thống cổ nhất thế giới này.")
+	Mes("Đừng lo chuyện đó lúc này. Sau này nói tiếp. Hiện tại ta chỉ ở đây pha đan và tiếp nhận người bị thương từ ngoài tường.")
 	OnMainChoice()
 
 func Farewell():
 	if randi() % 2:
-		Chat("Take care of yourself out there.")
+		Chat("Giữ gìn bản thân ngoài kia.")
 	else:
-		Chat("Stay safe.")
+		Chat("Bình an.")
 
 # Directions
 func OnDirections():
@@ -211,14 +211,14 @@ func OnDirections():
 	Action(Farewell)
 
 func OnSendToKael():
-	Mes("Watchman Kael is currently in charge of the local patrol from within our wall, you should speak to him if you're looking for work.")
+	Mes("Tuần phòng Kael đang phụ trách tuần tra trong tường thành — nên nói chuyện với anh ấy nếu muốn nhận việc.")
 	LookAtNpc("Kael")
-	Mes("He is standing northeast from here near some palm trees.")
-	Mes("Just follow this wall to the corner and walk up.")
+	Mes("Anh ấy đứng phía đông bắc gần đám cây cọ.")
+	Mes("Theo chân tường đến góc rồi đi lên là tới.")
 	ResetCamera()
 
 func OnSendToEkinu():
-	Mes("Watchman Ekinu is stationed at the gates south from here.")
+	Mes("Tuần phòng Ekinu đóng ở cổng phía nam.")
 	LookAtNpc("Ekinu")
-	Mes("Tell him what you did for Kael he will know what to do with you next.")
+	Mes("Kể cho anh ấy việc đạo hữu làm giúp Kael — anh ấy sẽ biết bước tiếp theo.")
 	ResetCamera()
