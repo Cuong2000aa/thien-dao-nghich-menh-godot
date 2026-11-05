@@ -36,6 +36,7 @@ const CATALOG : Dictionary = {
 	"divine_shield": "holy/divine-shield",
 	"heal": "holy/heal",
 	"heal_ring": "holy/heal-aoe",
+	"dragon_golden_spiral": "cultivation/dragon-golden-spiral",
 	# Environment (god-rays deferred — sheet too large for first pass)
 	"fireflies": "weather/fireflies",
 	"falling_leaves": "weather/falling-leaves",
@@ -84,6 +85,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"divine_shield": 0.75,
 	"heal": 0.70,
 	"heal_ring": 0.40,
+	"dragon_golden_spiral": 0.85,
 	"fireflies": 0.50,
 	"falling_leaves": 0.45,
 	"fog": 0.50,

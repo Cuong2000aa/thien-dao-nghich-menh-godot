@@ -35,7 +35,9 @@ static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : 
 	# Combat / world-ground FX must never leave looping assets stuck on the map.
 	player._looping = bool(meta.get("loop", false)) and not forceOneShot
 	player.autoFree = forceOneShot or not player._looping
-	if forceOneShot:
+	if key == "dragon_golden_spiral":
+		player.lifetimeCap = 2.5
+	elif forceOneShot:
 		player.lifetimeCap = 1.25
 	parent.add_child(player)
 	player.play("default")

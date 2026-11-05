@@ -307,6 +307,7 @@ func AttemptBreakthrough():
 			Launcher.GUI.notificationLabel.AddNotification("Đột phá thành công: %s → %s" % [res["oldRealm"], res["newRealm"]])
 		if Launcher.Map and Launcher.Map.currentFringe and player:
 			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
+			CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "dragon_golden_spiral", player.global_position, 1.0, false, false)
 			CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "level_up", player.global_position)
 	else:
 		AddFeedback("[color=#ff8080]✗ %s[/color]" % res["message"])
