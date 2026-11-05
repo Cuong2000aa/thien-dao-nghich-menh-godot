@@ -527,10 +527,13 @@ func BulkCall(methodName : StringName, bulkedArgs : Array, peerID : int = Networ
 func Bulk(methodName : StringName, args : Array, peerID : int):
 	if WebRTCServer and not WebRTCServer.isOffline and Peers.IsUsingWebRTC(peerID):
 		WebRTCServer.Bulk(methodName, args, peerID)
-	elif WebSocketServer and not WebSocketServer.isOffline and Peers.IsUsingWebSocket(peerID):
+	# Web Pages offline uses WebSocketServer with isOffline=true (no ENet). Must still flush Preload/FullUpdate or client never reaches IN_GAME.
+	elif WebSocketServer and (WebSocketServer.isOffline or Peers.IsUsingWebSocket(peerID)):
 		WebSocketServer.Bulk(methodName, args, peerID)
 	elif ENetServer and (ENetServer.isOffline or Peers.IsUsingENet(peerID) or peerID == NetworkCommons.PeerAuthorityID or peerID == NetworkCommons.PeerOfflineID):
 		ENetServer.Bulk(methodName, args, peerID)
+	elif Client:
+		Client.callv.call_deferred(methodName, args + [peerID])
 
 # Notify peers
 func NotifyNeighbours(agent : BaseAgent, callbackName : StringName, args : Array, inclusive : bool = true, bulk : bool = false):
