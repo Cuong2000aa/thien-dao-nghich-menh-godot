@@ -229,7 +229,8 @@ func ConnectCharacter(nickname : String, peerID : int):
 						var realmName = Cultivation.GetRealmName(agent.stat.level) if agent.stat else "Phàm Thân • Sơ Nhập"
 						var curHp = agent.stat.health if agent.stat else 100
 						var maxHpVal = agent.stat.current.maxHealth if (agent.stat and agent.stat.current) else 100
-						SessionManager.RegisterMember(peerID, nickname, agent.stat.level if agent.stat else 1, realmName, curHp, maxHpVal, isHostPlayer, spawnLocation.map)
+						var mapId : int = spawnLocation.map.id if spawnLocation.map else 0
+						SessionManager.RegisterMember(peerID, nickname, agent.stat.level if agent.stat else 1, realmName, curHp, maxHpVal, isHostPlayer, mapId)
 
 	Network.CharacterError(err, peerID)
 
