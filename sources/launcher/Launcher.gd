@@ -245,7 +245,8 @@ func _run_autologin(acc : String, charname : String):
 			"spirit": "Piou".hash()
 		}
 	Network.CreateCharacter(charname, traits, attrs)
-	await get_tree().create_timer(1.0).timeout
+	# Web SQLite + char panel refresh can lag past 1s
+	await get_tree().create_timer(2.5).timeout
 
 	print("[WebAutoPlay] Connecting character: %s" % charname)
 	if GUI and GUI.characterPanel and GUI.characterPanel.characterNameDisplay:
@@ -253,13 +254,15 @@ func _run_autologin(acc : String, charname : String):
 	FSM.EnterState(FSM.States.CHAR_PROGRESS)
 	Network.ConnectCharacter(charname)
 
+	# Web map/pck load often exceeds 5s before Entity pushes IN_GAME
 	var world_wait : float = 0.0
-	while FSM.currentState != FSM.States.IN_GAME and world_wait < 5.0:
+	var world_timeout : float = 60.0 if LauncherCommons.isWeb else 15.0
+	while FSM.currentState != FSM.States.IN_GAME and world_wait < world_timeout:
 		await get_tree().create_timer(0.2).timeout
 		world_wait += 0.2
 
 	if FSM.currentState != FSM.States.IN_GAME:
-		print("[WebAutoPlay] FAILED to enter IN_GAME. Current state: %d" % FSM.currentState)
+		print("[WebAutoPlay] FAILED to enter IN_GAME. Current state: %d after %.1fs" % [FSM.currentState, world_wait])
 		return
 
 	print("[WebAutoPlay] SUCCESS! ENTERED WORLD AS %s IN MAP: %s" % [charname, str(Map.currentMapID if Map else "unknown")])
