@@ -27,13 +27,14 @@ var lblRoomTitle : Label = null
 var btnLeave : Button = null
 
 func _init():
-	windowName = "Đạo Lữ Đồng Hành (Co-op)"
-	isFloating = true
+	name = "MultiplayerWindow"
+	custom_minimum_size = Vector2(460, 420)
+	size = Vector2(480, 440)
+	floating = true
+	draggable = true
+	visible = false
 
 func _ready():
-	super._ready()
-	set_custom_minimum_size(Vector2(460, 420))
-	size = Vector2(480, 440)
 	_BuildUI()
 	# BUILD 12 — restrained jade/gold accents (keep SoM layout)
 	var ThemeClass = preload("res://sources/gui/XianxiaUiTheme.gd")
