@@ -358,6 +358,11 @@ func RestoreOriginalShape():
 func _ActiveEntity() -> Entity:
 	if Launcher.Player and Launcher.Player is Entity:
 		return Launcher.Player
+	# Character setup screen: preview on the selected / creating sprite.
+	if Launcher.GUI and Launcher.GUI.characterPanel and Launcher.GUI.characterPanel.has_method("GetSelectedEntity"):
+		var selected = Launcher.GUI.characterPanel.GetSelectedEntity()
+		if selected is Entity:
+			return selected
 	return null
 
 func _ActiveAgent() -> PlayerAgent:

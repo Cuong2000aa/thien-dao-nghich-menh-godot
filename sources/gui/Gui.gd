@@ -247,10 +247,14 @@ func _show_char_menu():
 
 	characterPanel.set_visible(true)
 	buttonBoxes.set_visible(true)
+	if characterPanel.has_method("_SetPreviewButtonVisible"):
+		characterPanel._SetPreviewButtonVisible(true)
 
 func EnterCharProgress():
 	characterPanel.set_visible(false)
 	buttonBoxes.set_visible(false)
+	if characterPanel.has_method("_SetPreviewButtonVisible"):
+		characterPanel._SetPreviewButtonVisible(false)
 
 	progressTimer = Callback.SelfDestructTimer(self, NetworkCommons.CharSelectionTimeout, TimeoutCharProgress, [], "ProgressTimer")
 	loadingControl.set_visible(true)
@@ -267,6 +271,8 @@ func EnterGame():
 	background.set_visible(false)
 	loginPanel.set_visible(false)
 	characterPanel.set_visible(false)
+	if characterPanel.has_method("_SetPreviewButtonVisible"):
+		characterPanel._SetPreviewButtonVisible(false)
 	buttonBoxes.set_visible(false)
 
 	Launcher.Camera.ResetCinematic()

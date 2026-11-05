@@ -15,6 +15,7 @@ var charactersInfo : Array[Dictionary]					= []
 var charactersNode : Array[Entity]						= []
 var currentCharacterID : int							= ActorCommons.InvalidCharacterSlot
 var pendingFocusControl : Control						= null
+var previewButton : Button								= null
 
 #
 func FillWarningLabel(err : NetworkCommons.CharacterError):
@@ -270,19 +271,25 @@ func EnableCharacterCreator(enable : bool):
 	else:
 		pendingFocusControl = null
 
+	_SetPreviewButtonVisible(true)
+
 	if Launcher.GUI.buttonBoxes:
 		Launcher.GUI.buttonBoxes.ClearAll()
 		if enable:
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.PRIMARY, "Tạo Nhân Vật", CreateCharacter)
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.SECONDARY, "Ngẫu Nhiên", RandomizeCharacter)
+			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Xem Trước", OpenPreviewGallery)
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.CANCEL, "Hủy", EnableCharacterCreator.bind(false))
 			RefreshSuggestedButton()
 		else:
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.PRIMARY, "Vào Tiên Giới", SelectCharacter)
 			if NextAvailableSlot() != ActorCommons.InvalidCharacterSlot:
 				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.SECONDARY, "Tạo Mới", EnableCharacterCreator.bind(true))
+			# Prefer dedicated preview button; keep TERTIARY for delete when a slot is selected.
 			if currentCharacterID != ActorCommons.InvalidCharacterSlot:
 				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Xóa", DeleteCharacter.bind())
+			else:
+				Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Xem Trước", OpenPreviewGallery)
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.CANCEL, "Đăng Xuất", Leave)
 			RefreshSuggestedButton()
 
@@ -329,6 +336,7 @@ func Clear():
 		RemoveCharacter(slotID)
 	Launcher.GUI.buttonBoxes.ClearAll()
 	currentCharacterID = ActorCommons.InvalidCharacterSlot
+	_SetPreviewButtonVisible(false)
 
 func Leave():
 	FSM.EnterState(FSM.States.LOGIN_SCREEN)
@@ -342,6 +350,40 @@ func Close():
 		Leave()
 
 #
+func OpenPreviewGallery():
+	if Launcher.GUI:
+		Launcher.GUI.TogglePreviewGallery()
+
+func _EnsurePreviewButton():
+	if previewButton and is_instance_valid(previewButton):
+		return
+	previewButton = Button.new()
+	previewButton.name = "PreviewGalleryButton"
+	previewButton.text = "Xem Trước"
+	previewButton.tooltip_text = "Xem hiệu ứng · chiêu thức · nhân vật"
+	previewButton.focus_mode = Control.FOCUS_NONE
+	previewButton.custom_minimum_size = Vector2(128, 40)
+	previewButton.pressed.connect(OpenPreviewGallery)
+	# Host on GUI overlay (not this VBox) so layout không đẩy nút.
+	var host : Control = Launcher.GUI if Launcher.GUI else get_parent()
+	if host == null:
+		host = self
+	host.add_child(previewButton)
+	previewButton.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	previewButton.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	previewButton.offset_left = -148
+	previewButton.offset_top = 16
+	previewButton.offset_right = -16
+	previewButton.offset_bottom = 56
+	previewButton.z_index = 80
+	var ThemeClass = preload("res://sources/gui/XianxiaUiTheme.gd")
+	ThemeClass.AccentButton(previewButton)
+
+func _SetPreviewButtonVisible(show : bool):
+	_EnsurePreviewButton()
+	if previewButton and is_instance_valid(previewButton):
+		previewButton.set_visible(show)
+
 func _ready():
 	assert(ActorCommons.MaxCharacterCount + 1 == ActorCommons.CharacterScreenLocations.size(), "Character screen locations count mismatch with the max character count")
 	charactersInfo.resize(ActorCommons.MaxCharacterCount + 1)
@@ -351,6 +393,8 @@ func _ready():
 	traitsPanel.bodyUpdate.connect(UpdateCharacterCreatorBody)
 	traitsPanel.hairUpdate.connect(UpdateCharacterCreatorHair)
 	FSM.enter_game.connect(Clear)
+	_EnsurePreviewButton()
+	_SetPreviewButtonVisible(false)
 
 func _physics_process(_delta: float):
 	var entity : Entity = GetSelectedEntity()

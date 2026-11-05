@@ -208,8 +208,8 @@ func _input(event : InputEvent):
 		elif TryJustPressed(event, "ui_menu"):			Launcher.GUI.menu._on_button_pressed()
 		# Co-op lobby available from login + in-game (Host/Join before enter world)
 		elif TryJustPressed(event, "ui_multiplayer"):	Launcher.GUI.ToggleMultiplayerWindow()
-		# Preview must work even while dialogue disables Action (WebAutoPlay often leaves dialogue open).
-		elif FSM.IsGameState() and TryJustPressed(event, "ui_preview", true):
+		# Preview: in-game + character setup; forceMode so dialogue/context không khóa.
+		elif (FSM.IsGameState() or FSM.IsCharacterState()) and TryJustPressed(event, "ui_preview", true):
 			Launcher.GUI.TogglePreviewGallery()
 		elif FSM.IsGameState():
 			if TryJustPressed(event, "ui_inventory"):		Launcher.GUI.ToggleControl(Launcher.GUI.inventoryWindow)
