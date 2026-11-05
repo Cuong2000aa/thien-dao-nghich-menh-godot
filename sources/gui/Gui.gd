@@ -202,6 +202,8 @@ func EnterLoginMenu():
 	shortcuts.set_visible(false)
 	characterPanel.set_visible(false)
 	buttonBoxes.set_visible(false)
+	if characterPanel.has_method("_SetPreviewButtonVisible"):
+		characterPanel._SetPreviewButtonVisible(false)
 
 	background.set_visible(true)
 	loginPanel.set_visible(true)
