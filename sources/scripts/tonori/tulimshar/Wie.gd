@@ -56,7 +56,7 @@ func StartPvE():
 	var globalScript : TicTacToeGlobal = (npc.ownScript as TicTacToeGlobal)
 	if globalScript.startStep == TicTacToeGlobal.State.NONE and globalScript.StartPvE(own):
 		DisplayActions(["gp_target", "gp_untarget"])
-		Mes("Đạo hữu là X! Chọn ô, nhanh nhanh!")
+		Mes("Ngươi là X! Chọn ô, nhanh nhanh!")
 	else:
 		Mes("Khoan, có người chơi rồi! Xếp hàng.")
 

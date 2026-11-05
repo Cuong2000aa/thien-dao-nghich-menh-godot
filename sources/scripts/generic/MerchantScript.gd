@@ -76,12 +76,12 @@ func Trade(sellEntries : Array, buyEntries : Array):
 		Notification("Giao dịch này không hợp lệ.")
 		return
 	if own.stat.gp + balance < 0:
-		Notification("Đạo hữu không đủ linh thạch (GP).")
+		Notification("Không đủ linh thạch (GP).")
 		return
 
 	match own.inventory.ValidateExchange(sellCounts, buyCounts, true):
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
-			Notification("Đạo hữu không còn đủ vật phẩm đã đề nghị.")
+			Notification("Không còn đủ vật phẩm đã đề nghị.")
 			return
 		ActorInventory.ExchangeResult.NO_SPACE:
 			Notification("Túi trữ vật không còn chỗ trống.")

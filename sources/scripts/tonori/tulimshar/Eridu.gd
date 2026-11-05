@@ -51,7 +51,7 @@ func TakeMaterials(setCount : int):
 
 # Quest states
 func OnInactive():
-	Mes("Này! Mới đến thành phải không? Ta chưa thấy đạo hữu. Ta là Eridu — thợ thủy tinh.")
+	Mes("Này! Mới đến thành phải không? Chưa gặp mặt ngươi. Ta là Eridu — thợ thủy tinh.")
 	Mes("Gia đình ta làm thủy tinh đời nay. Dân dùng đựng nước trong khí hậu này — chủ yếu ta làm bình.")
 	Mes("Ta làm từ cát Tonori, thêm muối, xương và bột lưu huỳnh.")
 	Mes("Cát khắp nơi, ba thứ kia khó kiếm hơn.")
@@ -72,7 +72,7 @@ func OnGathering():
 		return
 
 	if not HasRoomFor(QUEST_SETS, QUEST_REWARD):
-		Mes("Đạo hữu mang quá nhiều. Dọn bớt rồi quay lại.")
+		Mes("Ngươi mang quá nhiều. Dọn bớt rồi quay lại.")
 		return
 
 	TakeMaterials(QUEST_SETS)
@@ -115,7 +115,7 @@ func CompleteChoice(previousChoice : int = -1):
 # Optional dialogue
 func OnAskRecipe():
 	Mes("Cát là thủy tinh. Ta nấu chảy rồi làm nguội.")
-	Mes("Cát thì ta có nhiều, như đạo hữu thấy.")
+	Mes("Cát thì ta có nhiều, như ngươi thấy.")
 	Mes("Muối hạ nhiệt nóng chảy — không quá nóng cho nồi đất.")
 	Mes("Canxi từ xương nghiền bột — để thủy tinh không tan khi gặp nước.")
 	Mes("Lưu huỳnh xử bọt và bớt màu xanh.")
@@ -142,11 +142,11 @@ func OnFarewell():
 func OnAccept():
 	SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_GLASSMAKING.STARTED)
 
-	Mes("Tốt. Đạo hữu biết rồi.")
+	Mes("Tốt. Ngươi biết rồi.")
 	Mes("Mang đến đây, ta giao %d bình trước khi nguội hẳn." % QUEST_REWARD)
 
 func OnDecline():
-	Mes("Tùy đạo hữu. Lò vẫn cháy.")
+	Mes("Tùy ngươi. Lò vẫn cháy.")
 
 # Repeatable exchange
 func OnTradeReminder():
@@ -159,7 +159,7 @@ func OnTrade():
 		OnTradeReminder()
 		return
 
-	Mes("Để ta cân đồ đạo hữu mang...")
+	Mes("Để ta cân đồ ngươi mang...")
 	Choice("Chỉ một bình.", OnExchange.bind(1))
 	if tradeCount > 1:
 		Choice("Hết luôn, %d bình." % tradeCount, OnExchange.bind(tradeCount))

@@ -29,7 +29,7 @@ static func Request(requester : PlayerAgent, target : PlayerAgent):
 	if not requester or not target or requester == target:
 		return
 	if not CanTrade(requester):
-		NpcCommons.PushNotification(requester, "Đạo hữu chưa thể giao dịch lúc này.")
+		NpcCommons.PushNotification(requester, "Giờ chưa giao dịch được.")
 	elif not CanTrade(target):
 		NpcCommons.PushNotification(requester, "%s đang bận." % target.nick)
 	elif not SkillCommons.IsTargetable(requester, target):
@@ -54,9 +54,9 @@ static func Respond(target : PlayerAgent, accept : bool):
 	if not requester or IsRequestExpired(request):
 		NpcCommons.PushNotification(target, "Lời mời giao dịch đã hết hạn.")
 	elif not accept:
-		NpcCommons.PushNotification(requester, "%s đã từ chối lời mời giao dịch của đạo hữu." % target.nick)
+		NpcCommons.PushNotification(requester, "%s đã từ chối lời mời giao dịch của bạn." % target.nick)
 	elif not CanTrade(target):
-		NpcCommons.PushNotification(target, "Đạo hữu chưa thể giao dịch lúc này.")
+		NpcCommons.PushNotification(target, "Giờ chưa giao dịch được.")
 	elif not CanTrade(requester):
 		NpcCommons.PushNotification(target, "%s đang bận." % requester.nick)
 	elif not SkillCommons.IsTargetable(target, requester):

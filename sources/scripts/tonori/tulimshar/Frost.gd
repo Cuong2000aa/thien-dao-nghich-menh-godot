@@ -25,7 +25,7 @@ func QuestInactive():
 	Mes("Xin lỗi, ít khách. Từ khi ta còn làm cố vấn trong cung.")
 	Mes("Ta bỏ vài năm rồi. Trên kia gánh nặng quá.")
 	Mes("Ở đây chỉ ta và đất. Nông nghiệp có ích cho thành — ta không phiền.")
-	Mes("Đạo hữu có bao giờ lặp đi lặp lại một kịch bản trong đầu, tự hỏi nếu chọn khác thì sao?")
+	Mes("Ngươi có bao giờ lặp đi lặp lại một kịch bản trong đầu, tự hỏi nếu chọn khác thì sao?")
 	Choice("Ngươi đang nghĩ gì?", Lore)
 	Choice("Ta đi đây", Dismiss)
 
@@ -37,19 +37,19 @@ func QuestStarted():
 
 func QuestEnvelopesFound():
 	Mes("Tìm được rồi. Tốt.")
-	Mes("Mang thư niêm phong đến Ben. Ta vừa thấy anh ấy bước vào hành lang ngay sau khi đạo hữu đi.")
-	Mes("Anh ấy nhạy bén — hoặc đạo hữu ồn khi né ánh sáng. Dù sao anh ấy cũng ở trong đó.")
+	Mes("Mang thư niêm phong đến Ben. Ta vừa thấy anh ấy bước vào hành lang ngay sau khi ngươi đi.")
+	Mes("Anh ấy nhạy bén — hoặc ngươi ồn khi né ánh sáng. Dù sao anh ấy cũng ở trong đó.")
 
 func QuestRewards():
 	if HasItem(heavyEnvelopeID):
-		Mes("Đạo hữu về rồi. Anh ấy...")
+		Mes("Ngươi về rồi. Anh ấy...")
 		Mes("Phong bì này. Nặng.")
 		Mes("...")
 		Mes("Vàng. Anh ấy bỏ vàng. Ghi tên ta.")
 		Mes("Khi Nữ hoàng lần đầu đóng quân cho ta cùng chỗ, mỗi người dành phần cho kia — phòng khi một người cần trốn.")
 		Mes("Ta tưởng anh ấy đã tiêu sau khi ta đi. Ta hiểu nếu anh ấy làm vậy.")
 		Mes("Ta không xứng. Nên thuộc về ai là bạn tốt hơn ta từng là.")
-		Mes("Cầm lấy. Một buổi chiều đạo hữu làm hơn ta và Ben cả năm.")
+		Mes("Cầm lấy. Một buổi chiều ngươi làm hơn ta và Ben cả năm.")
 		ExchangeItems([heavyEnvelopeID], [], OnEnvelopeExchanged)
 	else:
 		Mes("Tìm Ben chưa? Anh ấy ở hành lang tường tây.")
@@ -103,7 +103,7 @@ func Directions():
 
 func Accept():
 	SetQuest(QUEST_ID, ProgressCommons.TULIMSHAR_OLD_FRIENDSHIP.STARTED)
-	Mes("Đa tạ thật.")
+	Mes("Cảm ơn nhé.")
 	Directions()
 
 func Decline():

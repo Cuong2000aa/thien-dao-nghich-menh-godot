@@ -14,13 +14,13 @@ func OnStart():
 
 #
 func OnSendToElanore():
-	Mes("Đạo hữu đã dậy rồi?")
+	Mes("Ngươi dậy rồi à?")
 	LookAtNpc("Elanore")
-	Mes("Nhớ nói chuyện với Elanore — nàng đã chăm đạo hữu khi ta tìm thấy ngươi bất tỉnh.")
+	Mes("Nhớ nói chuyện với Elanore — nàng đã chăm sóc ngươi khi ta tìm thấy ngươi bất tỉnh.")
 	ResetCamera()
 
 func OnSendToKael():
-	Mes("Đạo hữu thấy đám sâu ta phải đối phó chưa?")
+	Mes("Ngươi thấy đám sâu ta phải đối phó chưa?")
 	Mes("Sinh vật kinh tởm. Người ta bảo xưa chúng nhỏ hơn.")
 	Mes("Nông dân xương rồng chịu nặng nhất. Sâu đông làm hại mùa màng.")
 	LookAtNpc("Kael")
@@ -30,13 +30,13 @@ func OnSendToKael():
 
 # Skip Tutorial
 func OnSkipTutorial():
-	Mes("Đạo hữu định đi đâu?")
+	Mes("Ngươi định đi đâu?")
 	Choice("Ta lạc đường.", OnStart)
 	Choice("Ta muốn rời nơi này.", OnForceHelpWithExpedition)
 
 func OnForceHelpWithExpedition():
 	Mes("Hmm... Ta hiểu.")
-	Mes("Để trả nợ thành và nếu thật sự muốn đi, ta sẽ đưa đạo hữu vào đội thám hiểm ngoài thành.")
+	Mes("Để trả nợ thành và nếu thật sự muốn đi, ta sẽ đưa ngươi vào đội thám hiểm ngoài thành.")
 	OnExpedition()
 
 # Kael's report
@@ -50,7 +50,7 @@ func OnHelpWithExpedition():
 
 func OnExpedition():
 	Mes("Ta cần thêm một võ giả, lo không rút quá nhiều lính khỏi trạm trong thành.")
-	Mes("Đạo hữu sẽ đi nam, về Sandstorm Mines.")
+	Mes("Ngươi sẽ đi nam, về Sandstorm Mines.")
 	Mes("Tên gọi có lý do — vùng đó gió mạnh, cát cuốn khó đi.")
 	Mes("Cơn bão này khác thường: dữ, nóng, kéo dài. Ta nghi có gì đó gây ra...")
 	Choice("Sao phải đi hướng đó?", OnWhyExpedition)
@@ -154,6 +154,6 @@ func OnComplete():
 	if questState == ProgressCommons.MINE_EXPLORATION.STARTED:
 		Mes("Sẵn sàng thì báo Tuần phòng Dausen ngoài cổng.")
 	else:
-		Mes("May ta tìm thấy đạo hữu trước goblin — mừng thấy ngươi khá hơn.")
+		Mes("May ta tìm thấy ngươi trước goblin — mừng thấy ngươi khá hơn.")
 
 	OnMainChoice()

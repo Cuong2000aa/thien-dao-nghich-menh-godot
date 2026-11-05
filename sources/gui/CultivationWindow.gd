@@ -266,14 +266,14 @@ func ToggleMeditation():
 		btnMeditate.text = "Tạm Dừng Tu Luyện"
 		btnMeditate.set("theme_override_colors/font_color", Color(1.0, 0.5, 0.4))
 		meditateTimer.start()
-		AddFeedback("Đạo hữu xếp bằng đả tọa, bắt đầu vận chuyển đại chu thiên...")
+		AddFeedback("Ngồi xuống, bắt đầu vận công...")
 		if Launcher.GUI and Launcher.GUI.notificationLabel:
-			Launcher.GUI.notificationLabel.AddNotification("Bắt đầu vận công tu luyện. Linh khí thiên địa đang hội tụ!")
+			Launcher.GUI.notificationLabel.AddNotification("Đang tu luyện — linh khí đang tụ lại.")
 	else:
 		btnMeditate.text = "Vận Công"
 		btnMeditate.set("theme_override_colors/font_color", Color(1.0, 1.0, 1.0))
 		meditateTimer.stop()
-		AddFeedback("Thu công nạp khí, hoàn tất một vòng đại chu thiên.")
+		AddFeedback("Thu công. Nghỉ một nhịp.")
 
 ## Periodic meditation tick: gain Tu Vi and cycle feedback
 func _OnMeditateTick():

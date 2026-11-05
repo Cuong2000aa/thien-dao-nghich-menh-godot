@@ -7,6 +7,7 @@ const SectWindowClass = preload("res://sources/gui/SectWindow.gd")
 const CraftingWindowClass = preload("res://sources/gui/CraftingWindow.gd")
 const StoryWindowClass = preload("res://sources/gui/StoryWindow.gd")
 const MultiplayerWindowClass = preload("res://sources/gui/MultiplayerWindow.gd")
+const PreviewGalleryWindowClass = preload("res://sources/gui/PreviewGalleryWindow.gd")
 const TeamHudClass = preload("res://sources/gui/TeamHud.gd")
 
 @onready var background : TextureRect			= $Background
@@ -54,6 +55,7 @@ var sectWindow : WindowPanel					= null
 var craftingWindow : WindowPanel				= null
 var storyWindow : WindowPanel					= null
 var multiplayerWindow : WindowPanel				= null
+var previewGalleryWindow : WindowPanel			= null
 var teamHud : Control							= null
 var targetPanel : Control						= null
 
@@ -416,6 +418,11 @@ func _ready():
 	multiplayerWindow.set_visible(false)
 	windows.add_child(multiplayerWindow)
 
+	previewGalleryWindow = PreviewGalleryWindowClass.new()
+	previewGalleryWindow.name = "PreviewGalleryWindow"
+	previewGalleryWindow.set_visible(false)
+	windows.add_child(previewGalleryWindow)
+
 	teamHud = TeamHudClass.new()
 	teamHud.name = "TeamHud"
 	add_child(teamHud)
@@ -453,6 +460,12 @@ func ToggleStoryWindow():
 	if storyWindow:
 		storyWindow.Refresh()
 		storyWindow.ToggleControl()
+
+func TogglePreviewGallery():
+	if previewGalleryWindow:
+		if previewGalleryWindow.has_method("Refresh"):
+			previewGalleryWindow.Refresh()
+		previewGalleryWindow.ToggleControl()
 
 func _on_ui_margin_resized():
 	if CRTShader and CRTShader.material:

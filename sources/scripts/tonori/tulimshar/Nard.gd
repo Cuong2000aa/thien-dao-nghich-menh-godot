@@ -2,7 +2,7 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("Hoan nghênh lên tàu — hay gần vậy.")
+	Mes("Chào — coi như lên tàu vậy.")
 	Mes("Ta là thuyền trưởng La Johanne, con tàu neo ngay sau lưng ta.")
 	Mes("Ta đang nghỉ xứng đáng xa rét — vài tuần qua ta ở phía bắc vùng Kaizei.")
 	MainChoices()
@@ -13,7 +13,7 @@ func MainChoices():
 	Choice("Bình an, Thuyền trưởng.", Farewell)
 
 func OnSailOffer():
-	Mes("Sắp buồm Candor, nhưng tạm thời có thể đi chuyến ngắn đạo hữu muốn.")
+	Mes("Sắp buồm Candor, nhưng tạm thời có thể đi chuyến ngắn ngươi muốn.")
 	Mes("Tàu chắc và nhanh. Ta đi gần hết bờ Aemil — từng tới tận Thermin!")
 	Mes("Sẵn sàng thì lên lái La Johanne. Ta bàn cụ thể đi đâu.")
 	Mes("Lâu rồi không chở khách. Ta thường chở hàng.")

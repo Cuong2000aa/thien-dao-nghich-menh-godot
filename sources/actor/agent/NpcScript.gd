@@ -362,7 +362,7 @@ func RemoveItem(itemID : int, count : int = 1, customfield : String = ""):
 func ApplyRemoveItem(itemID : int, count : int, customfield : String):
 	if not NpcCommons.RemoveItem(own, itemID, count, customfield):
 		steps.resize(step + 1)
-		Narrate("Đạo hữu không còn đủ vật phẩm cần thiết.")
+		Narrate("Không còn đủ đồ cần thiết.")
 
 func ExchangeItems(removeItems : Array, addItems : Array, onResult : Callable):
 	assert(IsPlayer(), "ExchangeItems() requires a player agent")

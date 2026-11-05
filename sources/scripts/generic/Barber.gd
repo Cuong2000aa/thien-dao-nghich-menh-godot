@@ -2,7 +2,7 @@ extends NpcScript
 
 #
 func OnStart():
-	Mes("Hôm nay đạo hữu muốn đổi kiểu tóc hay màu tóc?")
+	Mes("Hôm nay muốn đổi kiểu tóc hay màu tóc?")
 	Choice("Ta muốn thử kiểu khác", OnHairstyle)
 	Choice("Màu mới", OnHaircolor)
 	Choice("Thôi", OnQuit)

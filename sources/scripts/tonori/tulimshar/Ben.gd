@@ -39,7 +39,7 @@ func GiveLetters():
 	Mes("Dù sao. Ta bảo anh ấy đi. Anh ấy đi. Hết chuyện.")
 	Mes("...")
 	Mes("Trừ là chưa hết. Vì ta đang canh tường chẳng ai đập.")
-	Mes("Trừ đạo hữu... nhưng Frost cử thì khác.")
+	Mes("Trừ ngươi... nhưng Frost cử thì khác.")
 	ExchangeItems([sealedLettersID], [], OnLettersExchanged)
 
 func OnLettersExchanged(result : ActorInventory.ExchangeResult):

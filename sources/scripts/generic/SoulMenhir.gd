@@ -7,7 +7,7 @@ func OnStart():
 	Narrate("Một khối đá khắc uy nghi, quấn quanh là dòng Linh Khí chảy. Sự hiện diện ấy mang cảm giác an bình.")
 	Narrate("Gân silery mảnh chạy trên đá xám đen, đổi sắc khi ánh xanh Linh Khí thô chảy qua.")
 	if GetQuest(DESERT_SEED_ID) >= ProgressCommons.DESERT_SEED.SEEK_MANAYIR:
-		Narrate("Đạo hữu có muốn đặt tay lên Soul Menhir?")
+		Narrate("Có muốn đặt tay lên Soul Menhir không?")
 		Choice("Chạm vào Soul Menhir.", Touch)
 		Choice("Để yên.")
 

@@ -25,7 +25,7 @@ func StartFill():
 func OnFillTick(startPos : Vector2, tick : int):
 	if own.position.distance_squared_to(startPos) > MOVE_TOLERANCE_SQUARED:
 		ClearTracker()
-		Notification("Đạo hữu đã đi quá xa giếng nước!")
+		Notification("Bạn đi quá xa giếng rồi!")
 	elif not HasItem(BOTTLE_ID):
 		ClearTracker()
 	elif tick >= FILL_TICKS:
@@ -44,7 +44,7 @@ func CompleteFill():
 
 func PromptNext():
 	if HasItem(BOTTLE_ID):
-		Mes("Bình đã đầy nước trong. Đạo hữu còn một bình rỗng nữa.")
+		Mes("Bình đã đầy nước trong. Còn một bình rỗng nữa nhé?")
 		Choice("Múc thêm một bình", StartFill)
 		Choice("Rời đi")
 	else:

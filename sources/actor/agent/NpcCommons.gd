@@ -2,30 +2,30 @@ extends Node
 class_name NpcCommons
 
 const Greetings : PackedStringArray = [
-	"Đạo hữu %s!",
-	"Kính chào đạo hữu %s.",
-	"À, %s đạo hữu.",
-	"Hoan nghênh.",
-	"Bái kiến.",
-	"Gặp lại đạo hữu %s thật vui.",
-	"Ha hai, đạo hữu!",
-	"Hữu duyên gặp đạo hữu %s.",
-	"Này đạo hữu.",
-	"Ngày tốt lành.",
-	"Hữu duyên."
+	"Chào %s.",
+	"À, %s. Lâu rồi không gặp.",
+	"Ê, %s!",
+	"Chào cậu.",
+	"Người mới à? Chào nhé.",
+	"Gặp lại %s rồi.",
+	"Ừm, chào.",
+	"%s đó hả? Vào đi.",
+	"Chào buổi này.",
+	"Có chuyện gì không?",
+	"Chào."
 ]
 
 static var Farewells : PackedStringArray = [
-	"Tạm biệt, %s đạo hữu.",
+	"Thôi, đi cẩn thận.",
+	"Gặp lại sau.",
+	"Đi đi, đừng để tối.",
+	"Ổn cả chứ? Đi nhé.",
+	"Bảo trọng, %s.",
+	"Hẹn gặp lại.",
+	"Đường xa cẩn thận.",
 	"Tạm biệt.",
-	"Hẹn gặp lại, %s đạo hữu.",
-	"Hẹn khi tái ngộ.",
-	"Lữ đạo bình an, %s đạo hữu.",
-	"Giữ gìn sức khỏe.",
-	"Lữ trình thuận lợi.",
-	"Mong sớm gặp lại đạo hữu %s.",
-	"Bình an.",
-	"Tạm hẹn."
+	"Đi thôi.",
+	"Nhớ quay lại nghe."
 ]
 
 # Display

@@ -18,14 +18,14 @@ func OnStart():
 
 # Too early
 func OnSendToElanore():
-	Mes("Đạo hữu đã dậy rồi?")
+	Mes("Ngươi dậy rồi à?")
 	LookAtNpc("Elanore")
-	Mes("Nhớ nói chuyện với Elanore — nàng đã chăm đạo hữu khi ta tìm thấy ngươi bất tỉnh.")
+	Mes("Nhớ nói chuyện với Elanore — nàng đã chăm sóc ngươi khi ta kéo ngươi khỏi cát.")
 	ResetCamera()
 
 # Initial encounter
 func OnFirstMeeting():
-	Mes("Chào, ngươi là kẻ ta kéo khỏi cát? Mừng thấy đạo hữu đi được. Ta cần giúp.")
+	Mes("Chào, ngươi là kẻ ta kéo khỏi cát? Mừng thấy ngươi đi được. Ta cần giúp.")
 	Mes("Sâu đục xương rồng. Miệng nhỏ nhưng lanh, ăn quanh gai rồi đào vào trong cây — cảnh kinh khủng.")
 	Mes("Một khi thủng vỏ, chúng đào vào ăn từ trong ra.")
 	Choice("Sao sâu to dữ vậy?", OnKaoreExplanation)
@@ -117,8 +117,8 @@ func OnCheckProgress():
 func OnTaskComplete():
 	Mes("Làm tốt lắm!")
 	Mes("Nhanh và gọn hơn ta mong.")
-	Mes("Báo Tuần phòng Ekinu gần cổng gặp Elanore. Nói ta hài lòng với việc đạo hữu làm.")
-	Mes("Sắp có chuyến vào sa mạc — đạo hữu có thể là người ta cần.")
+	Mes("Báo Tuần phòng Ekinu gần cổng gặp Elanore. Nói ta hài lòng với việc ngươi làm.")
+	Mes("Sắp có chuyến vào sa mạc — có thể ngươi là người ta cần.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.KAEL_DONE)
 	AddExp(20)
 	npc.ownScript.UntrackPlayer(own)
@@ -132,7 +132,7 @@ func OnSendToEkinu():
 
 #
 func OnComplete():
-	Mes("Mừng gặp lại! Như đạo hữu thấy, ta vẫn vây quanh đám sâu trắng nhảy nhót.")
+	Mes("Mừng gặp lại! Như ngươi thấy, ta vẫn vây quanh đám sâu trắng nhảy nhót.")
 	MainChoices()
 
 #

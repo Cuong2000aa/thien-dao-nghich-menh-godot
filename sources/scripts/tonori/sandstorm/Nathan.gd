@@ -64,7 +64,7 @@ func RefuseQuest():
 	Action(Farewell)
 
 func AcceptQuest():
-	Mes("Ta biết ngươi sẽ hiểu. Giữ nước là quan trọng! Ta đợi ngươi, bằng hữu.")
+	Mes("Ta biết ngươi sẽ hiểu. Giữ nước là quan trọng! Ta đợi ngươi nhé.")
 	Think("Nathan tự nghĩ bụng")
 	Mes("Dù muốn đi cũng không đi được...")
 	SetQuest(QUEST_ID, ProgressCommons.SANDSTORM_NATHAN_WATER.STARTED)
@@ -83,7 +83,7 @@ func OnDeliverWater():
 	if HasItem(waterBottleHash):
 		RemoveItem(waterBottleHash)
 		SetQuest(QUEST_ID, ProgressCommons.SANDSTORM_NATHAN_WATER.REWARDS_WITHDREW)
-		Mes("Cảm ơn, bằng hữu! Cuối cùng cũng được nhẹ người!")
+		Mes("Cảm ơn! Cuối cùng cũng được nhẹ người!")
 		Think("Nathan nhanh chóng đổ hết nước ngươi mang tới lên người mình.")
 		Think("Ngươi đứng nhìn nước cẩn thận mang cả đoạn đường chảy xuống thân hắn rồi thấm vào cát bên dưới.")
 		AddExp(50)

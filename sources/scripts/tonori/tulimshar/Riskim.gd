@@ -23,11 +23,11 @@ func OnStart():
 # Quest states
 func OnInactive():
 	Mes("Chào mừng! Tiếc là kệ trống lúc này.")
-	Mes("Tulimshar không có ruộng tốt. Như đạo hữu thấy — sa mạc. Chỉ xương rồng mọc.")
+	Mes("Tulimshar không có ruộng tốt. Như ngươi thấy — toàn sa mạc. Chỉ xương rồng mọc.")
 	Mes("Ta nhập bột mì từ Artis để tiệm chạy. Bánh Sandstorm Bread nuôi thành nhiều năm rồi.")
 	Mes("Sáng nay hàng cập cảng, nhưng đi bộ qua nắng mệt lắm.")
 	Mes("Ta tự đi thì hôm nay không nướng được gì.")
-	Mes("Thùng tiệm Artis có dấu sáp xanh. Đạo hữu mang giúp túi bột trong đó được không?")
+	Mes("Thùng tiệm Artis có dấu sáp xanh. Mang giúp ta túi bột trong đó được không?")
 
 	QuestChoice()
 
@@ -95,7 +95,7 @@ func OnFarewell():
 func OnAccept():
 	SetQuest(ProgressCommons.Quest.GRAIN_IN_THE_SAND, ProgressCommons.GRAIN_IN_THE_SAND.STARTED)
 
-	Mes("Đa tạ, bạn hiền.")
+	Mes("Cảm ơn nhé.")
 	Mes("Tìm dấu xanh đậm. Không lẫn được.")
 
 func OnDecline():

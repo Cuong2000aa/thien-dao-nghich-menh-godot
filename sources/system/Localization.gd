@@ -220,9 +220,9 @@ const GLOSSARY : Dictionary = {
 	"Connecting...": "Đang Kết Nối...",
 
 	# Breakthrough & Feedback Messages
-	"Breakthrough Failed": "Đột Phá Thất Bại.",
-	"Insufficient Cultivation": "Tu Vi Chưa Đủ, Chưa Thể Phá Cảnh.",
-	"Breakthrough Successful": "Chúc Mừng Đạo Hữu, Cảnh Giới Đã Được Đột Phá!",
+	"Breakthrough Failed": "Đột phá thất bại.",
+	"Insufficient Cultivation": "Tu vi chưa đủ, chưa phá cảnh được.",
+	"Breakthrough Successful": "Đột phá thành công!",
 
 	# Side quests (English name hash → Vietnamese display title)
 	"Desert Seed": "Hạt Giống Mana",
@@ -231,15 +231,15 @@ const GLOSSARY : Dictionary = {
 	"Mine Exploration": "Thám Sát Khoáng Trường",
 	"Nina's Snack": "Bánh cho Nina",
 	"A Drop of Relief": "Giọt Nước Giải Khát",
-	"A Miner's Helping Hand": "Giúp Tay Khai Khoáng",
+	"A Miner's Helping Hand": "Mũ cho thợ mỏ",
 	"Sandstorm Mine Abandoned Treasure": "Bảo Vật Mỏ Hoang",
 	"Peter's Bounty": "Ủy Thác Peter",
-	"A Biting Thirst": "Khát Đến Cháy Ruột",
-	"Snake Pit Thief": "Đạo Tặc Hố Rắn",
+	"A Biting Thirst": "Khát cháy họng",
+	"Snake Pit Thief": "Kẻ trộm Hố Rắn",
 	"Splatyna's Offering": "Cống Phẩm Splatyna",
 	"Found a Chest in the Outskirts": "Rương Ngoại Thành",
 	"When the desert gives you sand...": "Sa mạc cho cát...",
-	"An Old Friendship": "Cũ Duyên Tri Kỷ",
+	"An Old Friendship": "Tình cũ",
 	"Tutorial": "Nhập Môn",
 	"Veteran Cave Explorer": "Tiền Bối Thám Hang"
 }
@@ -262,22 +262,22 @@ const TOOLTIPS : Dictionary = {
 	"Dodge Rate": "Né Tránh: Tỷ lệ hóa giải đòn đánh của đối phương bằng bộ pháp.",
 	"Accuracy": "Chuẩn Xác: Tỷ lệ chiêu thức đánh trúng yếu điểm mục tiêu.",
 	"Walk Speed": "Di Tốc: Tốc độ hành tẩu và phi hành của nhân vật.",
-	"Experience": "Tu Vi: Điểm tích lũy tu hành từ đả tọa, chiến đấu và lịch luyện, dùng để phá quan đột phá.",
-	"Health": "Khí Huyết: Sinh mạng căn bản, tổn hao khi trúng đòn, cạn kiệt sẽ dẫn đến đạo tiêu thân vong.",
+	"Experience": "Tu Vi: Kinh nghiệm tu luyện. Đầy thì thử đột phá.",
+	"Health": "Khí Huyết: Máu / sinh lực. Hết là ngã.",
 	"Mana": "Linh Lực: Chân nguyên tích tụ tại đan điền, tiêu hao khi thi triển linh thuật và kiếm quyết.",
 	"Stamina": "Thể Lực: Sức bền của cơ thể, dùng cho chạy nhanh và thi triển thân pháp né tránh.",
 	"Weight": "Tải Trọng: Trọng lượng đồ vật trong túi trữ vật so với giới hạn mang vác của bản thân.",
-	"Money": "Linh Thạch: Tiền tệ giao thương thông dụng trong giới tu chân, dùng mua đan dược và pháp bảo."
+	"Money": "Linh Thạch: Tiền trong giới tu chân — mua đan, trang bị."
 }
 
 ## 3. THÔNG ĐIỆP VẬN CÔNG TU LUYỆN (CULTIVATION FEEDBACK MESSAGES)
 const CULTIVATION_FEEDBACK : Array[String] = [
-	"Linh khí hội tụ quanh thân.",
-	"Chân khí vận chuyển qua kinh mạch.",
-	"Đan điền dần được bồi đắp.",
-	"Tu vi có dấu hiệu viên mãn.",
-	"Bình cảnh đã xuất hiện.",
-	"Cơ duyên đã đến, có thể thử đột phá."
+	"Linh khí quanh người dịu lại.",
+	"Chân khí chạy ổn trong mạch.",
+	"Đan điền ấm hơn một chút.",
+	"Tu vi gần đầy rồi.",
+	"Có cảm giác sắp phá cảnh.",
+	"Được rồi — có thể thử đột phá."
 ]
 
 ## Initialization flag & translation instance

@@ -55,9 +55,8 @@ static func _NewDeck() -> Array:
 
 # General flow
 func OnStart():
-	Mes("Hoan nghênh! Đạo hữu đến chơi bài?")
-	Mes("Biết blackjack không? Ta là người nghĩ ra trò đó!")
-	Mes("Ngồi xuống. Cho ta xem tay đạo hữu. Bài đang chờ.")
+	Mes("Vào chơi không? Biết blackjack chứ? Ta là người nghĩ ra trò đó!")
+	Mes("Ngồi xuống. Cho ta xem tay ngươi. Bài đang chờ.")
 	DisplayChoices()
 
 func DisplayChoices():
@@ -69,7 +68,7 @@ func DisplayChoices():
 func ShowRules():
 	Mes("Luật đơn giản. Ta biết — ta đặt ra mà!")
 	Mes("Gần 21 nhất mà không vượt.")
-	Mes("Bài số theo mặt, J Q K là 10, Át... Át khó. 1 hoặc 11, tùy đạo hữu.")
+	Mes("Bài số theo mặt, J Q K là 10, Át... Át khó. 1 hoặc 11, tùy ngươi chọn.")
 	Mes("Thắng ta, ta gật mũ. Quá 21 là bust. Vậy thôi.")
 	Mes("Lính canh cũng học được — nói lên tầm dễ.")
 	DisplayChoices()
@@ -93,7 +92,7 @@ func _DealerTurn():
 	if _HandValue(playerHand) == 21:
 		_DealerReveal()
 	else:
-		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Bài ngươi: %s" % _HandStr(playerHand))
 		Mes("Ta lật: %s." % _CardName(dealerHand[0]))
 		Choice("Rút", _DealerHit)
 		Choice("Dừng", _DealerReveal)
@@ -102,7 +101,7 @@ func _DealerHit():
 	playerHand.append(deck.pop_back())
 	var value : int = _HandValue(playerHand)
 	if value > 21:
-		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Bài ngươi: %s" % _HandStr(playerHand))
 		Mes("Ồ hò, bust! Tham lam vậy đó. Ta thấy nghìn lần rồi.")
 		Choice("Chơi lại", StartDealer)
 		Choice("Rời bàn", Decline)
@@ -116,7 +115,7 @@ func _DealerReveal():
 		dealerHand.append(deck.pop_back())
 	var pv : int = _HandValue(playerHand)
 	var dv : int = _HandValue(dealerHand)
-	Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+	Mes("Bài ngươi: %s" % _HandStr(playerHand))
 	Mes("Bài ta: %s" % _HandStr(dealerHand))
 	if dv > 21:
 		Mes("Bah! Kể cả cao thủ cũng vượt đôi khi. Hay lắm.")
@@ -152,14 +151,14 @@ func _PvPCheck():
 
 func _PvPCancel():
 	npc.ownScript.call("LeavePvP", own)
-	Chat("Không chơi? Tiếc. Biết đâu đạo hữu đổi ý.")
+	Chat("Không chơi? Tiếc. Biết đâu ngươi đổi ý.")
 func _PvPBegin():
 	playerHand = npc.ownScript.call("GetHand", own)
 	Mes("Ha! Có trận! Xem hai người ra sao.")
 	_PvPTurn()
 
 func _PvPTurn():
-	Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+	Mes("Bài ngươi: %s" % _HandStr(playerHand))
 	if _HandValue(playerHand) == 21:
 		Mes("Xì dách!")
 		_PvPStand()
@@ -175,12 +174,12 @@ func _PvPHit():
 	playerHand.append(card)
 	var value : int = _HandValue(playerHand)
 	if value > 21:
-		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Bài ngươi: %s" % _HandStr(playerHand))
 		Mes("Quắc! Lẽ ra nghe linh cảm.")
 		npc.ownScript.call("FinishHand", own, value, true)
 		_PvPWait()
 	elif value == 21:
-		Mes("Bài đạo hữu: %s" % _HandStr(playerHand))
+		Mes("Bài ngươi: %s" % _HandStr(playerHand))
 		_PvPStand()
 	else:
 		_PvPTurn()
@@ -194,7 +193,7 @@ func _PvPWait():
 	if game.has("result"):
 		_PvPShowResult(game)
 	else:
-		Mes("Phần đạo hữu xong. Chờ đối thủ...")
+		Mes("Ngươi xong rồi. Chờ đối thủ...")
 		Choice("Kiểm tra", _PvPWaitCheck)
 		Choice("Bỏ cuộc", _PvPForfeit)
 
@@ -213,13 +212,13 @@ func _PvPShowResult(game : Dictionary):
 	var oppBust : bool = game.get("p2Busted") if isP1 else game.get("p1Busted")
 	var oppHand : Array = game.get("p2Hand") if isP1 else game.get("p1Hand")
 	var myBust : bool = game.get("p1Busted") if isP1 else game.get("p2Busted")
-	Mes("Điểm đạo hữu: %d%s" % [myVal, " (Quắc)" if myBust else ""])
+	Mes("Điểm ngươi: %d%s" % [myVal, " (Quắc)" if myBust else ""])
 	Mes("Bài đối thủ: %s%s" % [_HandStr(oppHand), " (Quắc)" if oppBust else ""])
 	var result : String = game.get("result", "")
 	if result == "draw":
 		Mes("Hòa! Ngang tài. Hiếm ở bàn ta.")
 	elif (result == "p1" and isP1) or (result == "p2" and not isP1):
-		Mes("Thắng! Hay lắm — bài nghiêng về đạo hữu hôm nay.")
+		Mes("Thắng! Hay lắm — hôm nay bài nghiêng về ngươi.")
 	else:
 		Mes("Tiếc. Bài hay đổi ý — nhưng luôn quay lại.")
 	npc.ownScript.call("CleanupGame", own)

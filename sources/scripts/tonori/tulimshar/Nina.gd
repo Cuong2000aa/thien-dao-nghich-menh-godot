@@ -14,12 +14,12 @@ func OnStart():
 		if questState == ProgressCommons.NINA_HUNGRY.INACTIVE:
 			OnIntro()
 		else:
-			Mes("Chào lại đạo hữu.")
+			Mes("Chào lại.")
 			OnPlayerChoice()
 
 # Intro
 func OnIntro():
-	Mes("Xin chào. Elanore cử đạo hữu đến? Hoan nghênh.")
+	Mes("Xin chào. Elanore cử cậu đến à? Mời vào.")
 	Mes("Chúng ta đang đứng trước Soul Menhir cổ xưa của Tulimshar. Ta là người giữ gìn nó, dùng sức mạnh của đá để bảo vệ dân thành — trong phạm vi được phép.")
 	OnPlayerChoice()
 
@@ -41,13 +41,13 @@ func OnExplainOpposition():
 	Mes("Không phải lúc nào quan hệ với Mana cũng như thế trong phần lớn lịch sử Aemil.")
 	Choice("Lập trường của dân ngươi?", OnKahwePosition)
 	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
-	Choice("Đa tạ đã dành thời gian.", Farewell)
+	Choice("Cảm ơn đã dành thời gian.", Farewell)
 
 func OnKahwePosition():
 	Mes("Kahwe giữ tri thức thời Mana còn hài hòa, lành trên thế giới. Ta muốn khôi phục cân bằng đã mất khi Uru bị hủy.")
 	Choice("Uru là gì?", OnExplainUru)
 	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
-	Choice("Đa tạ đã dành thời gian.", Farewell)
+	Choice("Cảm ơn đã dành thời gian.", Farewell)
 
 func OnExplainUru():
 	Mes("Uru, hay Cây Mana, từng là tim của sinh mệnh thế giới, dẫn Linh Khí tự nhiên.")
@@ -56,7 +56,7 @@ func OnExplainUru():
 	Mes("Họ quyết định tiêu diệt Uru và tạo thế giới không Mana.")
 	Choice("Hiện tình thế ra sao?", OnCurrentSituation)
 	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
-	Choice("Đa tạ đã dành thời gian.", Farewell)
+	Choice("Cảm ơn đã dành thời gian.", Farewell)
 
 func OnCurrentSituation():
 	Mes("Tùy người hỏi. Có kẻ như Red Queen bảo đời tốt hơn không ma thuật.")
@@ -87,7 +87,7 @@ func OnZuniDismissal():
 
 func OnZuniMarket():
 	Mes("Một số thương nhân của họ ở chợ phía bắc đây.")
-	Mes("Họ sẽ vui trò chuyện, nhất là nếu đạo hữu mua hàng.")
+	Mes("Họ vui trò chuyện lắm — nhất là nếu cậu mua hàng.")
 	Choice("Ta có thể giúp gì không?", OnAskForHelp)
 
 # Mana and Kaore
@@ -107,7 +107,7 @@ func OnExplainMenhir():
 	Mes("Có Kahwe, Soul Menhir có thể chữa thương, thậm chí ngăn tử vong — cho người thêm cơ hội sống.")
 	Choice("Ngươi biết gì về Zielite?", OnExplainZielite)
 	Choice("Ta còn điều khác muốn hỏi.", OnPlayerChoice)
-	Choice("Đa tạ đã dành thời gian.", Farewell)
+	Choice("Cảm ơn đã dành thời gian.", Farewell)
 
 func OnExplainZielite():
 	Mes("Zielite là khoáng hiếm thân Mana. Hấp thu, lưu và phát Linh Khí — quý cho phép thuật và bảo vệ.")
@@ -119,25 +119,25 @@ func OnExplainZielite():
 func OnAskForHelp():
 	var questState : int = GetQuest(ProgressCommons.Quest.NINA_HUNGRY)
 	if questState == ProgressCommons.NINA_HUNGRY.STARTED:
-		Mes("Lúc này chưa. Ta vẫn mong món nhẹ — nếu đạo hữu tình cờ gặp!")
+		Mes("Lúc này chưa. Ta vẫn mong món nhẹ — nếu cậu tình cờ gặp!")
 		OnPlayerChoice()
 	elif questState == ProgressCommons.NINA_HUNGRY.REWARDS_WITHDREW:
-		Mes("Lúc này không, nhưng đa tạ đã hỏi.")
+		Mes("Lúc này không, nhưng cảm ơn cậu đã hỏi.")
 		OnPlayerChoice()
 	else:
 		Mes("Lúc này thì chưa...")
-		Mes("Hơi đói thật. Ta không nhờ đạo hữu mang đồ ăn! Ta tự lo sau.")
+		Mes("Hơi đói thật. Ta không nhờ cậu mang đồ ăn đâu — ta tự lo sau.")
 		Choice("Ta sẽ để ý đồ ăn nhẹ trên đường ra chợ.", OnStartHungryQuest)
 		Choice("Ta đi đây.", Farewell)
 
 func OnStartHungryQuest():
-	Mes("Đạo hữu tốt bụng quá. Ta thường không nhờ, nhưng bánh sừng bò lúc này thật tuyệt.")
+	Mes("Cậu tốt bụng quá. Ta thường không nhờ ai, nhưng bánh sừng bò lúc này thật tuyệt.")
 	Mes("Thường có ở quầy bánh chợ. Ta muốn tự đi nhưng... Menhir này không tự canh được.")
 	SetQuest(ProgressCommons.Quest.NINA_HUNGRY, ProgressCommons.NINA_HUNGRY.STARTED)
 
 func OnCroissantTurnIn():
 	Mes("Trời ơi!")
-	Mes("Bánh sừng bò! Không ngờ. Đạo hữu quá tử tế, ta không dám mong!")
+	Mes("Bánh sừng bò! Không ngờ. Cậu tử tế quá, ta không dám mong!")
 	ExchangeItems([DB.GetCellHash("Croissant")], [[DB.GetCellHash("Cactus Potion"), 10]], OnCroissantExchanged)
 
 func OnCroissantExchanged(result : ActorInventory.ExchangeResult):
@@ -145,7 +145,7 @@ func OnCroissantExchanged(result : ActorInventory.ExchangeResult):
 		ActorInventory.ExchangeResult.OK:
 			SetQuest(ProgressCommons.Quest.NINA_HUNGRY, ProgressCommons.NINA_HUNGRY.REWARDS_WITHDREW)
 			AddGP(100)
-			Mes("Xin nhận Cactus Potion và chút vàng bù phần đạo hữu đã chi.")
+			Mes("Nhận Cactus Potion và chút vàng bù phần cậu đã chi nhé.")
 		ActorInventory.ExchangeResult.MISSING_ITEMS:
 			Mes("Ồ... Bánh đâu rồi? Thôi, lần sau vậy.")
 		ActorInventory.ExchangeResult.NO_SPACE:
@@ -153,16 +153,16 @@ func OnCroissantExchanged(result : ActorInventory.ExchangeResult):
 
 # Desert Seed quest
 func OnDesertSeedIntro():
-	Mes("Đạo hữu đã về!")
+	Mes("Cậu về rồi!")
 	Mes("Chuyến đi thế nào?")
-	Choice("Đạo hữu không tin được chuyện xảy ra. Ta tìm thấy cái này...", OnRevealKano)
+	Choice("Cậu sẽ không tin chuyện xảy ra đâu. Ta tìm thấy cái này...", OnRevealKano)
 
 func OnRevealKano():
 	Mes("Cho ta xem được không?")
 	Mes("...")
-	Mes("Đạo hữu nói đúng. Đây là Kano. Hạt Mana!")
+	Mes("Cậu nói đúng. Đây là Kano. Hạt Mana!")
 	Mes("Ta chỉ đọc sách, chưa tưởng thấy một cái trong đời.")
-	Mes("Đạo hữu tìm được sao?")
+	Mes("Cậu tìm được sao?")
 	Choice("Có Cây Mana đáy mỏ. Nó trao cho ta.", OnRevealManaTree)
 
 func OnRevealManaTree():
@@ -170,7 +170,7 @@ func OnRevealManaTree():
 	Mes("Ta...")
 	Mes("Ta cần chút thời gian.")
 	Mes("Ta từng cảm thấy gì đó hướng đó, lâu rồi. Ta tưởng là mỏ Zielite sâu. Không ngờ.")
-	Mes("Đạo hữu giao tiếp được? Nó bảo làm gì với Kano?")
+	Mes("Cậu nói chuyện được với nó à? Nó bảo làm gì với Kano?")
 	Choice("Nó bảo mang đến ngươi và tin ngươi được.", OnNinaReacts)
 
 func OnNinaReacts():
@@ -178,7 +178,7 @@ func OnNinaReacts():
 	Mes("Mừng vì được tin, nhưng phải báo Manayir — dòng druid cổ từng canh các cây này.")
 	Mes("Họ xây thành trên bán đảo, bên kia bãi biển phía tây thung lũng Tulimshar, qua cơn bão cát.")
 	Mes("Ra khỏi tường thành rồi đi tây.")
-	Mes("Tìm họ, cho xem Kano. Kể những gì đạo hữu thấy.")
+	Mes("Tìm họ, cho xem Kano. Kể những gì cậu thấy.")
 	Mes("Đừng kể ai khác vội. Vật quá mạnh — chắc kéo tai để ý xấu.")
 	Mes("Trước khi đi, cầm lấy.")
 	ExchangeItems([], [DB.GetCellHash("Brass Zielite Amulet")], OnAmuletExchanged)
@@ -195,13 +195,13 @@ func OnAmuletExchanged(result : ActorInventory.ExchangeResult):
 
 func OnExplainMenhirSync():
 	Mes("Chạm Soul Menhir khi đeo Zielite Amulet, đá cộng hưởng với Zielite trong Menhir.")
-	Mes("Tạo liên kết giữa hồn đạo hữu và Menhir. Gặp nạn, Menhir làm neo.")
+	Mes("Tạo liên kết giữa hồn cậu và Menhir. Gặp nạn, Menhir làm neo.")
 	Mes("Hồn quay về đây thay vì tan mất.")
 	Mes("Kahwe luôn bảo vệ người dưới trướng như vậy. Lẽ ra ta đã trao sớm hơn.")
 	Choice("[Chạm Soul Menhir]", OnTouchMenhir)
 
 func OnTouchMenhir():
-	Narrate("Đạo hữu đặt tay lên Soul Menhir. Zielite Amulet ấm trên da.")
+	Narrate("Cậu đặt tay lên Soul Menhir. Zielite Amulet ấm trên da.")
 	Narrate("Cảm giác lạ truyền qua — như nước chảy nhưng không ướt. Đá nhấp nháy ánh xanh nhạt.")
 	Action(SaveRespawnSoulMenhir)
 	Mes("Tốt. Đã kết nối.")
