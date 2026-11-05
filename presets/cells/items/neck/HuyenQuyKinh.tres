@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/shield/leather-shield.png" id="1_icon"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" path="res://sources/cell/CellModifier.gd" id="4_mod"]
+[ext_resource type="Texture2D" path="res://data/graphics/sprites/equipment/neck/bandana-scarf.png" id="5_tex"]
+
+[sub_resource type="Resource" id="Resource_def"]
+script = ExtResource("3_stat")
+_effect = 14
+_value = 35.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_hp"]
+script = ExtResource("3_stat")
+_effect = 12
+_value = 250.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_cellmod"]
+script = ExtResource("4_mod")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_def"), SubResource("Resource_hp")])
+
+[resource]
+script = ExtResource("2_item")
+slot = 5
+textures = Array[Texture2D]([ExtResource("5_tex"), ExtResource("5_tex"), ExtResource("5_tex")])
+buyPrice = 5000
+sellPrice = 1800
+id = 0
+name = "Huyen Quy Kinh"
+description = "Huyền Quy Kính [Pháp Bảo Phòng Ngự • Huyền Giai Thượng Phẩm]: Tấm gương cổ khắc ấn Huyền Vũ thần thú. Kỹ năng chủ động [Huyền Quy Hộ Thể]: Hấp thu 200 sát thương và giảm 50% sát thương phải chịu trong 10 giây (Tiêu hao: 30 MP, Cooldown: 25s)."
+icon = ExtResource("1_icon")
+weight = 100.0
+stackable = false
+usable = true
+modifiers = SubResource("Resource_cellmod")

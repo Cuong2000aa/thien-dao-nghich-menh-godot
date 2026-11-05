@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/apple.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 40
+sellPrice = 20
+id = 0
+name = "Ngan Linh Thao"
+description = "Linh thảo hấp thu nguyệt hoa ngân quang, chứa linh khí nhu hòa, là dược liệu cơ bản để luyện chế Hồi Xuân Đan."
+icon = ExtResource("1_tex")
+weight = 0.5
+stackable = true
+usable = false

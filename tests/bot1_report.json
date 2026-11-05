@@ -1,0 +1,33 @@
+{
+  "account": "DaoHuu01",
+  "bot_id": 1,
+  "char": "ThienKiem01",
+  "log": [
+    "[Bot 1][INIT][0.00] ClientBot started with Bot ID: 1, Account: DaoHuu01, Char: ThienKiem01, Partner: NghichMenh02, WebSocket: false",
+    "[Bot 1][WAIT_CONNECT][0.07] Connected to server via ENet!",
+    "[Bot 1][AUTH][0.69] Sending LoginWithPassword (or CreateAccount fallback): DaoHuu01",
+    "[Bot 1][WAIT_LOGIN][0.73] Login succeeded, in CHAR_SCREEN!",
+    "[Bot 1][CREATE_OR_SELECT_CHAR][1.24] Sending CreateCharacter: ThienKiem01",
+    "[Bot 1][CONNECT_CHAR][2.46] Sending ConnectCharacter: ThienKiem01",
+    "[Bot 1][WAIT_WORLD][2.49] ENTERED WORLD SUCCESSFULLY! Map ID: 995840901, is Swordsman: true, Spawn position: (1380.0, 1448.0)",
+    "[Bot 1][WAIT_WORLD][2.49] Captured screenshot: tests/screenshots/bot1_spawned_in_world.png (err=0)",
+    "[Bot 1][CHECK_MUTUAL_VISIBILITY][6.37] MUTUAL VISIBILITY CONFIRMED! Found partner entity: NghichMenh02 at (1000.0, 1050.0) (is Swordsman: true)",
+    "[Bot 1][CHECK_MUTUAL_VISIBILITY][6.37] Captured screenshot: tests/screenshots/bot1_sees_partner.png (err=0)",
+    "[Bot 1][MOVE_TEST][7.87] Moving player from (1380.0, 1448.0) to (1444.0, 1512.0)...",
+    "[Bot 1][MOVE_TEST][7.87] Captured screenshot: tests/screenshots/bot1_moved_to_target.png (err=0)",
+    "[Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Disconnecting Bot 1 for disconnect/reconnect test...",
+    "[Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Captured screenshot: tests/screenshots/bot1_pre_disconnect.png (err=0)",
+    "[Bot 1][RECONNECT_DELAY][10.88] Bot 1 reconnecting to server...",
+    "[Bot 1][RECONNECT_AUTH][11.89] Logging back in: DaoHuu01",
+    "[Bot 1][RECONNECT_CHAR][12.91] Reconnecting character: ThienKiem01",
+    "[Bot 1][RECONNECT_WORLD][14.93] Bot 1 reconnected successfully into world!",
+    "[Bot 1][RECONNECT_WORLD][14.93] Captured screenshot: tests/screenshots/bot1_reconnected_in_world.png (err=0)",
+    "[Bot 1][FINISH][14.94] Bot test sequence completed successfully!"
+  ],
+  "partner": "NghichMenh02",
+  "pass": true,
+  "spawn_pos": [
+    1380.0,
+    1448.0
+  ]
+}

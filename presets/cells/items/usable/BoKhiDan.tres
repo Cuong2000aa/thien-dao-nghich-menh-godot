@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/BottleScript.gd" id="1_script_use"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-drink.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/actor/stat/StatModifier.gd" id="3_mod"]
+[ext_resource type="Script" path="res://sources/cell/CellModifier.gd" id="4_cmod"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="5_item"]
+
+[sub_resource type="Resource" id="Resource_mp"]
+script = ExtResource("3_mod")
+_effect = 2
+_value = 60.0
+
+[sub_resource type="Resource" id="Resource_mod"]
+script = ExtResource("4_cmod")
+_modifiers = Array[ExtResource("3_mod")]([SubResource("Resource_mp")])
+
+[resource]
+script = ExtResource("5_item")
+buyPrice = 80
+sellPrice = 40
+id = 0
+name = "Bo Khi Dan"
+description = "Đan dược ôn dưỡng kinh mạch, ngưng tụ chân khí, phục hồi 60 điểm Linh Lực."
+icon = ExtResource("2_tex")
+weight = 0.2
+stackable = true
+usable = true
+modifiers = SubResource("Resource_mod")
+cellScript = ExtResource("1_script_use")

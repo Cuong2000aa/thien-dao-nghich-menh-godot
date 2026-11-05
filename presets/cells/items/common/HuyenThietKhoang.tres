@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/bone.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 60
+sellPrice = 30
+id = 0
+name = "Huyen Thiet Khoang"
+description = "Khoáng thạch huyền thiết chìm sâu dưới lòng đất ngàn năm, cứng rắn trầm trọng, dùng để rèn linh khí hoặc tinh luyện thiết tinh."
+icon = ExtResource("1_tex")
+weight = 1.0
+stackable = true
+usable = false

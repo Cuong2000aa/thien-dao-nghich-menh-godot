@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/apple.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 350
+sellPrice = 175
+id = 0
+name = "Kim Cang Dan"
+description = "Kim Cang Đan (Thượng Phẩm): Đan hoàn cứng như sắt thép, phát tán kim mang bảo hộ toàn thân, tăng 15 điểm Phòng Ngự trong 120 giây."
+icon = ExtResource("2_tex")
+weight = 0.3
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

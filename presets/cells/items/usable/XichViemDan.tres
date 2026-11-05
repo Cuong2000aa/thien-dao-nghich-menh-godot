@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-potion.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 1800
+sellPrice = 900
+id = 0
+name = "Xich Viem Dan"
+description = "Xích Viêm Đan (Cực Phẩm): Dị đan luyện từ nội đan của Xích Viêm Thú Hậu, làm sôi sục chân khí Hỏa diễm, tăng 40 Công Kích và gây Thiêu Đốt kẻ địch trong 120 giây."
+icon = ExtResource("2_tex")
+weight = 0.5
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

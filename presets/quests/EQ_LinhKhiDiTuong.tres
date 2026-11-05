@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thu Thập Tinh Hoa Dị Tượng"
+description = "Sự kiện thế giới: Vầng sáng ngũ sắc xuất hiện trên bầu trời. Khai thác các tinh thể ngưng tụ trong thời gian linh khí bùng nổ."
+giver = "Liễu Thanh Y"
+giverLocation = "Trúc Sơn Ngoại Vi"
+target = "Thu thập 3 Tinh Hoa Linh Khí trong lúc dị tượng diễn ra"
+targetLocation = "Trúc Sơn Ngoại Vi"
+reward = "200 Tu Vi, 200 Linh Thạch, 50 Hảo Cảm Liễu Thanh Y"

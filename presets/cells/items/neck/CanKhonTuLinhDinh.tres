@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/powder.png" id="1_icon"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" path="res://sources/cell/CellModifier.gd" id="4_mod"]
+[ext_resource type="Texture2D" path="res://data/graphics/sprites/equipment/neck/bandana-scarf.png" id="5_tex"]
+
+[sub_resource type="Resource" id="Resource_mp"]
+script = ExtResource("3_stat")
+_effect = 4
+_value = 150.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_regen"]
+script = ExtResource("3_stat")
+_effect = 5
+_value = 5.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_cellmod"]
+script = ExtResource("4_mod")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_mp"), SubResource("Resource_regen")])
+
+[resource]
+script = ExtResource("2_item")
+slot = 5
+textures = Array[Texture2D]([ExtResource("5_tex"), ExtResource("5_tex"), ExtResource("5_tex")])
+buyPrice = 7500
+sellPrice = 3000
+id = 0
+name = "Can Khon Tu Linh Dinh"
+description = "Càn Khôn Tụ Linh Đỉnh [Pháp Bảo Tu Luyện • Huyền Giai Cực Phẩm]: Đỉnh nhỏ thông thấu càn khôn. Bị động: +5 hồi phục MP/5s. Kỹ năng chủ động [Càn Khôn Thôn Hấp]: Lập tức hồi phục 100 Linh Lực, ban thêm +50 Tu Vi và tăng 50% tốc độ tu luyện trong 60 giây (Cooldown: 40s)."
+icon = ExtResource("1_icon")
+weight = 120.0
+stackable = false
+usable = true
+modifiers = SubResource("Resource_cellmod")

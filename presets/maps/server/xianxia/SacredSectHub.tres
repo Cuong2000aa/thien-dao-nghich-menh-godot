@@ -1,0 +1,189 @@
+[gd_resource type="Resource" script_class="MapServerData" format=3]
+
+[ext_resource type="Script" path="res://addons/tiled_importer/MapServerData.gd" id="1_script"]
+[ext_resource type="NavigationPolygon" path="res://presets/maps/navigations/xianxia/SacredSectHub.tres" id="2_nav"]
+[ext_resource type="Script" path="res://addons/tiled_importer/SpawnObject.gd" id="3_spawn"]
+[ext_resource type="Script" path="res://sources/scripts/generic/WarpGlobal.gd" id="4_warpglobal"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/DaoHuyen.gd" id="5_daohuyen"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/BiCanhPortal.gd" id="6_bicanh"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/DuocDuongMerchant.gd" id="7_merchant"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/AlchemyFurnace.gd" id="8_furnace"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/AncientStele.gd" id="9_stele"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/GatheringNode.gd" id="10_gather"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/TiepDanChapSu.gd" id="11_tiepdan"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/TangKinhCacLao.gd" id="12_tangkinh"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/NhiemVuDuongChapSu.gd" id="13_nhiemvu"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/LuyenKhiChapSu.gd" id="14_luyenkhi"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/TuLinhTran.gd" id="15_tulinhtran"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/DienVoGiaoDau.gd" id="16_dienvo"]
+
+[sub_resource type="Resource" id="Resource_warp_to_tanthuthon"]
+script = ExtResource("3_spawn")
+id = 2089709631
+nick = "Lối xuống Sơn Lâm Ngoại Vi"
+type = 2
+own_script = ExtResource("4_warpglobal")
+spawn_position = Vector2i(1000, 1500)
+respawn_delay = 0.0
+is_persistant = true
+trigger_radius = 64.0
+destination_map = 1841251538
+destination_pos = Vector2(2650, 1260)
+auto_warp = true
+
+[sub_resource type="Resource" id="Resource_npc_daohuyen"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Đạo Huyền Trưởng Lão"
+type = 1
+player_script = ExtResource("5_daohuyen")
+spawn_position = Vector2i(1000, 1300)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_monster_maggot"]
+script = ExtResource("3_spawn")
+id = 3264333316
+nick = "Linh Trùng"
+type = 2
+spawn_position = Vector2i(1100, 1350)
+spawn_offset = Vector2i(100, 100)
+respawn_delay = 3.0
+is_persistant = true
+count = 5
+
+[sub_resource type="Resource" id="Resource_bicanh_portal"]
+script = ExtResource("3_spawn")
+id = 2089709631
+nick = "Lối vào Linh Khí Bí Cảnh"
+type = 2
+player_script = ExtResource("6_bicanh")
+own_script = ExtResource("6_bicanh")
+spawn_position = Vector2i(850, 1300)
+respawn_delay = 0.0
+is_persistant = true
+trigger_radius = 48.0
+
+[sub_resource type="Resource" id="Resource_npc_merchant"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Dược Đường Chấp Sự"
+type = 1
+player_script = ExtResource("7_merchant")
+spawn_position = Vector2i(920, 1300)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_furnace"]
+script = ExtResource("3_spawn")
+id = 2089713785
+nick = "Luyện Đan Lô"
+type = 1
+player_script = ExtResource("8_furnace")
+spawn_position = Vector2i(960, 1280)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_stele"]
+script = ExtResource("3_spawn")
+id = 737772331
+nick = "Trúc Sơn Cổ Bi"
+type = 1
+player_script = ExtResource("9_stele")
+spawn_position = Vector2i(1060, 1260)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_node_herb"]
+script = ExtResource("3_spawn")
+id = 2089713785
+nick = "Ngân Linh Thảo"
+type = 1
+player_script = ExtResource("10_gather")
+spawn_position = Vector2i(1150, 1400)
+spawn_offset = Vector2i(60, 60)
+respawn_delay = 5.0
+is_persistant = true
+count = 3
+
+[sub_resource type="Resource" id="Resource_npc_tiepdan"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Tiếp Dẫn Chấp Sự"
+type = 1
+player_script = ExtResource("11_tiepdan")
+spawn_position = Vector2i(1050, 1460)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_tangkinh"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Tàng Kinh Các Lão"
+type = 1
+player_script = ExtResource("12_tangkinh")
+spawn_position = Vector2i(550, 620)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_nhiemvu"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Chấp Sự Nhiệm Vụ Đường"
+type = 1
+player_script = ExtResource("13_nhiemvu")
+spawn_position = Vector2i(1080, 1320)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_luyenkhi"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Luyện Khí Chấp Sự"
+type = 1
+player_script = ExtResource("14_luyenkhi")
+spawn_position = Vector2i(1180, 1280)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_tulinhtran"]
+script = ExtResource("3_spawn")
+id = 2089713785
+nick = "Thái Cực Tụ Linh Trận"
+type = 1
+player_script = ExtResource("15_tulinhtran")
+spawn_position = Vector2i(1000, 1350)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_dienvo"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Diễn Võ Giáo Đầu"
+type = 1
+player_script = ExtResource("16_dienvo")
+spawn_position = Vector2i(1300, 1150)
+respawn_delay = 0.0
+is_persistant = true
+
+[resource]
+script = ExtResource("1_script")
+name = "SacredSectHub"
+nav_poly = ExtResource("2_nav")
+spawns = [
+	SubResource("Resource_warp_to_tanthuthon"),
+	SubResource("Resource_npc_daohuyen"),
+	SubResource("Resource_monster_maggot"),
+	SubResource("Resource_bicanh_portal"),
+	SubResource("Resource_npc_merchant"),
+	SubResource("Resource_furnace"),
+	SubResource("Resource_stele"),
+	SubResource("Resource_node_herb"),
+	SubResource("Resource_npc_tiepdan"),
+	SubResource("Resource_npc_tangkinh"),
+	SubResource("Resource_npc_nhiemvu"),
+	SubResource("Resource_npc_luyenkhi"),
+	SubResource("Resource_tulinhtran"),
+	SubResource("Resource_npc_dienvo")
+]
+flags = 0

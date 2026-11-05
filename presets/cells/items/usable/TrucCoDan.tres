@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/pitaya.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 1200
+sellPrice = 600
+id = 0
+name = "Truc Co Dan"
+description = "Trúc Cơ Đan (Thượng Phẩm): Thánh dược đột phá mà tu sĩ luyện khí khao khát cả đời, gia tăng 30% xác suất phá tan bình cảnh và bảo vệ đan điền khỏi phản phệ."
+icon = ExtResource("2_tex")
+weight = 0.5
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Tiếp Đón Du Phương Thương Đội"
+description = "Đoàn buôn của Khang Vạn Kim dừng chân tại Tiếp Dẫn Đài. Hắn nhờ đạo hữu gom giúp các loại linh thảo và khoáng thạch bản địa với giá ưu đãi."
+giver = "Khang Vạn Kim"
+giverLocation = "Tiếp Dẫn Đài"
+target = "Giao dịch 2 Ngân Linh Thảo và 2 Huyền Thiết Khoáng"
+targetLocation = "Tiếp Dẫn Đài"
+reward = "150 Tu Vi, 200 Linh Thạch, 60 Hảo Cảm Khang Vạn Kim"

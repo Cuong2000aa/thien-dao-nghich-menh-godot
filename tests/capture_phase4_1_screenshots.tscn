@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/capture_phase4_1_screenshots.gd" id="1_script"]
+
+[node name="CaptureScreenshots" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1600, 1200)
+zoom = Vector2(0.5, 0.5)

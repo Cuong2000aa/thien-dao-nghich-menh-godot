@@ -1,0 +1,34 @@
+sandbox_extension_issue_file_to_process failed for /tmp/godot_setup/Godot.app: 1 (Operation not permitted)
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+
+Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
+Sentry: DEBUG: Automatic initialization is disabled in the project settings.
+Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
+[0.721][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot_desktop/
+[0.721][Config] Loading file: res://data/conf/settings.cfg
+[0.721][Config] Loading file: user://profiles/bot_desktop/settings.cfg
+[1.119][Launcher] Entering new FSM state: LOGIN_SCREEN
+[Bot 1][INIT][0.00] ClientBot started with Bot ID: 1, Account: DaoHuuDesktop, Char: KiemTienDesktop, Partner: KiemTuEdge, WebSocket: false
+[1.186][Client] Initialized with: ENet, Online, Local, Testing
+[Bot 1][WAIT_CONNECT][0.08] Connected to server via ENet!
+[Bot 1][AUTH][0.70] Sending LoginWithPassword (or CreateAccount fallback): DaoHuuDesktop
+[2.001][Launcher] Entering new FSM state: CHAR_SCREEN
+[Bot 1][WAIT_LOGIN][0.72] Login succeeded, in CHAR_SCREEN!
+[Bot 1][CREATE_OR_SELECT_CHAR][1.22] Sending CreateCharacter: KiemTienDesktop
+[Bot 1][CONNECT_CHAR][2.44] Sending ConnectCharacter: KiemTienDesktop
+[3.941][Launcher] Entering new FSM state: CHAR_PROGRESS
+[4.022][Launcher] Entering new FSM state: IN_GAME
+SCRIPT ERROR: Assertion failed: Could not load the minimap resource
+          at: Warped (res://sources/gui/Minimap.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] Warped (res://sources/gui/Minimap.gd:21)
+              [1] SpawnEntity (res://sources/map/Map.gd:132)
+              [2] FullUpdateEntity (res://sources/map/Map.gd:165)
+              [3] FullUpdateEntity (res://sources/network/client/Client.gd:35)
+[Bot 1][WAIT_WORLD][2.47] ENTERED WORLD SUCCESSFULLY! Map ID: 995840901, is Swordsman: true, Spawn position: (1218.0, 1244.0)
+[Bot 1][WAIT_WORLD][2.47] Captured screenshot: tests/screenshots/bot1_spawned_in_world.png (err=0)
+[Bot 1][CHECK_MUTUAL_VISIBILITY][6.43] MUTUAL VISIBILITY CONFIRMED! Found partner entity: KiemTuEdge at (1278.0, 1354.0) (is Swordsman: true)
+[Bot 1][CHECK_MUTUAL_VISIBILITY][6.43] Captured screenshot: tests/screenshots/bot1_sees_partner.png (err=0)
+[Bot 1][MOVE_TEST][7.94] Moving player from (1218.0, 1244.0) to (1282.0, 1308.0)...
+[Bot 1][MOVE_TEST][7.94] Captured screenshot: tests/screenshots/bot1_moved_to_target.png (err=0)

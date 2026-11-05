@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Luyện Đan Nhập Môn"
+description = "Đạo Huyền Trưởng Lão hướng dẫn đệ tử đến Luyện Đan Lô tại Trúc Sơn, sử dụng 2 Linh Trùng Tương và 1 Ngân Linh Thảo để luyện thành 1 Hồi Xuân Dược."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Trúc Sơn Tiên Cảnh"
+target = "Luyện chế 1 Hồi Xuân Dược tại Luyện Đan Lô"
+targetLocation = "Trúc Sơn Đan Các"
+reward = "100 Tu Vi, 100 Linh Thạch, 1 Ngọc Bình"

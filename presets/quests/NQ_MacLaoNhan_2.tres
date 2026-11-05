@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Cổ Trận Thăm Dò"
+description = "Mặc Lão Nhân phát hiện dao động không gian kỳ bí tại thạch trận cổ. Lão muốn cùng người có tư duy nhạy bén đến đo đạc chu kỳ linh khí."
+giver = "Mặc Lão Nhân"
+giverLocation = "Trúc Sơn Cổ Bi"
+target = "Thăm dò tâm điểm thạch trận và ghi chép chu kỳ"
+targetLocation = "Ngũ Hành Thạch Trận"
+reward = "320 Tu Vi, 200 Linh Thạch, 100 Hảo Cảm Mặc Lão Nhân"

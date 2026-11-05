@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Khảo Hạch Nội Môn"
+description = "Đệ tử Ngoại Môn khi đạt cảnh giới Tụ Khí Tầng 5 và tích lũy đủ 500 Điểm Cống Hiến có thể tiến hành khảo thí khốc liệt: Tiến vào Linh Khí Bí Cảnh, trảm sát Thí Luyện Thú để thăng cấp lên Nội Môn Đệ Tử."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Đại Điện Trúc Sơn"
+target = "Trảm sát Thí Luyện Thú trong Bí Cảnh & Nhận Nội Môn Kiếm Lệnh"
+targetLocation = "Linh Khí Bí Cảnh"
+reward = "Thân Phận Nội Môn, Nội Môn Lệnh Bài, Mở khóa Tàng Kinh Các Tầng 2 & Luyện Khí Đường"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Khoáng Thạch Thí Luyện"
+description = "Hà Thiết Thủ muốn thử tài nhận biết quặng sắt của đệ tử, yêu cầu đào 5 khối Huyền Thiết Khoáng nguyên chất."
+giver = "Hà Thiết Thủ"
+giverLocation = "Luyện Khí Đường"
+target = "Khai khoáng 5 Huyền Thiết Khoáng giao nộp"
+targetLocation = "Luyện Khí Đường"
+reward = "150 Tu Vi, 100 Linh Thạch, 50 Hảo Cảm Hà Thiết Thủ"

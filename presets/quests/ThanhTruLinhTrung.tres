@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thanh Trừ Linh Trùng"
+description = "Linh khí quanh Trúc Sơn xuất hiện dị biến, Linh Trùng sinh sôi quấy nhiễu linh mạch sơn môn. Đạo Huyền Trưởng Lão giao phó đệ tử tiêu diệt 5 Linh Trùng dưới chân núi để ổn định linh mạch."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Trúc Sơn Tiên Cảnh"
+target = "Tiêu diệt 5 Linh Trùng"
+targetLocation = "Chân Núi Trúc Sơn"
+reward = "50 Tu Vi, 100 Linh Thạch, Thanh Phong Kiếm"

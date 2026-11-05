@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Con Đường Tu Đạo"
+description = "Học tập quy tắc tu luyện cơ bản, thám sát chân núi Trúc Sơn và giải mã những dòng văn khắc bất thường đầu tiên trên Trúc Sơn Cổ Bi."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Đại Điện Trúc Sơn"
+target = "Khám phá Trúc Sơn Cổ Bi và ngộ nhập Tụ Khí cảnh"
+targetLocation = "Trúc Sơn Cổ Bi"
+reward = "150 Tu Vi, 100 Linh Thạch, 1 Hồi Xuân Đan"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/powder.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 120
+sellPrice = 60
+id = 0
+name = "Bach Ngan Khoang"
+description = "Bạch Ngân Khoáng (Trung Phẩm): Quặng bạc lấp lánh ánh trăng, độ dẻo dai và tính dẫn truyền linh lực tuyệt hảo, dùng để rèn vũ khí và pháp bảo bậc cao."
+icon = ExtResource("1_tex")
+weight = 2.0
+stackable = true
+usable = false

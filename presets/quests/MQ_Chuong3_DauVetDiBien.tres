@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Dấu Vết Dị Biến"
+description = "Đàn yêu thú vùng ngoại vi bỗng nhiên cuồng loạn dị thường. Điều tra nguyên nhân bùng phát hỏa khí và cứu viện đồng môn lâm nạn."
+giver = "Diệp Tử Lăng"
+giverLocation = "Sơn Lâm Ngoại Vi"
+target = "Thu thập Dị Biến Yêu Đan và đưa ra quyết định xử lý"
+targetLocation = "Sơn Lâm Ngoại Vi"
+reward = "250 Tu Vi, 200 Linh Thạch, 30 Điểm Cống Hiến"

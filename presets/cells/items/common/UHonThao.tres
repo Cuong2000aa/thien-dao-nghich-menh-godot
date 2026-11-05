@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-sour-candy.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 80
+sellPrice = 40
+id = 0
+name = "U Hon Thao"
+description = "U Hồn Thảo (Trung Phẩm): Thảo dược sinh trưởng nơi âm u u tĩnh, hấp thu tinh hoa u minh, dùng để luyện chế đan dược thanh tâm giải độc và ngưng thần."
+icon = ExtResource("1_tex")
+weight = 0.5
+stackable = true
+usable = false

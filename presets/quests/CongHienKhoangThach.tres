@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Cống Hiến Khoáng Thạch"
+description = "Luyện Khí Đường cần Huyền Thiết Khoáng thô để tinh luyện phi kiếm. Thu thập 2 quặng Huyền Thiết Khoáng giao nộp cho Luyện Khí Chấp Sự."
+giver = "Luyện Khí Chấp Sự"
+giverLocation = "Luyện Khí Đường"
+target = "Thu thập & Giao nộp 2 Huyền Thiết Khoáng"
+targetLocation = "Bãi Quặng Trúc Sơn"
+reward = "40 Điểm Cống Hiến, 60 Tu Vi, 1 Thanh Phong Tinh Thiết"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thu Thập Khoáng Thạch"
+description = "Khí Các cần Huyền Thiết Khoáng để đúc luyện phi kiếm. Đệ tử hãy khai thác 2 khối Huyền Thiết Khoáng mang về nạp môn phái."
+giver = "Dược Đường Chấp Sự"
+giverLocation = "Trúc Sơn Tiên Cảnh"
+target = "Thu thập 2 Huyền Thiết Khoáng"
+targetLocation = "Sơn Lâm Ngoại Vi"
+reward = "120 Tu Vi, 180 Linh Thạch, 1 Thanh Phong Tinh Thiết"

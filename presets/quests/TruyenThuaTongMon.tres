@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Truyền Thừa Tông Môn"
+description = "Đạo Huyền Trưởng Lão nhận thấy thiên phú trác tuyệt của đệ tử, quyết định triệu kiến tại Đại Điện, truyền thụ tuyệt học bí truyền của tông môn."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Đại Điện Trúc Sơn"
+target = "Diện kiến Trưởng lão & Tham ngộ Truyền Thừa Kiếm Kinh"
+targetLocation = "Đại Điện Trúc Sơn"
+reward = "Thanh Phong Bí Kíp, 200 Điểm Cống Hiến, 300 Tu Vi"

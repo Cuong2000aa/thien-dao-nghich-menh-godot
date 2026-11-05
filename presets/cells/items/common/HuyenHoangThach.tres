@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/bone.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 400
+sellPrice = 100
+id = 0
+name = "Huyen Hoang Thach"
+description = "Huyền Hoàng Thạch: Dị thạch kết tinh từ địa mạch hoàng thổ, mang theo trọng lực và khí tức đại địa trầm ổn, dùng để chế tác pháp bảo phòng hộ."
+icon = ExtResource("1_tex")
+weight = 1.5
+stackable = true
+usable = false

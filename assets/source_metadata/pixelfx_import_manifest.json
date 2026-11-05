@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/patch-gg/pixelfx",
+  "license": "MIT",
+  "tool_checkout": "../tools/pixelfx",
+  "export_command": "node tools/render.mjs <ids> --sheet --no-actor",
+  "import_root": "res://assets/vfx/pixelfx",
+  "build": 12,
+  "notes": "god-rays deferred (sheet size). JS runtime not shipped in Godot project.",
+  "effect_count": 33
+}

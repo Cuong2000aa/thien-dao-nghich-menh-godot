@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Khai Thác Liên Hoa Cổ Thiết"
+description = "Vách núi cheo leo kết tụ mỏ khoáng thạch mang hình hoa sen phát ra ánh xanh lục. Khai thác mẫu quặng tinh khiết về nghiên cứu độ dẻo của kim loại."
+giver = "Hà Thiết Thủ"
+giverLocation = "Luyện Khí Đường"
+target = "Khai thác 2 khối Thanh Phong Tinh Thiết"
+targetLocation = "Vách Núi Liên Hoa"
+reward = "220 Tu Vi, 180 Linh Thạch, 1 Thanh Phong Tinh Thiết"

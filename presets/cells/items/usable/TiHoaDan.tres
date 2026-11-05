@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/bottle-water.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 320
+sellPrice = 160
+id = 0
+name = "Ti Hoa Dan"
+description = "Tị Hỏa Đan (Trung Phẩm): Ngưng tụ băng sương hàn khí phủ lên da thịt, giảm 50% sát thương từ Hỏa hệ và lửa thiêu đốt trong 120 giây."
+icon = ExtResource("2_tex")
+weight = 0.2
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

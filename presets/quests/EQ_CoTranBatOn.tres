@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Ổn Định Linh Mạch Cổ Trận"
+description = "Sự kiện thế giới: Cổ trận dưới lòng đất chấn động dữ dội. Tiếp viện nguyên liệu trận thạch và phối hợp cùng trưởng lão trấn áp linh nhãn."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Đại Điện Trúc Sơn"
+target = "Cung cấp 3 Thanh Phong Tinh Thiết và vận khí gia cố trận nhãn"
+targetLocation = "Đại Điện Trúc Sơn"
+reward = "350 Tu Vi, 400 Linh Thạch, 150 Điểm Cống Hiến"

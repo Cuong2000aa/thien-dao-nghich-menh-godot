@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/quest/zieliteamulet-brass.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 0
+sellPrice = 0
+id = 0
+name = "Truc Son Co Bi Tan Quyen"
+description = "Mảnh tàn đồ bí kíp ghi chép tâm pháp cổ xưa do tiền nhân Trúc Sơn Tông lưu lại trên bia đá ngàn năm."
+icon = ExtResource("1_tex")
+weight = 0.1
+stackable = false
+usable = false
+slot = 8

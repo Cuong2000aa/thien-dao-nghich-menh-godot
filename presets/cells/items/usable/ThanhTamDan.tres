@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-sour-candy.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 300
+sellPrice = 150
+id = 0
+name = "Thanh Tam Dan"
+description = "Thanh Tâm Đan (Trung Phẩm): Hóa giải các loại âm độc, chướng khí và hỏa độc trong người, đồng thời ban phúc miễn nhiễm độc tố trong 60 giây."
+icon = ExtResource("2_tex")
+weight = 0.2
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

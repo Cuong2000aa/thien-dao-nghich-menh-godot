@@ -1,0 +1,38 @@
+*.DS_Store
+android/*
+binary/*
+build/*
+builds/
+publishing/*
+
+# local / generated databases
+data/db.sqlite
+data/db.sqlite-*
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# imported files
+.godot/*
+presets/maps/layers/*
+!presets/maps/layers/xianxia/
+presets/maps/server/*
+!presets/maps/server/xianxia/
+presets/maps/data/*
+!presets/maps/data/xianxia/
+presets/maps/navigations/*
+!presets/maps/navigations/xianxia/
+
+# addons
+~*.dll
+
+# linux env
+.mono
+
+.vscode
+.cursor
+
+# tmp files
+*.tmp
+__pycache__/
+prototype_iso/

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/apple.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 250
+sellPrice = 60
+id = 0
+name = "Cuu Diep Ngoc Chi"
+description = "Cửu Diệp Ngọc Chi: Linh chi cửu diệp mọc bên vách đá cổ tích, hấp thu tinh hoa nhật nguyệt, dược tính thuần dương, là kỳ dược luyện chế đan dược phá cảnh."
+icon = ExtResource("1_tex")
+weight = 0.4
+stackable = true
+usable = false

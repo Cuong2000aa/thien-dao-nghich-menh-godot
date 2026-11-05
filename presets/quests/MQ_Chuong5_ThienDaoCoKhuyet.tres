@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thiên Đạo Có Khuyết"
+description = "Đại chấn động linh mạch cổ trận bùng nổ. Nhận diện sự thật tối hậu: Thiên Đạo bị thương tổn từ ngàn năm trước. Đưa ra đại quyết định cứu vãn sơn môn hay thích ứng quy tắc mới."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Đại Điện Trúc Sơn"
+target = "Trấn áp hoặc phân tán dòng linh khí hỗn loạn của Cổ Trận"
+targetLocation = "Đại Điện Trúc Sơn"
+reward = "600 Tu Vi, 500 Linh Thạch, Danh Hiệu Cốt Truyện"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Cứu Trợ Thương Binh"
+description = "Nhiều đệ tử tuần tra bị trúng độc khí lạ từ rừng sâu. Liễu Thanh Y nhờ đạo hữu đem Thanh Tâm Đan đến cứu trị kịp thời."
+giver = "Liễu Thanh Y"
+giverLocation = "Dược Đường"
+target = "Phân phát Thanh Tâm Đan cho đệ tử bị thương"
+targetLocation = "Tiếp Dẫn Đài"
+reward = "200 Tu Vi, 100 Linh Thạch, 100 Hảo Cảm Liễu Thanh Y"

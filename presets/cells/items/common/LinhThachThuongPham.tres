@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-potion.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 500
+sellPrice = 250
+id = 0
+name = "Linh Thach Thuong Pham"
+description = "Linh Thạch Thượng Phẩm (Thượng Phẩm): Viên đá tinh khiết không tì vết, tích tụ linh khí thiên địa nồng độ cao, dùng làm năng lượng cho trận pháp, đột phá và luyện đan cao cấp."
+icon = ExtResource("1_tex")
+weight = 0.5
+stackable = true
+usable = false

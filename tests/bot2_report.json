@@ -1,0 +1,30 @@
+{
+  "account": "DaoHuu02",
+  "bot_id": 2,
+  "char": "NghichMenh02",
+  "log": [
+    "[Bot 2][INIT][0.00] ClientBot started with Bot ID: 2, Account: DaoHuu02, Char: NghichMenh02, Partner: ThienKiem01, WebSocket: false",
+    "[Bot 2][WAIT_CONNECT][0.11] Connected to server via ENet!",
+    "[Bot 2][AUTH][0.72] Sending LoginWithPassword (or CreateAccount fallback): DaoHuu02",
+    "[Bot 2][WAIT_LOGIN][0.79] Login succeeded, in CHAR_SCREEN!",
+    "[Bot 2][CREATE_OR_SELECT_CHAR][1.29] Sending CreateCharacter: NghichMenh02",
+    "[Bot 2][CONNECT_CHAR][2.50] Sending ConnectCharacter: NghichMenh02",
+    "[Bot 2][WAIT_WORLD][2.57] ENTERED WORLD SUCCESSFULLY! Map ID: 995840901, is Swordsman: true, Spawn position: (1000.0, 1050.0)",
+    "[Bot 2][WAIT_WORLD][2.57] Captured screenshot: tests/screenshots/bot2_spawned_in_world.png (err=0)",
+    "[Bot 2][CHECK_MUTUAL_VISIBILITY][2.58] MUTUAL VISIBILITY CONFIRMED! Found partner entity: ThienKiem01 at (1380.0, 1448.0) (is Swordsman: true)",
+    "[Bot 2][CHECK_MUTUAL_VISIBILITY][2.58] Captured screenshot: tests/screenshots/bot2_sees_partner.png (err=0)",
+    "[Bot 2][WAIT_PARTNER_MOVE][4.92] Movement sync verified! Target position observed: (1392.833, 1461.417)",
+    "[Bot 2][WAIT_PARTNER_MOVE][4.92] Captured screenshot: tests/screenshots/bot2_observed_partner_movement.png (err=0)",
+    "[Bot 2][WAIT_PARTNER_DISCONNECT][6.44] Bot 2 verified partner disconnection!",
+    "[Bot 2][WAIT_PARTNER_DISCONNECT][6.44] Captured screenshot: tests/screenshots/bot2_partner_disconnected.png (err=0)",
+    "[Bot 2][WAIT_PARTNER_RECONNECT][12.77] Bot 2 observed partner reconnect in world!",
+    "[Bot 2][WAIT_PARTNER_RECONNECT][12.77] Captured screenshot: tests/screenshots/bot2_observed_partner_reconnected.png (err=0)",
+    "[Bot 2][FINISH][12.79] Bot test sequence completed successfully!"
+  ],
+  "partner": "ThienKiem01",
+  "pass": true,
+  "spawn_pos": [
+    1000.0,
+    1050.0
+  ]
+}

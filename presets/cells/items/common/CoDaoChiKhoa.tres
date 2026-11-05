@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/treasure-key.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 500
+sellPrice = 100
+id = 0
+name = "Co Dao Chi Khoa"
+description = "Chìa Khóa Cổ Đạo: Chìa khóa bằng đồng thau chạm khắc phù văn cổ di tích, dùng để khai mở các bảo rương cổ xưa bị phong ấn trong phế tích."
+icon = ExtResource("1_tex")
+weight = 0.1
+stackable = true
+usable = false

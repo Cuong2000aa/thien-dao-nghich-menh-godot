@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-drink.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 800
+sellPrice = 400
+id = 0
+name = "Toi The Dan"
+description = "Tôi Thể Đan (Thượng Phẩm): Luyện từ huyết tinh yêu thú thượng cổ, tôi luyện gân cốt như thép đúc, tăng vĩnh viễn 50 điểm Khí Huyết Tối Đa."
+icon = ExtResource("2_tex")
+weight = 0.5
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

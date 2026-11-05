@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MapData" format=3]
+
+[ext_resource type="NavigationPolygon" path="res://presets/maps/navigations/xianxia/SacredSectHub.tres" id="1_nav"]
+[ext_resource type="Script" path="res://sources/db/instance/MapData.gd" id="2_script"]
+[ext_resource type="Resource" path="res://presets/maps/server/xianxia/SacredSectHub.tres" id="3_server"]
+
+[resource]
+script = ExtResource("2_script")
+serverData = ExtResource("3_server")
+layersPath = "res://assets/environment/SacredSectHub.tscn"
+navigation = ExtResource("1_nav")
+minimapPath = "res://data/graphics/minimaps/xianxia/SacredSectHub.png"
+_name = "SacredSectHub"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Diệt Trừ Ma Vật"
+description = "Nhiệm vụ thường ngày: Quét sạch 3 ma vật hoặc linh trùng xâm nhập khu vực cận sơn môn để bảo vệ an toàn cho các đệ tử tạp dịch đang thu hoạch thảo dược."
+giver = "Chấp Sự Nhiệm Vụ Đường"
+giverLocation = "Nhiệm Vụ Đường"
+target = "Tiêu diệt 3 Ma Vật / Linh Trùng"
+targetLocation = "Ngoại Vi Sơn Môn"
+reward = "50 Điểm Cống Hiến, 70 Tu Vi, 60 Linh Thạch"

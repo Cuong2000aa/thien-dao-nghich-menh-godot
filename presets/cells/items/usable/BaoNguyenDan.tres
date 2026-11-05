@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/pitaya.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 400
+sellPrice = 200
+id = 0
+name = "Bao Nguyen Dan"
+description = "Bạo Nguyên Đan (Thượng Phẩm): Kích phát tiềm lực kinh mạch và bộc phát chân khí cuồng bạo, tăng 20 điểm Công Kích trong 120 giây."
+icon = ExtResource("2_tex")
+weight = 0.3
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

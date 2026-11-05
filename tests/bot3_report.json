@@ -1,0 +1,30 @@
+{
+  "account": "DaoHuuVillage01",
+  "bot_id": 3,
+  "char": "TanThu01",
+  "log": [
+    "[Bot 3][INIT][0.00] ClientBot started with Bot ID: 3, Account: DaoHuuVillage01, Char: TanThu01, Partner: none, WebSocket: false",
+    "[Bot 3][WAIT_CONNECT][0.08] Connected to server via ENet!",
+    "[Bot 3][AUTH][0.68] Sending LoginWithPassword (or CreateAccount fallback): DaoHuuVillage01",
+    "[Bot 3][WAIT_LOGIN][1.89] Account may not exist yet, trying CreateAccount: DaoHuuVillage01",
+    "[Bot 3][CREATE_OR_SELECT_CHAR][2.43] Sending CreateCharacter: TanThu01",
+    "[Bot 3][CONNECT_CHAR][3.63] Sending ConnectCharacter: TanThu01",
+    "[Bot 3][WAIT_WORLD][3.68] ENTERED WORLD SUCCESSFULLY! Map ID: 1841251538, is Swordsman: true, Spawn position: (1554.0, 1298.0)",
+    "[Bot 3][WAIT_WORLD][3.68] Captured screenshot: tests/screenshots/bot3_spawned_in_world.png (err=0)",
+    "[Bot 3][CHECK_MUTUAL_VISIBILITY][9.68] Both bots confirmed in world via exchange file!",
+    "[Bot 3][CHECK_MUTUAL_VISIBILITY][9.68] Captured screenshot: tests/screenshots/bot3_coexisting_in_world.png (err=0)",
+    "[Bot 3][WAIT_PARTNER_MOVE][10.69] Movement sync verified! Target position observed: (1618.0, 1362.0)",
+    "[Bot 3][WAIT_PARTNER_MOVE][10.69] Captured screenshot: tests/screenshots/bot2_observed_partner_movement.png (err=0)",
+    "[Bot 3][WAIT_PARTNER_DISCONNECT][12.19] Bot 2 verified partner disconnection!",
+    "[Bot 3][WAIT_PARTNER_DISCONNECT][12.19] Captured screenshot: tests/screenshots/bot2_partner_disconnected.png (err=0)",
+    "[Bot 3][WAIT_PARTNER_RECONNECT][13.21] Bot 2 observed partner reconnect in world!",
+    "[Bot 3][WAIT_PARTNER_RECONNECT][13.21] Captured screenshot: tests/screenshots/bot2_observed_partner_reconnected.png (err=0)",
+    "[Bot 3][FINISH][13.22] Bot test sequence completed successfully!"
+  ],
+  "partner": "none",
+  "pass": true,
+  "spawn_pos": [
+    1554.0,
+    1298.0
+  ]
+}

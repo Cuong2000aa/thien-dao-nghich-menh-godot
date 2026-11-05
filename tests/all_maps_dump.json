@@ -1,0 +1,4868 @@
+[
+	{
+		"id": 215463816,
+		"layersPath": "res://presets/maps/layers/artis/Artis.tscn",
+		"minimapPath": "res://data/graphics/minimaps/artis/Artis.png",
+		"name": "Artis",
+		"navigation": "res://presets/maps/navigations/artis/Artis.tres",
+		"serverData": "res://presets/maps/server/artis/Artis.tres",
+		"warps": [
+			{
+				"dest_id": 691121518,
+				"dest_name": "Artis Sewer",
+				"dest_pos": [
+					3312.0,
+					976.0
+				],
+				"nick": "Warp Sewer North"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					4392.0,
+					1640.0
+				],
+				"nick": "Helm"
+			},
+			{
+				"dest_id": 691121518,
+				"dest_name": "Artis Sewer",
+				"dest_pos": [
+					2608.0,
+					4432.0
+				],
+				"nick": "Warp Sewer South"
+			}
+		]
+	},
+	{
+		"id": 4111682275,
+		"layersPath": "res://presets/maps/layers/candor/Candor Arena.tscn",
+		"minimapPath": "res://data/graphics/minimaps/candor/Candor Arena.png",
+		"name": "Candor Arena",
+		"navigation": "res://presets/maps/navigations/candor/Candor Arena.tres",
+		"serverData": "res://presets/maps/server/candor/Candor Arena.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 515101915,
+				"dest_name": "Candor Cave",
+				"dest_pos": [
+					1616.0,
+					2224.0
+				],
+				"nick": "Warp Candor Cave"
+			}
+		]
+	},
+	{
+		"id": 515101915,
+		"layersPath": "res://presets/maps/layers/candor/Candor Cave.tscn",
+		"minimapPath": "res://data/graphics/minimaps/candor/Candor Cave.png",
+		"name": "Candor Cave",
+		"navigation": "res://presets/maps/navigations/candor/Candor Cave.tres",
+		"serverData": "res://presets/maps/server/candor/Candor Cave.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1848.0,
+					2120.0
+				],
+				"nick": "Warp Overworld"
+			},
+			{
+				"dest_id": 4111682275,
+				"dest_name": "Candor Arena",
+				"dest_pos": [
+					2032.0,
+					752.0
+				],
+				"nick": "Warp Main Arena"
+			}
+		]
+	},
+	{
+		"id": 2932080299,
+		"layersPath": "res://presets/maps/layers/drazil/Drazil.tscn",
+		"minimapPath": "res://data/graphics/minimaps/drazil/Drazil.png",
+		"name": "Drazil",
+		"navigation": "res://presets/maps/navigations/drazil/Drazil.tres",
+		"serverData": "res://presets/maps/server/drazil/Drazil.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1800.0,
+					2200.0
+				],
+				"nick": "Sail"
+			}
+		]
+	},
+	{
+		"id": 231511051,
+		"layersPath": "res://presets/maps/layers/ocean/Ocean.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ocean/Ocean.png",
+		"name": "Ocean",
+		"navigation": "res://presets/maps/navigations/ocean/Ocean.tres",
+		"serverData": "res://presets/maps/server/ocean/Ocean.tres",
+		"warps": [
+			{
+				"dest_id": 4229445336,
+				"dest_name": "Ship First Deck",
+				"dest_pos": [
+					656.0,
+					912.0
+				],
+				"nick": "Ship"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Helm"
+			}
+		]
+	},
+	{
+		"id": 1009372873,
+		"layersPath": "res://presets/maps/layers/overworld/Overworld.tscn",
+		"minimapPath": "res://data/graphics/minimaps/overworld/Overworld.png",
+		"name": "Overworld",
+		"navigation": "res://presets/maps/navigations/overworld/Overworld.tres",
+		"serverData": "res://presets/maps/server/overworld/Overworld.tres",
+		"warps": [
+			{
+				"dest_id": 691121518,
+				"dest_name": "Artis Sewer",
+				"dest_pos": [
+					2000.0,
+					1520.0
+				],
+				"nick": "Warp Sewer"
+			},
+			{
+				"dest_id": 515101915,
+				"dest_name": "Candor Cave",
+				"dest_pos": [
+					1616.0,
+					976.0
+				],
+				"nick": "Warp Candor Cave"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					1424.0,
+					2672.0
+				],
+				"nick": "Tulimshar"
+			},
+			{
+				"dest_id": 2479667282,
+				"dest_name": "Tulimshar Southern Hills",
+				"dest_pos": [
+					1968.0,
+					4432.0
+				],
+				"nick": "Tulimshar Southern Hills"
+			},
+			{
+				"dest_id": 356913494,
+				"dest_name": "Manayir",
+				"dest_pos": [
+					2448.0,
+					4560.0
+				],
+				"nick": "Manayir"
+			},
+			{
+				"dest_id": 599332840,
+				"dest_name": "Desert Mines",
+				"dest_pos": [
+					1200.0,
+					976.0
+				],
+				"nick": "Mine"
+			},
+			{
+				"dest_id": 3490954041,
+				"dest_name": "Desert Pit",
+				"dest_pos": [
+					1040.0,
+					2128.0
+				],
+				"nick": "Snake Pit"
+			},
+			{
+				"dest_id": 2961248192,
+				"dest_name": "Splatyna Cave Entrance",
+				"dest_pos": [
+					1744.0,
+					1648.0
+				],
+				"nick": "Splatyna Cave"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1296.0,
+					848.0
+				],
+				"nick": "Mountain Cave"
+			},
+			{
+				"dest_id": 215463816,
+				"dest_name": "Artis",
+				"dest_pos": [
+					6320.0,
+					3344.0
+				],
+				"nick": "Artis Port"
+			},
+			{
+				"dest_id": 2932080299,
+				"dest_name": "Drazil",
+				"dest_pos": [
+					2672.0,
+					3504.0
+				],
+				"nick": "Drazil Port"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Hurnscald Port"
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					2000.0,
+					2160.0
+				],
+				"nick": "Tulimshar Port"
+			}
+		]
+	},
+	{
+		"id": 691121518,
+		"layersPath": "res://presets/maps/layers/sewer/Artis Sewer.tscn",
+		"minimapPath": "res://data/graphics/minimaps/sewer/Artis Sewer.png",
+		"name": "Artis Sewer",
+		"navigation": "res://presets/maps/navigations/sewer/Artis Sewer.tres",
+		"serverData": "res://presets/maps/server/sewer/Artis Sewer.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 215463816,
+				"dest_name": "Artis",
+				"dest_pos": [
+					4944.0,
+					1680.0
+				],
+				"nick": "Warp Artis South"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					4296.0,
+					1560.0
+				],
+				"nick": "Warp Overworld"
+			},
+			{
+				"dest_id": 215463816,
+				"dest_name": "Artis",
+				"dest_pos": [
+					2832.0,
+					4208.0
+				],
+				"nick": "Warp Artis South"
+			}
+		]
+	},
+	{
+		"id": 944914549,
+		"layersPath": "res://presets/maps/layers/ship/Ship Alige Hide.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ship/Ship Alige Hide.png",
+		"name": "Ship Alige Hide",
+		"navigation": "res://presets/maps/navigations/ship/Ship Alige Hide.tres",
+		"serverData": "res://presets/maps/server/ship/Ship Alige Hide.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1266994400,
+				"dest_name": "Ship Hold",
+				"dest_pos": [
+					816.0,
+					1040.0
+				],
+				"nick": "To Hold"
+			}
+		]
+	},
+	{
+		"id": 4229445336,
+		"layersPath": "res://presets/maps/layers/ship/Ship First Deck.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ship/Ship First Deck.png",
+		"name": "Ship First Deck",
+		"navigation": "res://presets/maps/navigations/ship/Ship First Deck.tres",
+		"serverData": "res://presets/maps/server/ship/Ship First Deck.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Ô Mana"
+			},
+			{
+				"dest_id": 2122050188,
+				"dest_name": "Ship Second Deck",
+				"dest_pos": [
+					2320.0,
+					944.0
+				],
+				"nick": "To Second Deck"
+			},
+			{
+				"dest_id": 231511051,
+				"dest_name": "Ocean",
+				"dest_pos": [
+					2288.0,
+					1776.0
+				],
+				"nick": "ToOutside"
+			},
+			{
+				"dest_id": 1234630261,
+				"dest_name": "Ship Nard's Room",
+				"dest_pos": [
+					720.0,
+					880.0
+				],
+				"nick": "To Nard's Room"
+			}
+		]
+	},
+	{
+		"id": 1266994400,
+		"layersPath": "res://presets/maps/layers/ship/Ship Hold.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ship/Ship Hold.png",
+		"name": "Ship Hold",
+		"navigation": "res://presets/maps/navigations/ship/Ship Hold.tres",
+		"serverData": "res://presets/maps/server/ship/Ship Hold.tres",
+		"warps": [
+			{
+				"dest_id": 2122050188,
+				"dest_name": "Ship Second Deck",
+				"dest_pos": [
+					2320.0,
+					1168.0
+				],
+				"nick": "To Second Deck"
+			},
+			{
+				"dest_id": 944914549,
+				"dest_name": "Ship Alige Hide",
+				"dest_pos": [
+					1296.0,
+					1008.0
+				],
+				"nick": "To Alige Hide"
+			}
+		]
+	},
+	{
+		"id": 1234630261,
+		"layersPath": "res://presets/maps/layers/ship/Ship Nard's Room.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ship/Ship Nard's Room.png",
+		"name": "Ship Nard's Room",
+		"navigation": "res://presets/maps/navigations/ship/Ship Nard's Room.tres",
+		"serverData": "res://presets/maps/server/ship/Ship Nard's Room.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Poem about Poems"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 4229445336,
+				"dest_name": "Ship First Deck",
+				"dest_pos": [
+					1040.0,
+					912.0
+				],
+				"nick": "To First Deck"
+			}
+		]
+	},
+	{
+		"id": 2122050188,
+		"layersPath": "res://presets/maps/layers/ship/Ship Second Deck.tscn",
+		"minimapPath": "res://data/graphics/minimaps/ship/Ship Second Deck.png",
+		"name": "Ship Second Deck",
+		"navigation": "res://presets/maps/navigations/ship/Ship Second Deck.tres",
+		"serverData": "res://presets/maps/server/ship/Ship Second Deck.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 4229445336,
+				"dest_name": "Ship First Deck",
+				"dest_pos": [
+					1008.0,
+					880.0
+				],
+				"nick": "To First Deck"
+			},
+			{
+				"dest_id": 1266994400,
+				"dest_name": "Ship Hold",
+				"dest_pos": [
+					1552.0,
+					912.0
+				],
+				"nick": "To Ship's Hold"
+			}
+		]
+	},
+	{
+		"id": 2961248192,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna Cave Entrance.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna Cave Entrance.png",
+		"name": "Splatyna Cave Entrance",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna Cave Entrance.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna Cave Entrance.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3863109455,
+				"dest_name": "Splatyna's Corridor",
+				"dest_pos": [
+					2256.0,
+					1360.0
+				],
+				"nick": "Splatyna Cave"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1336.0,
+					3640.0
+				],
+				"nick": "Overworld"
+			}
+		]
+	},
+	{
+		"id": 1514725053,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna's Chamber.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna's Chamber.png",
+		"name": "Splatyna's Chamber",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna's Chamber.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna's Chamber.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3863109455,
+				"dest_name": "Splatyna's Corridor",
+				"dest_pos": [
+					3568.0,
+					4208.0
+				],
+				"nick": "Splatyna Cave"
+			}
+		]
+	},
+	{
+		"id": 3863109455,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna's Corridor.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna's Corridor.png",
+		"name": "Splatyna's Corridor",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna's Corridor.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna's Corridor.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1258335808,
+				"dest_name": "Splatyna's Marvin Hole",
+				"dest_pos": [
+					1232.0,
+					1648.0
+				],
+				"nick": "Splatyna's Marvin Hole"
+			},
+			{
+				"dest_id": 2961248192,
+				"dest_name": "Splatyna Cave Entrance",
+				"dest_pos": [
+					1520.0,
+					1008.0
+				],
+				"nick": "Splatyna Cave Entrance"
+			},
+			{
+				"dest_id": 575697006,
+				"dest_name": "Splatyna's Gabriel Pit",
+				"dest_pos": [
+					1136.0,
+					1712.0
+				],
+				"nick": "Splatyna's Gabriel Pit"
+			},
+			{
+				"dest_id": 678881037,
+				"dest_name": "Splatyna's Dorian Dead End",
+				"dest_pos": [
+					1552.0,
+					1136.0
+				],
+				"nick": "Splatyna's Dorian Dead End"
+			}
+		]
+	},
+	{
+		"id": 678881037,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna's Dorian Dead End.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna's Dorian Dead End.png",
+		"name": "Splatyna's Dorian Dead End",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna's Dorian Dead End.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna's Dorian Dead End.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3863109455,
+				"dest_name": "Splatyna's Corridor",
+				"dest_pos": [
+					1424.0,
+					3376.0
+				],
+				"nick": "Splatyna Cave"
+			}
+		]
+	},
+	{
+		"id": 575697006,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna's Gabriel Pit.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna's Gabriel Pit.png",
+		"name": "Splatyna's Gabriel Pit",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna's Gabriel Pit.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna's Gabriel Pit.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3863109455,
+				"dest_name": "Splatyna's Corridor",
+				"dest_pos": [
+					2864.0,
+					2736.0
+				],
+				"nick": "Splatyna Cave"
+			}
+		]
+	},
+	{
+		"id": 1258335808,
+		"layersPath": "res://presets/maps/layers/splatyna/Splatyna's Marvin Hole.tscn",
+		"minimapPath": "res://data/graphics/minimaps/splatyna/Splatyna's Marvin Hole.png",
+		"name": "Splatyna's Marvin Hole",
+		"navigation": "res://presets/maps/navigations/splatyna/Splatyna's Marvin Hole.tres",
+		"serverData": "res://presets/maps/server/splatyna/Splatyna's Marvin Hole.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3863109455,
+				"dest_name": "Splatyna's Corridor",
+				"dest_pos": [
+					1072.0,
+					1328.0
+				],
+				"nick": "Splatyna Cave"
+			}
+		]
+	},
+	{
+		"id": 173323126,
+		"layersPath": "res://presets/maps/layers/tonori/desertpit/Desert Mountain Cave.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/desertpit/Desert Mountain Cave.png",
+		"name": "Desert Mountain Cave",
+		"navigation": "res://presets/maps/navigations/tonori/desertpit/Desert Mountain Cave.tres",
+		"serverData": "res://presets/maps/server/tonori/desertpit/Desert Mountain Cave.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3952.0,
+					816.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2992.0,
+					816.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2768.0,
+					816.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3490954041,
+				"dest_name": "Desert Pit",
+				"dest_pos": [
+					6384.0,
+					4144.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					1776.0,
+					944.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2000.0,
+					1040.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3344.0,
+					1488.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2512.0,
+					1488.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3696.0,
+					1648.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3568.0,
+					1872.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					4080.0,
+					1936.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2992.0,
+					2064.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					1968.0,
+					1904.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3568.0,
+					2416.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2352.0,
+					2992.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					1712.0,
+					2992.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					3920.0,
+					3600.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					2608.0,
+					3888.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 3262969514,
+				"dest_name": "Desert Mountains",
+				"dest_pos": [
+					1136.0,
+					3952.0
+				],
+				"nick": "To Desert Mountains"
+			}
+		]
+	},
+	{
+		"id": 3262969514,
+		"layersPath": "res://presets/maps/layers/tonori/desertpit/Desert Mountains.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/desertpit/Desert Mountains.png",
+		"name": "Desert Mountains",
+		"navigation": "res://presets/maps/navigations/tonori/desertpit/Desert Mountains.tres",
+		"serverData": "res://presets/maps/server/tonori/desertpit/Desert Mountains.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2960.0,
+					784.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2640.0,
+					816.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3984.0,
+					720.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1744.0,
+					880.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2128.0,
+					880.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2480.0,
+					1424.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3312.0,
+					1424.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3664.0,
+					1520.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3504.0,
+					1808.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1904.0,
+					2096.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					4048.0,
+					1840.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2992.0,
+					2032.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3600.0,
+					2384.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1648.0,
+					2928.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2416.0,
+					2896.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					3952.0,
+					3536.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1512.0,
+					3704.0
+				],
+				"nick": "To Overworld"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					2576.0,
+					3856.0
+				],
+				"nick": "To Desert Mountains"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1232.0,
+					3888.0
+				],
+				"nick": "To Desert Mountains"
+			}
+		]
+	},
+	{
+		"id": 3490954041,
+		"layersPath": "res://presets/maps/layers/tonori/desertpit/Desert Pit.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/desertpit/Desert Pit.png",
+		"name": "Desert Pit",
+		"navigation": "res://presets/maps/navigations/tonori/desertpit/Desert Pit.tres",
+		"serverData": "res://presets/maps/server/tonori/desertpit/Desert Pit.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1717452900,
+				"dest_name": "Snake Pit",
+				"dest_pos": [
+					1680.0,
+					1072.0
+				],
+				"nick": "To Snake Pit"
+			},
+			{
+				"dest_id": 1083397696,
+				"dest_name": "Sandstorm",
+				"dest_pos": [
+					4944.0,
+					3088.0
+				],
+				"nick": "To Sandstorm"
+			},
+			{
+				"dest_id": 1717452900,
+				"dest_name": "Snake Pit",
+				"dest_pos": [
+					1040.0,
+					2832.0
+				],
+				"nick": "To Snake Pit"
+			},
+			{
+				"dest_id": 173323126,
+				"dest_name": "Desert Mountain Cave",
+				"dest_pos": [
+					1328.0,
+					880.0
+				],
+				"nick": "To Desert Mountains"
+			}
+		]
+	},
+	{
+		"id": 1717452900,
+		"layersPath": "res://presets/maps/layers/tonori/desertpit/Snake Pit.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/desertpit/Snake Pit.png",
+		"name": "Snake Pit",
+		"navigation": "res://presets/maps/navigations/tonori/desertpit/Snake Pit.tres",
+		"serverData": "res://presets/maps/server/tonori/desertpit/Snake Pit.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3490954041,
+				"dest_name": "Desert Pit",
+				"dest_pos": [
+					3280.0,
+					1584.0
+				],
+				"nick": "To Desert"
+			},
+			{
+				"dest_id": 3490954041,
+				"dest_name": "Desert Pit",
+				"dest_pos": [
+					2640.0,
+					3280.0
+				],
+				"nick": "To Desert"
+			}
+		]
+	},
+	{
+		"id": 996649801,
+		"layersPath": "res://presets/maps/layers/tonori/manayir/Manayir Beach.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/manayir/Manayir Beach.png",
+		"name": "Manayir Beach",
+		"navigation": "res://presets/maps/navigations/tonori/manayir/Manayir Beach.tres",
+		"serverData": "res://presets/maps/server/tonori/manayir/Manayir Beach.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 356913494,
+				"dest_name": "Manayir",
+				"dest_pos": [
+					2448.0,
+					4560.0
+				],
+				"nick": "To Manayir"
+			},
+			{
+				"dest_id": 3632810769,
+				"dest_name": "Tulimshar Beach",
+				"dest_pos": [
+					1712.0,
+					4240.0
+				],
+				"nick": "To Tulimshar Beach"
+			},
+			{
+				"dest_id": 1083397696,
+				"dest_name": "Sandstorm",
+				"dest_pos": [
+					1520.0,
+					2640.0
+				],
+				"nick": "To Sandstorm"
+			}
+		]
+	},
+	{
+		"id": 356913494,
+		"layersPath": "res://presets/maps/layers/tonori/manayir/Manayir.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/manayir/Manayir.png",
+		"name": "Manayir",
+		"navigation": "res://presets/maps/navigations/tonori/manayir/Manayir.tres",
+		"serverData": "res://presets/maps/server/tonori/manayir/Manayir.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Gonzo"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Corgit"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Medave"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Hommer"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 356913494,
+				"dest_name": "Manayir",
+				"dest_pos": [
+					2480.0,
+					3408.0
+				],
+				"nick": "To Manayir Tower"
+			},
+			{
+				"dest_id": 356913494,
+				"dest_name": "Manayir",
+				"dest_pos": [
+					2480.0,
+					2832.0
+				],
+				"nick": "To Manayir Tower"
+			},
+			{
+				"dest_id": 996649801,
+				"dest_name": "Manayir Beach",
+				"dest_pos": [
+					1616.0,
+					816.0
+				],
+				"nick": "To Manayir Beach"
+			}
+		]
+	},
+	{
+		"id": 259752832,
+		"layersPath": "res://presets/maps/layers/tonori/sandstorm/Desert Abandoned Level.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/sandstorm/Desert Abandoned Level.png",
+		"name": "Desert Abandoned Level",
+		"navigation": "res://presets/maps/navigations/tonori/sandstorm/Desert Abandoned Level.tres",
+		"serverData": "res://presets/maps/server/tonori/sandstorm/Desert Abandoned Level.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "???"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 599332840,
+				"dest_name": "Desert Mines",
+				"dest_pos": [
+					2192.0,
+					3216.0
+				],
+				"nick": "To Mine Entrance"
+			}
+		]
+	},
+	{
+		"id": 1900546786,
+		"layersPath": "res://presets/maps/layers/tonori/sandstorm/Desert Deep Level.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/sandstorm/Desert Deep Level.png",
+		"name": "Desert Deep Level",
+		"navigation": "res://presets/maps/navigations/tonori/sandstorm/Desert Deep Level.tres",
+		"serverData": "res://presets/maps/server/tonori/sandstorm/Desert Deep Level.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 259752832,
+				"dest_name": "Desert Abandoned Level",
+				"dest_pos": [
+					2864.0,
+					2384.0
+				],
+				"nick": "To Abandoned Level"
+			}
+		]
+	},
+	{
+		"id": 599332840,
+		"layersPath": "res://presets/maps/layers/tonori/sandstorm/Desert Mines.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/sandstorm/Desert Mines.png",
+		"name": "Desert Mines",
+		"navigation": "res://presets/maps/navigations/tonori/sandstorm/Desert Mines.tres",
+		"serverData": "res://presets/maps/server/tonori/sandstorm/Desert Mines.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1083397696,
+				"dest_name": "Sandstorm",
+				"dest_pos": [
+					1360.0,
+					3600.0
+				],
+				"nick": "To Sandstorm"
+			},
+			{
+				"dest_id": 259752832,
+				"dest_name": "Desert Abandoned Level",
+				"dest_pos": [
+					1168.0,
+					3216.0
+				],
+				"nick": "To Deeper Level"
+			}
+		]
+	},
+	{
+		"id": 1083397696,
+		"layersPath": "res://presets/maps/layers/tonori/sandstorm/Sandstorm.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/sandstorm/Sandstorm.png",
+		"name": "Sandstorm",
+		"navigation": "res://presets/maps/navigations/tonori/sandstorm/Sandstorm.tres",
+		"serverData": "res://presets/maps/server/tonori/sandstorm/Sandstorm.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Dausen"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Nathan"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3632810769,
+				"dest_name": "Tulimshar Beach",
+				"dest_pos": [
+					3088.0,
+					4528.0
+				],
+				"nick": "To Tulimshar Beach"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					1776.0,
+					3024.0
+				],
+				"nick": "To Tulimshar"
+			},
+			{
+				"dest_id": 996649801,
+				"dest_name": "Manayir Beach",
+				"dest_pos": [
+					7344.0,
+					3408.0
+				],
+				"nick": "To Manayir Beach"
+			},
+			{
+				"dest_id": 3490954041,
+				"dest_name": "Desert Pit",
+				"dest_pos": [
+					1040.0,
+					2096.0
+				],
+				"nick": "To Desert Pit"
+			},
+			{
+				"dest_id": 599332840,
+				"dest_name": "Desert Mines",
+				"dest_pos": [
+					1232.0,
+					976.0
+				],
+				"nick": "To Mines"
+			}
+		]
+	},
+	{
+		"id": 2910030842,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar Bay.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar Bay.png",
+		"name": "Tulimshar Bay",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar Bay.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar Bay.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1384.0,
+					3320.0
+				],
+				"nick": "Helm"
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					3056.0,
+					1040.0
+				],
+				"nick": "To Docker"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					3600.0,
+					1168.0
+				],
+				"nick": "To Fishermen's House"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					1744.0,
+					1552.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					3024.0,
+					1552.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					2448.0,
+					1584.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					4112.0,
+					1552.0
+				],
+				"nick": "To Barracks"
+			}
+		]
+	},
+	{
+		"id": 398960913,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar Castle Corridors.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar Castle Corridors.png",
+		"name": "Tulimshar Castle Corridors",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar Castle Corridors.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar Castle Corridors.tres",
+		"warps": [
+			{
+				"dest_id": 3953695706,
+				"dest_name": "Tulimshar Castle",
+				"dest_pos": [
+					2480.0,
+					2096.0
+				],
+				"nick": "To Castle"
+			},
+			{
+				"dest_id": 3953695706,
+				"dest_name": "Tulimshar Castle",
+				"dest_pos": [
+					1104.0,
+					2096.0
+				],
+				"nick": "To Castle"
+			}
+		]
+	},
+	{
+		"id": 3953695706,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar Castle.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar Castle.png",
+		"name": "Tulimshar Castle",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar Castle.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar Castle.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Guard"
+			},
+			{
+				"dest_id": 398960913,
+				"dest_name": "Tulimshar Castle Corridors",
+				"dest_pos": [
+					1936.0,
+					3056.0
+				],
+				"nick": "To Castle Corridors"
+			},
+			{
+				"dest_id": 398960913,
+				"dest_name": "Tulimshar Castle Corridors",
+				"dest_pos": [
+					3504.0,
+					3056.0
+				],
+				"nick": "To Castle Corridors"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					1360.0,
+					1520.0
+				],
+				"nick": "To Tulimshar"
+			}
+		]
+	},
+	{
+		"id": 3958259487,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar Center.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar Center.png",
+		"name": "Tulimshar Center",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar Center.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar Center.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					3120.0,
+					2864.0
+				],
+				"nick": "To Fishermen's House"
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					1456.0,
+					3344.0
+				],
+				"nick": "To Tulimshar Bay"
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					2736.0,
+					3344.0
+				],
+				"nick": "To Tulimshar Bay"
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					4048.0,
+					3536.0
+				],
+				"nick": "To Barracks"
+			},
+			{
+				"dest_id": 2851687439,
+				"dest_name": "Tulimshar West Wall Pathway",
+				"dest_pos": [
+					3920.0,
+					1488.0
+				],
+				"nick": "To Wall West Pathway"
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					2160.0,
+					3376.0
+				],
+				"nick": "To Tulimshar Bay"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					3120.0,
+					3024.0
+				],
+				"nick": "To Merchant Building"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					3024.0,
+					2864.0
+				],
+				"nick": "To Merchant Building"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					1776.0,
+					1040.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					4304.0,
+					1040.0
+				],
+				"nick": "To Tulimshar"
+			}
+		]
+	},
+	{
+		"id": 2666049907,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar West Chamber.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar West Chamber.png",
+		"name": "Tulimshar West Chamber",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar West Chamber.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar West Chamber.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 2851687439,
+				"dest_name": "Tulimshar West Wall Pathway",
+				"dest_pos": [
+					1008.0,
+					2672.0
+				],
+				"nick": "To Castle"
+			}
+		]
+	},
+	{
+		"id": 2851687439,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar West Wall Pathway.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar West Wall Pathway.png",
+		"name": "Tulimshar West Wall Pathway",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar West Wall Pathway.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar West Wall Pathway.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					1552.0,
+					1616.0
+				],
+				"nick": "To Tulimshar"
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					3024.0,
+					3504.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 2666049907,
+				"dest_name": "Tulimshar West Chamber",
+				"dest_pos": [
+					1392.0,
+					1424.0
+				],
+				"nick": "To Castle"
+			}
+		]
+	},
+	{
+		"id": 2608626462,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar/Tulimshar.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar/Tulimshar.png",
+		"name": "Tulimshar",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar/Tulimshar.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar/Tulimshar.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Maci"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Aanshir"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Shimris"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": "Aacheron"
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					4016.0,
+					4336.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 3958259487,
+				"dest_name": "Tulimshar Center",
+				"dest_pos": [
+					1488.0,
+					4336.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					4912.0,
+					1360.0
+				],
+				"nick": "To House"
+			},
+			{
+				"dest_id": 2608626462,
+				"dest_name": "Tulimshar",
+				"dest_pos": [
+					4848.0,
+					1200.0
+				],
+				"nick": "To House"
+			},
+			{
+				"dest_id": 3953695706,
+				"dest_name": "Tulimshar Castle",
+				"dest_pos": [
+					1808.0,
+					2192.0
+				],
+				"nick": "To Castle"
+			},
+			{
+				"dest_id": 1083397696,
+				"dest_name": "Sandstorm",
+				"dest_pos": [
+					3056.0,
+					976.0
+				],
+				"nick": "To Sandstorm"
+			}
+		]
+	},
+	{
+		"id": 3632810769,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar outskirts/Tulimshar Beach.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar outskirts/Tulimshar Beach.png",
+		"name": "Tulimshar Beach",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar outskirts/Tulimshar Beach.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar outskirts/Tulimshar Beach.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 2011687557,
+				"dest_name": "Tulimshar Western Cave",
+				"dest_pos": [
+					2096.0,
+					1936.0
+				],
+				"nick": "To Tulimshar Western Cave"
+			},
+			{
+				"dest_id": 996649801,
+				"dest_name": "Manayir Beach",
+				"dest_pos": [
+					6640.0,
+					1456.0
+				],
+				"nick": "To Sandstorm"
+			},
+			{
+				"dest_id": 1083397696,
+				"dest_name": "Sandstorm",
+				"dest_pos": [
+					2128.0,
+					976.0
+				],
+				"nick": "To Sandstorm"
+			}
+		]
+	},
+	{
+		"id": 482856684,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar outskirts/Tulimshar Eastern Hills.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar outskirts/Tulimshar Eastern Hills.png",
+		"name": "Tulimshar Eastern Hills",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar outskirts/Tulimshar Eastern Hills.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar outskirts/Tulimshar Eastern Hills.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 2479667282,
+				"dest_name": "Tulimshar Southern Hills",
+				"dest_pos": [
+					2192.0,
+					1072.0
+				],
+				"nick": "To Southern Hills"
+			}
+		]
+	},
+	{
+		"id": 2479667282,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar outskirts/Tulimshar Southern Hills.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar outskirts/Tulimshar Southern Hills.png",
+		"name": "Tulimshar Southern Hills",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar outskirts/Tulimshar Southern Hills.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar outskirts/Tulimshar Southern Hills.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 482856684,
+				"dest_name": "Tulimshar Eastern Hills",
+				"dest_pos": [
+					1328.0,
+					5168.0
+				],
+				"nick": "To Southern Hills"
+			},
+			{
+				"dest_id": 1009372873,
+				"dest_name": "Overworld",
+				"dest_pos": [
+					1480.0,
+					3464.0
+				],
+				"nick": "To Overworld"
+			}
+		]
+	},
+	{
+		"id": 2011687557,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar outskirts/Tulimshar Western Cave.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar outskirts/Tulimshar Western Cave.png",
+		"name": "Tulimshar Western Cave",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar outskirts/Tulimshar Western Cave.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar outskirts/Tulimshar Western Cave.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					2224.0,
+					3888.0
+				],
+				"nick": "To Tulimshar Western Hills"
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					1456.0,
+					4176.0
+				],
+				"nick": "To Tulimshar Western Hills"
+			},
+			{
+				"dest_id": 3632810769,
+				"dest_name": "Tulimshar Beach",
+				"dest_pos": [
+					2768.0,
+					1040.0
+				],
+				"nick": "To Tulimshar Beach"
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					2576.0,
+					4944.0
+				],
+				"nick": "To Tulimshar Western Hills"
+			},
+			{
+				"dest_id": 1967386498,
+				"dest_name": "Tulimshar Western Hills",
+				"dest_pos": [
+					1552.0,
+					5136.0
+				],
+				"nick": "To Tulimshar Western Hills"
+			}
+		]
+	},
+	{
+		"id": 1967386498,
+		"layersPath": "res://presets/maps/layers/tonori/tulimshar outskirts/Tulimshar Western Hills.tscn",
+		"minimapPath": "res://data/graphics/minimaps/tonori/tulimshar outskirts/Tulimshar Western Hills.png",
+		"name": "Tulimshar Western Hills",
+		"navigation": "res://presets/maps/navigations/tonori/tulimshar outskirts/Tulimshar Western Hills.tres",
+		"serverData": "res://presets/maps/server/tonori/tulimshar outskirts/Tulimshar Western Hills.tres",
+		"warps": [
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": -1,
+				"dest_name": "UNKNOWN",
+				"dest_pos": [
+					0.0,
+					0.0
+				],
+				"nick": ""
+			},
+			{
+				"dest_id": 2910030842,
+				"dest_name": "Tulimshar Bay",
+				"dest_pos": [
+					1232.0,
+					2096.0
+				],
+				"nick": "To Tulimshar Bay"
+			},
+			{
+				"dest_id": 2851687439,
+				"dest_name": "Tulimshar West Wall Pathway",
+				"dest_pos": [
+					1648.0,
+					2416.0
+				],
+				"nick": "To Tulimshar Center"
+			},
+			{
+				"dest_id": 2011687557,
+				"dest_name": "Tulimshar Western Cave",
+				"dest_pos": [
+					2192.0,
+					1200.0
+				],
+				"nick": "To Tulimshar Western Cave"
+			},
+			{
+				"dest_id": 2011687557,
+				"dest_name": "Tulimshar Western Cave",
+				"dest_pos": [
+					1488.0,
+					1488.0
+				],
+				"nick": "To Tulimshar Western Cave"
+			},
+			{
+				"dest_id": 2011687557,
+				"dest_name": "Tulimshar Western Cave",
+				"dest_pos": [
+					2544.0,
+					2192.0
+				],
+				"nick": "To Tulimshar Western Cave"
+			},
+			{
+				"dest_id": 2011687557,
+				"dest_name": "Tulimshar Western Cave",
+				"dest_pos": [
+					1584.0,
+					2320.0
+				],
+				"nick": "To Tulimshar Western Cave"
+			}
+		]
+	},
+	{
+		"id": 995840901,
+		"layersPath": "res://assets/environment/SacredSectHub.tscn",
+		"minimapPath": "res://data/graphics/minimaps/xianxia/SacredSectHub.png",
+		"name": "SacredSectHub",
+		"navigation": "res://presets/maps/navigations/xianxia/SacredSectHub.tres",
+		"serverData": "res://presets/maps/server/xianxia/SacredSectHub.tres",
+		"warps": [
+			{
+				"dest_id": 1841251538,
+				"dest_name": "TanThuThon",
+				"dest_pos": [
+					2650.0,
+					1260.0
+				],
+				"nick": "Warp to TanThuThon"
+			}
+		]
+	},
+	{
+		"id": 1841251538,
+		"layersPath": "res://presets/maps/layers/xianxia/TanThuThon.tscn",
+		"minimapPath": "res://data/graphics/minimaps/xianxia/TanThuThon.png",
+		"name": "TanThuThon",
+		"navigation": "res://presets/maps/navigations/xianxia/TanThuThon.tres",
+		"serverData": "res://presets/maps/server/xianxia/TanThuThon.tres",
+		"warps": [
+			{
+				"dest_id": 995840901,
+				"dest_name": "SacredSectHub",
+				"dest_pos": [
+					1000.0,
+					1400.0
+				],
+				"nick": "Warp to SacredSectHub"
+			}
+		]
+	}
+]

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Khảo Nghiệm Nhập Môn"
+description = "Đến gặp Tiếp Dẫn Chấp Sự tại cổng Sơn Môn, vượt qua bài khảo nghiệm tâm tính và căn cơ để bái nhập môn phái, nhận thân phận Tạp Dịch Đệ Tử."
+giver = "Tiếp Dẫn Chấp Sự"
+giverLocation = "Sơn Môn Trúc Sơn"
+target = "Vượt qua khảo nghiệm & Bái kiến Trưởng lão"
+targetLocation = "Trúc Sơn Tiên Cảnh"
+reward = "Thân Phận Tạp Dịch, Tạp Dịch Lệnh Bài, 30 Tu Vi, 50 Linh Thạch"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Tuần Tra Sơn Môn"
+description = "Nhiệm vụ tuần hoàn môn phái: Tiến hành tuần tra khu vực ngoại vi Trúc Sơn Tiên Cảnh, kiểm tra phong ấn trận nhãn và báo cáo tình hình cho Nhiệm Vụ Đường."
+giver = "Chấp Sự Nhiệm Vụ Đường"
+giverLocation = "Nhiệm Vụ Đường"
+target = "Tuần tra 3 điểm trận nhãn ngoại vi sơn môn"
+targetLocation = "Trúc Sơn Ngoại Vi"
+reward = "40 Điểm Cống Hiến, 60 Tu Vi, 50 Linh Thạch"

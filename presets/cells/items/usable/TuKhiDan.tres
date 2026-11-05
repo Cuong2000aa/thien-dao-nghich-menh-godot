@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/scripts/XianxiaElixirScript.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-potion.png" id="2_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="3_item"]
+
+[resource]
+script = ExtResource("3_item")
+buyPrice = 450
+sellPrice = 220
+id = 0
+name = "Tu Khi Dan"
+description = "Tụ Khí Đan (Trung Phẩm): Hạt đan tỏa linh quang óng ánh, sau khi uống trực tiếp hấp thu vào đan điền, tăng nhanh 150 điểm Tu Vi."
+icon = ExtResource("2_tex")
+weight = 0.2
+stackable = true
+usable = true
+cellScript = ExtResource("1_script")

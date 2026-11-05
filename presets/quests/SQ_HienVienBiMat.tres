@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thám Hiểm Hiên Viên Động"
+description = "Vượt qua thác nước cuồn cuộn khám phá Hiên Viên Cổ Động, tìm kiếm rương bảo thạch thượng cổ giấu kín trong hang sâu."
+giver = "Bản Đồ Chỉ Dẫn"
+giverLocation = "Sơn Lâm Ngoại Vi"
+target = "Tìm thấy bảo rương trong Hiên Viên Cổ Động"
+targetLocation = "Hiên Viên Cổ Động"
+reward = "180 Tu Vi, 200 Linh Thạch, 2 Bạch Ngân Khoáng"

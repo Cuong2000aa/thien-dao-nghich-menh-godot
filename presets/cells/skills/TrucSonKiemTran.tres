@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="SkillCell" format=3 uid="uid://cx2trucson02"]
+
+[ext_resource type="Texture2D" uid="uid://b0sjefu0rrrlq" path="res://data/graphics/items/skill/mana-burst.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://l20aaqylleqo" path="res://sources/cell/SkillCell.gd" id="2_skill"]
+[ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="4_cell"]
+[ext_resource type="PackedScene" uid="uid://b48f227dxr4nh" path="res://presets/effects/particles/ManaBurst.tscn" id="5_preset"]
+
+[sub_resource type="Resource" id="Resource_atk"]
+script = ExtResource("3_stat")
+_effect = 20
+_value = 45.0
+
+[sub_resource type="Resource" id="Resource_mana"]
+script = ExtResource("3_stat")
+_effect = 2
+_value = -18.0
+
+[sub_resource type="Resource" id="Resource_mod"]
+script = ExtResource("4_cell")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_atk"), SubResource("Resource_mana")])
+
+[resource]
+script = ExtResource("2_skill")
+category = 1
+state = 3
+skillRange = 90
+mode = 1
+repeat = false
+cooldownTime = 5.0
+castTime = 0.4
+skillPreset = ExtResource("5_preset")
+skillTime = 1.5
+id = 182736402
+name = "Trúc Sơn Kiếm Trận"
+description = "Triệu hoán lục đạo thanh quang phi kiếm xoay chuyển quanh thân, tạo thành kiếm trận sát phạt diện rộng."
+icon = ExtResource("1_icon")
+type = 2
+weight = 0.0
+usable = true
+modifiers = SubResource("Resource_mod")

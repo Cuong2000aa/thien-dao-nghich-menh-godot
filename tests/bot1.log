@@ -1,0 +1,92 @@
+sandbox_extension_issue_file_to_process failed for /tmp/godot_setup/Godot.app: 1 (Operation not permitted)
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+
+Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
+Sentry: DEBUG: Automatic initialization is disabled in the project settings.
+Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
+[0.661][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot1/
+[0.661][Config] Loading file: res://data/conf/settings.cfg
+[0.662][Config] Loading file: user://profiles/bot1/settings.cfg
+[1.003][Launcher] Entering new FSM state: LOGIN_SCREEN
+[Bot 1][INIT][0.00] ClientBot started with Bot ID: 1, Account: DaoHuu01, Char: ThienKiem01, Partner: NghichMenh02, WebSocket: false
+[1.067][Client] Initialized with: ENet, Online, Local, Testing
+[Bot 1][WAIT_CONNECT][0.07] Connected to server via ENet!
+[Bot 1][AUTH][0.69] Sending LoginWithPassword (or CreateAccount fallback): DaoHuu01
+[1.826][Launcher] Entering new FSM state: CHAR_SCREEN
+[Bot 1][WAIT_LOGIN][0.73] Login succeeded, in CHAR_SCREEN!
+[Bot 1][CREATE_OR_SELECT_CHAR][1.24] Sending CreateCharacter: ThienKiem01
+[Bot 1][CONNECT_CHAR][2.46] Sending ConnectCharacter: ThienKiem01
+[3.816][Launcher] Entering new FSM state: CHAR_PROGRESS
+[3.893][Launcher] Entering new FSM state: IN_GAME
+SCRIPT ERROR: Assertion failed: Could not load the minimap resource
+          at: Warped (res://sources/gui/Minimap.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] Warped (res://sources/gui/Minimap.gd:21)
+              [1] SpawnEntity (res://sources/map/Map.gd:132)
+              [2] FullUpdateEntity (res://sources/map/Map.gd:165)
+              [3] FullUpdateEntity (res://sources/network/client/Client.gd:35)
+[Bot 1][WAIT_WORLD][2.49] ENTERED WORLD SUCCESSFULLY! Map ID: 995840901, is Swordsman: true, Spawn position: (1380.0, 1448.0)
+[Bot 1][WAIT_WORLD][2.49] Captured screenshot: tests/screenshots/bot1_spawned_in_world.png (err=0)
+[Bot 1][CHECK_MUTUAL_VISIBILITY][6.37] MUTUAL VISIBILITY CONFIRMED! Found partner entity: NghichMenh02 at (1000.0, 1050.0) (is Swordsman: true)
+[Bot 1][CHECK_MUTUAL_VISIBILITY][6.37] Captured screenshot: tests/screenshots/bot1_sees_partner.png (err=0)
+[Bot 1][MOVE_TEST][7.87] Moving player from (1380.0, 1448.0) to (1444.0, 1512.0)...
+[Bot 1][MOVE_TEST][7.87] Captured screenshot: tests/screenshots/bot1_moved_to_target.png (err=0)
+[Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Disconnecting Bot 1 for disconnect/reconnect test...
+[Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Captured screenshot: tests/screenshots/bot1_pre_disconnect.png (err=0)
+[11.216][Launcher] Entering new FSM state: LOGIN_SCREEN
+Opened database successfully (/Users/it/Library/Application Support/SourceOfMana/testing.db)
+[11.217][Launcher] Entering new FSM state: LOGIN_SCREEN
+[11.218][Discord] Discord bot disabled
+[11.218][File] Loading file: res://data/conf/email_password_reset.html
+[11.218][EmailService] Not configured: missing API key
+[11.218][Server] Peer connected: 1 with Offline from 127.0.0.1
+[11.219][Config] Saving file: user://profiles/bot1/settings.cfg
+[Bot 1][RECONNECT_DELAY][10.88] Bot 1 reconnecting to server...
+Closed database (/Users/it/Library/Application Support/SourceOfMana/testing.db)
+[12.878][Launcher] Entering new FSM state: LOGIN_SCREEN
+[13.310][Client] Initialized with: ENet, Online, Public, Testing
+[Bot 1][RECONNECT_AUTH][11.89] Logging back in: DaoHuu01
+[Bot 1][RECONNECT_CHAR][12.91] Reconnecting character: ThienKiem01
+[15.366][Launcher] Entering new FSM state: CHAR_PROGRESS
+[Bot 1][RECONNECT_WORLD][14.93] Bot 1 reconnected successfully into world!
+[Bot 1][RECONNECT_WORLD][14.93] Captured screenshot: tests/screenshots/bot1_reconnected_in_world.png (err=0)
+[Bot 1][FINISH][14.94] Bot test sequence completed successfully!
+WARNING: 100 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 1 RID of type "CanvasLight" was leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2733)
+ERROR: 1 shaders of type CanvasShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1236)
+ERROR: 3 shaders of type ParticlesShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1236)
+WARNING: 37 RIDs of type "StorageBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 5 RIDs of type "UniformBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 8 RIDs of type "IndexArray" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 8 RIDs of type "IndexBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 16 RIDs of type "VertexBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 165 RIDs of type "Texture" were leaked.
+   at: finalize (servers/rendering/rendering_device.cpp:8900)
+ERROR: Parameter "RenderingServer::get_singleton()" is null.
+   at: ~CompressedTexture2D (scene/resources/compressed_texture.cpp:464)
+ERROR: Parameter "RenderingServer::get_singleton()" is null.
+   at: ~CompressedTexture2D (scene/resources/compressed_texture.cpp:464)
+WARNING: 2701 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1343 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 18 RID allocations of type 'P11GodotBody2D' were leaked at exit.
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+ERROR: 31 RID allocations of type 'P12GodotShape2D' were leaked at exit.
+ERROR: 8 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
+ERROR: 8 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
+ERROR: 4 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
+ERROR: 4 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
+ERROR: 88 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
+ERROR: 2 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.

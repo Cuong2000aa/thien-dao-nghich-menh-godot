@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Điều Tra Hầm Ngục Cổ Xưa"
+description = "Một cánh cửa hầm ngầm cổ xưa vừa hé mở dưới tầng hầm Tàng Kinh Các. Cần tiến vào điều tra dấu tích của cổ trận trước khi khí độc lan tràn."
+giver = "Bạch Hạc Chân Nhân"
+giverLocation = "Tàng Kinh Các"
+target = "Thám sát tầng 1 Hầm Ngục Cổ Xưa"
+targetLocation = "Hầm Ngục Cổ Xưa"
+reward = "300 Tu Vi, 250 Linh Thạch, 1 Huyền Thiết Giáp"

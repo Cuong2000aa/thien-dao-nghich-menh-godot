@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Cống Hiến Dược Thảo"
+description = "Kho dược của Dược Đường cần bổ sung Ngân Linh Thảo tươi mới để luyện đan. Thu thập 3 cọng Ngân Linh Thảo giao nộp cho Dược Đường Chấp Sự."
+giver = "Dược Đường Chấp Sự"
+giverLocation = "Dược Đường"
+target = "Thu thập & Giao nộp 3 Ngân Linh Thảo"
+targetLocation = "Rặng Trúc Ngoại Vi"
+reward = "45 Điểm Cống Hiến, 50 Tu Vi, 1 Hồi Xuân Đan"

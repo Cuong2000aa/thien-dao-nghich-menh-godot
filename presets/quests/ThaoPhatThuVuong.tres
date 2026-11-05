@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thảo Phạt Thú Vương"
+description = "Linh Khí Bí Cảnh phong ấn đã có dấu hiệu buông lỏng, Xích Viêm Thú Hậu hung hãn sắp phá phong. Hãy tiến vào Bí Cảnh và tiêu diệt Thú Hậu bảo vệ an nguy tông môn!"
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Trúc Sơn Tiên Cảnh"
+target = "Tiêu diệt Xích Viêm Thú Hậu trong Linh Khí Bí Cảnh"
+targetLocation = "Linh Khí Bí Cảnh"
+reward = "300 Tu Vi, 500 Linh Thạch, Đạo Cơ Đan Phương"

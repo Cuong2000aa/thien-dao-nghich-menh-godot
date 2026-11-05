@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Tìm Kiếm U Hồn Trầm Bảo"
+description = "Đầm lầy u uất đầy chướng khí giấu một bảo rương thời tiền triều. Cần dùng Thanh Tâm Đan kháng độc để trục vớt rương báu."
+giver = "Lời Đồn Tán Tu"
+giverLocation = "Tiếp Dẫn Đài"
+target = "Trục vớt rương cổ tại đầm lầy U Hồn"
+targetLocation = "U Hồn Đầm Lầy"
+reward = "160 Tu Vi, 150 Linh Thạch, 3 U Hồn Thảo"

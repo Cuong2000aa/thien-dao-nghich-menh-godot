@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/chest/desertarmor.png" id="1_icon"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" path="res://sources/cell/CellModifier.gd" id="4_mod"]
+[ext_resource type="Texture2D" path="res://data/graphics/sprites/equipment/chest/desertarmor-male.png" id="5_tex_m"]
+[ext_resource type="Texture2D" path="res://data/graphics/sprites/equipment/chest/desertarmor-female.png" id="6_tex_f"]
+
+[sub_resource type="Resource" id="Resource_def"]
+script = ExtResource("3_stat")
+_effect = 14
+_value = 26.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_hp"]
+script = ExtResource("3_stat")
+_effect = 12
+_value = 120.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_cellmod"]
+script = ExtResource("4_mod")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_def"), SubResource("Resource_hp")])
+
+[resource]
+script = ExtResource("2_item")
+slot = 0
+textures = Array[Texture2D]([ExtResource("5_tex_m"), ExtResource("6_tex_f"), ExtResource("5_tex_m")])
+buyPrice = 1600
+sellPrice = 500
+id = 0
+name = "Huyen Thiet Giap"
+description = "Huyền Thiết Giáp (Trung Phẩm): Chiến giáp đúc từ Huyền Thiết ngàn năm, kiên cố bất hoại, tăng 26 Phòng Ngự và 120 Khí Huyết Tối Đa."
+icon = ExtResource("1_icon")
+weight = 400.0
+stackable = false
+usable = false
+modifiers = SubResource("Resource_cellmod")

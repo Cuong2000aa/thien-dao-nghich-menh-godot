@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Thu Thập Linh Thảo"
+description = "Đạo Huyền Trưởng Lão cần Ngân Linh Thảo để khai lò luyện chế đan dược trị thương. Hãy tìm và hái 3 cọng Ngân Linh Thảo trong rừng Trúc Sơn."
+giver = "Đạo Huyền Trưởng Lão"
+giverLocation = "Trúc Sơn Tiên Cảnh"
+target = "Thu thập 3 Ngân Linh Thảo"
+targetLocation = "Trúc Sơn Ngoại Vi"
+reward = "80 Tu Vi, 150 Linh Thạch, 2 Hồi Xuân Đan"

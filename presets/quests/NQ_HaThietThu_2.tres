@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Bí Quyết Truốt Kiếm"
+description = "Hà Thiết Thủ muốn rèn một thanh bảo kiếm chứa hỏa sát khí, cần tìm 3 khối Xích Viêm Khoáng từ tổ quái vật."
+giver = "Hà Thiết Thủ"
+giverLocation = "Luyện Khí Đường"
+target = "Thu thập 3 Xích Viêm Khoáng"
+targetLocation = "Luyện Khí Đường"
+reward = "250 Tu Vi, 150 Linh Thạch, 100 Hảo Cảm Hà Thiết Thủ"

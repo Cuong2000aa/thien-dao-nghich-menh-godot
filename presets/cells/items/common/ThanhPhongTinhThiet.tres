@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/common/bone.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 120
+sellPrice = 60
+id = 0
+name = "Thanh Phong Tinh Thiet"
+description = "Thiết tinh được nung đúc từ Huyền Thiết Khoáng kết hợp linh phong, cực kỳ sắc bén."
+icon = ExtResource("1_tex")
+weight = 0.5
+stackable = true
+usable = false

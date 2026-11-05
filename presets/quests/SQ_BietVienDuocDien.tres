@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Bí Cảnh Thảo Dược"
+description = "Phát hiện một biệt viện trồng dược liệu cổ xưa bị sương mù che phủ. Thu thập giống Huyết Sâm ngàn năm còn sót lại mang về cho Dược Đường."
+giver = "Liễu Thanh Y"
+giverLocation = "Dược Đường"
+target = "Thu hoạch 2 củ Huyết Sâm tại Biệt Viện Dược Điền"
+targetLocation = "Biệt Viện Dược Điền"
+reward = "200 Tu Vi, 150 Linh Thạch, 2 Huyết Sâm"

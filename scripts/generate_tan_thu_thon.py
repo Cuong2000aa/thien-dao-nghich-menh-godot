@@ -1,0 +1,795 @@
+import os
+
+tscn_template = '''[gd_scene load_steps=50 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bamboo.png" id="1_bamboo_terrain"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bluestone.png" id="2_bluestone"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_redclay.png" id="3_redclay"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/water_stream.png" id="4_water"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/town_canal.png" id="5_canal"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/ancestral_hall.png" id="6_ancestral_hall"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_thatched_cottage.png" id="7_thatched_cottage"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_farmhouse.png" id="8_farmhouse"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_stone_hut.png" id="9_stone_hut"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_mud_house.png" id="10_mud_house"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_tiny_courtyard.png" id="11_tiny_courtyard"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/mid_blue_brick_house.png" id="12_blue_brick_house"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/herb_hut.png" id="13_herb_hut"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/granary.png" id="14_granary"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/covered_bridge.png" id="15_covered_bridge"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/watermill.png" id="16_watermill"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/moon_gate.png" id="17_moon_gate"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack2_jianghu_town/poor_fishing_shack.png" id="18_fishing_shack"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/peach_tree_0.png" id="19_peach0"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/peach_tree_1.png" id="20_peach1"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/peach_tree_2.png" id="21_peach2"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/bamboo_cluster_0.png" id="22_bamboo0"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/willow_tree_0.png" id="23_willow0"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/rock_crag_0.png" id="24_rock0"]
+[ext_resource type="Texture2D" path="res://assets/vegetation/rock_crag_1.png" id="25_rock1"]
+[ext_resource type="Texture2D" path="res://assets/environment/landmarks/celestial_peach_tree.png" id="26_celestial_peach"]
+[ext_resource type="Texture2D" path="res://assets/environment/landmarks/lingzhi_mushrooms.png" id="27_lingzhi"]
+[ext_resource type="Texture2D" path="res://assets/environment/landmarks/lotus_basin.png" id="28_lotus"]
+[ext_resource type="Texture2D" path="res://assets/environment/landmarks/orchid_grass.png" id="29_orchid"]
+[ext_resource type="Texture2D" path="res://assets/environment/landmarks/taihu_stone.png" id="30_taihu"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/stone_lantern.png" id="31_lantern"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/well.png" id="32_well"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/bench.png" id="33_bench"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/rice_sacks.png" id="34_rice"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/baskets.png" id="35_baskets"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/jar_large.png" id="36_jar_large"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/water_jar.png" id="37_water_jar"]
+[ext_resource type="Texture2D" path="res://assets/environment/props/barrel.png" id="38_barrel"]
+[ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/wudang_taichi_platform.png" id="39_teleport_platform"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_well"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lotus"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bench"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tree"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bamboo"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rock"]
+radius = 18.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundary_top"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundary_bottom"]
+normal = Vector2(0, -1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundary_left"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundary_right"]
+normal = Vector2(-1, 0)
+
+[node name="TanThuThon" type="Node2D"]
+metadata/MapBoundaries = Vector2(3200, 2400)
+
+[node name="Ground" type="Node2D" parent="."]
+z_index = -10
+
+[node name="MeadowGround" type="ColorRect" parent="Ground"]
+z_index = -20
+offset_right = 3200.0
+offset_bottom = 2400.0
+color = Color(0.33, 0.46, 0.25, 1)
+
+[node name="CliffNorth_1" type="Sprite2D" parent="Ground"]
+position = Vector2(800, 200)
+texture = ExtResource("1_bamboo_terrain")
+
+[node name="CliffNorth_2" type="Sprite2D" parent="Ground"]
+position = Vector2(2400, 200)
+texture = ExtResource("1_bamboo_terrain")
+
+[node name="CliffSouth_1" type="Sprite2D" parent="Ground"]
+position = Vector2(800, 2200)
+texture = ExtResource("1_bamboo_terrain")
+
+[node name="CliffSouth_2" type="Sprite2D" parent="Ground"]
+position = Vector2(2400, 2200)
+texture = ExtResource("1_bamboo_terrain")
+
+[node name="VillagePlaza" type="Sprite2D" parent="Ground"]
+position = Vector2(1600, 1250)
+texture = ExtResource("2_bluestone")
+
+[node name="PathWest" type="Sprite2D" parent="Ground"]
+position = Vector2(1100, 1250)
+scale = Vector2(0.5, 0.4)
+texture = ExtResource("2_bluestone")
+
+[node name="PathEast" type="Sprite2D" parent="Ground"]
+position = Vector2(2200, 1260)
+scale = Vector2(0.6, 0.4)
+texture = ExtResource("2_bluestone")
+
+[node name="PathGate" type="Sprite2D" parent="Ground"]
+position = Vector2(2650, 1260)
+scale = Vector2(0.5, 0.4)
+texture = ExtResource("2_bluestone")
+
+[node name="HerbSoil1" type="Sprite2D" parent="Ground"]
+position = Vector2(1000, 1950)
+scale = Vector2(0.6, 0.5)
+texture = ExtResource("3_redclay")
+
+[node name="HerbSoil2" type="Sprite2D" parent="Ground"]
+position = Vector2(1180, 1950)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_redclay")
+
+[node name="Canal1" type="Sprite2D" parent="Ground"]
+position = Vector2(1880, 450)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal2" type="Sprite2D" parent="Ground"]
+position = Vector2(1920, 750)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal3" type="Sprite2D" parent="Ground"]
+position = Vector2(1950, 1050)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal4" type="Sprite2D" parent="Ground"]
+position = Vector2(1950, 1260)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal5" type="Sprite2D" parent="Ground"]
+position = Vector2(1970, 1480)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal6" type="Sprite2D" parent="Ground"]
+position = Vector2(2050, 1780)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Canal7" type="Sprite2D" parent="Ground"]
+position = Vector2(2150, 2080)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_canal")
+
+[node name="Fringe" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="AncestralHall" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1600, 1060)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/AncestralHall"]
+position = Vector2(0, -60)
+texture = ExtResource("6_ancestral_hall")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/AncestralHall"]
+polygon = PackedVector2Array(-55, -15, 0, -35, 55, -15, 55, 15, 0, 35, -55, 15)
+
+[node name="VillageWell" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1480, 1220)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/VillageWell"]
+position = Vector2(0, -25)
+texture = ExtResource("32_well")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/VillageWell"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_well")
+
+[node name="LotusBasin" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1720, 1220)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/LotusBasin"]
+position = Vector2(0, -25)
+texture = ExtResource("28_lotus")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/LotusBasin"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_lotus")
+
+[node name="Bench1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1450, 1260)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/Bench1"]
+position = Vector2(0, -15)
+texture = ExtResource("33_bench")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/Bench1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bench")
+
+[node name="Bench2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1750, 1260)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/Bench2"]
+position = Vector2(0, -15)
+texture = ExtResource("33_bench")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/Bench2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bench")
+
+[node name="PlazaLantern1" type="Sprite2D" parent="Fringe"]
+position = Vector2(1420, 1140)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="PlazaLantern2" type="Sprite2D" parent="Fringe"]
+position = Vector2(1780, 1140)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="PlazaLantern3" type="Sprite2D" parent="Fringe"]
+position = Vector2(1420, 1360)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="PlazaLantern4" type="Sprite2D" parent="Fringe"]
+position = Vector2(1780, 1360)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="LargeJar1" type="Sprite2D" parent="Fringe"]
+position = Vector2(1530, 1100)
+texture = ExtResource("36_jar_large")
+offset = Vector2(0, -16)
+
+[node name="WaterJar1" type="Sprite2D" parent="Fringe"]
+position = Vector2(1670, 1100)
+texture = ExtResource("37_water_jar")
+offset = Vector2(0, -16)
+
+[node name="BlueBrickHouse1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1200, 950)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/BlueBrickHouse1"]
+position = Vector2(0, -56)
+texture = ExtResource("12_blue_brick_house")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/BlueBrickHouse1"]
+polygon = PackedVector2Array(-50, -15, 0, -35, 50, -15, 50, 15, 0, 35, -50, 15)
+
+[node name="MudHouse1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(920, 1020)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/MudHouse1"]
+position = Vector2(0, -56)
+texture = ExtResource("10_mud_house")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/MudHouse1"]
+polygon = PackedVector2Array(-45, -15, 0, -30, 45, -15, 45, 15, 0, 30, -45, 15)
+
+[node name="ThatchedCottage1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1120, 1220)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/ThatchedCottage1"]
+position = Vector2(0, -56)
+texture = ExtResource("7_thatched_cottage")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/ThatchedCottage1"]
+polygon = PackedVector2Array(-50, -15, 0, -32, 50, -15, 50, 15, 0, 32, -50, 15)
+
+[node name="TinyCourtyard1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(860, 1280)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/TinyCourtyard1"]
+position = Vector2(0, -56)
+texture = ExtResource("11_tiny_courtyard")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/TinyCourtyard1"]
+polygon = PackedVector2Array(-55, -15, 0, -35, 55, -15, 55, 15, 0, 35, -55, 15)
+
+[node name="Farmhouse1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1150, 1480)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/Farmhouse1"]
+position = Vector2(0, -56)
+texture = ExtResource("8_farmhouse")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/Farmhouse1"]
+polygon = PackedVector2Array(-50, -15, 0, -30, 50, -15, 50, 15, 0, 30, -50, 15)
+
+[node name="StoneHut1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(900, 1550)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/StoneHut1"]
+position = Vector2(0, -56)
+texture = ExtResource("9_stone_hut")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/StoneHut1"]
+polygon = PackedVector2Array(-45, -15, 0, -30, 45, -15, 45, 15, 0, 30, -45, 15)
+
+[node name="WillowRes1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1050, 880)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WillowRes1"]
+position = Vector2(0, -130)
+texture = ExtResource("23_willow0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WillowRes1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="WillowRes2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1000, 1380)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WillowRes2"]
+position = Vector2(0, -130)
+texture = ExtResource("23_willow0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WillowRes2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="BambooRes1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(780, 1150)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/BambooRes1"]
+position = Vector2(0, -90)
+texture = ExtResource("22_bamboo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/BambooRes1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="TaihuRes1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1280, 1120)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/TaihuRes1"]
+position = Vector2(0, -45)
+texture = ExtResource("30_taihu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/TaihuRes1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="HerbHut" type="StaticBody2D" parent="Fringe"]
+position = Vector2(950, 1820)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/HerbHut"]
+position = Vector2(0, -56)
+texture = ExtResource("13_herb_hut")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/HerbHut"]
+polygon = PackedVector2Array(-50, -15, 0, -32, 50, -15, 50, 15, 0, 32, -50, 15)
+
+[node name="Granary" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1250, 1820)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/Granary"]
+position = Vector2(0, -56)
+texture = ExtResource("14_granary")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/Granary"]
+polygon = PackedVector2Array(-50, -15, 0, -32, 50, -15, 50, 15, 0, 32, -50, 15)
+
+[node name="Lingzhi1" type="Sprite2D" parent="Fringe"]
+position = Vector2(880, 1960)
+texture = ExtResource("27_lingzhi")
+offset = Vector2(0, -20)
+
+[node name="Lingzhi2" type="Sprite2D" parent="Fringe"]
+position = Vector2(1080, 2020)
+texture = ExtResource("27_lingzhi")
+offset = Vector2(0, -20)
+
+[node name="Orchid1" type="Sprite2D" parent="Fringe"]
+position = Vector2(980, 1950)
+texture = ExtResource("29_orchid")
+offset = Vector2(0, -15)
+
+[node name="Orchid2" type="Sprite2D" parent="Fringe"]
+position = Vector2(1180, 2020)
+texture = ExtResource("29_orchid")
+offset = Vector2(0, -15)
+
+[node name="RiceSacks1" type="Sprite2D" parent="Fringe"]
+position = Vector2(1200, 1860)
+texture = ExtResource("34_rice")
+offset = Vector2(0, -16)
+
+[node name="Baskets1" type="Sprite2D" parent="Fringe"]
+position = Vector2(905, 1850)
+texture = ExtResource("35_baskets")
+offset = Vector2(0, -12)
+
+[node name="WaterJar2" type="Sprite2D" parent="Fringe"]
+position = Vector2(990, 1850)
+texture = ExtResource("37_water_jar")
+offset = Vector2(0, -16)
+
+[node name="Barrel1" type="Sprite2D" parent="Fringe"]
+position = Vector2(1290, 1860)
+texture = ExtResource("38_barrel")
+offset = Vector2(0, -16)
+
+[node name="CelestialPeachTree" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2550, 750)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/CelestialPeachTree"]
+position = Vector2(0, -130)
+texture = ExtResource("26_celestial_peach")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/CelestialPeachTree"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="PeachTree1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2200, 620)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree1"]
+position = Vector2(0, -110)
+texture = ExtResource("19_peach0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2400, 560)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree2"]
+position = Vector2(0, -110)
+texture = ExtResource("20_peach1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree3" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2700, 620)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree3"]
+position = Vector2(0, -110)
+texture = ExtResource("21_peach2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree3"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree4" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2250, 850)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree4"]
+position = Vector2(0, -110)
+texture = ExtResource("19_peach0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree4"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree5" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2420, 920)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree5"]
+position = Vector2(0, -110)
+texture = ExtResource("20_peach1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree5"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree6" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2680, 940)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree6"]
+position = Vector2(0, -110)
+texture = ExtResource("21_peach2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree6"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachTree7" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2820, 780)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachTree7"]
+position = Vector2(0, -110)
+texture = ExtResource("19_peach0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachTree7"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="PeachRock1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2160, 720)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachRock1"]
+position = Vector2(0, -40)
+texture = ExtResource("24_rock0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachRock1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="PeachRock2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2520, 620)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachRock2"]
+position = Vector2(0, -40)
+texture = ExtResource("25_rock1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachRock2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="PeachRock3" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2760, 900)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/PeachRock3"]
+position = Vector2(0, -40)
+texture = ExtResource("24_rock0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/PeachRock3"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="Watermill" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1860, 1050)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/Watermill"]
+position = Vector2(0, -56)
+texture = ExtResource("16_watermill")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/Watermill"]
+polygon = PackedVector2Array(-50, -15, 0, -32, 50, -15, 50, 15, 0, 32, -50, 15)
+
+[node name="CoveredBridge" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1950, 1260)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/CoveredBridge"]
+position = Vector2(0, -56)
+texture = ExtResource("15_covered_bridge")
+
+[node name="RailTop" type="CollisionPolygon2D" parent="Fringe/CoveredBridge"]
+polygon = PackedVector2Array(-60, -32, 60, -32, 60, -14, -60, -14)
+
+[node name="RailBottom" type="CollisionPolygon2D" parent="Fringe/CoveredBridge"]
+polygon = PackedVector2Array(-60, 14, 60, 14, 60, 32, -60, 32)
+
+[node name="FishingShack" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2050, 1550)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/FishingShack"]
+position = Vector2(0, -56)
+texture = ExtResource("18_fishing_shack")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/FishingShack"]
+polygon = PackedVector2Array(-45, -15, 0, -30, 45, -15, 45, 15, 0, 30, -45, 15)
+
+[node name="StreamRock1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1910, 850)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/StreamRock1"]
+position = Vector2(0, -45)
+texture = ExtResource("30_taihu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/StreamRock1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="StreamRock2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1980, 1420)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/StreamRock2"]
+position = Vector2(0, -45)
+texture = ExtResource("30_taihu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/StreamRock2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="StreamBamboo1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2080, 1750)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/StreamBamboo1"]
+position = Vector2(0, -90)
+texture = ExtResource("22_bamboo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/StreamBamboo1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="StreamWillow1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2000, 1650)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/StreamWillow1"]
+position = Vector2(0, -130)
+texture = ExtResource("23_willow0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/StreamWillow1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="MoonGate" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2550, 1260)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/MoonGate"]
+position = Vector2(0, -56)
+texture = ExtResource("17_moon_gate")
+
+[node name="PillarLeft" type="CollisionPolygon2D" parent="Fringe/MoonGate"]
+polygon = PackedVector2Array(-55, -25, -25, -25, -25, 25, -55, 25)
+
+[node name="PillarRight" type="CollisionPolygon2D" parent="Fringe/MoonGate"]
+polygon = PackedVector2Array(25, -25, 55, -25, 55, 25, 25, 25)
+
+[node name="GateLantern1" type="Sprite2D" parent="Fringe"]
+position = Vector2(2480, 1210)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="GateLantern2" type="Sprite2D" parent="Fringe"]
+position = Vector2(2480, 1310)
+texture = ExtResource("31_lantern")
+offset = Vector2(0, -25)
+
+[node name="GateBamboo1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2550, 1160)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/GateBamboo1"]
+position = Vector2(0, -90)
+texture = ExtResource("22_bamboo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/GateBamboo1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="GateBamboo2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2550, 1360)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/GateBamboo2"]
+position = Vector2(0, -90)
+texture = ExtResource("22_bamboo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/GateBamboo2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="TeleportPlatform" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2750, 1260)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/TeleportPlatform"]
+position = Vector2(0, -24)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("39_teleport_platform")
+
+[node name="WildRockSE1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2450, 1950)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WildRockSE1"]
+position = Vector2(0, -40)
+texture = ExtResource("24_rock0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WildRockSE1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="WildRockSE2" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2750, 2100)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WildRockSE2"]
+position = Vector2(0, -40)
+texture = ExtResource("25_rock1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WildRockSE2"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rock")
+
+[node name="WildTreeNorth1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1100, 450)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WildTreeNorth1"]
+position = Vector2(0, -130)
+texture = ExtResource("23_willow0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WildTreeNorth1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_tree")
+
+[node name="WildBambooNorth1" type="StaticBody2D" parent="Fringe"]
+position = Vector2(750, 480)
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fringe/WildBambooNorth1"]
+position = Vector2(0, -90)
+texture = ExtResource("22_bamboo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fringe/WildBambooNorth1"]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_bamboo")
+
+[node name="StreamCollisionNorth" type="StaticBody2D" parent="Fringe"]
+position = Vector2(1950, 750)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/StreamCollisionNorth"]
+polygon = PackedVector2Array(-50, -450, 10, -450, 50, 450, -10, 450)
+
+[node name="StreamCollisionSouth" type="StaticBody2D" parent="Fringe"]
+position = Vector2(2050, 1750)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fringe/StreamCollisionSouth"]
+polygon = PackedVector2Array(-70, -450, -10, -450, 110, 450, 50, 450)
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="NorthBoundary" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(1600, 120)
+shape = SubResource("WorldBoundary_top")
+
+[node name="SouthBoundary" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(1600, 2300)
+shape = SubResource("WorldBoundary_bottom")
+
+[node name="WestBoundary" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(120, 1200)
+shape = SubResource("WorldBoundary_left")
+
+[node name="EastBoundary" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(3100, 1200)
+shape = SubResource("WorldBoundary_right")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(1, 0.98, 0.93, 1)
+energy = 0.95
+blend_mode = 0
+'''
+
+with open('presets/maps/layers/xianxia/TanThuThon.tscn', 'w') as f:
+    f.write(tscn_template)
+
+print('TanThuThon.tscn generated with clean double quotes!')

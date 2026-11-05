@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MapServerData" format=3]
+
+[ext_resource type="Script" path="res://addons/tiled_importer/MapServerData.gd" id="1_script"]
+[ext_resource type="NavigationPolygon" path="res://presets/maps/navigations/xianxia/TanThuThon.tres" id="2_nav"]
+[ext_resource type="Script" path="res://addons/tiled_importer/SpawnObject.gd" id="3_spawn"]
+[ext_resource type="Script" path="res://sources/scripts/generic/WarpGlobal.gd" id="4_warpglobal"]
+
+[sub_resource type="Resource" id="Resource_warp_to_hub"]
+script = ExtResource("3_spawn")
+id = 2089709631
+nick = "Warp to SacredSectHub"
+type = 2
+own_script = ExtResource("4_warpglobal")
+spawn_position = Vector2i(2750, 1260)
+respawn_delay = 0.0
+is_persistant = true
+trigger_radius = 64.0
+destination_map = 995840901
+destination_pos = Vector2(1000, 1400)
+auto_warp = true
+
+[resource]
+script = ExtResource("1_script")
+name = "TanThuThon"
+nav_poly = ExtResource("2_nav")
+spawns = [SubResource("Resource_warp_to_hub")]
+flags = 0

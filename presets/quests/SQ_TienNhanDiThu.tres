@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Bức Thư Của Tiền Nhân Xuyên Không"
+description = "Phát hiện bức thư được viết bằng chữ Latinh kết hợp công thức toán học cổ đại, để lại manh mối về việc các quy luật vật lý hiện đại liên kết với thiên đạo tu chân."
+giver = "Di Tích Tiền Nhân"
+giverLocation = "Vách Đá Phía Đông"
+target = "Giải mã bức thư cổ và thấu thị cơ chế dao động linh tử"
+targetLocation = "Vách Đá Phía Đông"
+reward = "400 Tu Vi, 300 Linh Thạch, 1 Linh Thạch Thượng Phẩm"

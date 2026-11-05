@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Săn Bắt Dị Thú"
+description = "Một đầu dị thú mang gai nhọn bốc lửa xuất hiện đe dọa tuyến đường săn bắn. Diệp Tử Lăng mời đạo hữu cùng hợp lực vây trảm."
+giver = "Diệp Tử Lăng"
+giverLocation = "Sơn Lâm Ngoại Vi"
+target = "Tiêu diệt Dị Thú và thu lấy Yêu Thú Huyết Tinh"
+targetLocation = "Sơn Lâm Ngoại Vi"
+reward = "300 Tu Vi, 200 Linh Thạch, 100 Hảo Cảm Diệp Tử Lăng"

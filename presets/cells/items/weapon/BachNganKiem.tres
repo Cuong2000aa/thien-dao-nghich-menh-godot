@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/weapon/scimitar.png" id="1_icon"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" path="res://sources/cell/CellModifier.gd" id="4_mod"]
+[ext_resource type="Texture2D" path="res://data/graphics/sprites/equipment/weapon/shortsword.png" id="5_tex"]
+
+[sub_resource type="Resource" id="Resource_atk"]
+script = ExtResource("3_stat")
+_effect = 20
+_value = 38.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_crit"]
+script = ExtResource("3_stat")
+_effect = 6
+_value = 0.08
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_cellmod"]
+script = ExtResource("4_mod")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_atk"), SubResource("Resource_crit")])
+
+[resource]
+script = ExtResource("2_item")
+slot = 6
+textures = Array[Texture2D]([ExtResource("5_tex"), ExtResource("5_tex"), ExtResource("5_tex")])
+buyPrice = 1800
+sellPrice = 600
+id = 0
+name = "Bach Ngan Kiem"
+description = "Bạch Ngân Kiếm (Trung Phẩm): Kiếm sắc bén được rèn từ Bạch Ngân Khoáng, kiếm quang sáng chói như ánh trăng rằm, tăng 38 Công Kích và 8% Bạo Kích."
+icon = ExtResource("1_icon")
+weight = 320.0
+stackable = false
+usable = false
+modifiers = SubResource("Resource_cellmod")

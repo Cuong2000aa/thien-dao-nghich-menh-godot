@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3 uid="uid://cx8xichviembaochau"]
+
+[ext_resource type="Texture2D" uid="uid://1p477g641f0i" path="res://data/graphics/items/neck/bandana-scarf.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://bsjkeucmohr0d" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="4_mod"]
+
+[sub_resource type="Resource" id="Resource_matk"]
+script = ExtResource("3_stat")
+_effect = 7
+_value = 35.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_mdef"]
+script = ExtResource("3_stat")
+_effect = 8
+_value = 20.0
+_persistent = true
+
+[sub_resource type="Resource" id="Resource_cellmod"]
+script = ExtResource("4_mod")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_matk"), SubResource("Resource_mdef")])
+
+[resource]
+script = ExtResource("2_item")
+slot = 5
+buyPrice = 3000
+sellPrice = 800
+id = 31010103
+name = "Xich Viem Bao Chau"
+description = "Xích Viêm Bảo Châu (Thượng Phẩm Pháp Bảo): Yêu đan kết tinh ngàn năm của Xích Viêm Thú Hậu, tỏa ra hỏa diễm cuồn cuộn, tăng 35 Pháp Công và 20 Pháp Phòng."
+icon = ExtResource("1_icon")
+weight = 50.0
+stackable = false
+usable = false
+modifiers = SubResource("Resource_cellmod")

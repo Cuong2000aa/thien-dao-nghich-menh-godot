@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci8761y2k1q23"]
+
+[ext_resource type="Script" path="res://tests/test_inspect_all_maps.gd" id="1_map_dump"]
+
+[node name="TestInspectAllMaps" type="Node2D"]
+script = ExtResource("1_map_dump")

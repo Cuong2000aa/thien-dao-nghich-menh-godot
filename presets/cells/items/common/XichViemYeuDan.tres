@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3]
+
+[ext_resource type="Texture2D" path="res://data/graphics/items/usable/cactus-drink.png" id="1_tex"]
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+buyPrice = 1000
+sellPrice = 500
+id = 0
+name = "Xich Viem Yeu Dan"
+description = "Xích Viêm Yêu Đan (Cực Phẩm): Nội đan ngưng kết từ yêu hỏa trăm năm của Xích Viêm Thú Hậu, tỏa ra hào quang rực rỡ, là bảo vật vô giá để luyện chế dị đan và pháp bảo thượng cổ."
+icon = ExtResource("1_tex")
+weight = 1.0
+stackable = true
+usable = false

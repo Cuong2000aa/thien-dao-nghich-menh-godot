@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Giải Mã Trận Pháp Ngũ Hành"
+description = "Năm cột đá trấn giữ linh mạch đang xoay vần hỗn loạn. Vận dụng nguyên lý ngũ hành tương sinh tương khắc để kích hoạt đúng chuỗi phù văn."
+giver = "Mặc Lão Nhân"
+giverLocation = "Ngũ Hành Thạch Trận"
+target = "Kích hoạt 5 trụ đá theo thứ tự Kim -> Thủy -> Mộc -> Hỏa -> Thổ"
+targetLocation = "Ngũ Hành Thạch Trận"
+reward = "250 Tu Vi, 200 Linh Thạch, 1 Kim Cang Đan"

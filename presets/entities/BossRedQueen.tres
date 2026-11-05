@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="EntityData" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="1_item"]
+[ext_resource type="Script" path="res://sources/db/instance/EntityData.gd" id="2_data"]
+[ext_resource type="PackedScene" path="res://presets/entities/sprites/Player.tscn" id="3_spr"]
+[ext_resource type="Resource" path="res://presets/cells/items/common/MaggotSlime.tres" id="4_slime"]
+[ext_resource type="Resource" path="res://presets/cells/items/usable/HoiXuanDan.tres" id="5_potion"]
+[ext_resource type="Resource" path="res://presets/cells/items/usable/BoKhiDan.tres" id="6_drink"]
+
+[resource]
+script = ExtResource("2_data")
+_id = 834389329
+_name = "Xich Viem Thu Hau"
+_spritePreset = ExtResource("3_spr")
+_radius = 28
+_stats = {
+"attack": 38,
+"baseExp": 300,
+"castAttackDelay": 0.8,
+"cooldownAttackDelay": 1.0,
+"defense": 12,
+"level": 10,
+"maxHealth": 500,
+"walkSpeed": 60.0
+}
+_equipment = Array[ExtResource("1_item")]([null, null, null, null, null, null, null, null])
+_behaviour = 98
+_drops = Dictionary[ExtResource("1_item"), float]({
+ExtResource("4_slime"): 1.0,
+ExtResource("5_potion"): 1.0,
+ExtResource("6_drink"): 1.0
+})
+_isBoss = true

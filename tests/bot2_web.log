@@ -1,0 +1,72 @@
+sandbox_extension_issue_file_to_process failed for /tmp/godot_setup/Godot.app: 1 (Operation not permitted)
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
+
+Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
+Sentry: DEBUG: Automatic initialization is disabled in the project settings.
+Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
+[0.627][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot_web/
+[0.627][Config] Loading file: res://data/conf/settings.cfg
+[0.940][Launcher] Entering new FSM state: LOGIN_SCREEN
+[Bot 2][INIT][0.00] ClientBot started with Bot ID: 2, Account: DaoHuuBrowser, Char: DaoNhanWeb, Partner: KiemTienDesktop, WebSocket: true
+[0.990][Client] Initialized with: ENet, Online, Local, Testing
+[Bot 2][WAIT_CONNECT][0.10] Connected to server via ENet!
+[Bot 2][AUTH][0.70] Sending LoginWithPassword (or CreateAccount fallback): DaoHuuBrowser
+[1.810][Launcher] Entering new FSM state: LOGIN_SCREEN
+[Bot 2][WAIT_LOGIN][1.92] Account may not exist yet, trying CreateAccount: DaoHuuBrowser
+[3.076][Launcher] Entering new FSM state: CHAR_SCREEN
+[Bot 2][CREATE_OR_SELECT_CHAR][2.46] Sending CreateCharacter: DaoNhanWeb
+[3.807][Launcher] Entering new FSM state: CHAR_SCREEN
+[Bot 2][CONNECT_CHAR][3.68] Sending ConnectCharacter: DaoNhanWeb
+[5.006][Launcher] Entering new FSM state: CHAR_PROGRESS
+[5.118][Launcher] Entering new FSM state: IN_GAME
+SCRIPT ERROR: Assertion failed: Could not load the minimap resource
+          at: Warped (res://sources/gui/Minimap.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] Warped (res://sources/gui/Minimap.gd:21)
+              [1] SpawnEntity (res://sources/map/Map.gd:132)
+              [2] FullUpdateEntity (res://sources/map/Map.gd:165)
+              [3] FullUpdateEntity (res://sources/network/client/Client.gd:35)
+[Bot 2][WAIT_WORLD][3.75] ENTERED WORLD SUCCESSFULLY! Map ID: 995840901, is Swordsman: true, Spawn position: (960.0, 1033.0)
+[Bot 2][WAIT_WORLD][3.75] Captured screenshot: tests/screenshots/bot2_spawned_in_world.png (err=0)
+[Bot 2][CHECK_MUTUAL_VISIBILITY][3.77] MUTUAL VISIBILITY CONFIRMED! Found partner entity: KiemTienDesktop at (1023.0, 1049.0) (is Swordsman: true)
+[Bot 2][CHECK_MUTUAL_VISIBILITY][3.77] Captured screenshot: tests/screenshots/bot2_sees_partner.png (err=0)
+[Bot 2][WAIT_PARTNER_MOVE][6.19] Movement sync verified! Target position observed: (1032.417, 1058.417)
+[Bot 2][WAIT_PARTNER_MOVE][6.19] Captured screenshot: tests/screenshots/bot2_observed_partner_movement.png (err=0)
+[Bot 2][WAIT_PARTNER_DISCONNECT][7.76] Bot 2 verified partner disconnection!
+[Bot 2][WAIT_PARTNER_DISCONNECT][7.76] Captured screenshot: tests/screenshots/bot2_partner_disconnected.png (err=0)
+[Bot 2][WAIT_PARTNER_RECONNECT][14.79] Bot 2 observed partner reconnect in world!
+[Bot 2][WAIT_PARTNER_RECONNECT][14.79] Captured screenshot: tests/screenshots/bot2_observed_partner_reconnected.png (err=0)
+[Bot 2][FINISH][14.80] Bot test sequence completed successfully!
+WARNING: 17 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+ERROR: 1 shaders of type CanvasShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1236)
+ERROR: 2 shaders of type ParticlesShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1236)
+WARNING: 35 RIDs of type "StorageBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 4 RIDs of type "UniformBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 7 RIDs of type "IndexArray" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 7 RIDs of type "IndexBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 14 RIDs of type "VertexBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:8686)
+WARNING: 38 RIDs of type "Texture" were leaked.
+   at: finalize (servers/rendering/rendering_device.cpp:8900)
+ERROR: Parameter "RenderingServer::get_singleton()" is null.
+   at: ~CompressedTexture2D (scene/resources/compressed_texture.cpp:464)
+ERROR: Parameter "RenderingServer::get_singleton()" is null.
+   at: ~CompressedTexture2D (scene/resources/compressed_texture.cpp:464)
+WARNING: 1245 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 54 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 18 RID allocations of type 'P12GodotShape2D' were leaked at exit.
+ERROR: 7 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
+ERROR: 7 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
+ERROR: 3 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
+ERROR: 3 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
+ERROR: 22 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.

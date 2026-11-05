@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Bí Mật Trong Cổ Tích"
+description = "Thâm nhập Hiên Viên Cổ Động, phát hiện các cổ tịch bị niêm phong có niên đại trùng khớp với đại kiếp thượng cổ bị che giấu."
+giver = "Mặc Lão Nhân"
+giverLocation = "Trúc Sơn Cổ Bi"
+target = "Giải mã thiên địa trận văn bị trôi dạt tại cổ động"
+targetLocation = "Hiên Viên Cổ Động"
+reward = "400 Tu Vi, 350 Linh Thạch, 1 Bạch Ngân Kiếm"

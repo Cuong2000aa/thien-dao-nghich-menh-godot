@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3 uid="uid://cx9thanhphongbikip"]
+
+[ext_resource type="Texture2D" uid="uid://cb5c03o724k6s" path="res://data/graphics/items/quest/zieliteamulet-brass.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://bsjkeucmohr0d" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/LearnThanhPhongKiemQuyet.gd" id="3_script"]
+
+[resource]
+script = ExtResource("2_item")
+buyPrice = 2000
+sellPrice = 500
+id = 31010104
+name = "Thanh Phong Bi Kip"
+description = "Thanh Phong Kiếm Quyết Bí Tịch (Hoàng Giai): Ghi chép kiếm đạo chân truyền của Trúc Sơn Tông. Khi đọc có thể lĩnh ngộ Thanh Phong Kiếm Khí, Trúc Sơn Kiếm Trận và Đạp Phong Bộ."
+icon = ExtResource("1_icon")
+weight = 0.5
+stackable = false
+usable = true
+cellScript = ExtResource("3_script")

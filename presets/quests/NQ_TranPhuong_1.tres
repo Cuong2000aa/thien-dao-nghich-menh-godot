@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Đồng Môn Tương Trợ"
+description = "Trần Phương gặp khó khăn khi đột phá Tụ Khí tầng 2 do thiếu đan dược bồi dưỡng. Hắn nhờ đạo hữu chia sẻ 1 viên Bổ Khí Đan hoặc Hồi Xuân Đan."
+giver = "Trần Phương"
+giverLocation = "Diễn Võ Trường"
+target = "Trao 1 Bổ Khí Đan cho Trần Phương"
+targetLocation = "Diễn Võ Trường"
+reward = "100 Tu Vi, 50 Linh Thạch, 60 Hảo Cảm Trần Phương"

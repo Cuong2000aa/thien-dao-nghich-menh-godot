@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/test_build11_hybrid_multiplayer.gd" id="1_b11"]
+
+[node name="TestBuild11HybridMultiplayer" type="Node2D"]
+script = ExtResource("1_b11")

@@ -1,0 +1,135 @@
+{
+  "details": {
+    "idle_east": {
+      "anim": "idle_east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_north": {
+      "anim": "idle_north",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_north-east": {
+      "anim": "idle_north-east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_north-west": {
+      "anim": "idle_north-west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_south": {
+      "anim": "idle_south",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_south-east": {
+      "anim": "idle_south-east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_south-west": {
+      "anim": "idle_south-west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "idle_west": {
+      "anim": "idle_west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_east": {
+      "anim": "walk_east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_north": {
+      "anim": "walk_north",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_north-east": {
+      "anim": "walk_north-east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_north-west": {
+      "anim": "walk_north-west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_south": {
+      "anim": "walk_south",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_south-east": {
+      "anim": "walk_south-east",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_south-west": {
+      "anim": "walk_south-west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    },
+    "walk_west": {
+      "anim": "walk_west",
+      "offset": [
+        -20.0,
+        -38.0
+      ],
+      "pass": true
+    }
+  },
+  "passed": 16,
+  "success": true,
+  "total": 16
+}

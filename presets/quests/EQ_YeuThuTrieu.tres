@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://sources/db/instance/QuestData.gd" id="1_qd"]
+
+[resource]
+script = ExtResource("1_qd")
+name = "Đẩy Lùi Yêu Thú Triều Tịch"
+description = "Sự kiện thế giới: Đàn yêu thú cuồng nộ đang tràn về sơn môn. Chung tay cùng các đệ tử đẩy lùi 10 đợt tiến công của quái vật."
+giver = "Nhiệm Vụ Đường Chấp Sự"
+giverLocation = "Nhiệm Vụ Đường"
+target = "Tiêu diệt 10 Yêu Thú trong thời gian sự kiện"
+targetLocation = "Sơn Lâm Ngoại Vi"
+reward = "300 Tu Vi, 500 Linh Thạch, 80 Điểm Cống Hiến"
