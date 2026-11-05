@@ -49,6 +49,25 @@ jobs:
           name: Web
           path: site
 
+      - name: Normalize site root + cache-bust note
+        run: |
+          if [ ! -f site/index.html ]; then
+            nested=$(find site -maxdepth 3 -name index.html | head -1)
+            if [ -n "$nested" ]; then
+              dir=$(dirname "$nested")
+              shopt -s dotglob nullglob
+              mv "$dir"/* site/
+            fi
+          fi
+          # Fail the deploy if a threaded side module slipped back in
+          if [ -f site/index.side.wasm ]; then
+            echo "::error::Threaded Web export detected (index.side.wasm). Set variant/thread_support=false."
+            exit 1
+          fi
+          # Prefer nothreads sqlite filename if present
+          ls -lah site | head -40
+          test -f site/index.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
