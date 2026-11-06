@@ -24,3 +24,9 @@ const ServerMaxFPS : int				= 30
 static var IsTesting : bool				= not OS.has_feature("production")
 static var isMobile : bool				= OS.has_feature("android") or OS.has_feature("ios") or Util.IsMobile()
 static var isWeb : bool					= OS.has_feature("web")
+
+## Re-evaluate after engine/JS ready (mobile browser may not set web_android/web_ios).
+static func RefreshPlatformFlags() -> void:
+	isWeb = OS.has_feature("web")
+	isMobile = OS.has_feature("android") or OS.has_feature("ios") or Util.IsMobile()
+	DeviceManager.RefreshForMobile()

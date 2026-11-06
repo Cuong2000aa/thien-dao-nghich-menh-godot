@@ -179,13 +179,13 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 		if skill:
 			if emitter == Launcher.Player and cooldown > 0.0:
 				skill.used.emit(cooldown)
-			# PixelFX / xianxia VFX on cast: skills only (melee stays clean — slash happens on hit).
-			var isMelee : bool = skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
 			var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
 			var martial : Dictionary = CombatSystemClass.GetMartialForSkill(skillID, skill.name)
 			var martialId : int = int(martial.get("id", 0))
-			# Skip legacy GPUParticles when we already have dedicated martial VFX (avoids double clutter)
-			var useLegacyParticles : bool = skill.skillPreset != null and martialId == 0
+			var skipCast : bool = bool(martial.get("skipCastFx", false)) \
+				or skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
+			# One PixelFX cast only — never dual-sticker; skip legacy GPUParticles when mapped
+			var useLegacyParticles : bool = skill.skillPreset != null and (martialId == 0 or String(martial.get("fxKey", "")).is_empty()) and not skipCast
 			if useLegacyParticles:
 				var skillFx : GPUParticles2D = skill.skillPreset.instantiate()
 				if skillFx:
@@ -193,43 +193,26 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					skillFx.lifetime = skill.skillTime
 					skillFx.emitting = true
 					emitter.add_child(skillFx)
-			if not isMelee and Launcher.Map and Launcher.Map.currentFringe and emitter:
-				var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-				var facing : Vector2 = Vector2.RIGHT
-				if emitter.entityVelocity.length_squared() > 4.0:
-					facing = emitter.entityVelocity
-				elif emitter.velocity.length_squared() > 4.0:
-					facing = emitter.velocity
-				elif emitter.has_method("get") and emitter.get("entityOrientation"):
-					facing = emitter.entityOrientation
-				match martialId:
-					1002: # Thanh Phong Kiếm Khí — blade gust
-						CombatVisualSystemClass.SpawnBladeGustVfx(Launcher.Map.currentFringe, emitter.global_position, facing)
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "slash", emitter.global_position, -1.0, facing.x < 0.0, true)
-					1003: # Trúc Sơn Kiếm Trận — sword array
-						CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position)
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "double_slash", emitter.global_position, -1.0, false, true)
-					1004: # Đạp Phong Bộ — dash trail
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "lightning_charge", emitter.global_position, -1.0, false, true)
-					1005: # Bát Hoang — fist shockwave
-						CombatVisualSystemClass.SpawnFistShockwaveVfx(Launcher.Map.currentFringe, emitter.global_position, facing)
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "ground_slam", emitter.global_position, -1.0, false, true)
-					1006: # Quy Nguyên — spiritual shield
-						CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "divine_shield", emitter.global_position, -1.0, false, true)
-					_:
-						# Prefer martial fxKey / fxKey2 (new phép+tu tiên skills + ultimates)
-						var key : String = String(martial.get("fxKey", ""))
-						if key.is_empty():
-							var elem : int = int(martial.get("element", 0))
-							var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
-							key = Lib.ElementKey(elem, false)
-							if key == "hit_spark":
-								key = "mana_burst"
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position, -1.0, false, true)
-						var key2 : String = String(martial.get("fxKey2", ""))
-						if not key2.is_empty():
-							CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key2, emitter.global_position, -1.0, false, true)
+			if skipCast or not Launcher.Map or not Launcher.Map.currentFringe or not emitter:
+				return
+			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
+			if bool(martial.get("shieldVfx", false)):
+				CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
+			var key : String = String(martial.get("fxKey", ""))
+			if key.is_empty() and martialId != 0:
+				var elem : int = int(martial.get("element", 0))
+				var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+				key = Lib.ElementKey(elem, false)
+				if key == "hit_spark":
+					key = "mana_burst"
+			if key.is_empty():
+				return
+			# Placement by PixelFX category; aim follows Entity.Cast / Skill.Cast (SINGLE→MONSTER)
+			var placeOverride : String = String(martial.get("fxPlace", ""))
+			CombatVisualSystemClass.PlaySkillFx(Launcher.Map.currentFringe, emitter, key, placeOverride, -1.0, skill)
+			if bool(martial.get("swordArrayVfx", false)):
+				var arrR : float = float(martial.get("radius", 110.0)) * 0.85
+				CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position, arrR, 2.2)
 
 func DisplayProjectile(targetPos : Vector2, skill : SkillCell):
 	if Launcher.Map.currentFringe and skill and skill.projectilePreset:
@@ -284,8 +267,20 @@ func DisplayAlteration(target : Entity, emitter : Entity, value : int, alteratio
 			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
 			var skillCell : SkillCell = DB.SkillsDB.get(skillID, null)
 			var isMeleeHit : bool = skillCell != null and (skillCell.name == SkillCommons.SkillMeleeName or skillID == 229218829)
-			# Light impact for all hits; slash smear only for normal attack (skills keep elemental cast FX).
-			CombatVisualSystemClass.SpawnImpactVfx(Launcher.Map.currentFringe, target.global_position, elem, alteration == ActorCommons.Alteration.CRIT)
+			# Moves bake impact in-sheet — skip duplicate hitFx unless forced
+			var castKey : String = String(martialData.get("fxKey", ""))
+			var LibClass = preload("res://sources/effects/PixelFxLibrary.gd")
+			var actCarriesHit : bool = LibClass.IsMoveAct(castKey) and not bool(martialData.get("forceHitFx", false))
+			var hitFx : String = String(martialData.get("hitFx", ""))
+			if actCarriesHit:
+				if alteration == ActorCommons.Alteration.CRIT:
+					CombatVisualSystemClass.SpawnImpactVfx(Launcher.Map.currentFringe, target.global_position, elem, true)
+			elif not hitFx.is_empty():
+				# Impacts / hitFx always at TARGET (gallery impacts category)
+				var flipHit : bool = emitter != null and CombatVisualSystemClass.ResolveCastFlip(emitter)
+				CombatVisualSystemClass.PlayHitFx(Launcher.Map.currentFringe, hitFx, target.global_position, flipHit, -1.0)
+			else:
+				CombatVisualSystemClass.SpawnImpactVfx(Launcher.Map.currentFringe, target.global_position, elem, alteration == ActorCommons.Alteration.CRIT)
 			if isMeleeHit and emitter and emitter != target:
 				var facing : Vector2 = Vector2.RIGHT
 				if emitter is Entity and emitter.entityVelocity.length_squared() > 4.0:
@@ -295,7 +290,8 @@ func DisplayAlteration(target : Entity, emitter : Entity, value : int, alteratio
 				CombatVisualSystemClass.SpawnMeleeSlashVfx(Launcher.Map.currentFringe, target.global_position, facing, alteration == ActorCommons.Alteration.CRIT)
 		elif alteration == ActorCommons.Alteration.HEAL:
 			var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-			CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "heal", target.global_position, -1.0, false, true)
+			# Heal attaches to target body (holy/status placement)
+			CombatVisualSystemClass.PlayBodyFx(Launcher.Map.currentFringe, target, "heal", false, -1.0)
 
 		if emitter != target and Launcher.Player == emitter:
 			var skill : SkillCell = DB.SkillsDB.get(skillID, null)

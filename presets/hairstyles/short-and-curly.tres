@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_script")
 texture = ExtResource("tex_short-curly")
+spriteHframes = 5
+spriteVframes = 1
 _name = "Short and Curly"

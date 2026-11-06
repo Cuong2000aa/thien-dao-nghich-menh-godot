@@ -14,8 +14,6 @@ Bản web chơi ngay: https://cuong2000aa.github.io/thien-dao-nghich-menh-godot/
 - Editor: [Godot](https://godotengine.org/)
 - Map: [Tiled](https://www.mapeditor.org/)
 
-**Nền tảng kỹ thuật:** fork từ [Source of Mana](https://github.com/sourceofmana/sourceofmana) (MIT) — xem [NOTICE_THIEN_DAO.md](NOTICE_THIEN_DAO.md).
-
 **Mục tiêu:** MMORPG tu tiên Việt hoá, chơi được solo / co-op / web.
 
 **Nền tảng:** Desktop (Windows, macOS, Linux), Mobile (Android), Web (HTML5/WASM)
@@ -42,7 +40,3 @@ PixelFX (MIT) full catalog dưới `assets/vfx/pixelfx/` — xem `assets/vfx/pix
 ## Giấy phép
 
 Chi tiết: [LICENSE.md](LICENSE.md) và [NOTICE_THIEN_DAO.md](NOTICE_THIEN_DAO.md).
-
-- Code nền SoM: MIT
-- Art SoM gốc: CC BY-SA 4.0 (giữ attribution)
-- Nội dung Thiên Đạo: theo vault / NOTICE dự án

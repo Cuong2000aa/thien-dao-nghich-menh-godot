@@ -121,13 +121,14 @@ static func SpawnImpactVfx(parent : Node2D, pos : Vector2, element : int = 0, is
 ## Play a named PixelFX key at world position (skills, cultivation, environment).
 ## Pass forceOneShot=true for combat cast/hit so looping sheets never litter the map.
 ## Ambient loops (cherry blossoms / fireflies) keep forceOneShot=false.
-static func SpawnPixelFx(parent : Node2D, key : String, pos : Vector2, scaleMul : float = -1.0, flipH : bool = false, forceOneShot : bool = false) -> Node2D:
+## attachTo: parent FX under a character so origin = body (PixelFX gallery local-space).
+static func SpawnPixelFx(parent : Node2D, key : String, pos : Vector2, scaleMul : float = -1.0, flipH : bool = false, forceOneShot : bool = false, attachTo : Node2D = null) -> Node2D:
 	if not parent or not is_instance_valid(parent):
 		return null
 	var PixelFxLibraryClass = preload("res://sources/effects/PixelFxLibrary.gd")
 	var PixelFxPlayerClass = preload("res://sources/effects/PixelFxPlayer.gd")
 	var s : float = scaleMul if scaleMul > 0.0 else PixelFxLibraryClass.GetScale(key)
-	return PixelFxPlayerClass.Spawn(parent, key, pos, s, flipH, 10, forceOneShot)
+	return PixelFxPlayerClass.Spawn(parent, key, pos, s, flipH, 10, forceOneShot, attachTo)
 
 ## Melee slash smear tied to attack facing (does not replace character attack anim)
 static func SpawnMeleeSlashVfx(parent : Node2D, pos : Vector2, facing : Vector2 = Vector2.RIGHT, heavy : bool = false) -> Node2D:
@@ -135,6 +136,296 @@ static func SpawnMeleeSlashVfx(parent : Node2D, pos : Vector2, facing : Vector2 
 	if facing.x < -0.15:
 		return SpawnPixelFx(parent, key, pos, -1.0, true, true)
 	return SpawnPixelFx(parent, key, pos, -1.0, false, true)
+
+## Combat aim — same gates as Entity.Cast (SINGLE → alive MONSTER on Entities.target).
+static func ResolveCombatTarget(caster : Node2D, skill : SkillCell = null) -> Entity:
+	if caster == null or not is_instance_valid(caster):
+		return null
+	if skill != null and skill.mode != Skill.TargetMode.SINGLE:
+		return null
+	if Entities.target == null or not is_instance_valid(Entities.target):
+		return null
+	if Entities.target == caster:
+		return null
+	if Entities.target.type != ActorCommons.Type.MONSTER:
+		return null
+	if not ActorCommons.IsAlive(Entities.target):
+		return null
+	return Entities.target
+
+## @deprecated alias — use ResolveCombatTarget
+static func ResolveAimTarget(caster : Node2D) -> Node2D:
+	return ResolveCombatTarget(caster, null)
+
+## Mirror BaseAgent.LookAt: orientation = (target.position - caster.position).normalized()
+static func LookAtEntity(caster : Entity, target : Entity) -> void:
+	if caster == null or target == null or not is_instance_valid(caster) or not is_instance_valid(target):
+		return
+	var delta : Vector2 = target.position - caster.position
+	if delta.length_squared() < 0.0001:
+		return
+	var newOrientation : Vector2 = delta.normalized()
+	caster.entityOrientation = newOrientation
+	if caster.visual and caster.visual.has_method("UpdateSwordsmanVisual"):
+		caster.visual.UpdateSwordsmanVisual(Vector2.ZERO, newOrientation, caster.state, false)
+
+## FaceCasterToward kept as alias of LookAtEntity for preview callers
+static func FaceCasterToward(caster : Node2D, aim : Node2D = null) -> void:
+	if caster is Entity and aim is Entity:
+		LookAtEntity(caster, aim)
+	elif caster is Entity:
+		var t : Entity = ResolveCombatTarget(caster, null)
+		if t:
+			LookAtEntity(caster, t)
+
+## Flip PixelFX sheets (face-right) from combat orientation after LookAt.
+static func ResolveCastFlip(caster : Node2D, aim : Node2D = null) -> bool:
+	if caster == null or not is_instance_valid(caster):
+		return false
+	if aim != null and is_instance_valid(aim) and caster is Node2D:
+		return (aim.position.x - caster.position.x) < -0.1
+	if caster is Entity:
+		return caster.entityOrientation.x < -0.1
+	var vis = caster.get("visual")
+	if vis != null and is_instance_valid(vis):
+		var d : String = String(vis.get("currentDirection"))
+		if d.contains("west"):
+			return true
+		if d.contains("east"):
+			return false
+	return false
+
+## Direction for push / FX — prefer LookAt result (entityOrientation), else to aim.
+static func ResolveAimDir(caster : Node2D, aim : Node2D = null) -> Vector2:
+	if caster is Entity and caster.entityOrientation.length_squared() > 0.01:
+		if aim == null or (aim.position - caster.position).length_squared() < 4.0:
+			return caster.entityOrientation.normalized()
+	if caster != null and aim != null and is_instance_valid(aim):
+		var d : Vector2 = aim.position - caster.position
+		if d.length_squared() > 4.0:
+			return d.normalized()
+	if caster is Entity and caster.entityOrientation.length_squared() > 0.01:
+		return caster.entityOrientation.normalized()
+	return Vector2.RIGHT
+
+## Dispatch cast FX by placement. skill = SkillCell so SINGLE LookAt matches Skill.Cast.
+static func PlaySkillFx(parent : Node2D, caster : Node2D, key : String, placeOverride : String = "", scaleMul : float = -1.0, skill : SkillCell = null, aimOverride : Node2D = null) -> Node:
+	if not parent or not is_instance_valid(parent) or key.is_empty():
+		return null
+	var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+	var place : String = placeOverride if not placeOverride.is_empty() else Lib.GetPlacement(key)
+	var aim : Entity = null
+	if aimOverride is Entity:
+		aim = aimOverride
+	else:
+		aim = ResolveCombatTarget(caster, skill)
+	# Only SINGLE skills LookAt target — same as Skill.Cast
+	var isSingle : bool = skill == null or skill.mode == Skill.TargetMode.SINGLE
+	if isSingle and aim != null and caster is Entity:
+		LookAtEntity(caster, aim)
+	var flipH : bool = false
+	if place == Lib.PLACE_BODY_DIR or place == Lib.PLACE_BODY_ACT or place == Lib.PLACE_TARGET:
+		flipH = ResolveCastFlip(caster, aim)
+	elif place == Lib.PLACE_FLOOR and isSingle and aim != null:
+		flipH = ResolveCastFlip(caster, aim)
+	var casterPos : Vector2 = caster.global_position if caster else Vector2.ZERO
+	var aimPos : Vector2 = aim.global_position if aim != null else casterPos
+	match place:
+		Lib.PLACE_BODY_ACT:
+			return PlaySkillAct(parent, caster, key, casterPos, flipH, scaleMul, aim if isSingle else null)
+		Lib.PLACE_BODY:
+			# SELF / buff — no enemy aim
+			return SpawnPixelFx(parent, key, casterPos, scaleMul, false, true, caster)
+		Lib.PLACE_BODY_DIR:
+			return SpawnPixelFx(parent, key, casterPos, scaleMul, flipH, true, caster)
+		Lib.PLACE_FLOOR:
+			# ZONE / self-centered AoE at caster feet (Skill.Process ZONE uses agent position)
+			return SpawnPixelFx(parent, key, casterPos, scaleMul, flipH, true, null)
+		Lib.PLACE_WORLD, Lib.PLACE_UI:
+			return SpawnPixelFx(parent, key, casterPos, scaleMul, false, place != Lib.PLACE_WORLD, null)
+		Lib.PLACE_TARGET:
+			# Call-down on SINGLE target; otherwise at caster (no fake aim for ZONE/SELF)
+			var land : Vector2 = aimPos if (isSingle and aim != null) else casterPos
+			return SpawnPixelFx(parent, key, land, scaleMul, flipH, true, null)
+		_:
+			return PlaySkillAct(parent, caster, key, casterPos, flipH, scaleMul, aim if isSingle else null)
+
+## PixelFX #moves: attach to caster + act windup/hit; aim = hit spark / face target.
+static func PlaySkillAct(parent : Node2D, caster : Node2D, key : String, pos : Vector2, flipH : bool = false, scaleMul : float = -1.0, aim : Node2D = null) -> Node:
+	if not parent or not is_instance_valid(parent) or key.is_empty():
+		return null
+	var director := SkillActDirector.new()
+	director.configure(caster, key, pos, flipH, scaleMul, aim)
+	parent.add_child(director)
+	return director
+
+## Hit / impact on a target (impacts category, hitFx) — always world at target, never caster body.
+static func PlayHitFx(parent : Node2D, key : String, at : Vector2, flipH : bool = false, scaleMul : float = -1.0) -> Node2D:
+	if key.is_empty():
+		return null
+	return SpawnPixelFx(parent, key, at, scaleMul, flipH, true, null)
+
+## Status / buff on an entity — attach so it follows like gallery onBody.
+static func PlayBodyFx(parent : Node2D, host : Node2D, key : String, flipH : bool = false, scaleMul : float = -1.0) -> Node2D:
+	if key.is_empty() or host == null:
+		return null
+	return SpawnPixelFx(parent, key, host.global_position, scaleMul, flipH, true, host)
+
+## Drives one move-style cast: FX on caster body, windup crouch, act hits toward aim.
+class SkillActDirector extends Node:
+	var caster : Node2D
+	var aimTarget : Node2D = null
+	var fxKey : String = ""
+	var worldPos : Vector2 = Vector2.ZERO
+	var flipH : bool = false
+	var scaleMul : float = -1.0
+	var _elapsed : float = 0.0
+	var _windup : float = 0.0
+	var _hits : Array = []
+	var _hitDone : Dictionary = {}
+	var _poseApplied : bool = false
+	var _poseRestored : bool = false
+	var _poseTarget : Node2D = null
+	var _poseBaseScale : Vector2 = Vector2.ONE
+	var _poseBasePos : Vector2 = Vector2.ZERO
+	var _endAt : float = 1.0
+	var _fxNode : Node2D = null
+	var _impactSpawned : bool = false
+
+	func configure(c : Node2D, key : String, pos : Vector2, flip : bool, scaleM : float, aim : Node2D = null) -> void:
+		caster = c
+		fxKey = key
+		worldPos = pos
+		flipH = flip
+		scaleMul = scaleM
+		aimTarget = aim
+
+	func _ready() -> void:
+		var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+		var act : Dictionary = Lib.GetAct(fxKey)
+		_windup = float(act.get("windup", 0.0))
+		_hits = act.get("hits", [])
+		var sheetDur : float = Lib.GetSheetDuration(fxKey)
+		_endAt = maxf(sheetDur + 0.15, 0.6)
+		for h in _hits:
+			if typeof(h) == TYPE_DICTIONARY:
+				var ht : float = float(h.get("t", 0.0))
+				var fr : float = float(h.get("freeze", 0.0))
+				_endAt = maxf(_endAt, ht + fr + 0.4)
+		if aimTarget == null or not is_instance_valid(aimTarget):
+			aimTarget = CombatVisualSystem.ResolveCombatTarget(caster, null)
+		if caster is Entity and aimTarget is Entity:
+			CombatVisualSystem.LookAtEntity(caster, aimTarget)
+		if caster and is_instance_valid(caster):
+			flipH = CombatVisualSystem.ResolveCastFlip(caster, aimTarget)
+			worldPos = caster.global_position
+		var fringe : Node2D = get_parent() as Node2D
+		_fxNode = CombatVisualSystem.SpawnPixelFx(fringe, fxKey, worldPos, scaleMul, flipH, true, caster)
+		_BeginWindupPose()
+
+	func _process(delta : float) -> void:
+		_elapsed += delta
+		if _poseApplied and not _poseRestored and _elapsed >= maxf(_windup, 0.08):
+			_RestoreWindupPose()
+		for i in _hits.size():
+			if bool(_hitDone.get(i, false)):
+				continue
+			var h = _hits[i]
+			if typeof(h) != TYPE_DICTIONARY:
+				_hitDone[i] = true
+				continue
+			if _elapsed >= float(h.get("t", 0.0)):
+				_hitDone[i] = true
+				_FireHit(h)
+		if _elapsed >= _endAt:
+			_RestoreWindupPose()
+			queue_free()
+
+	func _BeginWindupPose() -> void:
+		if _windup <= 0.001 or caster == null or not is_instance_valid(caster):
+			return
+		_poseTarget = _ResolvePoseNode(caster)
+		if _poseTarget == null:
+			return
+		_poseBaseScale = _poseTarget.scale
+		_poseBasePos = _poseTarget.position
+		_poseApplied = true
+		# Gallery windup: slight crouch + compress before strike
+		_poseTarget.scale = Vector2(_poseBaseScale.x * 1.04, _poseBaseScale.y * 0.90)
+		_poseTarget.position = _poseBasePos + Vector2(0.0, 2.0)
+
+	func _RestoreWindupPose() -> void:
+		if _poseRestored or not _poseApplied:
+			return
+		_poseRestored = true
+		if _poseTarget and is_instance_valid(_poseTarget):
+			_poseTarget.scale = _poseBaseScale
+			_poseTarget.position = _poseBasePos
+
+	func _ResolvePoseNode(node : Node2D) -> Node2D:
+		if node == null:
+			return null
+		# Prefer AnimatedSprite under entity / preset so paperdoll root stays put
+		var spr = node.get_node_or_null("AnimatedSprite2D")
+		if spr is Node2D:
+			return spr
+		var preset = node.get_node_or_null("preset")
+		if preset:
+			spr = preset.get_node_or_null("AnimatedSprite2D")
+			if spr is Node2D:
+				return spr
+		var vis = node.get_node_or_null("Visual")
+		if vis is Node2D:
+			return vis
+		return node
+
+	func _FireHit(h : Dictionary) -> void:
+		var shake : float = float(h.get("shake", 0.0))
+		var freeze : float = float(h.get("freeze", 0.0))
+		var amp : int = int(h.get("amp", 0))
+		var push : float = float(h.get("push", 0.0))
+		# Skip pure recovery markers (skin null, no shake/freeze)
+		if shake <= 0.001 and freeze <= 0.001 and amp <= 0 and absf(push) <= 0.001:
+			return
+		if shake > 0.001 or amp > 0:
+			var level : ShakeLevel = ShakeLevel.LIGHT
+			if amp >= 4:
+				level = ShakeLevel.BOSS
+			elif amp >= 3:
+				level = ShakeLevel.HEAVY
+			elif amp >= 2:
+				level = ShakeLevel.MEDIUM
+			var customI : float = float(amp) * 2.2 if amp > 0 else 0.0
+			var customD : float = shake if shake > 0.0 else 0.0
+			CombatVisualSystem.TriggerCameraShake(level, customI, customD)
+		# Hitstop on target when aiming, else caster
+		var freezeNode : Node2D = aimTarget if aimTarget and is_instance_valid(aimTarget) else caster
+		if freeze > 0.001 and freezeNode and is_instance_valid(freezeNode):
+			CombatVisualSystem.TriggerHitstopOnEntity(freezeNode, freeze)
+		# Impact spark on aimed NPC at first real hit (gallery target reaction)
+		if not _impactSpawned and aimTarget and is_instance_valid(aimTarget):
+			_impactSpawned = true
+			var fringe : Node2D = get_parent() as Node2D
+			if fringe:
+				CombatVisualSystem.SpawnImpactVfx(fringe, aimTarget.global_position, 0, amp >= 3)
+				if aimTarget is Entity and aimTarget.visual:
+					aimTarget.visual.TriggerHurtFeedback()
+		if absf(push) > 0.05:
+			var pushNode : Node2D = aimTarget if aimTarget and is_instance_valid(aimTarget) else caster
+			var poseNode : Node2D = _ResolvePoseNode(pushNode) if pushNode else null
+			if poseNode and is_instance_valid(poseNode):
+				var dir : float = -1.0 if flipH else 1.0
+				# Push target away from caster when aiming
+				if aimTarget and pushNode == aimTarget and caster:
+					dir = signf(aimTarget.global_position.x - caster.global_position.x)
+					if dir == 0.0:
+						dir = 1.0
+				var nudge := Vector2(dir * push * 0.35, 0.0)
+				var base : Vector2 = poseNode.position
+				var tw := poseNode.create_tween()
+				if tw:
+					tw.tween_property(poseNode, "position", base + nudge, 0.05)
+					tw.tween_property(poseNode, "position", base, 0.12)
 
 # Internal node for procedural impact starburst & slash sparks
 class ImpactVfxNode extends Node2D:

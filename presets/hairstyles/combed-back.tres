@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_script")
 texture = ExtResource("tex_combed-back")
+spriteHframes = 5
+spriteVframes = 1
 _name = "Combed Back"

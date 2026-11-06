@@ -97,6 +97,16 @@ const SKILL_CELL_TO_MARTIAL : Dictionary = {
 	182736413: 1015, # Địa Long Phá Sơn
 	182736414: 1016, # Tử Lôi Liên Hoàn
 	182736415: 1017, # Hư Không Hấp Tinh
+	# Legacy SoM skills (tres id when preserved)
+	2089110122: 1020, # Flar
+	3219153995: 1021, # Spitfire
+	2089220490: 1022, # Inma
+	193463731: 1023, # Lum
+	2393790290: 1024, # Mana Burst
+	2814726266: 1028, # Archer
+	2089264065: 1029, # Jump
+	123697108: 1027, # Sonic Wave
+	229218829: 1034, # Melee (cast skipped)
 }
 
 ## Display / fallback name → martial id (when only SkillCell.name is known).
@@ -118,6 +128,22 @@ const SKILL_NAME_TO_MARTIAL : Dictionary = {
 	"Địa Long Phá Sơn": 1015,
 	"Tử Lôi Liên Hoàn": 1016,
 	"Hư Không Hấp Tinh": 1017,
+	# Legacy SoM
+	"Flar": 1020,
+	"Spitfire": 1021,
+	"Inma": 1022,
+	"Lum": 1023,
+	"Mana Burst": 1024,
+	"Leaf Blades": 1025,
+	"Sonic Scream": 1026,
+	"Sonic Wave": 1027,
+	"Archer": 1028,
+	"Jump": 1029,
+	"Morph": 1030,
+	"Poison": 1031,
+	"Run": 1032,
+	"Betsanc": 1033,
+	"Melee": 1034,
 }
 
 ## Resolve martial data from SkillCell.id, martial id, or skill display name.
@@ -159,7 +185,10 @@ const MARTIAL_CATALOG : Dictionary = {
 		"description": "Súc tích kiếm khí chém ra một đường kiếm mang tầm xa, xuyên thấu chướng ngại và làm chậm kẻ địch.",
 		"qiCost": 8,
 		"cooldown": 2.5,
-		"range": 220
+		"range": 220,
+		"fxKey": "sword_combo",
+		"hitFx": "hit_spark",
+		"flipFacing": true
 	},
 	1003: {
 		"id": 1003,
@@ -171,7 +200,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"description": "Cắm kiếm chỉ thiên, triệu hoán 6 đạo kiếm quang xoay tròn tạo thành Tru Ma Kiếm Trận diện rộng, phá giáp địch thủ.",
 		"qiCost": 20,
 		"cooldown": 6.0,
-		"radius": 100
+		"radius": 100,
+		"fxKey": "spin_slash",
+		"hitFx": "hit_spark"
 	},
 	1004: {
 		"id": 1004,
@@ -184,7 +215,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 6,
 		"cooldown": 3.0,
 		"invulnDuration": 0.35,
-		"dashSpeed": 180.0
+		"dashSpeed": 180.0,
+		"fxKey": "dash_strike",
+		"flipFacing": true
 	},
 	1005: {
 		"id": 1005,
@@ -196,7 +229,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"description": "Quyền kình cương mãnh như núi lửa bộc phát, áp sát oanh kích gây choáng váng địch thủ trong 1.5 giây.",
 		"qiCost": 12,
 		"cooldown": 4.5,
-		"stunDuration": 1.5
+		"stunDuration": 1.5,
+		"fxKey": "ground_pound",
+		"hitFx": "ground_slam"
 	},
 	1006: {
 		"id": 1006,
@@ -209,7 +244,10 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 10,
 		"cooldown": 8.0,
 		"shieldAmount": 80,
-		"duration": 6.0
+		"duration": 6.0,
+		"fxKey": "divine_shield",
+		"fxPlace": "body",
+		"shieldVfx": true
 	},
 	1007: {
 		"id": 1007,
@@ -234,7 +272,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 28,
 		"cooldown": 12.0,
 		"radius": 140,
-		"fxKey": "van_kiem_quy_tong"
+		"fxKey": "van_kiem_quy_tong",
+		"fxPlace": "floor",
+		"hitFx": "sword_slash"
 	},
 	1009: {
 		"id": 1009,
@@ -260,8 +300,10 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 12,
 		"cooldown": 5.0,
 		"radius": 120,
-		"fxKey": "flamethrower",
-		"fxKey2": "fireball"
+		"fxKey": "fire_breath",
+		"fxPlace": "body_dir",
+		"hitFx": "crit_hit",
+		"flipFacing": true
 	},
 	1011: {
 		"id": 1011,
@@ -274,8 +316,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 10,
 		"cooldown": 4.0,
 		"range": 180,
-		"fxKey": "ice_lance",
-		"fxKey2": "ice_shatter"
+		"fxKey": "ice_lance_throw",
+		"hitFx": "ice_spikes",
+		"flipFacing": true
 	},
 	1012: {
 		"id": 1012,
@@ -288,8 +331,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 18,
 		"cooldown": 8.0,
 		"radius": 150,
-		"fxKey": "lightning_strike",
-		"fxKey2": "thunderclap"
+		"fxKey": "lightning_call",
+		"hitFx": "lightning_strike"
 	},
 	1013: {
 		"id": 1013,
@@ -302,8 +345,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 15,
 		"cooldown": 6.0,
 		"range": 100,
-		"fxKey": "soul_drain",
-		"fxKey2": "shadow_flames"
+		"fxKey": "hex_sigil",
+		"fxPlace": "body",
+		"hitFx": "life_steal"
 	},
 	1014: {
 		"id": 1014,
@@ -315,8 +359,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"description": "Thánh quang hộ đạo — hồi phục khí huyết và thanh tẩy ngoại ma.",
 		"qiCost": 8,
 		"cooldown": 7.0,
-		"fxKey": "holy_pillar",
-		"fxKey2": "heal_aoe"
+		"fxKey": "holy_smite",
+		"hitFx": "heal"
 	},
 	1015: {
 		"id": 1015,
@@ -330,7 +374,7 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 6.5,
 		"radius": 110,
 		"fxKey": "earth_stomp",
-		"fxKey2": "boulder"
+		"hitFx": "ground_slam"
 	},
 	1016: {
 		"id": 1016,
@@ -344,7 +388,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 3.5,
 		"range": 200,
 		"fxKey": "chain_lightning",
-		"fxKey2": "spark_arc"
+		"fxPlace": "body_dir",
+		"hitFx": "zap_hit"
 	},
 	1017: {
 		"id": 1017,
@@ -358,8 +403,25 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 14.0,
 		"radius": 130,
 		"fxKey": "black_hole",
-		"fxKey2": "void_orb"
-	}
+		"fxPlace": "floor",
+		"hitFx": "implosion"
+	},
+	# Legacy SoM → PixelFX (single cast, optional hitFx)
+	1020: {"id": 1020, "name": "Flar", "category": Category.SECRET, "element": Element.FIRE, "grade": Grade.YELLOW, "fxKey": "fireball_throw", "hitFx": "crit_hit", "flipFacing": true},
+	1021: {"id": 1021, "name": "Spitfire", "category": Category.SECRET, "element": Element.FIRE, "grade": Grade.YELLOW, "fxKey": "fire_breath", "hitFx": "hit_spark", "flipFacing": true},
+	1022: {"id": 1022, "name": "Inma", "category": Category.SECRET, "element": Element.WATER, "grade": Grade.YELLOW, "fxKey": "ice_lance_throw", "hitFx": "ice_spikes", "flipFacing": true},
+	1023: {"id": 1023, "name": "Lum", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "heal"},
+	1024: {"id": 1024, "name": "Mana Burst", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "mana_burst", "hitFx": "hit_flash"},
+	1025: {"id": 1025, "name": "Leaf Blades", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "leaf_storm", "hitFx": "thorns"},
+	1026: {"id": 1026, "name": "Sonic Scream", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "thunderclap", "hitFx": "blunt_hit"},
+	1027: {"id": 1027, "name": "Sonic Wave", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "thunderclap", "hitFx": "blunt_hit"},
+	1028: {"id": 1028, "name": "Archer", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "arrow_shot", "hitFx": "hit_spark", "flipFacing": true},
+	1029: {"id": 1029, "name": "Jump", "category": Category.MOVEMENT, "element": Element.WOOD, "grade": Grade.MORTAL, "fxKey": "dash_strike"},
+	1030: {"id": 1030, "name": "Morph", "category": Category.SECRET, "element": Element.WATER, "grade": Grade.YELLOW, "fxKey": "blink_out"},
+	1031: {"id": 1031, "name": "Poison", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "poison_cloud", "hitFx": "hit_spark"},
+	1032: {"id": 1032, "name": "Run", "category": Category.MOVEMENT, "element": Element.WOOD, "grade": Grade.MORTAL, "fxKey": "haste"},
+	1033: {"id": 1033, "name": "Betsanc", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "arcane_orb", "hitFx": "zap_hit"},
+	1034: {"id": 1034, "name": "Melee", "category": Category.SWORD, "element": Element.METAL, "grade": Grade.MORTAL, "skipCastFx": true, "hitFx": "slash", "flipFacing": true},
 }
 
 # ==============================================================================

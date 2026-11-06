@@ -118,14 +118,18 @@ func LoadData(data : EntityData):
 			if animatedSprite:
 				UpdateSwordsmanVisual(Vector2.ZERO, entity.entityOrientation, entity.state, false)
 
-		# Sprites
+		# Sprites — Swordsman keeps sheet look only (no SoM face/hair overlays)
 		if preset:
 			for slot in ActorCommons.Slot.COUNT:
 				if slot == ActorCommons.Slot.BODY:
 					SetBody()
 				elif slot == ActorCommons.Slot.FACE:
+					if animatedSprite:
+						continue
 					SetFace()
 				elif slot == ActorCommons.Slot.HAIR:
+					if animatedSprite:
+						continue
 					SetHair(false)
 				elif slot >= ActorCommons.Slot.FIRST_EQUIPMENT and slot < ActorCommons.Slot.LAST_EQUIPMENT:
 					SetEquipment(slot, data, false)
@@ -145,15 +149,11 @@ func RefreshQuestHighlight():
 
 func SetSkinSlot(slot : ActorCommons.Slot, raceData : RaceData, textures : Array[Texture2D]):
 	var sprite : Sprite2D = preset.get_node_or_null(ActorCommons.GetSlotName(slot)) if preset else null
-	# Swordsman: BODY = skintone tint on sheet; FACE = paperdoll face overlay on head
+	# Swordsman: BODY tint only — never attach face/hair overlays
 	if not sprite and animatedSprite:
 		if slot == ActorCommons.Slot.BODY:
 			_ApplySwordsmanSkintone(raceData)
-			return
-		if slot == ActorCommons.Slot.FACE:
-			sprite = _EnsureSwordsmanCosmeticSprite(slot)
-		else:
-			return
+		return
 
 	if not sprite:
 		return
@@ -197,7 +197,23 @@ func SetBody():
 		if raceData:
 			SetSkinSlot(ActorCommons.Slot.BODY, raceData, raceData.bodies)
 
+func ClearSwordsmanCosmetics() -> void:
+	for slotName in ["Hair", "Face"]:
+		var n := get_node_or_null("SwordsmanCosmetic_%s" % slotName)
+		if n:
+			n.queue_free()
+
+func ApplyDaoPathTint(col : Color) -> void:
+	if animatedSprite:
+		animatedSprite.modulate = col
+	elif preset:
+		preset.modulate = col
+
 func SetFace():
+	# Never overlay SoM faces on Swordsman (multi-frame sheets float as "heads")
+	if animatedSprite:
+		ClearSwordsmanCosmetics()
+		return
 	if entity.stat.race == DB.UnknownHash:
 		return
 	var raceData : RaceData = DB.GetRace(entity.stat.race)
@@ -205,10 +221,14 @@ func SetFace():
 		SetSkinSlot(ActorCommons.Slot.FACE, raceData, raceData.faces)
 
 func SetHair(applyOverrides : bool = true):
+	if animatedSprite:
+		# Keep pure Swordsman silhouette — no hairstyle sheet overlays
+		var existing := get_node_or_null("SwordsmanCosmetic_Hair")
+		if existing:
+			existing.queue_free()
+		return
 	var slotName : String = ActorCommons.GetSlotName(ActorCommons.Slot.HAIR)
 	var sprite : Sprite2D = preset.get_node_or_null(slotName) if preset else null
-	if not sprite and animatedSprite:
-		sprite = _EnsureSwordsmanCosmeticSprite(ActorCommons.Slot.HAIR)
 	if not sprite:
 		return
 
@@ -237,8 +257,14 @@ func SetHair(applyOverrides : bool = true):
 		sprite.hframes = hairstyleData.spriteHframes
 		sprite.vframes = max(1, hairstyleData.spriteVframes)
 	else:
-		sprite.hframes = defaultHframes.get(slot, 1)
+		# Paperdoll Hair default is 5; never leave Swordsman overlay at 1 (full sheet = floating heads)
+		sprite.hframes = defaultHframes.get(slot, 5)
 		sprite.vframes = defaultVframes.get(slot, 1)
+		if sprite.hframes < 2 and sprite.texture:
+			var tw : int = sprite.texture.get_width()
+			var th : int = maxi(1, sprite.texture.get_height())
+			if tw >= th * 2:
+				sprite.hframes = maxi(2, tw / th)
 
 	if sprite.name.begins_with("SwordsmanCosmetic_"):
 		_TuneSwordsmanCosmeticSprite(sprite, slot)
@@ -272,10 +298,17 @@ func _TuneSwordsmanCosmeticSprite(sprite : Sprite2D, slot : int) -> void:
 	match slot:
 		ActorCommons.Slot.HAIR:
 			sprite.position = head + Vector2(0, -6)
-			sprite.scale = Vector2(1.35, 1.35)
+			sprite.scale = Vector2(1.05, 1.05)
 		ActorCommons.Slot.FACE:
 			sprite.position = head + Vector2(0, 2)
-			sprite.scale = Vector2(1.15, 1.15)
+			sprite.scale = Vector2(1.0, 1.0)
+			# Face sheets often lack HairstyleData meta — slice like paperdoll Hair (5)
+			if sprite.texture and sprite.hframes <= 1:
+				var tw : int = sprite.texture.get_width()
+				var th : int = maxi(1, sprite.texture.get_height())
+				if tw >= th * 2:
+					sprite.hframes = maxi(2, tw / th)
+					sprite.vframes = 1
 		_:
 			sprite.position = head
 			sprite.scale = Vector2.ONE
@@ -314,7 +347,7 @@ func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = 
 	if not entity.stat.IsMorph():
 		if entity.inventory:
 			cell = entity.inventory.GetEquipmentCell(slot)
-		elif data and data._equipment.has(slot):
+		elif data and slot >= 0 and slot < data._equipment.size():
 			cell = data._equipment[slot]
 
 	# Swordsman (AnimatedSprite2D) has no paperdoll slots — show weapon/shield overlay + tint.

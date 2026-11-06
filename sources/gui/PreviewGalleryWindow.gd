@@ -23,13 +23,21 @@ var _fxKeys : PackedStringArray = []
 var _skills : Array = []
 var _entities : Array = []
 var _previewShapeBackup : int = DB.UnknownHash
+var btnAim : Button = null
+## Client-only dummy NPC/monster for aim review (not from server)
+const PREVIEW_DUMMY_RID : int = -910001
+const DUMMY_PATROL_HALF : float = 70.0
+const DUMMY_PATROL_SPEED : float = 44.0
+var _previewDummy : Entity = null
+var _dummyPatrolOrigin : Vector2 = Vector2.ZERO
+var _dummyPatrolDir : float = 1.0
 
 func _init():
 	name = "PreviewGalleryWindow"
-	# Compact default; FitToViewport tightens further on open
-	custom_minimum_size = Vector2(380, 300)
-	size = Vector2(420, 340)
-	maxSize = Vector2(520, 420)
+	# Compact corner panel; FitToViewport docks top-right on open
+	custom_minimum_size = Vector2(300, 260)
+	size = Vector2(340, 320)
+	maxSize = Vector2(380, 380)
 	floating = true
 	draggable = true
 	visible = false
@@ -41,7 +49,11 @@ func _ready():
 	_BuildUI()
 	ThemeClass.AttachJadeFrame(self)
 	visibility_changed.connect(_OnVisibilityChanged)
+	set_process(true)
 	Refresh()
+
+func _process(delta : float) -> void:
+	_TickDummyPatrol(delta)
 
 func EnableControl(state : bool):
 	super.EnableControl(state)
@@ -54,6 +66,8 @@ func EnableControl(state : bool):
 func _OnVisibilityChanged():
 	if visible:
 		FitToViewport()
+	else:
+		_ClearPreviewDummy()
 
 func FitToViewport():
 	var avail := Vector2(960, 540)
@@ -61,20 +75,22 @@ func FitToViewport():
 		avail = Launcher.GUI.windows.size
 	elif get_viewport():
 		avail = get_viewport().get_visible_rect().size
-	# Leave margin so the panel never eats the whole screen / goes off-edge
+	# Compact panel — keep character (center) clear
 	var target := Vector2(
-		clampf(avail.x * 0.55, 340.0, 480.0),
-		clampf(avail.y * 0.62, 280.0, 400.0)
+		clampf(avail.x * 0.38, 300.0, 360.0),
+		clampf(avail.y * 0.55, 260.0, 360.0)
 	)
 	if maxSize.x > 0:
 		target.x = minf(target.x, maxSize.x)
 	if maxSize.y > 0:
 		target.y = minf(target.y, maxSize.y)
-	custom_minimum_size = Vector2(minf(340.0, target.x), minf(260.0, target.y))
+	custom_minimum_size = Vector2(minf(300.0, target.x), minf(240.0, target.y))
 	size = target
+	# Top-right corner with margin (was centered and covered the player)
+	var margin := 8.0
 	position = Vector2(
-		clampf((avail.x - size.x) * 0.5, 4.0, maxf(4.0, avail.x - size.x - 4.0)),
-		clampf((avail.y - size.y) * 0.35, 4.0, maxf(4.0, avail.y - size.y - 4.0))
+		clampf(avail.x - size.x - margin, margin, maxf(margin, avail.x - size.x - margin)),
+		margin
 	)
 
 func _BuildUI():
@@ -160,6 +176,14 @@ func _BuildUI():
 	btnPlay.pressed.connect(_OnPlayPressed)
 	ThemeClass.AccentButton(btnPlay)
 	actions.add_child(btnPlay)
+
+	btnAim = Button.new()
+	btnAim.text = "Nhắm NPC"
+	btnAim.tooltip_text = "Spawn NPC giả cạnh phải (đi qua lại) và nhắm vào chúng"
+	btnAim.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btnAim.custom_minimum_size = Vector2(0, 32)
+	btnAim.pressed.connect(_OnAimNearestPressed)
+	actions.add_child(btnAim)
 
 	var btnRestore := Button.new()
 	btnRestore.text = "Trả hình"
@@ -296,13 +320,14 @@ func _OnEntitySelected(index : int):
 	if index < 0 or index >= _entities.size():
 		return
 	var data : EntityData = _entities[index]
-	detailLabel.text = "[b]%s[/b]  ·  id %d  ·  r=%d\nMượn hình tạm — nhớ Trả hình." % [
+	detailLabel.text = "[b]%s[/b]  ·  id %d  ·  r=%d\nDouble-click / Phát = spawn NPC giả cạnh bạn để nhắm chiêu.\n(Giữ Shift+Phát = chỉ mượn hình.)" % [
 		data._name, data._id, data._radius
 	]
 
 func _OnEntityActivated(index : int):
 	_OnEntitySelected(index)
-	_PreviewEntity(index)
+	# Spawn dummy to aim at (main review path) — not morph
+	_SpawnPreviewDummy(index)
 
 func _OnPlayPressed():
 	match tabs.current_tab:
@@ -317,49 +342,225 @@ func _OnPlayPressed():
 		2:
 			var i3 := entityList.get_selected_items()
 			if i3.size() > 0:
-				_PreviewEntity(i3[0])
+				# Shift = morph only; default = spawn NPC giả để nhắm
+				if Input.is_key_pressed(KEY_SHIFT):
+					_PreviewEntity(i3[0])
+				else:
+					_SpawnPreviewDummy(i3[0])
+
+func _OnAimNearestPressed():
+	# Spawn MONSTER dummy + Entities.SetTarget — same target type Entity.Cast accepts
+	var aim := _EnsureReviewDummy()
+	if aim == null:
+		_SetStatus("Không spawn được NPC review — kiểm tra đã vào map.")
+		return
+	Entities.SetTarget(aim, false)
+	var caster = _ActiveEntity()
+	if caster is Entity:
+		CombatVisualSystemClass.LookAtEntity(caster, aim)
+	_SetStatus("Target combat: %s (MONSTER) — chiêu SINGLE sẽ LookAt như Skill.Cast." % _EntityDisplayName(aim), true)
+
+func _EntityDisplayName(ent : Entity) -> String:
+	if ent == null:
+		return "không"
+	if ent.data and not String(ent.data._name).is_empty():
+		return String(ent.data._name)
+	return ent.nick if not ent.nick.is_empty() else ent.name
+
+func _AimNearestNpc() -> Entity:
+	var player = _ActiveEntity()
+	if player == null:
+		return null
+	if _previewDummy and is_instance_valid(_previewDummy) and ActorCommons.IsAlive(_previewDummy):
+		return _previewDummy
+	if Entities.target and is_instance_valid(Entities.target) and Entities.target != player:
+		if Entities.target.type == ActorCommons.Type.NPC or Entities.target.type == ActorCommons.Type.MONSTER:
+			return Entities.target
+	var best : Entity = null
+	var bestD : float = 999999.0
+	for ent in Entities.entities.values():
+		if ent == null or not is_instance_valid(ent) or ent == player:
+			continue
+		if ent.type != ActorCommons.Type.NPC and ent.type != ActorCommons.Type.MONSTER:
+			continue
+		if not ActorCommons.IsAlive(ent):
+			continue
+		# Skip other preview leftovers
+		if ent.agentRID == PREVIEW_DUMMY_RID:
+			continue
+		var d : float = player.global_position.distance_squared_to(ent.global_position)
+		if d < bestD:
+			bestD = d
+			best = ent
+	return best
+
+## Spawn default review dummy if missing (Nhắm / Phát chiêu).
+func _EnsureReviewDummy() -> Entity:
+	if _previewDummy and is_instance_valid(_previewDummy) and _previewDummy.is_inside_tree():
+		return _previewDummy
+	if _entities.is_empty():
+		_LoadCatalogs()
+		_ApplyFilter(filterEdit.text if filterEdit else "")
+	if _entities.is_empty():
+		return null
+	var idx := _PickDefaultDummyIndex()
+	_SpawnPreviewDummy(idx)
+	return _previewDummy if is_instance_valid(_previewDummy) else null
+
+func _PickDefaultDummyIndex() -> int:
+	for i in _entities.size():
+		var n : String = String(_entities[i]._name).to_lower()
+		# Prefer small visible critters / common mobs
+		if "slime" in n or "nhầy" in n or "wolf" in n or "sói" in n \
+				or "goblin" in n or "skeleton" in n or "xác" in n or "bat" in n:
+			return i
+	return 0
+
+func _ClearPreviewDummy() -> void:
+	if _previewDummy == null:
+		return
+	if Entities.target == _previewDummy:
+		Entities.ClearTarget()
+	Entities.Erase(PREVIEW_DUMMY_RID)
+	if is_instance_valid(_previewDummy):
+		_previewDummy.queue_free()
+	_previewDummy = null
+	_dummyPatrolDir = 1.0
+
+func _TickDummyPatrol(delta : float) -> void:
+	if _previewDummy == null or not is_instance_valid(_previewDummy):
+		return
+	if not _previewDummy.is_inside_tree():
+		return
+	var x : float = _previewDummy.position.x
+	if x >= _dummyPatrolOrigin.x + DUMMY_PATROL_HALF:
+		_dummyPatrolDir = -1.0
+	elif x <= _dummyPatrolOrigin.x - DUMMY_PATROL_HALF:
+		_dummyPatrolDir = 1.0
+	var vel := Vector2(_dummyPatrolDir * DUMMY_PATROL_SPEED, 0.0)
+	var nextPos := Vector2(_previewDummy.position.x + vel.x * delta, _dummyPatrolOrigin.y)
+	var castId : int = 0
+	if _previewDummy.visual:
+		castId = _previewDummy.visual.skillCastID
+	_previewDummy.Update(vel, nextPos, vel.normalized(), ActorCommons.State.WALK, castId, true, false)
+
+func _SpawnPreviewDummy(index : int) -> void:
+	if index < 0 or index >= _entities.size():
+		return
+	var data : EntityData = _entities[index]
+	var player = _ActiveEntity()
+	if player == null:
+		_SetStatus("Chưa có nhân vật — vào map trước.")
+		return
+	if not Launcher.Map or not Launcher.Map.currentFringe:
+		_SetStatus("Chưa vào map — không spawn được NPC review.")
+		return
+	_ClearPreviewDummy()
+	var nick : String = "%s (xem)" % data._name
+	var dummy : Entity = Instantiate.CreateEntity(ActorCommons.Type.MONSTER, data, nick, false)
+	if dummy == null:
+		_SetStatus("Spawn NPC review thất bại: %s" % data._name)
+		return
+	dummy.agentRID = PREVIEW_DUMMY_RID
+	_dummyPatrolDir = 1.0
+	if dummy.stat:
+		dummy.stat.health = maxi(int(dummy.stat.health), 200)
+		dummy.stat.shape = data._id
+		dummy.stat.currentShape = data._id
+	dummy.state = ActorCommons.State.WALK
+	# Sync add — Map.AddChild deferred làm dummy không kịp hiện / nhắm
+	Launcher.Map.currentFringe.add_child(dummy)
+	# Bên phải player (cùng không gian position với fringe)
+	dummy.global_position = player.global_position + Vector2(96, 0)
+	_dummyPatrolOrigin = dummy.position
+	dummy.SetData()
+	if dummy.visual:
+		dummy.visual.Refresh()
+	Entities.Add(dummy, PREVIEW_DUMMY_RID)
+	_previewDummy = dummy
+	Entities.SetTarget(dummy, false)
+	if player is Entity:
+		CombatVisualSystemClass.LookAtEntity(player, dummy)
+	_SetStatus("NPC review: %s — đi qua lại; SetTarget MONSTER (như combat)." % data._name, true)
+
+func _AimLabel() -> String:
+	var t = Entities.target
+	if t and is_instance_valid(t) and t is Entity and t.data:
+		return String(t.data._name)
+	return "không"
 
 func _PlayFx(index : int):
 	if index < 0 or index >= _fxKeys.size():
 		return
 	var key : String = _fxKeys[index]
 	var parent := _FxParent()
-	var pos := _PlayerPos()
 	if parent == null:
 		_SetStatus("Chưa vào map — không phát được hiệu ứng.")
 		return
-	CombatVisualSystemClass.SpawnPixelFx(parent, key, pos, -1.0, false, true)
-	_SetStatus("Đã phát: %s" % key)
+	var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+	var place : String = Lib.GetPlacement(key)
+	var caster = _ActiveEntity()
+	# FX tab: treat as directed cast if a combat target exists
+	var aimFx = _EnsureReviewDummy()
+	if aimFx:
+		Entities.SetTarget(aimFx, false)
+	if caster:
+		CombatVisualSystemClass.PlaySkillFx(parent, caster, key, "", -1.0, null, aimFx)
+	else:
+		CombatVisualSystemClass.SpawnPixelFx(parent, key, _PlayerPos(), -1.0, false, true)
+	_SetStatus("Đã phát: %s [%s] → nhắm %s" % [key, place, _AimLabel()])
 
 func _PlaySkill(index : int):
 	if index < 0 or index >= _skills.size():
 		return
 	var cell : SkillCell = _skills[index]
 	var parent := _FxParent()
-	var pos := _PlayerPos()
 	if parent == null:
 		_SetStatus("Chưa vào map — không thử được chiêu.")
 		return
 
-	# Prefer real cast path (Interactive.DisplaySkill) — already wires martial FX.
-	# Extra guessed PixelFX + mana_burst used to stack 2–3 layers (looked like spam/jumble).
 	var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
 	var martial : Dictionary = CombatSystemClass.GetMartialForSkill(cell.id, cell.name)
 	var hasMartialFx : bool = not martial.is_empty() and int(martial.get("id", 0)) >= 1002
 
+	# Mirror Entity.Cast: only SINGLE skills lock onto a MONSTER target
+	if cell.mode == Skill.TargetMode.SINGLE:
+		var aim = _EnsureReviewDummy()
+		if aim:
+			Entities.SetTarget(aim, false)
+	elif Entities.target and Entities.target.agentRID < 0:
+		# Clear preview dummy lock so ZONE/SELF don't inherit fake enemy aim
+		pass
+
 	var player = _ActiveEntity()
 	if player and player.interactive:
+		# DisplaySkill → PlaySkillFx(skill) uses ResolveCombatTarget + LookAt like Skill.Cast
 		player.interactive.DisplayCast(cell.id)
 		player.interactive.DisplaySkill(player, cell.id, 0.0)
-		_SetStatus("Thử chiêu: %s (cast path)" % cell.name)
+		var aimNow = CombatVisualSystemClass.ResolveCombatTarget(player, cell)
+		_SetStatus("Thử chiêu: %s [%s] → nhắm %s" % [
+			cell.name,
+			_SkillModeName(cell.mode),
+			_EntityDisplayName(aimNow) if aimNow else "—"
+		])
 		return
 
-	# Fallback when no player entity: single PixelFX only
 	var key := _GuessFxForSkill(cell)
 	if hasMartialFx and martial.has("fxKey"):
 		key = String(martial.get("fxKey"))
-	CombatVisualSystemClass.SpawnPixelFx(parent, key, pos, -1.0, false, true)
+	var placeOv : String = String(martial.get("fxPlace", ""))
+	CombatVisualSystemClass.PlaySkillFx(parent, null, key, placeOv, -1.0, cell)
+	if hasMartialFx and bool(martial.get("swordArrayVfx", false)):
+		var arrR : float = float(martial.get("radius", 110.0)) * 0.85
+		CombatVisualSystemClass.SpawnSwordArrayVfx(parent, _PlayerPos(), arrR, 2.2)
 	_SetStatus("Thử chiêu: %s → FX [%s]" % [cell.name, key])
+
+func _SkillModeName(mode : int) -> String:
+	match mode:
+		Skill.TargetMode.SINGLE: return "SINGLE"
+		Skill.TargetMode.ZONE: return "ZONE"
+		Skill.TargetMode.SELF: return "SELF"
+		_: return "?"
 
 func _GuessFxForSkill(cell : SkillCell) -> String:
 	var n : String = String(cell.name).to_lower()

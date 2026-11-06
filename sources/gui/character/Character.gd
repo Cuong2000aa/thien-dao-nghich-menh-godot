@@ -123,11 +123,11 @@ func AddCharacter(info : Dictionary, equipment : Dictionary, slotID : int = Acto
 	entity.stat.gender		= info["gender"]
 	entity.stat.race		= info["race"]
 	entity.stat.skintone	= info["skintone"]
-	# Swordsman has no paperdoll slots — re-apply cosmetics after stats are set
+	# Swordsman only — no paperdoll hair/face overlays (those caused floating heads)
 	if entity.visual:
+		entity.visual.ClearSwordsmanCosmetics()
 		entity.visual.SetBody()
-		entity.visual.SetFace()
-		entity.visual.SetHair()
+		_ApplyDaoPathVisual(entity, info)
 
 	RemoveCharacter(availableSlot)
 	charactersInfo[availableSlot] = info
@@ -193,7 +193,11 @@ func CreateCharacter():
 		if err != NetworkCommons.CharacterError.ERR_OK:
 			FillWarningLabel(err)
 		else:
-			if Network.CreateCharacter(nickname, traitsPanel.GetValues(), attributesPanel.GetValues()):
+			var traits : Dictionary = traitsPanel.GetValues()
+			# Strip preview-only keys so SQL trait row update stays valid
+			traits.erase("dao_path")
+			traits.erase("dao_path_name")
+			if Network.CreateCharacter(nickname, traits, attributesPanel.GetValues()):
 				FSM.EnterState(FSM.States.CHAR_PROGRESS)
 
 func SelectCharacter():
@@ -300,25 +304,28 @@ func EnableCharacterCreator(enable : bool):
 
 func UpdateCharacterCreatorBody():
 	if isCharacterCreatorEnabled and charactersNode[ActorCommons.MaxCharacterCount]:
-		var races : PackedInt64Array = DB.RacesDB.keys()
-		var race : RaceData = DB.GetRace(races[traitsPanel.raceValue])
-		var skins : Dictionary[String, Material] = race.skins if race else {}
-		var skinsKeys : PackedStringArray = skins.keys()
-		charactersNode[ActorCommons.MaxCharacterCount].stat.race = races[traitsPanel.raceValue]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.skintone = skinsKeys[traitsPanel.skintoneValue].hash()
-		charactersNode[ActorCommons.MaxCharacterCount].stat.gender = traitsPanel.genderValue
+		var vals : Dictionary = traitsPanel.GetValues()
+		charactersNode[ActorCommons.MaxCharacterCount].stat.race = vals["race"]
+		charactersNode[ActorCommons.MaxCharacterCount].stat.skintone = vals["skintone"]
+		charactersNode[ActorCommons.MaxCharacterCount].stat.gender = vals["gender"]
+		charactersNode[ActorCommons.MaxCharacterCount].stat.hairstyle = vals["hairstyle"]
+		charactersNode[ActorCommons.MaxCharacterCount].stat.haircolor = vals["haircolor"]
 		if charactersNode[ActorCommons.MaxCharacterCount].visual:
+			charactersNode[ActorCommons.MaxCharacterCount].visual.ClearSwordsmanCosmetics()
 			charactersNode[ActorCommons.MaxCharacterCount].visual.SetBody()
-			charactersNode[ActorCommons.MaxCharacterCount].visual.SetFace()
+			_ApplyDaoPathVisual(charactersNode[ActorCommons.MaxCharacterCount], vals)
 
 func UpdateCharacterCreatorHair():
-	if isCharacterCreatorEnabled and charactersNode[ActorCommons.MaxCharacterCount]:
-		var hairstyles : PackedInt64Array = DB.HairstylesDB.keys()
-		var haircolors : PackedInt64Array = DB.PalettesDB[DB.Palette.HAIR].keys()
-		charactersNode[ActorCommons.MaxCharacterCount].stat.hairstyle = hairstyles[traitsPanel.hairstyleValue]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.haircolor = haircolors[traitsPanel.haircolorValue]
-		if charactersNode[ActorCommons.MaxCharacterCount].visual:
-			charactersNode[ActorCommons.MaxCharacterCount].visual.SetHair()
+	# Hair UI removed — dao path refresh goes through bodyUpdate / pathUpdate
+	UpdateCharacterCreatorBody()
+
+func _ApplyDaoPathVisual(entity : Entity, _info : Dictionary = {}) -> void:
+	if entity == null or entity.visual == null:
+		return
+	var col : Color = Color.WHITE
+	if traitsPanel and traitsPanel.has_method("GetDaoPathModulate"):
+		col = traitsPanel.GetDaoPathModulate()
+	entity.visual.ApplyDaoPathTint(col)
 
 func RefreshOnce():
 	if isCharacterCreatorEnabled:
@@ -399,6 +406,8 @@ func _ready():
 	statsPanel.nextButton.pressed.connect(ChangeSelectedCharacter.bind(true))
 	traitsPanel.bodyUpdate.connect(UpdateCharacterCreatorBody)
 	traitsPanel.hairUpdate.connect(UpdateCharacterCreatorHair)
+	if traitsPanel.has_signal("pathUpdate"):
+		traitsPanel.pathUpdate.connect(UpdateCharacterCreatorBody)
 	FSM.enter_game.connect(Clear)
 	_EnsurePreviewButton()
 	_SetPreviewButtonVisible(false)

@@ -5,10 +5,10 @@
 			"entries": [
 				{
 					"title": "Tu tiên nghịch mệnh",
-					"content": "\tChào đạo hữu!\nThiên Đạo Nghịch Mệnh là game tu tiên 2D trên Godot — Trúc Sơn, ngũ hành, kiếm đạo và đột phá cảnh giới.\n\nBản web: [url=https://cuong2000aa.github.io/thien-dao-nghich-menh-godot/?autologin=1]chơi ngay[/url].\nNhấn [b]V / Start[/b] để mở Xem Trước (FX · chiêu · nhân vật).\n\nNền tảng kỹ thuật kế thừa Source of Mana (MIT) — cảm ơn cộng đồng Manasource.\n"
+					"content": "\tChào đạo hữu!\nThiên Đạo Nghịch Mệnh là game tu tiên 2D trên Godot — Trúc Sơn, ngũ hành, kiếm đạo và đột phá cảnh giới.\n\nBản web: [url=https://cuong2000aa.github.io/thien-dao-nghich-menh-godot/?autologin=1]chơi ngay[/url].\nNhấn [b]V / Start[/b] để mở Xem Trước (FX · chiêu · nhân vật).\n"
 				},
 				{
-					"content": "\tThiên Đạo Nghịch Mệnh is a 2D MMORPG using Godot to provide a modern player experience for a classic style of game that never really goes out of fashion.\nIn Thiên Đạo Nghịch Mệnh you can live your medieval fantasy RPG adventure with friends and explore a world of magical tales and just pure silly fun.\n\nWe are still in the very early stages of development and updates will come soon.\nStay tuned and join us on [url=https://discord.com/invite/UnY77dR]Discord[/url] or [url=https://web.libera.chat/?channels=#thien-dao]IRC[/url] to discuss the project!\n"
+					"content": "\tThiên Đạo Nghịch Mệnh — 2D cultivation MMORPG on Godot.\nTrain at Trúc Sơn, walk the five elements, and defy fate with friends.\n\nEarly development — updates coming soon.\n"
 				},
 				{
 					"title": "Version 0.0.9",

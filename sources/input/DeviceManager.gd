@@ -19,6 +19,10 @@ enum ActionInfo
 static var currentDeviceId : int = -1
 static var currentDeviceType : DeviceType = DeviceType.JOYSTICK if LauncherCommons.isMobile else DeviceType.KEYBOARD
 
+static func RefreshForMobile() -> void:
+	if LauncherCommons.isMobile:
+		currentDeviceType = DeviceType.JOYSTICK
+
 static var joyButton : PackedStringArray = ["A", "B", "X", "Y", "Back", "Guide", "Start", "LSB", "RSB", "L", "R", "UP", "DOWN", "LEFT", "RIGHT", "Misc", "Paddle1", "Paddle2", "Paddle3", "Paddle4", "Touch"]
 static var actionNames : Dictionary[String, String] = {
 	"ui_select" : "Select",

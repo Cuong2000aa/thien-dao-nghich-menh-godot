@@ -36,19 +36,21 @@ func _run():
 
 	var m406 = CombatSystemClass.GetMartialForSkill(182736406)
 	_assert(int(m406.get("id", 0)) == 1008, "map_van_kiem_quy_tong")
+	_assert(String(m406.get("fxKey", "")) == "van_kiem_quy_tong", "fx_van_kiem_custom")
+	_assert(String(m406.get("fxPlace", "")) == "floor", "place_van_kiem_floor")
 	_assert(Lib.Has("van_kiem_quy_tong"), "catalog_van_kiem_quy_tong")
 
 	var m407 = CombatSystemClass.GetMartialForSkill(182736407)
 	_assert(int(m407.get("id", 0)) == 1009, "map_nhat_kiem_tram_thien_mon")
 	_assert(Lib.Has("nhat_kiem_tram_thien_mon"), "catalog_nhat_kiem_tram_thien_mon")
 
-	# New phép + tu tiên batch (1010–1017)
+	# Remapped phép + tu tiên (single cast fxKey, no fxKey2 sticker stack)
 	var newBatch := {
-		182736408: [1010, "flamethrower"],
-		182736409: [1011, "ice_lance"],
-		182736410: [1012, "lightning_strike"],
-		182736411: [1013, "soul_drain"],
-		182736412: [1014, "holy_pillar"],
+		182736408: [1010, "fire_breath"],
+		182736409: [1011, "ice_lance_throw"],
+		182736410: [1012, "lightning_call"],
+		182736411: [1013, "hex_sigil"],
+		182736412: [1014, "holy_smite"],
 		182736413: [1015, "earth_stomp"],
 		182736414: [1016, "chain_lightning"],
 		182736415: [1017, "black_hole"],
@@ -61,8 +63,13 @@ func _run():
 		_assert(int(m.get("id", 0)) == mid, "map_new_%d" % mid)
 		_assert(String(m.get("fxKey", "")) == fx, "fxkey_%d" % mid)
 		_assert(Lib.Has(fx), "catalog_%s" % fx)
-		var fx2 : String = String(m.get("fxKey2", ""))
-		_assert(not fx2.is_empty() and Lib.Has(fx2), "catalog2_%d" % mid)
+		_assert(String(m.get("fxKey2", "")).is_empty(), "no_dual_%d" % mid)
+
+	# Core + legacy also single-key
+	_assert(String(CombatSystemClass.GetMartialForSkill(182736401).get("fxKey", "")) == "sword_combo", "fx_thanh_phong")
+	_assert(String(CombatSystemClass.GetMartialForSkill(0, "Flar").get("fxKey", "")) == "fireball_throw", "fx_flar")
+	_assert(String(CombatSystemClass.GetMartialForSkill(0, "Mana Burst").get("fxKey", "")) == "mana_burst", "fx_mana_burst")
+	_assert(bool(CombatSystemClass.GetMartialForSkill(0, "Melee").get("skipCastFx", false)), "melee_skip_cast")
 
 	# Direct martial id still works
 	_assert(int(CombatSystemClass.GetMartialForSkill(1002).get("id", 0)) == 1002, "map_direct_martial_id")
@@ -103,10 +110,12 @@ func _run():
 	_assert(vanKiem != null and is_instance_valid(vanKiem), "spawn_van_kiem_quy_tong")
 	var vkFrames = Lib.GetSpriteFrames("van_kiem_quy_tong")
 	_assert(vkFrames != null and vkFrames.get_frame_count("default") >= 49, "van_kiem_49_frames")
+	var vkMeta = Lib.GetMeta("van_kiem_quy_tong")
+	_assert(int(vkMeta.get("frame_w", 0)) == 278 and int(vkMeta.get("frame_h", 0)) == 192, "van_kiem_frame_size")
+	_assert(bool(vkMeta.get("blend_add", false)), "van_kiem_blend_add")
 
 	var nhatKiem = CombatVfx.SpawnPixelFx(host, "nhat_kiem_tram_thien_mon", Vector2(60, 60), -1.0, false, true)
 	_assert(nhatKiem != null and is_instance_valid(nhatKiem), "spawn_nhat_kiem_tram_thien_mon")
-	_assert(nhatKiem.material != null, "nhat_kiem_add_blend")
 	var nkFrames = Lib.GetSpriteFrames("nhat_kiem_tram_thien_mon")
 	_assert(nkFrames != null and nkFrames.get_frame_count("default") >= 64, "nhat_kiem_64_frames")
 	# Corner of first frame should be transparent (no solid black plate)

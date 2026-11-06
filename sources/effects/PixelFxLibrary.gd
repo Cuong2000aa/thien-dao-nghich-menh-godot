@@ -313,6 +313,139 @@ const KEY_ALIASES : Dictionary = {
 static func NormalizeKey(key : String) -> String:
 	return String(KEY_ALIASES.get(key, key))
 
+## PixelFX gallery placement — where / how to spawn (not every FX is a body-attached move)
+## body_act: moves — attach to caster + act windup/hit
+## body: status/buffs — attach, follow character
+## body_dir: melee/breath/beam — attach + face with caster
+## floor: AoE / ground slam rings — world at feet (fringe)
+## target: impacts — world on hit entity
+## world: weather / ambient / transitions
+## ui: HUD toasts / numbers
+const PLACE_BODY_ACT := "body_act"
+const PLACE_BODY := "body"
+const PLACE_BODY_DIR := "body_dir"
+const PLACE_FLOOR := "floor"
+const PLACE_TARGET := "target"
+const PLACE_WORLD := "world"
+const PLACE_UI := "ui"
+
+const CATEGORY_PLACEMENT : Dictionary = {
+	"moves": PLACE_BODY_ACT,
+	"melee": PLACE_BODY_DIR,
+	"impacts": PLACE_TARGET,
+	"projectiles": PLACE_BODY_DIR,
+	"status": PLACE_BODY,
+	"holy": PLACE_BODY,
+	"weather": PLACE_WORLD,
+	"ui": PLACE_UI,
+	"transitions": PLACE_WORLD,
+	"critters": PLACE_WORLD,
+	"pickups": PLACE_FLOOR,
+	"spawn": PLACE_BODY,
+	"explosions": PLACE_FLOOR,
+	"nature": PLACE_FLOOR,
+	"water": PLACE_FLOOR,
+	"scifi": PLACE_BODY,
+	"shadow": PLACE_FLOOR,
+	"arcane": PLACE_BODY_DIR,
+	"fire": PLACE_BODY_DIR,
+	"ice": PLACE_BODY_DIR,
+	"lightning": PLACE_BODY_DIR,
+	"cultivation": PLACE_BODY_ACT,
+	"sword": PLACE_BODY_DIR,
+}
+
+## Per-key overrides when category default is wrong
+const KEY_PLACEMENT : Dictionary = {
+	# fire — floor AoE / props
+	"fire_ring": PLACE_FLOOR,
+	"flame_pillar": PLACE_FLOOR,
+	"fire_tornado": PLACE_FLOOR,
+	"meteor": PLACE_FLOOR,
+	"brazier": PLACE_FLOOR,
+	"campfire": PLACE_FLOOR,
+	"candle": PLACE_FLOOR,
+	"torch": PLACE_FLOOR,
+	"spirit_flame": PLACE_BODY,
+	# ice
+	"frost_nova": PLACE_FLOOR,
+	"ice_spikes": PLACE_FLOOR,
+	"blizzard_vortex": PLACE_FLOOR,
+	"freeze": PLACE_BODY,
+	"ice_crystal": PLACE_BODY,
+	# lightning
+	"lightning_strike": PLACE_TARGET, # call-down on aimed NPC
+	"thunderclap": PLACE_FLOOR,
+	"storm_cloud": PLACE_WORLD,
+	"electrified": PLACE_BODY,
+	"tesla_coil": PLACE_FLOOR,
+	# arcane
+	"magic_circle_cast": PLACE_FLOOR,
+	"rune_circle": PLACE_FLOOR,
+	"star_fall": PLACE_FLOOR,
+	"portal": PLACE_FLOOR,
+	"mana_burst": PLACE_BODY,
+	"blink_in": PLACE_BODY,
+	"blink_out": PLACE_BODY,
+	"time_stop": PLACE_FLOOR,
+	# holy
+	"heal_aoe": PLACE_FLOOR,
+	"holy_pillar": PLACE_TARGET,
+	"smite": PLACE_TARGET,
+	"sunburst": PLACE_FLOOR,
+	"feather_burst": PLACE_BODY,
+	"resurrection": PLACE_BODY,
+	# shadow
+	"curse": PLACE_BODY,
+	"life_steal": PLACE_BODY_DIR,
+	"hex_sigil": PLACE_BODY,
+	"necro_skulls": PLACE_BODY,
+	"eclipse": PLACE_WORLD,
+	# nature exceptions (directional)
+	"vine_whip": PLACE_BODY_DIR,
+	"leaf_storm": PLACE_BODY,
+	"healing_bloom": PLACE_BODY,
+	"root_snare": PLACE_BODY,
+	# scifi
+	"force_field": PLACE_BODY,
+	"glitch": PLACE_BODY,
+	"scanner": PLACE_BODY,
+	"jetpack": PLACE_BODY,
+	"emp_blast": PLACE_FLOOR,
+	"teleporter_pad": PLACE_FLOOR,
+	"laser_grid": PLACE_FLOOR,
+	"warp_in": PLACE_BODY,
+	"warp_out": PLACE_BODY,
+	# water directional
+	"water_jet": PLACE_BODY_DIR,
+	"geyser": PLACE_FLOOR,
+	"whirlpool": PLACE_FLOOR,
+	# impacts already target; ground ones stay floor-ish at hit pos
+	"ground_slam": PLACE_TARGET,
+	"heavy_landing": PLACE_TARGET,
+}
+
+static func GetCategory(key : String) -> String:
+	var k := NormalizeKey(key)
+	if not CATALOG.has(k):
+		return ""
+	var path : String = String(CATALOG[k])
+	var slash := path.find("/")
+	if slash <= 0:
+		return path
+	return path.substr(0, slash)
+
+## Returns PLACE_* — martial may override via fxPlace
+static func GetPlacement(key : String) -> String:
+	var k := NormalizeKey(key)
+	if KEY_PLACEMENT.has(k):
+		return String(KEY_PLACEMENT[k])
+	var cat := GetCategory(k)
+	return String(CATEGORY_PLACEMENT.get(cat, PLACE_BODY_DIR))
+
+static func IsMoveAct(key : String) -> bool:
+	return GetPlacement(key) == PLACE_BODY_ACT
+
 ## Default world scale so PixelFX sheets fit TDNM isometric character size
 const DEFAULT_SCALE : Dictionary = {
 	"achievement": 0.50,
@@ -380,7 +513,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"dissolve_burn": 0.50,
 	"divine_shield": 0.75,
 	"double_slash": 0.55,
-	"dragon_golden_spiral": 0.85,
+	"dragon_golden_spiral": 0.50,
 	"drip": 0.50,
 	"earth_spike": 0.40,
 	"earth_stomp": 0.50,
@@ -472,7 +605,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"muzzle_shotgun": 0.50,
 	"muzzle_smg": 0.50,
 	"necro_skulls": 0.50,
-	"nhat_kiem_tram_thien_mon": 1.05,
+	"nhat_kiem_tram_thien_mon": 0.50,
 	"nuke": 0.50,
 	"parry": 0.55,
 	"petrified": 0.50,
@@ -548,7 +681,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"toxic_puddle": 0.50,
 	"tractor_beam": 0.50,
 	"uppercut": 0.55,
-	"van_kiem_quy_tong": 0.95,
+	"van_kiem_quy_tong": 0.48,
 	"vine_whip": 0.50,
 	"void_orb": 0.50,
 	"warp_in": 0.50,
@@ -584,6 +717,38 @@ static func GetMeta(key : String) -> Dictionary:
 	var k := NormalizeKey(key)
 	_EnsureLoaded(k)
 	return _metaCache.get(k, {})
+
+## PixelFX #moves act timeline from sheet JSON meta.pixelfx.act
+## Returns { hasAct, windup, onBody, hits:[{t,freeze,shake,amp,push,...}] }
+static func GetAct(key : String) -> Dictionary:
+	var meta : Dictionary = GetMeta(key)
+	var act = meta.get("act", {})
+	if typeof(act) != TYPE_DICTIONARY or act.is_empty():
+		return {"hasAct": false, "windup": 0.0, "onBody": false, "hits": []}
+	var hitsRaw = act.get("hits", [])
+	var hits : Array = []
+	if typeof(hitsRaw) == TYPE_ARRAY:
+		for h in hitsRaw:
+			if typeof(h) == TYPE_DICTIONARY:
+				hits.append(h)
+	return {
+		"hasAct": true,
+		"windup": float(act.get("windup", 0.0)),
+		"onBody": bool(act.get("onBody", false)),
+		"hits": hits,
+	}
+
+## Sum of frame durations for lifetime caps (moves sheets can be 2–6s+)
+static func GetSheetDuration(key : String) -> float:
+	var frames : SpriteFrames = GetSpriteFrames(key)
+	var animName := StringName("default")
+	if frames == null or not frames.has_animation(animName):
+		return 1.0
+	var total : float = 0.0
+	var n : int = frames.get_frame_count(animName)
+	for i in n:
+		total += frames.get_frame_duration(animName, i)
+	return maxf(total, 0.2)
 
 static func GetSpriteFrames(key : String) -> SpriteFrames:
 	var k := NormalizeKey(key)
@@ -647,6 +812,11 @@ static func _EnsureLoaded(key : String) -> void:
 	var pivotVec := Vector2.ZERO
 	if typeof(pivot) == TYPE_ARRAY and pivot.size() >= 2:
 		pivotVec = Vector2(float(pivot[0]), float(pivot[1]))
+	# PixelFX gallery #moves — windup / hit freeze+shake baked into sheet meta
+	var actData = px.get("act", {})
+	var actDict : Dictionary = {}
+	if typeof(actData) == TYPE_DICTIONARY:
+		actDict = actData
 
 	var framesRaw = data.get("frames", [])
 	var frameList : Array = []
@@ -696,5 +866,7 @@ static func _EnsureLoaded(key : String) -> void:
 		"frame_w": frameW,
 		"frame_h": frameH,
 		"path": folder,
+		"act": actDict,
+		"blend_add": String(px.get("blend", "")) == "add",
 	}
 	Util.PrintLog("PixelFx", "Loaded '%s' (%d frames @ %.0ffps, loop=%s)" % [key, sf.get_frame_count(animName), fps, str(loop)])

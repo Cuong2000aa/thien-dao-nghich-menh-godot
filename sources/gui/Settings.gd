@@ -466,7 +466,15 @@ func _ready():
 	_SetAudioLabel($"Layout/Margin/TabBar/Audio/VBoxContainer/VolumeVBox/Other Entities/Label", "Trận Khác")
 	var ThemeClass = preload("res://sources/gui/XianxiaUiTheme.gd")
 	ThemeClass.PolishWindow(self)
+	LauncherCommons.RefreshPlatformFlags()
 	RefreshSettings(true)
+	# Phone browser / native mobile: ensure virtual sticks + readable scale even if
+	# User settings were saved from desktop web (ActionOverlay=false).
+	if LauncherCommons.isMobile:
+		if not GetVal("Render-ActionOverlay"):
+			set_actionoverlay(true)
+		if int(GetVal("Render-Scaling")) < 1:
+			set_scaling(1)
 	FSM.enter_game.connect(RefreshSettings.bind(true))
 	FSM.exit_game.connect(SaveSettings.bind())
 

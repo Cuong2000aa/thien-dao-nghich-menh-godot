@@ -144,6 +144,10 @@ func _ready():
 	var startServer : bool = false
 
 	Root = get_tree().get_root()
+	# Mobile web: detect phone browser before GUI/settings so sticks + scale apply
+	LauncherCommons.RefreshPlatformFlags()
+	if LauncherCommons.isMobile:
+		Util.PrintLog("Launcher", "Mobile UI mode (sticks + scale) — web=%s" % str(LauncherCommons.isWeb))
 
 	if "--local" in OS.get_cmdline_args():
 		NetworkCommons.IsLocal = true

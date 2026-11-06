@@ -85,7 +85,9 @@ static func SetTarget(newTarget : Entity, interactable : bool = true):
 		elif target.type == ActorCommons.Type.MONSTER:
 			target.interactive.DisplayTarget(ActorCommons.Target.ENEMY)
 			target.interactive.DisplayHP()
-		Network.TriggerSelect(target.agentRID)
+		# Preview dummy uses negative agentRID — never hit the network select path
+		if target.agentRID >= 0:
+			Network.TriggerSelect(target.agentRID)
 
 static func JustInteract():
 	if not ActorCommons.IsAlive(target) or (not Launcher.GUI.IsDialogueContextOpened() and not ActorCommons.IsActorNear(Launcher.Player, target, ActorCommons.TargetMaxDistance)):

@@ -100,10 +100,35 @@ static func DicCheckOrAdd(dic : Dictionary[Variant, Variant], key : Variant, val
 		dic[key] = value
 
 # Platforms
+## True for native mobile builds, or mobile browsers opening the Web export.
+## Desktop Web alone stays false so virtual sticks stay off on PC.
 static func IsMobile() -> bool:
-	return OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios")
+	if OS.has_feature("mobile") or OS.has_feature("android") or OS.has_feature("ios"):
+		return true
+	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
+		return true
+	if not OS.has_feature("web"):
+		return false
+	# Phone/tablet browser playing the desktop Web export — UA + touch heuristics
+	var uaHit = JavaScriptBridge.eval("""
+		(function () {
+			var ua = navigator.userAgent || navigator.vendor || '';
+			if (/Android|iPhone|iPad|iPod|Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua))
+				return true;
+			var shortSide = Math.min(screen.width || 0, screen.height || 0);
+			if ((navigator.maxTouchPoints || 0) > 1 && shortSide > 0 && shortSide <= 920)
+				return true;
+			return false;
+		})()
+	""")
+	if uaHit:
+		return true
+	# Fallback when UA spoofed but real touchscreen phone
+	var shortPx : int = mini(DisplayServer.screen_get_size().x, DisplayServer.screen_get_size().y)
+	return DisplayServer.is_touchscreen_available() and shortPx > 0 and shortPx <= 920
 
 static func GetPlatformName() -> String:
+	# Reuse [Android] settings defaults (ActionOverlay + Scaling) for mobile web
 	if LauncherCommons.isWeb and IsMobile():
 		return "Android"
 	return OS.get_name()

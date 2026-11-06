@@ -1,1170 +1,1128 @@
 {
  "frames": [
   {
-   "filename": "van_kiem_quy_tong 0",
+   "filename": "van-kiem-quy-tong 0",
    "frame": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 1",
+   "filename": "van-kiem-quy-tong 1",
    "frame": {
-    "x": 219,
+    "x": 278,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 2",
+   "filename": "van-kiem-quy-tong 2",
    "frame": {
-    "x": 438,
+    "x": 556,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 3",
+   "filename": "van-kiem-quy-tong 3",
    "frame": {
-    "x": 657,
+    "x": 834,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 4",
+   "filename": "van-kiem-quy-tong 4",
    "frame": {
-    "x": 876,
+    "x": 1112,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 5",
+   "filename": "van-kiem-quy-tong 5",
    "frame": {
-    "x": 1095,
+    "x": 1390,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 6",
+   "filename": "van-kiem-quy-tong 6",
    "frame": {
-    "x": 1314,
-    "y": 0,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 7",
+   "filename": "van-kiem-quy-tong 7",
    "frame": {
-    "x": 0,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 8",
+   "filename": "van-kiem-quy-tong 8",
    "frame": {
-    "x": 219,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 9",
+   "filename": "van-kiem-quy-tong 9",
    "frame": {
-    "x": 438,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 10",
+   "filename": "van-kiem-quy-tong 10",
    "frame": {
-    "x": 657,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 11",
+   "filename": "van-kiem-quy-tong 11",
    "frame": {
-    "x": 876,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 192,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 12",
+   "filename": "van-kiem-quy-tong 12",
    "frame": {
-    "x": 1095,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 13",
+   "filename": "van-kiem-quy-tong 13",
    "frame": {
-    "x": 1314,
-    "y": 146,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 14",
+   "filename": "van-kiem-quy-tong 14",
    "frame": {
-    "x": 0,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 15",
+   "filename": "van-kiem-quy-tong 15",
    "frame": {
-    "x": 219,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 16",
+   "filename": "van-kiem-quy-tong 16",
    "frame": {
-    "x": 438,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 17",
+   "filename": "van-kiem-quy-tong 17",
    "frame": {
-    "x": 657,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 384,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 18",
+   "filename": "van-kiem-quy-tong 18",
    "frame": {
-    "x": 876,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 19",
+   "filename": "van-kiem-quy-tong 19",
    "frame": {
-    "x": 1095,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 20",
+   "filename": "van-kiem-quy-tong 20",
    "frame": {
-    "x": 1314,
-    "y": 292,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 21",
+   "filename": "van-kiem-quy-tong 21",
    "frame": {
-    "x": 0,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 22",
+   "filename": "van-kiem-quy-tong 22",
    "frame": {
-    "x": 219,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 23",
+   "filename": "van-kiem-quy-tong 23",
    "frame": {
-    "x": 438,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 576,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 24",
+   "filename": "van-kiem-quy-tong 24",
    "frame": {
-    "x": 657,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 25",
+   "filename": "van-kiem-quy-tong 25",
    "frame": {
-    "x": 876,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 26",
+   "filename": "van-kiem-quy-tong 26",
    "frame": {
-    "x": 1095,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 27",
+   "filename": "van-kiem-quy-tong 27",
    "frame": {
-    "x": 1314,
-    "y": 438,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 28",
+   "filename": "van-kiem-quy-tong 28",
    "frame": {
-    "x": 0,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 29",
+   "filename": "van-kiem-quy-tong 29",
    "frame": {
-    "x": 219,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 768,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 30",
+   "filename": "van-kiem-quy-tong 30",
    "frame": {
-    "x": 438,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 31",
+   "filename": "van-kiem-quy-tong 31",
    "frame": {
-    "x": 657,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 32",
+   "filename": "van-kiem-quy-tong 32",
    "frame": {
-    "x": 876,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 33",
+   "filename": "van-kiem-quy-tong 33",
    "frame": {
-    "x": 1095,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 34",
+   "filename": "van-kiem-quy-tong 34",
    "frame": {
-    "x": 1314,
-    "y": 584,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 35",
+   "filename": "van-kiem-quy-tong 35",
    "frame": {
-    "x": 0,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 960,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 36",
+   "filename": "van-kiem-quy-tong 36",
    "frame": {
-    "x": 219,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 37",
+   "filename": "van-kiem-quy-tong 37",
    "frame": {
-    "x": 438,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 38",
+   "filename": "van-kiem-quy-tong 38",
    "frame": {
-    "x": 657,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 39",
+   "filename": "van-kiem-quy-tong 39",
    "frame": {
-    "x": 876,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 40",
+   "filename": "van-kiem-quy-tong 40",
    "frame": {
-    "x": 1095,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 41",
+   "filename": "van-kiem-quy-tong 41",
    "frame": {
-    "x": 1314,
-    "y": 730,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 1152,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 42",
+   "filename": "van-kiem-quy-tong 42",
    "frame": {
     "x": 0,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 43",
+   "filename": "van-kiem-quy-tong 43",
    "frame": {
-    "x": 219,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 278,
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 44",
+   "filename": "van-kiem-quy-tong 44",
    "frame": {
-    "x": 438,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 556,
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 45",
+   "filename": "van-kiem-quy-tong 45",
    "frame": {
-    "x": 657,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 834,
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 46",
+   "filename": "van-kiem-quy-tong 46",
    "frame": {
-    "x": 876,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 1112,
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 47",
+   "filename": "van-kiem-quy-tong 47",
    "frame": {
-    "x": 1095,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 1390,
+    "y": 1344,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   },
   {
-   "filename": "van_kiem_quy_tong 48",
+   "filename": "van-kiem-quy-tong 48",
    "frame": {
-    "x": 1314,
-    "y": 876,
-    "w": 219,
-    "h": 146
+    "x": 0,
+    "y": 1536,
+    "w": 278,
+    "h": 192
    },
    "rotated": false,
    "trimmed": false,
    "spriteSourceSize": {
     "x": 0,
     "y": 0,
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
    "sourceSize": {
-    "w": 219,
-    "h": 146
+    "w": 278,
+    "h": 192
    },
-   "duration": 33
+   "duration": 50
   }
  ],
  "meta": {
-  "app": "tdnm-import",
+  "app": "https://github.com/patch-gg/pixelfx",
   "version": "1",
   "image": "van-kiem-quy-tong.png",
   "format": "RGBA8888",
   "size": {
-   "w": 1533,
-   "h": 1022
+   "w": 1668,
+   "h": 1728
   },
   "scale": "1",
   "frameTags": [
    {
-    "name": "van_kiem_quy_tong",
+    "name": "van-kiem-quy-tong",
     "from": 0,
-    "to": 48,
-    "direction": "forward"
-   },
-   {
-    "name": "summon",
-    "from": 0,
-    "to": 6,
-    "direction": "forward"
-   },
-   {
-    "name": "sword_formation",
-    "from": 7,
-    "to": 20,
-    "direction": "forward"
-   },
-   {
-    "name": "sword_orbit",
-    "from": 21,
-    "to": 34,
-    "direction": "forward"
-   },
-   {
-    "name": "sword_rain",
-    "from": 35,
-    "to": 41,
-    "direction": "forward"
-   },
-   {
-    "name": "impact_and_fade",
-    "from": 42,
     "to": 48,
     "direction": "forward"
    }
   ],
   "pixelfx": {
    "id": "sword/van-kiem-quy-tong",
-   "name": "V\u1ea1n Ki\u1ebfm Quy T\u00f4ng",
-   "fps": 30,
+   "name": "Van Kiem Quy Tong",
+   "fps": 20,
    "loop": false,
    "frames": 49,
    "frameSize": [
-    219,
-    146
+    278,
+    192
    ],
    "pivot": [
-    110,
-    120
+    139,
+    166
    ],
-   "columns": 7,
-   "rows": 7,
-   "sequences": {
-    "summon": {
-     "start": 0,
-     "end": 6
-    },
-    "sword_formation": {
-     "start": 7,
-     "end": 20
-    },
-    "sword_orbit": {
-     "start": 21,
-     "end": 34
-    },
-    "sword_rain": {
-     "start": 35,
-     "end": 41
-    },
-    "impact_and_fade": {
-     "start": 42,
-     "end": 48
-    }
-   }
+   "columns": 6,
+   "rows": 9,
+   "sourceGrid": {
+    "cols": 7,
+    "rows": 7,
+    "cell": [
+     117,
+     74
+    ],
+    "y0": 1
+   },
+   "blend": "add"
   }
  }
 }
