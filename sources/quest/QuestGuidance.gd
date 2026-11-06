@@ -1,8 +1,8 @@
 extends RefCounted
 class_name QuestGuidance
 
-## Resolves active quest objectives to exact map + world coordinates from MapServerData spawns.
-## Prefer live entity positions when the target is already spawned on the current map.
+## Resolves EVERY quest objective to map + world coordinates.
+## Sources (priority): live entity → spawn nick/entity name → explicit anchors.
 
 enum Action {
 	UNKNOWN = 0,
@@ -22,10 +22,35 @@ const ACTION_LABEL : Dictionary = {
 	Action.UNKNOWN: "Mục tiêu",
 }
 
-## Explicit nick overrides for multi-stage TDNM quests (spawn nick must match MapServerData).
-const QUEST_OBJECTIVE : Dictionary = {
-	# questID filled at runtime via ProgressCommons.Quest.* — see _EnsureObjectiveTable()
+## Extra name aliases → index key (entity English ↔ Vietnamese nick).
+const NAME_ALIASES : Dictionary = {
+	"Xich Viem Thu Hau": "Xích Viêm Thú Hậu",
+	"Boss Arena Controller": "Xích Viêm Thú Hậu",
 }
+
+## Hard anchors when no spawn nick exists (still exact map + coords from design).
+const ANCHORS : Array = [
+	{"nick": "Xích Viêm Thú Hậu", "map": "Candor Arena", "pos": Vector2(1744, 1851)},
+	{"nick": "Thiefs Chest", "map": "Snake Pit", "pos": Vector2(2725, 1007)},
+	{"nick": "Hiên Viên Cổ Động", "map": "Tulimshar Western Cave", "pos": Vector2(1794, 1543)},
+	{"nick": "Ngũ Hành Thạch Trận", "map": "SacredSectHub", "pos": Vector2(1000, 1350)},
+	{"nick": "Huyết Sâm", "map": "SacredSectHub", "pos": Vector2(1150, 1400)},
+	{"nick": "Xích Viêm Khoáng", "map": "Candor Arena", "pos": Vector2(1680, 1800)},
+	{"nick": "Thanh Phong Tinh Thiết", "map": "Tulimshar Eastern Hills", "pos": Vector2(2600, 1300)},
+	{"nick": "U Hồn Đầm Lầy", "map": "Manayir Beach", "pos": Vector2(3108, 2557)},
+	{"nick": "Hầm Ngục Cổ Xưa", "map": "Artis Sewer", "pos": Vector2(2023, 1599)},
+	{"nick": "Di Tích Tiền Nhân", "map": "Tulimshar Eastern Hills", "pos": Vector2(2206, 1018)},
+	{"nick": "Yêu Thú", "map": "Tulimshar Eastern Hills", "pos": Vector2(2000, 1374)},
+	{"nick": "Yêu Thú Cuồng Bạo", "map": "Tulimshar Eastern Hills", "pos": Vector2(2000, 1374)},
+	{"nick": "Dị Thú", "map": "Tulimshar Eastern Hills", "pos": Vector2(1330, 3884)},
+	{"nick": "Ratto Ship", "map": "Ship Alige Hide", "pos": Vector2(1200, 1000)},
+
+	{"nick": "Tinh Hoa Linh Khí", "map": "Tulimshar Eastern Hills", "pos": Vector2(2450, 2342)},
+	{"nick": "Chest Outskirts", "map": "Tulimshar Eastern Hills", "pos": Vector2(2206, 1018)},
+	{"nick": "Veteran Cave", "map": "Tulimshar Western Cave", "pos": Vector2(1854, 1221)},
+	{"nick": "Bản Đồ Chỉ Dẫn", "map": "Tulimshar Eastern Hills", "pos": Vector2(2650, 1200)},
+	{"nick": "Lời Đồn Tán Tu", "map": "SacredSectHub", "pos": Vector2(1050, 1460)},
+]
 
 static var _nickIndex : Dictionary = {} # nick -> Array[Dictionary]
 static var _nicksLongestFirst : PackedStringArray = PackedStringArray()
@@ -37,6 +62,7 @@ static func _EnsureObjectiveTable() -> void:
 		return
 	var Q = ProgressCommons.Quest
 	_objectiveTable = {
+		# --- Core TDNM loop ---
 		Q.THANH_TRU_LINH_TRUNG: {"do": "Linh Trùng", "return": "Đạo Huyền Trưởng Lão", "kind": "kill", "need": 5},
 		Q.THU_THAP_LINH_THAO: {"do": "Ngân Linh Thảo", "return": "Đạo Huyền Trưởng Lão", "kind": "gather", "need": 3},
 		Q.THU_THAP_KHOANG_THACH: {"do": "Huyền Thiết Khoáng", "return": "Dược Đường Chấp Sự", "kind": "gather", "need": 2},
@@ -48,16 +74,98 @@ static func _EnsureObjectiveTable() -> void:
 		Q.NHAP_MON_KHAO_NGHIEM: {"do": "Tiếp Dẫn Chấp Sự", "return": "Đạo Huyền Trưởng Lão", "kind": "talk", "need": 1},
 		Q.THAO_PHAT_THU_VUONG: {"do": "Xích Viêm Thú Hậu", "return": "Đạo Huyền Trưởng Lão", "kind": "kill", "need": 1},
 		Q.KHAO_HACH_NGOAI_MON: {"do": "Diễn Võ Giáo Đầu", "return": "Đạo Huyền Trưởng Lão", "kind": "talk", "need": 1},
+		Q.KHAO_HACH_NOI_MON: {"do": "Xích Viêm Thú Hậu", "return": "Đạo Huyền Trưởng Lão", "kind": "kill", "need": 1},
+		Q.TRUYEN_THUA_TONG_MON: {"do": "Đạo Huyền Trưởng Lão", "return": "Đạo Huyền Trưởng Lão", "kind": "talk", "need": 1},
+		Q.TUAN_TRA_SON_MON: {"do": "Chấp Sự Nhiệm Vụ Đường", "return": "Chấp Sự Nhiệm Vụ Đường", "kind": "go", "need": 1},
+		# --- Main story ---
 		Q.MQ_CHUONG_1_TINH_LAC_DI_GIOI: {"do": "Tiếp Dẫn Chấp Sự", "return": "Tiếp Dẫn Chấp Sự", "kind": "talk", "need": 1},
 		Q.MQ_CHUONG_2_CON_DUONG_TU_DAO: {"do": "Trúc Sơn Cổ Bi", "return": "Đạo Huyền Trưởng Lão", "kind": "talk", "need": 1},
-		Q.NQ_HA_THIET_THU_1: {"do": "Huyền Thiết Khoáng", "return": "Hà Thiết Thủ", "kind": "gather", "need": 5},
+		Q.MQ_CHUONG_3_DAU_VET_DI_BIEN: {"do": "Diệp Tử Lăng", "return": "Diệp Tử Lăng", "kind": "talk", "need": 1},
+		Q.MQ_CHUONG_4_BI_MAT_CO_TICH: {"do": "Mặc Lão Nhân", "return": "Mặc Lão Nhân", "kind": "talk", "need": 1},
+		Q.MQ_CHUONG_5_THIEN_DAO_CO_KHUYET: {"do": "Đạo Huyền Trưởng Lão", "return": "Đạo Huyền Trưởng Lão", "kind": "talk", "need": 1},
+		# --- NPC chains ---
+		Q.NQ_LIEU_THANH_Y_1: {"do": "Ngân Linh Thảo", "return": "Liễu Thanh Y", "kind": "gather", "need": 3},
 		Q.NQ_LIEU_THANH_Y_2: {"do": "Tiếp Dẫn Chấp Sự", "return": "Liễu Thanh Y", "kind": "go", "need": 1},
+		Q.NQ_HA_THIET_THU_1: {"do": "Huyền Thiết Khoáng", "return": "Hà Thiết Thủ", "kind": "gather", "need": 5},
+		Q.NQ_HA_THIET_THU_2: {"do": "Xích Viêm Khoáng", "return": "Hà Thiết Thủ", "kind": "gather", "need": 3},
+		Q.NQ_DIEP_TU_LANG_1: {"do": "Yêu Thú Cuồng Bạo", "return": "Diệp Tử Lăng", "kind": "kill", "need": 3},
+		Q.NQ_DIEP_TU_LANG_2: {"do": "Dị Thú", "return": "Diệp Tử Lăng", "kind": "kill", "need": 1},
+		Q.NQ_MAC_LAO_NHAN_1: {"do": "Trúc Sơn Cổ Bi", "return": "Mặc Lão Nhân", "kind": "gather", "need": 3},
+		Q.NQ_MAC_LAO_NHAN_2: {"do": "Ngũ Hành Thạch Trận", "return": "Mặc Lão Nhân", "kind": "go", "need": 1},
+		Q.NQ_TRAN_PHUONG_1: {"do": "Trần Phương", "return": "Trần Phương", "kind": "talk", "need": 1},
+		Q.NQ_TRAN_PHUONG_2: {"do": "Trần Phương", "return": "Trần Phương", "kind": "talk", "need": 1},
+		# --- Side / exploration ---
+		Q.SQ_HIEN_VIEN_BI_MAT: {"do": "Hiên Viên Cổ Động", "return": "Bản Đồ Chỉ Dẫn", "kind": "go", "need": 1},
+		Q.SQ_U_HON_TRAM_BAO: {"do": "U Hồn Đầm Lầy", "return": "Lời Đồn Tán Tu", "kind": "go", "need": 1},
+		Q.SQ_NGU_HANH_THACH_TRAN: {"do": "Ngũ Hành Thạch Trận", "return": "Mặc Lão Nhân", "kind": "go", "need": 1},
+		Q.SQ_BIET_VIEN_DUOC_DIEN: {"do": "Huyết Sâm", "return": "Liễu Thanh Y", "kind": "gather", "need": 2},
+		Q.SQ_LIEN_HOA_CO_THIET: {"do": "Thanh Phong Tinh Thiết", "return": "Hà Thiết Thủ", "kind": "gather", "need": 2},
+		Q.SQ_PHONG_AN_DIA_HA: {"do": "Hầm Ngục Cổ Xưa", "return": "Bạch Hạc Chân Nhân", "kind": "go", "need": 1},
+		Q.SQ_TIEN_NHAN_DI_THU: {"do": "Di Tích Tiền Nhân", "return": "Di Tích Tiền Nhân", "kind": "go", "need": 1},
+		Q.SQ_DU_PHUONG_GIAO_THUONG: {"do": "Khang Vạn Kim", "return": "Khang Vạn Kim", "kind": "talk", "need": 1},
+		# --- Events ---
+		Q.EQ_YEU_THU_TRIEU: {"do": "Yêu Thú", "return": "Chấp Sự Nhiệm Vụ Đường", "kind": "kill", "need": 10},
+		Q.EQ_LINH_KHI_DI_TUONG: {"do": "Tinh Hoa Linh Khí", "return": "Liễu Thanh Y", "kind": "gather", "need": 3},
+		Q.EQ_CO_TRAN_BAT_ON: {"do": "Thanh Phong Tinh Thiết", "return": "Đạo Huyền Trưởng Lão", "kind": "gather", "need": 3},
+		# --- SoM legacy ---
+		Q.NINA_HUNGRY: {"do": "Nina", "return": "Nina", "kind": "talk", "need": 1},
+		Q.ELANORE_POTION: {"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6},
+		Q.GRAIN_IN_THE_SAND: {"do": "Flour Barrel", "return": "Riskim", "kind": "go", "need": 1},
+		Q.TUTORIAL: {"do": "Elanore", "return": "Kael", "kind": "talk", "need": 1},
+		Q.TULIMSHAR_OLD_FRIENDSHIP: {"do": "Ben", "return": "Frost", "kind": "talk", "need": 1},
+		Q.TULIMSHAR_GLASSMAKING: {"do": "Eridu", "return": "Eridu", "kind": "talk", "need": 1},
+		Q.TULIMSHAR_EASTERN_HILLS_CHEST: {"do": "Chest Outskirts", "return": "Chest Outskirts", "kind": "go", "need": 1},
+		Q.MINE_EXPLORATION: {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1},
+		Q.SANDSTORM_NATHAN_WATER: {"do": "Nathan", "return": "Nathan", "kind": "talk", "need": 1},
+		Q.SANDSTORM_NAEM_HELMET: {"do": "Naem", "return": "Naem", "kind": "talk", "need": 1},
+		Q.SANDSTORM_MINE_ABANDONED_TREASURE: {"do": "SandstormMineKey", "return": "Chest", "kind": "go", "need": 1},
+		Q.DESERT_SEED: {"do": "Mana Tree", "return": "Mana Tree", "kind": "talk", "need": 1},
+		Q.SHIP_PETER_BOUNTY: {"do": "Ratto Ship", "return": "Peter", "kind": "kill", "need": 1},
+
+		Q.SNAKE_PIT_THIEF: {"do": "Snake Pit Clue", "return": "Thiefs Chest", "kind": "go", "need": 1},
+		Q.SNAKE_PIT_BITING_THIRST: {"do": "Snake Pit Pond", "return": "Mauro", "kind": "go", "need": 1},
+		Q.SPLATYNA_OFFERING: {"do": "Splatyna", "return": "Bicies", "kind": "talk", "need": 1},
+		Q.VETERAN_CAVE_EXPLORER: {"do": "Veteran Cave", "return": "Veteran Cave", "kind": "go", "need": 1},
 	}
 
 static func InvalidateIndex() -> void:
 	_indexBuilt = false
 	_nickIndex.clear()
 	_nicksLongestFirst = PackedStringArray()
+	_objectiveTable.clear()
+
+static func _AddIndexEntry(nick : String, entry : Dictionary) -> void:
+	if nick.is_empty():
+		return
+	if not _nickIndex.has(nick):
+		_nickIndex[nick] = []
+	_nickIndex[nick].append(entry)
+	# Alias chain
+	if NAME_ALIASES.has(nick):
+		var alias : String = str(NAME_ALIASES[nick])
+		if alias != nick:
+			if not _nickIndex.has(alias):
+				_nickIndex[alias] = []
+			_nickIndex[alias].append(entry)
+
+static func _RegisterAnchor(nick : String, mapInternal : String, pos : Vector2) -> void:
+	var mapID : int = mapInternal.hash()
+	var mapDisplay : String = LocationNaming.GetDisplayName(mapInternal)
+	if DB.isInitialized and DB.MapsDB.has(mapID):
+		mapDisplay = LocationNaming.GetDisplayName(DB.MapsDB[mapID])
+	var entry : Dictionary = {
+		"nick": nick,
+		"map_id": mapID,
+		"map_internal": mapInternal,
+		"map_display": mapDisplay,
+		"position": pos,
+		"offset": Vector2.ZERO,
+		"type": ActorCommons.Type.NPC,
+		"count": 1,
+		"entity_id": DB.UnknownHash,
+		"anchor": true,
+	}
+	_AddIndexEntry(nick, entry)
 
 static func RebuildIndex() -> void:
 	_nickIndex.clear()
@@ -75,14 +183,12 @@ static func RebuildIndex() -> void:
 			if spawn == null:
 				continue
 			var nick : String = spawn.nick.strip_edges()
-			if nick.is_empty() and spawn.id != DB.UnknownHash:
-				# Soft lookup — some warp/object ids are not in EntitiesDB
-				var ent : EntityData = DB.EntitiesDB.get(spawn.id, null)
-				if ent:
-					nick = ent._name
+			var ent : EntityData = DB.EntitiesDB.get(spawn.id, null) if spawn.id != DB.UnknownHash else null
+			var entName : String = ent._name if ent else ""
+			if nick.is_empty():
+				nick = entName
 			if nick.is_empty():
 				continue
-
 			var entry : Dictionary = {
 				"nick": nick,
 				"map_id": mapID,
@@ -93,10 +199,27 @@ static func RebuildIndex() -> void:
 				"type": spawn.type,
 				"count": spawn.count,
 				"entity_id": spawn.id,
+				"anchor": false,
 			}
-			if not _nickIndex.has(nick):
-				_nickIndex[nick] = []
-			_nickIndex[nick].append(entry)
+			_AddIndexEntry(nick, entry)
+			if not entName.is_empty() and entName != nick:
+				_AddIndexEntry(entName, entry)
+
+	for a in ANCHORS:
+		# Only fill gaps — real spawns win if already present
+		var nick : String = str(a.get("nick", ""))
+		if nick.is_empty():
+			continue
+		if _nickIndex.has(nick) and not _nickIndex[nick].is_empty():
+			var hasReal : bool = false
+			for e in _nickIndex[nick]:
+				if not e.get("anchor", false):
+					hasReal = true
+					break
+			if hasReal:
+				continue
+		_RegisterAnchor(nick, str(a.get("map", "")), a.get("pos", Vector2.ZERO))
+
 	var keys : Array = _nickIndex.keys()
 	keys.sort_custom(func(a, b): return str(a).length() > str(b).length())
 	for k in keys:
@@ -114,14 +237,15 @@ static func FindSpawns(nick : String) -> Array:
 		return []
 	if _nickIndex.has(nick):
 		return _nickIndex[nick]
-	# Case-insensitive / partial: exact nick first among longest-first
 	var lower : String = nick.to_lower()
 	for key in _nicksLongestFirst:
 		if key.to_lower() == lower:
 			return _nickIndex[key]
-	for key in _nicksLongestFirst:
-		if key.to_lower().contains(lower) or lower.contains(key.to_lower()):
-			return _nickIndex[key]
+	# Alias reverse
+	if NAME_ALIASES.has(nick):
+		var alias : String = str(NAME_ALIASES[nick])
+		if _nickIndex.has(alias):
+			return _nickIndex[alias]
 	return []
 
 static func MatchNickInText(text : String) -> String:
@@ -138,10 +262,15 @@ static func ResolveLivePosition(nick : String, preferMapID : int = DB.UnknownHas
 		return Vector2.INF
 	var sum : Vector2 = Vector2.ZERO
 	var count : int = 0
+	var alias : String = str(NAME_ALIASES.get(nick, nick))
 	for entity in Entities.entities.values():
 		if entity == null or not is_instance_valid(entity):
 			continue
-		if entity.nick != nick:
+		var en : String = entity.nick
+		var matchNick : bool = (en == nick or en == alias)
+		if not matchNick and entity.data:
+			matchNick = (entity.data._name == nick or entity.data._name == alias)
+		if not matchNick:
 			continue
 		if preferMapID != DB.UnknownHash and Launcher.Map and Launcher.Map.currentMapID != preferMapID:
 			continue
@@ -155,13 +284,11 @@ static func IsReadyToTurnIn(questID : int, state : int) -> bool:
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 		return false
 	_EnsureObjectiveTable()
-	# Explicit counters: STARTED=1 … OBJECTIVE_MET = need+1 for most TDNM quests
 	var override : Dictionary = _objectiveTable.get(questID, {})
 	if not override.is_empty():
 		var need : int = maxi(1, int(override.get("need", 1)))
 		if state > need:
 			return true
-	# Named state constants (direct enum access — .get on enum Variant is unreliable)
 	match questID:
 		ProgressCommons.Quest.THANH_TRU_LINH_TRUNG:
 			return state >= ProgressCommons.THANH_TRU_LINH_TRUNG.OBJECTIVE_MET
@@ -228,7 +355,12 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 			nick = questData.giver
 
 	var spawns : Array = FindSpawns(nick)
-	# Prefer spawn on current map when multiple
+	# If return nick missing, try giver nick from override
+	if spawns.is_empty() and turnIn and not questData.giver.is_empty():
+		spawns = FindSpawns(questData.giver)
+		if not spawns.is_empty():
+			nick = questData.giver
+
 	var chosen : Dictionary = {}
 	if not spawns.is_empty():
 		chosen = spawns[0]
@@ -249,7 +381,6 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	var mapDisplay : String = str(chosen.get("map_display", "")) if not chosen.is_empty() else ""
 	var mapInternal : String = str(chosen.get("map_internal", "")) if not chosen.is_empty() else ""
 	if mapDisplay.is_empty():
-		# Fallback: resolve region name from quest location strings (no fake coords)
 		var locHint : String = questData.targetLocation if not turnIn else questData.giverLocation
 		mapDisplay = locHint
 		mapID = _ResolveMapIdFromLocationLabel(locHint)
@@ -282,12 +413,10 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 static func _ResolveMapIdFromLocationLabel(label : String) -> int:
 	if label.is_empty():
 		return DB.UnknownHash
-	# Match against LocationNaming display names and WorldMap aliases
 	for mapID in DB.MapsDB:
 		var display : String = LocationNaming.GetDisplayName(mapID)
 		if display == label or label.contains(display) or display.contains(label):
 			return mapID
-	# Soft aliases used in quest tres
 	var aliases : Dictionary = {
 		"Trúc Sơn Tiên Cảnh": "SacredSectHub",
 		"Sơn Môn Trúc Sơn": "SacredSectHub",
@@ -308,6 +437,9 @@ static func _ResolveMapIdFromLocationLabel(label : String) -> int:
 		"Bãi Quặng Trúc Sơn": "Tulimshar Eastern Hills",
 		"Linh Khí Bí Cảnh": "Candor Arena",
 		"Cổ Đạo Phế Tích": "Tulimshar Western Cave",
+		"Cổng Thành Tulimshar": "Tulimshar",
+		"Trung Tâm Tulimshar": "Tulimshar Center",
+		"Chợ Tulimshar": "Tulimshar Center",
 	}
 	if aliases.has(label):
 		return aliases[label].hash()
@@ -324,7 +456,6 @@ static func _BuildProgressText(questID : int, state : int, override : Dictionary
 		return ""
 	if IsReadyToTurnIn(questID, state):
 		return "%d/%d ✔" % [need, need]
-	# Kill/gather counters: STARTED=1 → 0 done; each step +1
 	var done : int = maxi(0, state - 1)
 	done = mini(done, need)
 	return "%d/%d" % [done, need]
@@ -340,7 +471,6 @@ static func GetActiveSteps(player = null) -> Array:
 		var step : Dictionary = BuildStep(questID, state)
 		if not step.is_empty():
 			steps.append(step)
-	# Prefer resolved + current-map first for HUD primary
 	steps.sort_custom(func(a, b):
 		var aCur : bool = Launcher.Map and a.get("map_id") == Launcher.Map.currentMapID
 		var bCur : bool = Launcher.Map and b.get("map_id") == Launcher.Map.currentMapID
@@ -389,3 +519,17 @@ static func FormatStepOneLine(step : Dictionary) -> String:
 	if step.get("resolved", false):
 		return "%s · %s (%d,%d)" % [step.get("hint", ""), step.get("map_display", ""), int(pos.x), int(pos.y)]
 	return "%s · %s" % [step.get("hint", ""), step.get("map_display", "")]
+
+## Coverage helper: every quest in DB must resolve STARTED.
+static func AuditAllQuests() -> Dictionary:
+	EnsureIndex()
+	var ok : Array = []
+	var bad : Array = []
+	for questID in DB.QuestsDB:
+		var q : QuestData = DB.QuestsDB[questID]
+		var step : Dictionary = BuildStep(questID, 1) # STARTED-ish
+		if step.get("resolved", false):
+			ok.append(q.name)
+		else:
+			bad.append({"name": q.name, "nick": step.get("nick", ""), "step": step})
+	return {"ok": ok, "bad": bad, "total": DB.QuestsDB.size()}

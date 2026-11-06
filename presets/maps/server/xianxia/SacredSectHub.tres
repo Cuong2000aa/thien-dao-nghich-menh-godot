@@ -16,6 +16,13 @@
 [ext_resource type="Script" path="res://sources/scripts/xianxia/LuyenKhiChapSu.gd" id="14_luyenkhi"]
 [ext_resource type="Script" path="res://sources/scripts/xianxia/TuLinhTran.gd" id="15_tulinhtran"]
 [ext_resource type="Script" path="res://sources/scripts/xianxia/DienVoGiaoDau.gd" id="16_dienvo"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/LieuThanhY.gd" id="17_lieu"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/HaThietThu.gd" id="18_hathiet"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/DiepTuLang.gd" id="19_diep"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/MacLaoNhan.gd" id="20_mac"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/TranPhuong.gd" id="21_tran"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/BachHacChanNhan.gd" id="22_bachhac"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/KhangVanKim.gd" id="23_khang"]
 
 [sub_resource type="Resource" id="Resource_warp_to_tanthuthon"]
 script = ExtResource("3_spawn")
@@ -166,6 +173,76 @@ spawn_position = Vector2i(1300, 1150)
 respawn_delay = 0.0
 is_persistant = true
 
+[sub_resource type="Resource" id="Resource_npc_lieu"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Liễu Thanh Y"
+type = 1
+player_script = ExtResource("17_lieu")
+spawn_position = Vector2i(900, 1280)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_hathiet"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Hà Thiết Thủ"
+type = 1
+player_script = ExtResource("18_hathiet")
+spawn_position = Vector2i(1220, 1260)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_diep"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Diệp Tử Lăng"
+type = 1
+player_script = ExtResource("19_diep")
+spawn_position = Vector2i(980, 1480)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_mac"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Mặc Lão Nhân"
+type = 1
+player_script = ExtResource("20_mac")
+spawn_position = Vector2i(1080, 1240)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_tran"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Trần Phương"
+type = 1
+player_script = ExtResource("21_tran")
+spawn_position = Vector2i(1280, 1180)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_bachhac"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Bạch Hạc Chân Nhân"
+type = 1
+player_script = ExtResource("22_bachhac")
+spawn_position = Vector2i(580, 640)
+respawn_delay = 0.0
+is_persistant = true
+
+[sub_resource type="Resource" id="Resource_npc_khang"]
+script = ExtResource("3_spawn")
+id = 210196237
+nick = "Khang Vạn Kim"
+type = 1
+player_script = ExtResource("23_khang")
+spawn_position = Vector2i(1100, 1480)
+respawn_delay = 0.0
+is_persistant = true
+
 [resource]
 script = ExtResource("1_script")
 name = "SacredSectHub"
@@ -184,6 +261,13 @@ spawns = [
 	SubResource("Resource_npc_nhiemvu"),
 	SubResource("Resource_npc_luyenkhi"),
 	SubResource("Resource_tulinhtran"),
-	SubResource("Resource_npc_dienvo")
+	SubResource("Resource_npc_dienvo"),
+	SubResource("Resource_npc_lieu"),
+	SubResource("Resource_npc_hathiet"),
+	SubResource("Resource_npc_diep"),
+	SubResource("Resource_npc_mac"),
+	SubResource("Resource_npc_tran"),
+	SubResource("Resource_npc_bachhac"),
+	SubResource("Resource_npc_khang")
 ]
 flags = 0
