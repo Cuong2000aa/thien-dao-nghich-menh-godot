@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dolxuw03u60eo"]
 
 [ext_resource type="Theme" uid="uid://dhb6h35g1bk0x" path="res://data/themes/DefaultTheme.tres" id="1_q7m0j"]
-[ext_resource type="Script" uid="uid://ci85y60tfmp4o" path="res://sources/gui/Settings.gd" id="2_j3ryh"]
+[ext_resource type="Script" uid="uid://bkiorsk8ph1x8" path="res://sources/gui/Progress.gd" id="2_progress"]
 [ext_resource type="PackedScene" uid="uid://da8nt01w5gjsp" path="res://presets/gui/TitleBar.tscn" id="tb_scene"]
 
 [node name="Progress" type="PanelContainer" unique_id=1241443839]
@@ -14,7 +14,7 @@ offset_bottom = 486.0
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_q7m0j")
 theme_type_variation = &"WindowPanel"
-script = ExtResource("2_j3ryh")
+script = ExtResource("2_progress")
 saveOverlayState = true
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=2100000001]
@@ -71,11 +71,35 @@ mouse_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Description" type="RichTextLabel" parent="Layout/Margin/TabBar/QuestLog" unique_id=1900845451]
+[node name="DetailPane" type="VBoxContainer" parent="Layout/Margin/TabBar/QuestLog" unique_id=1900845450]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Description" type="RichTextLabel" parent="Layout/Margin/TabBar/QuestLog/DetailPane" unique_id=1900845451]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 bbcode_enabled = true
+
+[node name="QuestActions" type="HBoxContainer" parent="Layout/Margin/TabBar/QuestLog/DetailPane" unique_id=1900845452]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SkipButton" type="Button" parent="Layout/Margin/TabBar/QuestLog/DetailPane/QuestActions" unique_id=1900845453]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bỏ Qua Nhiệm Vụ"
+
+[node name="AbandonButton" type="Button" parent="Layout/Margin/TabBar/QuestLog/DetailPane/QuestActions" unique_id=1900845454]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Từ Bỏ"
 
 [node name="Manapedia" type="ScrollContainer" parent="Layout/Margin/TabBar" unique_id=816694770]
 visible = false

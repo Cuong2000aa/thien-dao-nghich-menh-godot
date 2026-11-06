@@ -8,7 +8,10 @@ const QuestGuidanceClass = preload("res://sources/quest/QuestGuidance.gd")
 @onready var activeQuestContainer : Container		= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/Active
 @onready var completedQuestContainer : Container	= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/Completed
 @onready var questSeparator : Separator				= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/HSeparator
-@onready var questDescription : RichTextLabel		= $Layout/Margin/TabBar/QuestLog/Description
+@onready var questDescription : RichTextLabel		= $Layout/Margin/TabBar/QuestLog/DetailPane/Description
+@onready var questActions : Control					= $Layout/Margin/TabBar/QuestLog/DetailPane/QuestActions
+@onready var skipButton : Button					= %SkipButton
+@onready var abandonButton : Button					= %AbandonButton
 @onready var bestiaryContainer : Container			= $Layout/Margin/TabBar/Manapedia/BestiaryList/Monsters
 @onready var bestiaryLabel : RichTextLabel			= $Layout/Margin/TabBar/Manapedia/BestiaryList/BestiaryLabel
 
@@ -36,6 +39,7 @@ func Clear():
 	questSeparator.set_visible(false)
 	questDescription.set_text("")
 	currentQuest = DB.UnknownHash
+	_RefreshActionButtons()
 
 	for monster in bestiaries.keys():
 		bestiaryContainer.remove_child.call_deferred(bestiaries[monster])
@@ -69,9 +73,29 @@ func RefreshQuest(questID : int, state : int):
 	if not questData:
 		return
 
+	var isInactive : bool = state <= ProgressCommons.UnknownProgress
 	var isComplete : bool = state == ProgressCommons.CompletedProgress
 	var questTitle : String = Localization.Get(questData.name, questData.name)
 	var menuLine : MenuLine = quests.get(questID)
+
+	# Abandoned / not started — remove from UI entirely
+	if isInactive:
+		if menuLine:
+			if activeQuests.get(questID, false):
+				activeQuestContainer.remove_child.call_deferred(menuLine)
+				activeQuests.erase(questID)
+			if completedQuests.get(questID, false):
+				completedQuestContainer.remove_child.call_deferred(menuLine)
+				completedQuests.erase(questID)
+			quests.erase(questID)
+			menuLine.queue_free()
+		questSeparator.set_visible(not activeQuests.is_empty() and not completedQuests.is_empty())
+		if currentQuest == questID:
+			currentQuest = DB.UnknownHash
+			questDescription.set_text("")
+			_RefreshActionButtons()
+		return
+
 	if not menuLine:
 		menuLine = MenuLine.new(questID, questTitle)
 		menuLine.set_pressed(true)
@@ -114,6 +138,7 @@ func RefreshQuestDescription(questID : int):
 
 	var questData : QuestData = DB.GetQuest(questID)
 	if not questData:
+		_RefreshActionButtons()
 		return
 
 	var qState : int = 0
@@ -155,6 +180,66 @@ func RefreshQuestDescription(questID : int):
 	if not questData.reward.is_empty():
 		questDescription.text += "Phần Thưởng:\n[color=#%s]%s[/color]\n\n" % [UICommons.WarnTextColor.to_html(false), questData.reward]
 
+	_RefreshActionButtons()
+
+func _RefreshActionButtons() -> void:
+	var canAct : bool = false
+	if currentQuest != DB.UnknownHash and Launcher.Player and Launcher.Player.progress:
+		var st : int = Launcher.Player.progress.GetQuest(currentQuest)
+		canAct = st > ProgressCommons.UnknownProgress and st < ProgressCommons.CompletedProgress
+	if questActions:
+		questActions.visible = canAct
+	if skipButton:
+		skipButton.disabled = not canAct
+	if abandonButton:
+		abandonButton.disabled = not canAct
+
+func _OnSkipPressed() -> void:
+	_PromptQuestAction(false)
+
+func _OnAbandonPressed() -> void:
+	_PromptQuestAction(true)
+
+func _PromptQuestAction(abandon : bool) -> void:
+	if currentQuest == DB.UnknownHash or Launcher.Player == null or Launcher.Player.progress == null:
+		return
+	var st : int = Launcher.Player.progress.GetQuest(currentQuest)
+	if st <= ProgressCommons.UnknownProgress or st >= ProgressCommons.CompletedProgress:
+		return
+	var questData : QuestData = DB.GetQuest(currentQuest)
+	var title : String = questData.name if questData else str(currentQuest)
+	if abandon:
+		UICommons.MessageBox(
+			"Từ bỏ nhiệm vụ [%s]?\nTiến độ sẽ bị hủy. Có thể nhận lại từ NPC giao nhiệm vụ." % title,
+			_ConfirmAbandonQuest.bind(currentQuest), "Từ Bỏ",
+			func(): pass, "Hủy"
+		)
+	else:
+		UICommons.MessageBox(
+			"Bỏ qua nhiệm vụ [%s]?\nĐánh dấu hoàn thành ngay — không nhận thưởng của nhiệm vụ này." % title,
+			_ConfirmSkipQuest.bind(currentQuest), "Bỏ Qua",
+			func(): pass, "Hủy"
+		)
+
+func _ConfirmSkipQuest(questID : int) -> void:
+	_ApplyQuestState(questID, ProgressCommons.CompletedProgress, "Đã bỏ qua nhiệm vụ (không thưởng).")
+
+func _ConfirmAbandonQuest(questID : int) -> void:
+	_ApplyQuestState(questID, ProgressCommons.UnknownProgress, "Đã từ bỏ nhiệm vụ.")
+
+func _ApplyQuestState(questID : int, state : int, notify : String) -> void:
+	if Launcher.Player == null or Launcher.Player.progress == null:
+		return
+	# Persist + sync UI (UpdateQuest path refreshes highlights / log)
+	Launcher.Player.progress.SetQuest(questID, state, true)
+	# Client.UpdateQuest may already refresh; ensure local UI even if network is quiet
+	RefreshQuest(questID, state)
+	if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):
+		Launcher.GUI.RefreshQuestGuidance()
+	Entities.RefreshQuestHighlights(questID)
+	if Launcher.GUI and Launcher.GUI.notificationLabel:
+		Launcher.GUI.notificationLabel.AddNotification(notify)
+
 func _ready():
 	var tab = get_node_or_null("Layout/Margin/TabBar")
 	if tab and tab is TabContainer:
@@ -166,6 +251,11 @@ func _ready():
 		ThemeClass.AccentRichText(questDescription)
 		if not questDescription.meta_clicked.is_connected(_OnQuestMetaClicked):
 			questDescription.meta_clicked.connect(_OnQuestMetaClicked)
+	if skipButton and not skipButton.pressed.is_connected(_OnSkipPressed):
+		skipButton.pressed.connect(_OnSkipPressed)
+	if abandonButton and not abandonButton.pressed.is_connected(_OnAbandonPressed):
+		abandonButton.pressed.connect(_OnAbandonPressed)
+	_RefreshActionButtons()
 
 func _OnQuestMetaClicked(meta : Variant) -> void:
 	if str(meta) != "goto_quest":
