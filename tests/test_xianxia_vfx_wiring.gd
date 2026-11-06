@@ -34,11 +34,16 @@ func _run():
 	var m405 = CombatSystemClass.GetMartialForSkill(182736405)
 	_assert(int(m405.get("id", 0)) == 1006, "map_quy_nguyen")
 
+	var m406 = CombatSystemClass.GetMartialForSkill(182736406)
+	_assert(int(m406.get("id", 0)) == 1008, "map_van_kiem_quy_tong")
+	_assert(Lib.Has("van_kiem_quy_tong"), "catalog_van_kiem_quy_tong")
+
 	# Direct martial id still works
 	_assert(int(CombatSystemClass.GetMartialForSkill(1002).get("id", 0)) == 1002, "map_direct_martial_id")
 
 	# Name fallback
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Quy Nguyên Hộ Thể Thuẫn")) == 1006, "map_by_name")
+	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Vạn Kiếm Quy Tông")) == 1008, "map_van_kiem_by_name")
 
 	# Unknown → empty (no false positive on raw skillID lookup into catalog)
 	_assert(CombatSystemClass.GetMartialForSkill(999999999).is_empty(), "map_unknown_empty")
@@ -64,6 +69,11 @@ func _run():
 
 	var shield = CombatVfx.CreateOrUpdateShieldVfx(host, true)
 	_assert(shield != null and is_instance_valid(shield), "spawn_spiritual_shield")
+
+	var vanKiem = CombatVfx.SpawnPixelFx(host, "van_kiem_quy_tong", Vector2(50, 50), -1.0, false, true)
+	_assert(vanKiem != null and is_instance_valid(vanKiem), "spawn_van_kiem_quy_tong")
+	var vkFrames = Lib.GetSpriteFrames("van_kiem_quy_tong")
+	_assert(vkFrames != null and vkFrames.get_frame_count("default") >= 49, "van_kiem_49_frames")
 
 	var impact = CombatVfx.SpawnImpactVfx(host, Vector2(40, 40), 2, false)
 	_assert(impact != null and is_instance_valid(impact), "spawn_impact_wood_oneshot")

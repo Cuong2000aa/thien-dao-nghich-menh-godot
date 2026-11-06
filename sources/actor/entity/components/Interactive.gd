@@ -215,6 +215,9 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					1006: # Quy Nguyên — spiritual shield
 						CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "divine_shield", emitter.global_position, -1.0, false, true)
+					1008: # Vạn Kiếm Quy Tông — full sheet sword rain ultimate
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "van_kiem_quy_tong", emitter.global_position, -1.0, false, true)
+						CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position, 130.0, 1.6)
 					_:
 						var elem : int = int(martial.get("element", 0))
 						var Lib = preload("res://sources/effects/PixelFxLibrary.gd")

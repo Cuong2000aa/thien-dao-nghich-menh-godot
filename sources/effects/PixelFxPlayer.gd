@@ -36,9 +36,9 @@ static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : 
 	# Combat / world-ground FX must never leave looping assets stuck on the map.
 	player._looping = bool(meta.get("loop", false)) and not forceOneShot
 	player.autoFree = forceOneShot or not player._looping
-	if key == "dragon_golden_spiral":
-		# ~49 frames @ 30fps; residual dark plate must not paint a black box
-		player.lifetimeCap = 3.5
+	if key == "dragon_golden_spiral" or key == "van_kiem_quy_tong":
+		# Long one-shots on dark plate — ADD blend avoids black box residual
+		player.lifetimeCap = 3.5 if key == "dragon_golden_spiral" else 2.1
 		var mat := CanvasItemMaterial.new()
 		mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 		player.material = mat

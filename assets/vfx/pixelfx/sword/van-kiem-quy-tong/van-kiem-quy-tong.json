@@ -1,0 +1,1170 @@
+{
+ "frames": [
+  {
+   "filename": "van_kiem_quy_tong 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 1",
+   "frame": {
+    "x": 219,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 2",
+   "frame": {
+    "x": 438,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 3",
+   "frame": {
+    "x": 657,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 4",
+   "frame": {
+    "x": 876,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 5",
+   "frame": {
+    "x": 1095,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 6",
+   "frame": {
+    "x": 1314,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 7",
+   "frame": {
+    "x": 0,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 8",
+   "frame": {
+    "x": 219,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 9",
+   "frame": {
+    "x": 438,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 10",
+   "frame": {
+    "x": 657,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 11",
+   "frame": {
+    "x": 876,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 12",
+   "frame": {
+    "x": 1095,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 13",
+   "frame": {
+    "x": 1314,
+    "y": 146,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 14",
+   "frame": {
+    "x": 0,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 15",
+   "frame": {
+    "x": 219,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 16",
+   "frame": {
+    "x": 438,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 17",
+   "frame": {
+    "x": 657,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 18",
+   "frame": {
+    "x": 876,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 19",
+   "frame": {
+    "x": 1095,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 20",
+   "frame": {
+    "x": 1314,
+    "y": 292,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 21",
+   "frame": {
+    "x": 0,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 22",
+   "frame": {
+    "x": 219,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 23",
+   "frame": {
+    "x": 438,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 24",
+   "frame": {
+    "x": 657,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 25",
+   "frame": {
+    "x": 876,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 26",
+   "frame": {
+    "x": 1095,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 27",
+   "frame": {
+    "x": 1314,
+    "y": 438,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 28",
+   "frame": {
+    "x": 0,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 29",
+   "frame": {
+    "x": 219,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 30",
+   "frame": {
+    "x": 438,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 31",
+   "frame": {
+    "x": 657,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 32",
+   "frame": {
+    "x": 876,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 33",
+   "frame": {
+    "x": 1095,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 34",
+   "frame": {
+    "x": 1314,
+    "y": 584,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 35",
+   "frame": {
+    "x": 0,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 36",
+   "frame": {
+    "x": 219,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 37",
+   "frame": {
+    "x": 438,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 38",
+   "frame": {
+    "x": 657,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 39",
+   "frame": {
+    "x": 876,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 40",
+   "frame": {
+    "x": 1095,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 41",
+   "frame": {
+    "x": 1314,
+    "y": 730,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 42",
+   "frame": {
+    "x": 0,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 43",
+   "frame": {
+    "x": 219,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 44",
+   "frame": {
+    "x": 438,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 45",
+   "frame": {
+    "x": 657,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 46",
+   "frame": {
+    "x": 876,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 47",
+   "frame": {
+    "x": 1095,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  },
+  {
+   "filename": "van_kiem_quy_tong 48",
+   "frame": {
+    "x": 1314,
+    "y": 876,
+    "w": 219,
+    "h": 146
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 146
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 146
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "tdnm-import",
+  "version": "1",
+  "image": "van-kiem-quy-tong.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 1533,
+   "h": 1022
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "van_kiem_quy_tong",
+    "from": 0,
+    "to": 48,
+    "direction": "forward"
+   },
+   {
+    "name": "summon",
+    "from": 0,
+    "to": 6,
+    "direction": "forward"
+   },
+   {
+    "name": "sword_formation",
+    "from": 7,
+    "to": 20,
+    "direction": "forward"
+   },
+   {
+    "name": "sword_orbit",
+    "from": 21,
+    "to": 34,
+    "direction": "forward"
+   },
+   {
+    "name": "sword_rain",
+    "from": 35,
+    "to": 41,
+    "direction": "forward"
+   },
+   {
+    "name": "impact_and_fade",
+    "from": 42,
+    "to": 48,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "sword/van-kiem-quy-tong",
+   "name": "V\u1ea1n Ki\u1ebfm Quy T\u00f4ng",
+   "fps": 30,
+   "loop": false,
+   "frames": 49,
+   "frameSize": [
+    219,
+    146
+   ],
+   "pivot": [
+    110,
+    120
+   ],
+   "columns": 7,
+   "rows": 7,
+   "sequences": {
+    "summon": {
+     "start": 0,
+     "end": 6
+    },
+    "sword_formation": {
+     "start": 7,
+     "end": 20
+    },
+    "sword_orbit": {
+     "start": 21,
+     "end": 34
+    },
+    "sword_rain": {
+     "start": 35,
+     "end": 41
+    },
+    "impact_and_fade": {
+     "start": 42,
+     "end": 48
+    }
+   }
+  }
+ }
+}

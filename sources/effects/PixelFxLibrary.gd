@@ -37,6 +37,7 @@ const CATALOG : Dictionary = {
 	"heal": "holy/heal",
 	"heal_ring": "holy/heal-aoe",
 	"dragon_golden_spiral": "cultivation/dragon-golden-spiral",
+	"van_kiem_quy_tong": "sword/van-kiem-quy-tong",
 	# Environment (god-rays deferred — sheet too large for first pass)
 	"fireflies": "weather/fireflies",
 	"falling_leaves": "weather/falling-leaves",
@@ -174,6 +175,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"heal": 0.70,
 	"heal_ring": 0.40,
 	"dragon_golden_spiral": 0.85,
+	"van_kiem_quy_tong": 0.95,
 	"fireflies": 0.50,
 	"falling_leaves": 0.45,
 	"fog": 0.50,
