@@ -123,6 +123,11 @@ func AddCharacter(info : Dictionary, equipment : Dictionary, slotID : int = Acto
 	entity.stat.gender		= info["gender"]
 	entity.stat.race		= info["race"]
 	entity.stat.skintone	= info["skintone"]
+	# Swordsman has no paperdoll slots — re-apply cosmetics after stats are set
+	if entity.visual:
+		entity.visual.SetBody()
+		entity.visual.SetFace()
+		entity.visual.SetHair()
 
 	RemoveCharacter(availableSlot)
 	charactersInfo[availableSlot] = info

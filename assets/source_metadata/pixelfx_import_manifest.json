@@ -5,6 +5,10 @@
   "export_command": "node tools/render.mjs <ids> --sheet --no-actor",
   "import_root": "res://assets/vfx/pixelfx",
   "build": 12,
-  "notes": "god-rays deferred (sheet size). JS runtime not shipped in Godot project.",
-  "effect_count": 33
+  "notes": "god-rays deferred (sheet size). JS runtime not shipped in Godot project. Batch 2 adds combat/element/status/weather sheets.",
+  "effect_count": 110,
+  "batches": [
+    "export_tdnm_sheets.sh",
+    "export_tdnm_batch2.sh"
+  ]
 }
