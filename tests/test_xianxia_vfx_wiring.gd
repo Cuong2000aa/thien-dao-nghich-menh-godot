@@ -42,6 +42,28 @@ func _run():
 	_assert(int(m407.get("id", 0)) == 1009, "map_nhat_kiem_tram_thien_mon")
 	_assert(Lib.Has("nhat_kiem_tram_thien_mon"), "catalog_nhat_kiem_tram_thien_mon")
 
+	# New phép + tu tiên batch (1010–1017)
+	var newBatch := {
+		182736408: [1010, "flamethrower"],
+		182736409: [1011, "ice_lance"],
+		182736410: [1012, "lightning_strike"],
+		182736411: [1013, "soul_drain"],
+		182736412: [1014, "holy_pillar"],
+		182736413: [1015, "earth_stomp"],
+		182736414: [1016, "chain_lightning"],
+		182736415: [1017, "black_hole"],
+	}
+	for skillId in newBatch:
+		var expect = newBatch[skillId]
+		var mid : int = int(expect[0])
+		var fx : String = String(expect[1])
+		var m = CombatSystemClass.GetMartialForSkill(int(skillId))
+		_assert(int(m.get("id", 0)) == mid, "map_new_%d" % mid)
+		_assert(String(m.get("fxKey", "")) == fx, "fxkey_%d" % mid)
+		_assert(Lib.Has(fx), "catalog_%s" % fx)
+		var fx2 : String = String(m.get("fxKey2", ""))
+		_assert(not fx2.is_empty() and Lib.Has(fx2), "catalog2_%d" % mid)
+
 	# Direct martial id still works
 	_assert(int(CombatSystemClass.GetMartialForSkill(1002).get("id", 0)) == 1002, "map_direct_martial_id")
 
@@ -49,6 +71,8 @@ func _run():
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Quy Nguyên Hộ Thể Thuẫn")) == 1006, "map_by_name")
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Vạn Kiếm Quy Tông")) == 1008, "map_van_kiem_by_name")
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Nhất Kiếm Trảm Thiên Môn")) == 1009, "map_nhat_kiem_by_name")
+	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Hỏa Long Phun Tức")) == 1010, "map_hoa_long_by_name")
+	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Hư Không Hấp Tinh")) == 1017, "map_hu_khong_by_name")
 
 	# Unknown → empty (no false positive on raw skillID lookup into catalog)
 	_assert(CombatSystemClass.GetMartialForSkill(999999999).is_empty(), "map_unknown_empty")

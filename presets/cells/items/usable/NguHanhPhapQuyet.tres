@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemCell" format=3 uid="uid://cxnguhanhphap01"]
+
+[ext_resource type="Texture2D" uid="uid://bndieinr0kcie" path="res://data/graphics/items/skill/spell.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://bsjkeucmohr0d" path="res://sources/cell/ItemCell.gd" id="2_item"]
+[ext_resource type="Script" path="res://sources/scripts/xianxia/LearnNguHanhPhapQuyet.gd" id="3_script"]
+
+[resource]
+script = ExtResource("2_item")
+buyPrice = 3000
+sellPrice = 750
+id = 182736500
+name = "Ngũ Hành Pháp Quyết"
+description = "Bí quyết pháp thuật ngũ hành — dùng để lĩnh hội 8 tuyệt học phép–tu tiên (Hỏa Long, Hàn Băng, Lôi Phạt, Huyền Âm, Thánh Quang, Địa Long, Tử Lôi, Hư Không)."
+icon = ExtResource("1_icon")
+weight = 0.5
+stackable = false
+usable = true
+cellScript = ExtResource("3_script")

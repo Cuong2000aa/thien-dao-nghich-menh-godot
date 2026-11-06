@@ -217,17 +217,19 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					1006: # Quy Nguyên — spiritual shield
 						CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "divine_shield", emitter.global_position, -1.0, false, true)
-					1008: # Vạn Kiếm Quy Tông — sheet already has array+rain; no extra procedural layer
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "van_kiem_quy_tong", emitter.global_position, -1.0, false, true)
-					1009: # Nhất Kiếm Trảm Thiên Môn — sheet is full sky-split slash; no extra smear
-						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "nhat_kiem_tram_thien_mon", emitter.global_position, -1.0, false, true)
 					_:
-						var elem : int = int(martial.get("element", 0))
-						var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
-						var key : String = Lib.ElementKey(elem, false)
-						if key == "hit_spark":
-							key = "mana_burst"
+						# Prefer martial fxKey / fxKey2 (new phép+tu tiên skills + ultimates)
+						var key : String = String(martial.get("fxKey", ""))
+						if key.is_empty():
+							var elem : int = int(martial.get("element", 0))
+							var Lib = preload("res://sources/effects/PixelFxLibrary.gd")
+							key = Lib.ElementKey(elem, false)
+							if key == "hit_spark":
+								key = "mana_burst"
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key, emitter.global_position, -1.0, false, true)
+						var key2 : String = String(martial.get("fxKey2", ""))
+						if not key2.is_empty():
+							CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, key2, emitter.global_position, -1.0, false, true)
 
 func DisplayProjectile(targetPos : Vector2, skill : SkillCell):
 	if Launcher.Map.currentFringe and skill and skill.projectilePreset:

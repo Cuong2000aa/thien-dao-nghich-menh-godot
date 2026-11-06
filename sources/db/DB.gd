@@ -74,7 +74,8 @@ static func ParseEntitiesDB():
 static func ParseCellDB(db : Dictionary, path : String):
 	for resourcePath in FileSystem.ParseResources(path):
 		var cell : BaseCell = FileSystem.LoadResource(resourcePath, false)
-		cell.id = SetCellHash(cell.name)
+		# Preserve explicit id from .tres when set (xianxia skills); else name.hash()
+		cell.id = SetCellHash(cell.name, cell.id)
 		if cell.id != UnknownHash:
 			db[cell.id] = cell
 		if cell is ItemCell:

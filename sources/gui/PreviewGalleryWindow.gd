@@ -367,6 +367,22 @@ func _GuessFxForSkill(cell : SkillCell) -> String:
 		return "van_kiem_quy_tong"
 	if "nhất kiếm" in n or "thiên môn" in n or "trảm thiên" in n:
 		return "nhat_kiem_tram_thien_mon"
+	if "hỏa long" in n or "phun tức" in n:
+		return "flamethrower"
+	if "hàn băng" in n or "thiên kiếm" in n:
+		return "ice_lance"
+	if "lôi phạt" in n or "cửu thiên" in n:
+		return "lightning_strike"
+	if "huyền âm" in n or "thôn hồn" in n:
+		return "soul_drain"
+	if "thánh quang" in n or "hộ đạo" in n:
+		return "holy_pillar"
+	if "địa long" in n or "phá sơn" in n:
+		return "earth_stomp"
+	if "tử lôi" in n or "liên hoàn" in n:
+		return "chain_lightning"
+	if "hư không" in n or "hấp tinh" in n:
+		return "black_hole"
 	if "kiếm" in n or "slash" in n or "cleave" in n:
 		return "slash"
 	if "phong" in n or "leaf" in n or "mộc" in n:

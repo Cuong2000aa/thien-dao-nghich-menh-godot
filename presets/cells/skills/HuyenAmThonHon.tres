@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="SkillCell" format=3 uid="uid://cxbhuyen11"]
+
+[ext_resource type="Texture2D" uid="uid://d3dkgbn68guu8" path="res://data/graphics/items/skill/morph.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://l20aaqylleqo" path="res://sources/cell/SkillCell.gd" id="2_skill"]
+[ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
+[ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="4_cell"]
+
+[sub_resource type="Resource" id="Resource_atk"]
+script = ExtResource("3_stat")
+_effect = 20
+_value = 55.0
+
+[sub_resource type="Resource" id="Resource_mana"]
+script = ExtResource("3_stat")
+_effect = 2
+_value = -15.0
+
+[sub_resource type="Resource" id="Resource_mod"]
+script = ExtResource("4_cell")
+_modifiers = Array[ExtResource("3_stat")]([SubResource("Resource_atk"), SubResource("Resource_mana")])
+
+[resource]
+script = ExtResource("2_skill")
+category = 0
+state = 3
+skillRange = 100
+mode = 0
+repeat = false
+cooldownTime = 6.0
+castTime = 0.4
+skillTime = 1.3
+id = 182736411
+name = "Huyền Âm Thôn Hồn"
+description = "Huyền âm nuốt hồn, bóng tối rút linh khí địch — âm pháp bí thuật Thủy-âm."
+icon = ExtResource("1_icon")
+type = 2
+weight = 0.0
+usable = true
+modifiers = SubResource("Resource_mod")

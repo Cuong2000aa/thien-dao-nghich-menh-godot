@@ -89,6 +89,14 @@ const SKILL_CELL_TO_MARTIAL : Dictionary = {
 	182736405: 1006, # Quy Nguyên Hộ Thể Thuẫn
 	182736406: 1008, # Vạn Kiếm Quy Tông
 	182736407: 1009, # Nhất Kiếm Trảm Thiên Môn
+	182736408: 1010, # Hỏa Long Phun Tức
+	182736409: 1011, # Hàn Băng Thiên Kiếm
+	182736410: 1012, # Lôi Phạt Cửu Thiên
+	182736411: 1013, # Huyền Âm Thôn Hồn
+	182736412: 1014, # Thánh Quang Hộ Đạo
+	182736413: 1015, # Địa Long Phá Sơn
+	182736414: 1016, # Tử Lôi Liên Hoàn
+	182736415: 1017, # Hư Không Hấp Tinh
 }
 
 ## Display / fallback name → martial id (when only SkillCell.name is known).
@@ -102,6 +110,14 @@ const SKILL_NAME_TO_MARTIAL : Dictionary = {
 	"Bản Nguyên Kiếm Ý": 1007,
 	"Vạn Kiếm Quy Tông": 1008,
 	"Nhất Kiếm Trảm Thiên Môn": 1009,
+	"Hỏa Long Phun Tức": 1010,
+	"Hàn Băng Thiên Kiếm": 1011,
+	"Lôi Phạt Cửu Thiên": 1012,
+	"Huyền Âm Thôn Hồn": 1013,
+	"Thánh Quang Hộ Đạo": 1014,
+	"Địa Long Phá Sơn": 1015,
+	"Tử Lôi Liên Hoàn": 1016,
+	"Hư Không Hấp Tinh": 1017,
 }
 
 ## Resolve martial data from SkillCell.id, martial id, or skill display name.
@@ -232,6 +248,117 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 16.0,
 		"radius": 160,
 		"fxKey": "nhat_kiem_tram_thien_mon"
+	},
+	1010: {
+		"id": 1010,
+		"name": "Hỏa Long Phun Tức",
+		"category": Category.SECRET,
+		"element": Element.FIRE,
+		"grade": Grade.MYSTIC,
+		"reqRealm": 2,
+		"description": "Ngưng hóa long tức phun lửa — pháp thuật Hỏa hệ tu tiên, thiêu đốt diện rộng.",
+		"qiCost": 12,
+		"cooldown": 5.0,
+		"radius": 120,
+		"fxKey": "flamethrower",
+		"fxKey2": "fireball"
+	},
+	1011: {
+		"id": 1011,
+		"name": "Hàn Băng Thiên Kiếm",
+		"category": Category.SWORD,
+		"element": Element.WATER,
+		"grade": Grade.MYSTIC,
+		"reqRealm": 2,
+		"description": "Ngưng băng thành kiếm khí xuyên thấu — Thủy hệ kiếm pháp kết hợp hàn băng pháp thuật.",
+		"qiCost": 10,
+		"cooldown": 4.0,
+		"range": 180,
+		"fxKey": "ice_lance",
+		"fxKey2": "ice_shatter"
+	},
+	1012: {
+		"id": 1012,
+		"name": "Lôi Phạt Cửu Thiên",
+		"category": Category.SECRET,
+		"element": Element.METAL,
+		"grade": Grade.EARTH,
+		"reqRealm": 3,
+		"description": "Triệu cửu thiên lôi phạt giáng xuống — Kim lôi pháp quyết sát phạt diện rộng.",
+		"qiCost": 18,
+		"cooldown": 8.0,
+		"radius": 150,
+		"fxKey": "lightning_strike",
+		"fxKey2": "thunderclap"
+	},
+	1013: {
+		"id": 1013,
+		"name": "Huyền Âm Thôn Hồn",
+		"category": Category.SECRET,
+		"element": Element.WATER,
+		"grade": Grade.EARTH,
+		"reqRealm": 3,
+		"description": "Huyền âm nuốt hồn, bóng tối rút linh khí địch — âm pháp bí thuật.",
+		"qiCost": 15,
+		"cooldown": 6.0,
+		"range": 100,
+		"fxKey": "soul_drain",
+		"fxKey2": "shadow_flames"
+	},
+	1014: {
+		"id": 1014,
+		"name": "Thánh Quang Hộ Đạo",
+		"category": Category.SECRET,
+		"element": Element.WOOD,
+		"grade": Grade.MYSTIC,
+		"reqRealm": 2,
+		"description": "Thánh quang hộ đạo — hồi phục khí huyết và thanh tẩy ngoại ma.",
+		"qiCost": 8,
+		"cooldown": 7.0,
+		"fxKey": "holy_pillar",
+		"fxKey2": "heal_aoe"
+	},
+	1015: {
+		"id": 1015,
+		"name": "Địa Long Phá Sơn",
+		"category": Category.FIST,
+		"element": Element.EARTH,
+		"grade": Grade.EARTH,
+		"reqRealm": 3,
+		"description": "Địa long trồi lên phá núi — Thổ hệ quyền pháp kết hợp pháp trận chấn địa.",
+		"qiCost": 14,
+		"cooldown": 6.5,
+		"radius": 110,
+		"fxKey": "earth_stomp",
+		"fxKey2": "boulder"
+	},
+	1016: {
+		"id": 1016,
+		"name": "Tử Lôi Liên Hoàn",
+		"category": Category.SECRET,
+		"element": Element.METAL,
+		"grade": Grade.MYSTIC,
+		"reqRealm": 2,
+		"description": "Tử lôi nhảy giữa các mục tiêu — liên hoàn lôi pháp Kim hệ.",
+		"qiCost": 9,
+		"cooldown": 3.5,
+		"range": 200,
+		"fxKey": "chain_lightning",
+		"fxKey2": "spark_arc"
+	},
+	1017: {
+		"id": 1017,
+		"name": "Hư Không Hấp Tinh",
+		"category": Category.SECRET,
+		"element": Element.FIRE,
+		"grade": Grade.HEAVEN,
+		"reqRealm": 4,
+		"description": "Mở hư không hấp tinh trận — nuốt linh khí vào điểm vô cực.",
+		"qiCost": 24,
+		"cooldown": 14.0,
+		"radius": 130,
+		"fxKey": "black_hole",
+		"fxKey2": "void_orb"
 	}
 }
 
