@@ -37,6 +37,19 @@ const SWORDSMAN_DIRECTIONS = [
 	"west", "north-west", "north", "north-east"
 ]
 
+## M1.3 — 8-dir layer sockets (local px on Visual, relative to Swordsman feet)
+## hair/face/weapon/shield: Vector2 offset; flip_h for west-facing sheets
+const SWORDSMAN_LAYER_SOCKETS : Dictionary = {
+	"south": {"hair": Vector2(0, -30), "face": Vector2(0, -22), "weapon": Vector2(11, 2), "shield": Vector2(-10, 4), "flip_h": false},
+	"south-east": {"hair": Vector2(5, -29), "face": Vector2(4, -21), "weapon": Vector2(13, 4), "shield": Vector2(-7, 5), "flip_h": false},
+	"east": {"hair": Vector2(6, -28), "face": Vector2(5, -20), "weapon": Vector2(14, 2), "shield": Vector2(-6, 3), "flip_h": false},
+	"north-east": {"hair": Vector2(4, -31), "face": Vector2(3, -23), "weapon": Vector2(12, -2), "shield": Vector2(-8, 1), "flip_h": false},
+	"north": {"hair": Vector2(0, -32), "face": Vector2(0, -24), "weapon": Vector2(-10, 0), "shield": Vector2(10, 2), "flip_h": false},
+	"north-west": {"hair": Vector2(-4, -31), "face": Vector2(-3, -23), "weapon": Vector2(-12, -2), "shield": Vector2(8, 1), "flip_h": true},
+	"west": {"hair": Vector2(-6, -28), "face": Vector2(-5, -20), "weapon": Vector2(-14, 2), "shield": Vector2(6, 3), "flip_h": true},
+	"south-west": {"hair": Vector2(-5, -29), "face": Vector2(-4, -21), "weapon": Vector2(-13, 4), "shield": Vector2(7, 5), "flip_h": true},
+}
+
 var sprites : Array[Sprite2D]				= []
 
 var previousOrientation : Vector2			= Vector2.ZERO
@@ -286,37 +299,93 @@ func _EnsureSwordsmanCosmeticSprite(slot : int) -> Sprite2D:
 		add_child(sprite)
 	return sprite
 
+func _SwordsmanSocket(dir : String = "") -> Dictionary:
+	var key := dir if not dir.is_empty() else currentDirection
+	if not SWORDSMAN_LAYER_SOCKETS.has(key):
+		key = "south"
+	return SWORDSMAN_LAYER_SOCKETS[key]
+
+func _HairFrameForDirection(dir : String, hframes : int) -> int:
+	if hframes <= 1:
+		return 0
+	# Classic SoM hair strip: 0 front, 1 ¾, 2 back, 3 ¾, 4 side
+	if hframes >= 5:
+		match dir:
+			"south":
+				return 0
+			"south-east", "south-west":
+				return 1
+			"north":
+				return 2
+			"north-east", "north-west":
+				return 3
+			"east", "west":
+				return 4
+			_:
+				return 0
+	var idx : int = SWORDSMAN_DIRECTIONS.find(dir)
+	if idx < 0:
+		idx = 2
+	return clampi(idx % hframes, 0, hframes - 1)
+
+func _IsBaldHairstyle() -> bool:
+	if entity == null or entity.stat == null:
+		return false
+	var hs = DB.GetHairstyle(entity.stat.hairstyle) if entity.stat.hairstyle != DB.UnknownHash else null
+	if hs == null:
+		return false
+	var n : String = String(hs._name).to_lower()
+	return n == "bald" or n.contains("bald") or n.contains("trọc")
+
 func _TuneSwordsmanCosmeticSprite(sprite : Sprite2D, slot : int) -> void:
 	if sprite == null:
 		return
-	sprite.visible = sprite.texture != null
-	sprite.z_index = 7 if slot == ActorCommons.Slot.HAIR else 6
-	# Sit on Swordsman head (sheet feet-offset already applied on AnimatedSprite2D)
-	var head := Vector2(2, -26)
-	if animatedSprite:
-		head += animatedSprite.offset * 0.15
+	var sock : Dictionary = _SwordsmanSocket()
+	var flip : bool = bool(sock.get("flip_h", false))
+	# Attack / combo: nudge layers with larger foot cell
+	var actionLift := Vector2.ZERO
+	if currentAction in ["attack", "combo", "qinggong"]:
+		actionLift = Vector2(0, -4)
+	elif currentAction == "hurt":
+		actionLift = Vector2(0, -2)
+
 	match slot:
 		ActorCommons.Slot.HAIR:
-			sprite.position = head + Vector2(0, -6)
-			sprite.scale = Vector2(1.05, 1.05)
-		ActorCommons.Slot.FACE:
-			sprite.position = head + Vector2(0, 2)
-			sprite.scale = Vector2(1.0, 1.0)
-			# Face sheets often lack HairstyleData meta — slice like paperdoll Hair (5)
+			sprite.z_index = 8
+			sprite.position = sock.get("hair", Vector2(0, -30)) + actionLift
+			sprite.scale = Vector2(1.15, 1.15)
+			sprite.flip_h = flip
+			# Bald / empty texture → hide (Swordsman sheet already has baked hair; overlay only when styled)
+			var showHair := sprite.texture != null and not _IsBaldHairstyle()
+			sprite.visible = showHair
 			if sprite.texture and sprite.hframes <= 1:
 				var tw : int = sprite.texture.get_width()
 				var th : int = maxi(1, sprite.texture.get_height())
 				if tw >= th * 2:
 					sprite.hframes = maxi(2, tw / th)
 					sprite.vframes = 1
+			if sprite.hframes > 1:
+				sprite.frame = _HairFrameForDirection(currentDirection, sprite.hframes)
+		ActorCommons.Slot.FACE:
+			sprite.z_index = 7
+			sprite.position = sock.get("face", Vector2(0, -22)) + actionLift
+			sprite.scale = Vector2(1.05, 1.05)
+			sprite.flip_h = flip
+			sprite.visible = sprite.texture != null
+			# Hide face when looking mostly north (back of head)
+			if currentDirection in ["north", "north-east", "north-west"]:
+				sprite.visible = false
+			if sprite.texture and sprite.hframes <= 1:
+				var tw2 : int = sprite.texture.get_width()
+				var th2 : int = maxi(1, sprite.texture.get_height())
+				if tw2 >= th2 * 2:
+					sprite.hframes = maxi(2, tw2 / th2)
+					sprite.vframes = 1
+			if sprite.visible and sprite.hframes > 1:
+				sprite.frame = _HairFrameForDirection(currentDirection, sprite.hframes)
 		_:
-			sprite.position = head
+			sprite.position = sock.get("hair", Vector2.ZERO)
 			sprite.scale = Vector2.ONE
-	# Paperdoll sheets are multi-frame — pick a stable idle column for preview
-	if sprite.hframes > 1:
-		sprite.frame = mini(2, sprite.hframes - 1)
-	else:
-		sprite.frame = 0
 
 func _ApplySwordsmanSkintone(raceData : RaceData) -> void:
 	if animatedSprite == null or raceData == null:
@@ -326,12 +395,11 @@ func _ApplySwordsmanSkintone(raceData : RaceData) -> void:
 		animatedSprite.material = skinMat
 	else:
 		animatedSprite.material = null
-	# Soft gender cue when material missing (female slightly cooler tint)
-	if skinMat == null:
-		if entity.stat.gender == ActorCommons.Gender.FEMALE:
-			animatedSprite.modulate = Color(1.05, 0.98, 1.02, 1.0)
-		else:
-			animatedSprite.modulate = Color.WHITE
+	# Gender readability without swapping the whole 512-frame sheet
+	if entity.stat.gender == ActorCommons.Gender.FEMALE:
+		animatedSprite.modulate = Color(1.06, 0.96, 1.04, 1.0) if skinMat == null else Color(1.03, 0.98, 1.02, 1.0)
+	else:
+		animatedSprite.modulate = Color.WHITE
 
 func _SyncSwordsmanCosmetics():
 	for slot in [ActorCommons.Slot.HAIR, ActorCommons.Slot.FACE]:
@@ -339,6 +407,22 @@ func _SyncSwordsmanCosmetics():
 		var sprite : Sprite2D = get_node_or_null("SwordsmanCosmetic_%s" % slotName) as Sprite2D
 		if sprite:
 			_TuneSwordsmanCosmeticSprite(sprite, slot)
+	# Keep weapon/shield glued to hand sockets while turning
+	for slot in [ActorCommons.Slot.WEAPON, ActorCommons.Slot.SHIELD]:
+		var overlay : Sprite2D = get_node_or_null("SwordsmanEquip_%d" % slot) as Sprite2D
+		if overlay and overlay.texture:
+			_PositionSwordsmanEquipOverlay(overlay, slot)
+
+func _PositionSwordsmanEquipOverlay(overlay : Sprite2D, slot : int) -> void:
+	var sock : Dictionary = _SwordsmanSocket()
+	var key := "weapon" if slot == ActorCommons.Slot.WEAPON else "shield"
+	overlay.position = sock.get(key, Vector2(12, 0))
+	overlay.flip_h = bool(sock.get("flip_h", false))
+	overlay.z_index = 9 if slot == ActorCommons.Slot.WEAPON else 5
+	# Slight bob with attack wind-up
+	if currentAction in ["attack", "combo"]:
+		overlay.position += Vector2(2 if not overlay.flip_h else -2, -3)
+	overlay.scale = Vector2(0.42, 0.42)
 
 func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = true):
 	var slotName : String = ActorCommons.GetSlotName(slot)
@@ -384,7 +468,7 @@ func SetEquipment(slot : int, data : EntityData = null, applyOverrides : bool = 
 	if applyOverrides:
 		ApplyAnimationOverrides()
 
-## Minimal paperdoll bridge for Swordsman: weapon/shield icon overlay + body tint when armed.
+## M1.3 paperdoll bridge: weapon/shield follow 8-dir hand sockets on Swordsman.
 func _ApplySwordsmanEquipOverlay(slot : int, cell : ItemCell) -> void:
 	if slot != ActorCommons.Slot.WEAPON and slot != ActorCommons.Slot.SHIELD:
 		return
@@ -393,15 +477,20 @@ func _ApplySwordsmanEquipOverlay(slot : int, cell : ItemCell) -> void:
 	if cell == null:
 		if overlay:
 			overlay.queue_free()
-		if slot == ActorCommons.Slot.WEAPON and animatedSprite:
-			animatedSprite.modulate = Color.WHITE
 		SetEquipmentMetadata(slot, null)
+		# Restore skintone/gender modulate (weapon used to force a gold tint)
+		if entity and entity.stat and entity.stat.race != DB.UnknownHash:
+			var raceData : RaceData = DB.GetRace(entity.stat.race)
+			if raceData:
+				_ApplySwordsmanSkintone(raceData)
+		elif animatedSprite:
+			animatedSprite.modulate = Color.WHITE
 		return
 	if overlay == null:
 		overlay = Sprite2D.new()
 		overlay.name = overlayName
-		overlay.z_index = 6
 		overlay.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		overlay.centered = true
 		add_child(overlay)
 	var tex : Texture2D = null
 	if cell.textures.size() > entity.stat.gender:
@@ -409,12 +498,17 @@ func _ApplySwordsmanEquipOverlay(slot : int, cell : ItemCell) -> void:
 	if tex == null and cell.textures.size() > 0:
 		tex = cell.textures[0]
 	overlay.texture = tex
-	overlay.scale = Vector2(0.45, 0.45)
-	overlay.position = Vector2(14, -6) if slot == ActorCommons.Slot.WEAPON else Vector2(-12, -4)
 	overlay.visible = tex != null
-	if slot == ActorCommons.Slot.WEAPON and animatedSprite:
-		# Soft jade/metal tint so equip is readable even when item has no gender texture
-		animatedSprite.modulate = Color(1.08, 1.05, 0.92, 1.0)
+	if tex:
+		# Slice multi-frame gear icons like cosmetics
+		if overlay.hframes <= 1:
+			var tw : int = tex.get_width()
+			var th : int = maxi(1, tex.get_height())
+			if tw >= th * 2:
+				overlay.hframes = maxi(2, tw / th)
+				overlay.vframes = 1
+				overlay.frame = 0
+		_PositionSwordsmanEquipOverlay(overlay, slot)
 	SetEquipmentMetadata(slot, cell)
 
 func AddEquipmentEffect(slot : int, light : Node2D):
