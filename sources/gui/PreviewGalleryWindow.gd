@@ -341,20 +341,32 @@ func _PlaySkill(index : int):
 		_SetStatus("Chưa vào map — không thử được chiêu.")
 		return
 
-	var key := _GuessFxForSkill(cell)
-	CombatVisualSystemClass.SpawnPixelFx(parent, key, pos, -1.0, false, true)
-	if key != "mana_burst":
-		CombatVisualSystemClass.SpawnPixelFx(parent, "mana_burst", pos + Vector2(0, -12), 0.35, false, true)
+	# Prefer real cast path (Interactive.DisplaySkill) — already wires martial FX.
+	# Extra guessed PixelFX + mana_burst used to stack 2–3 layers (looked like spam/jumble).
+	var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
+	var martial : Dictionary = CombatSystemClass.GetMartialForSkill(cell.id, cell.name)
+	var hasMartialFx : bool = not martial.is_empty() and int(martial.get("id", 0)) >= 1002
 
 	var player = _ActiveEntity()
 	if player and player.interactive:
 		player.interactive.DisplayCast(cell.id)
 		player.interactive.DisplaySkill(player, cell.id, 0.0)
+		_SetStatus("Thử chiêu: %s (cast path)" % cell.name)
+		return
 
+	# Fallback when no player entity: single PixelFX only
+	var key := _GuessFxForSkill(cell)
+	if hasMartialFx and martial.has("fxKey"):
+		key = String(martial.get("fxKey"))
+	CombatVisualSystemClass.SpawnPixelFx(parent, key, pos, -1.0, false, true)
 	_SetStatus("Thử chiêu: %s → FX [%s]" % [cell.name, key])
 
 func _GuessFxForSkill(cell : SkillCell) -> String:
 	var n : String = String(cell.name).to_lower()
+	if "vạn kiếm" in n or "quy tông" in n:
+		return "van_kiem_quy_tong"
+	if "nhất kiếm" in n or "thiên môn" in n or "trảm thiên" in n:
+		return "nhat_kiem_tram_thien_mon"
 	if "kiếm" in n or "slash" in n or "cleave" in n:
 		return "slash"
 	if "phong" in n or "leaf" in n or "mộc" in n:

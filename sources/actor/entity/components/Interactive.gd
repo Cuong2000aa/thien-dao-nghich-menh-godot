@@ -179,20 +179,22 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 		if skill:
 			if emitter == Launcher.Player and cooldown > 0.0:
 				skill.used.emit(cooldown)
-			if skill.skillPreset:
+			# PixelFX / xianxia VFX on cast: skills only (melee stays clean — slash happens on hit).
+			var isMelee : bool = skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
+			var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
+			var martial : Dictionary = CombatSystemClass.GetMartialForSkill(skillID, skill.name)
+			var martialId : int = int(martial.get("id", 0))
+			# Skip legacy GPUParticles when we already have dedicated martial VFX (avoids double clutter)
+			var useLegacyParticles : bool = skill.skillPreset != null and martialId == 0
+			if useLegacyParticles:
 				var skillFx : GPUParticles2D = skill.skillPreset.instantiate()
 				if skillFx:
 					skillFx.finished.connect(Util.RemoveNode.bind(skillFx, emitter))
 					skillFx.lifetime = skill.skillTime
 					skillFx.emitting = true
 					emitter.add_child(skillFx)
-			# PixelFX / xianxia VFX on cast: skills only (melee stays clean — slash happens on hit).
-			var isMelee : bool = skill.name == SkillCommons.SkillMeleeName or skillID == 229218829
 			if not isMelee and Launcher.Map and Launcher.Map.currentFringe and emitter:
-				var CombatSystemClass = preload("res://sources/combat/CombatSystem.gd")
 				var CombatVisualSystemClass = preload("res://sources/combat/CombatVisualSystem.gd")
-				var martial : Dictionary = CombatSystemClass.GetMartialForSkill(skillID, skill.name)
-				var martialId : int = int(martial.get("id", 0))
 				var facing : Vector2 = Vector2.RIGHT
 				if emitter.entityVelocity.length_squared() > 4.0:
 					facing = emitter.entityVelocity
@@ -215,12 +217,10 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					1006: # Quy Nguyên — spiritual shield
 						CombatVisualSystemClass.CreateOrUpdateShieldVfx(emitter, true)
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "divine_shield", emitter.global_position, -1.0, false, true)
-					1008: # Vạn Kiếm Quy Tông — full sheet sword rain ultimate
+					1008: # Vạn Kiếm Quy Tông — sheet already has array+rain; no extra procedural layer
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "van_kiem_quy_tong", emitter.global_position, -1.0, false, true)
-						CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position, 130.0, 1.6)
-					1009: # Nhất Kiếm Trảm Thiên Môn — sky-split slash ultimate (ADD, no black plate)
+					1009: # Nhất Kiếm Trảm Thiên Môn — sheet is full sky-split slash; no extra smear
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "nhat_kiem_tram_thien_mon", emitter.global_position, -1.0, false, true)
-						CombatVisualSystemClass.SpawnMeleeSlashVfx(Launcher.Map.currentFringe, emitter.global_position, facing, true)
 					_:
 						var elem : int = int(martial.get("element", 0))
 						var Lib = preload("res://sources/effects/PixelFxLibrary.gd")

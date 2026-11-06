@@ -371,10 +371,11 @@ func _EnsurePreviewButton():
 	previewButton.pressed.connect(OpenPreviewGallery)
 	# Host on GUI overlay (not this VBox) so layout không đẩy nút.
 	# Gui is CanvasLayer — use Node, not Control, for the host type.
+	# Deferred: parent may still be mid-_ready ("busy setting up children") on web.
 	var host : Node = Launcher.GUI if Launcher.GUI else get_parent()
 	if host == null:
 		host = self
-	host.add_child(previewButton)
+	host.add_child.call_deferred(previewButton)
 	previewButton.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	previewButton.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	previewButton.offset_left = -148
