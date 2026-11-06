@@ -7,5 +7,6 @@ y_sort_enabled = true
 scale = Vector2(1.2, 1.2)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+centered = false
 sprite_frames = ExtResource("1_frames")
 animation = &"idle_south"

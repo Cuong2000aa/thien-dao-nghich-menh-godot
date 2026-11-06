@@ -655,12 +655,11 @@ func GetSwordsmanAction(st : ActorCommons.State, isMoving : bool) -> String:
 
 func _process(delta : float):
 	# 1. Subtle idle breathing secondary motion
-	if currentAction == "idle":
+	# Skip non-uniform scale when sprite uses top-left + foot offset (would lift feet off the ring).
+	if currentAction == "idle" and animatedSprite and animatedSprite.centered:
 		idleBreathTime += delta * 2.8
 		var breathScale = 1.0 + sin(idleBreathTime) * 0.015
-		var targetNode = animatedSprite if animatedSprite else (preset if preset is CanvasItem else null)
-		if targetNode and is_instance_valid(targetNode):
-			targetNode.scale = Vector2(1.0 / breathScale, breathScale)
+		animatedSprite.scale = Vector2(1.0 / breathScale, breathScale)
 	elif animatedSprite:
 		animatedSprite.scale = Vector2.ONE
 
@@ -689,6 +688,8 @@ func UpdateSwordsmanVisual(vel : Vector2, orientation : Vector2, st : ActorCommo
 	if animatedSprite.sprite_frames.has_animation(animName):
 		if animatedSprite.animation != animName or not animatedSprite.is_playing():
 			animatedSprite.play(animName)
+		# Top-left origin so foot_px maps to entity (0,0) — default centered=true floats the body above the selection ring.
+		animatedSprite.centered = false
 		var foot : Vector2 = _FootForAction(action)
 		animatedSprite.offset = -foot
 

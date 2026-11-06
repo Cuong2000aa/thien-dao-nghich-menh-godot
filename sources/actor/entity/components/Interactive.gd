@@ -56,10 +56,6 @@ func DisplaySelection(hue : float, alpha : float = 1.0):
 		if selectionFx and ActorCommons.interactionDisplayOffset > 0:
 			var targetRadius : int = entity.data._radius if entity.data else ActorCommons.selectionRadius
 			var sizeRatio : float = float(targetRadius) / float(ActorCommons.selectionRadius)
-			# Keep ring at entity feet (sprite foot-anchor already at origin)
-			selectionFx.position = Vector2.ZERO
-			if entity.data and entity.data._groundOffset != 0:
-				selectionFx.position.y = -entity.data._groundOffset
 			var emissionShapeScale : Vector3 = selectionFx.process_material.get("emission_shape_scale")
 			if emissionShapeScale != Vector3.ZERO:
 				var emissionShapeOffset : Vector3 = selectionFx.process_material.get("emission_shape_offset")
@@ -69,6 +65,8 @@ func DisplaySelection(hue : float, alpha : float = 1.0):
 				selectionFx.process_material.set("gravity", emissionGravity * sizeRatio)
 			selectionFx.amount_ratio = sizeRatio
 
+	SyncSelectionToFeet()
+
 	if selectionFx:
 		var colorRamp : GradientTexture1D = selectionFx.process_material.get("color_ramp")
 		if colorRamp and colorRamp.gradient.colors.size() > 1:
@@ -77,6 +75,14 @@ func DisplaySelection(hue : float, alpha : float = 1.0):
 			colorGradient.a = alpha
 			colorRamp.gradient.set_color(1, colorGradient)
 			selectionFx.process_material.set("color_ramp", colorRamp)
+
+## Keep the selection ring under the sprite feet (Visual local origin after foot anchor).
+func SyncSelectionToFeet() -> void:
+	if selectionFx == null:
+		return
+	selectionFx.position = Vector2.ZERO
+	if entity and entity.data and entity.data._groundOffset != 0:
+		selectionFx.position.y = -entity.data._groundOffset
 
 func DisplayTarget(type : ActorCommons.Target):
 	match type:

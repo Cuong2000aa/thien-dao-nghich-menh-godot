@@ -19,7 +19,7 @@ const HEROES : Array[Dictionary] = [
 		"entity": "PlayerAssassin",
 		"folder": "assassin",
 		"frames": "",  # runtime from characters.json
-		"scale": 1.35,
+		"scale": 1.15,
 	},
 	{
 		"id": "wuxia_swordsman",
@@ -27,7 +27,7 @@ const HEROES : Array[Dictionary] = [
 		"entity": "PlayerWuxiaSword",
 		"folder": "wuxia_swordsman",
 		"frames": "",
-		"scale": 1.3,
+		"scale": 1.15,
 	},
 ]
 
@@ -99,6 +99,7 @@ static func ApplyToEntity(entity : Entity, index : int) -> void:
 	if vis.animatedSprite == null:
 		return
 	vis.animatedSprite.sprite_frames = frames
+	vis.animatedSprite.centered = false
 	vis.SetHeroFootOverrides(GetFootOffsets(index))
 	if vis.preset and vis.preset is Node2D:
 		var s : float = GetPresetScale(index)
@@ -109,8 +110,11 @@ static func ApplyToEntity(entity : Entity, index : int) -> void:
 		entity.stat.currentShape = entity.stat.shape
 	vis.UpdateSwordsmanVisual(Vector2.ZERO, entity.entityOrientation, entity.state, false)
 	vis.spriteOffsetUpdate.emit()
-	if entity.interactive and entity.interactive.has_method("RefreshVisibleNodeOffset"):
-		entity.interactive.RefreshVisibleNodeOffset()
+	if entity.interactive:
+		if entity.interactive.has_method("RefreshVisibleNodeOffset"):
+			entity.interactive.RefreshVisibleNodeOffset()
+		if entity.interactive.has_method("SyncSelectionToFeet"):
+			entity.interactive.SyncSelectionToFeet()
 
 static func _EnsureFootFromJson(heroId : String, folder : String) -> void:
 	if _footCache.has(heroId):
