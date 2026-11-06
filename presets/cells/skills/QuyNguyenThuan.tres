@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillCell" format=3 uid="uid://cx5quynguyen05"]
 
-[ext_resource type="Texture2D" uid="uid://c4t8oef7p0717" path="res://data/graphics/items/skill/spell.png" id="1_icon"]
+[ext_resource type="Texture2D" uid="uid://bndieinr0kcie" path="res://data/graphics/items/skill/spell.png" id="1_icon"]
 [ext_resource type="Script" uid="uid://l20aaqylleqo" path="res://sources/cell/SkillCell.gd" id="2_skill"]
 [ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
 [ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="4_cell"]

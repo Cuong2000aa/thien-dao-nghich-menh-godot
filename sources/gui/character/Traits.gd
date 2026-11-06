@@ -70,9 +70,9 @@ func _SetupLabels() -> void:
 		heroLabel.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 		heroLabel.custom_minimum_size.x = 140
 
-	# Race node → Hệ Tu Luyện (must be visible)
+	# Hệ Tu Luyện ẩn — skill theo Hình Thể (HeroSkillTree)
 	if daoPathRow:
-		daoPathRow.visible = true
+		daoPathRow.visible = false
 	if daoPathTitle:
 		daoPathTitle.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 		daoPathTitle.text = "Hệ Tu Luyện"
@@ -219,7 +219,7 @@ func Randomize():
 	_EnsureDefaults()
 	heroValue = randi() % HeroLib.Count()
 	RefreshHero()
-	daoPathValue = randi() % DAO_PATHS.size()
+	daoPathValue = 0
 	RefreshDaoPath()
 	genderValue = randi() % ActorCommons.Gender.COUNT
 	RefreshGender()

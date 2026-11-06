@@ -365,7 +365,7 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 8,
 		"cooldown": 7.0,
 		"fxKey": "holy_smite",
-		"hitFx": "heal"
+		"hitFx": "heal_aoe"
 	},
 	1015: {
 		"id": 1015,
@@ -414,16 +414,16 @@ const MARTIAL_CATALOG : Dictionary = {
 	# Legacy SoM → PixelFX (single cast, optional hitFx)
 	1020: {"id": 1020, "name": "Flar", "category": Category.SECRET, "element": Element.FIRE, "grade": Grade.YELLOW, "fxKey": "fireball_throw", "hitFx": "crit_hit", "flipFacing": true},
 	1021: {"id": 1021, "name": "Spitfire", "category": Category.SECRET, "element": Element.FIRE, "grade": Grade.YELLOW, "fxKey": "fire_breath", "hitFx": "hit_spark", "flipFacing": true},
-	1022: {"id": 1022, "name": "Inma", "category": Category.SECRET, "element": Element.WATER, "grade": Grade.YELLOW, "fxKey": "ice_lance_throw", "hitFx": "ice_spikes", "flipFacing": true},
-	1023: {"id": 1023, "name": "Lum", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "heal"},
+	1022: {"id": 1022, "name": "Inma", "category": Category.SECRET, "element": Element.WATER, "grade": Grade.YELLOW, "fxKey": "blessing", "hitFx": "heal_aoe", "flipFacing": true},
+	1023: {"id": 1023, "name": "Lum", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "heal_aoe", "hitFx": "feather_burst"},
 	1024: {"id": 1024, "name": "Mana Burst", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "mana_burst", "hitFx": "hit_flash"},
 	1025: {"id": 1025, "name": "Leaf Blades", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "leaf_storm", "hitFx": "thorns"},
 	1026: {"id": 1026, "name": "Sonic Scream", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "thunderclap", "hitFx": "blunt_hit"},
-	1027: {"id": 1027, "name": "Sonic Wave", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "thunderclap", "hitFx": "blunt_hit"},
+	1027: {"id": 1027, "name": "Sonic Wave", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "arcane_beam", "hitFx": "zap_hit", "flipFacing": true},
 	1028: {"id": 1028, "name": "Archer", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "arrow_shot", "hitFx": "hit_spark", "flipFacing": true},
-	1029: {"id": 1029, "name": "Jump", "category": Category.MOVEMENT, "element": Element.WOOD, "grade": Grade.MORTAL, "fxKey": "dash_strike"},
+	1029: {"id": 1029, "name": "Jump", "category": Category.MOVEMENT, "element": Element.WOOD, "grade": Grade.MORTAL, "fxKey": "blink_in"},
 	1030: {"id": 1030, "name": "Morph", "category": Category.SECRET, "element": Element.WATER, "grade": Grade.YELLOW, "fxKey": "blink_out"},
-	1031: {"id": 1031, "name": "Poison", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "poison_cloud", "hitFx": "hit_spark"},
+	1031: {"id": 1031, "name": "Poison", "category": Category.SECRET, "element": Element.WOOD, "grade": Grade.YELLOW, "fxKey": "poison_cloud", "hitFx": "thorns"},
 	1032: {"id": 1032, "name": "Run", "category": Category.MOVEMENT, "element": Element.WOOD, "grade": Grade.MORTAL, "fxKey": "haste"},
 	1033: {"id": 1033, "name": "Betsanc", "category": Category.SECRET, "element": Element.METAL, "grade": Grade.YELLOW, "fxKey": "arcane_orb", "hitFx": "zap_hit"},
 	1034: {"id": 1034, "name": "Melee", "category": Category.SWORD, "element": Element.METAL, "grade": Grade.MORTAL, "skipCastFx": true, "hitFx": "slash", "flipFacing": true},

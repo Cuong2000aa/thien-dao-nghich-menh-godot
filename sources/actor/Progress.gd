@@ -101,6 +101,10 @@ func ImportProgress(charID : int):
 		SetQuest(entry.get("quest_id", DB.UnknownHash), entry.get("state", 0), false)
 	for entry in Launcher.SQL.GetBestiaries(charID):
 		AddBestiary(entry.get("mob_id", DB.UnknownHash), entry.get("killed_count", 0))
+	# Catch up class tree unlocks for current realm (idempotent).
+	if actor and actor.stat:
+		var SkillTree = preload("res://sources/actor/HeroSkillTree.gd")
+		SkillTree.GrantSkillsToActor(actor, actor.stat.level, false)
 
 #
 func _init(actorNode : Actor, isManaged : bool):

@@ -31,6 +31,7 @@ buses/default_bus_layout="res://presets/audio/default_bus_layout.tres"
 Launcher="*res://sources/launcher/Launcher.gd"
 Network="*res://sources/network/Network.gd"
 FSM="*res://sources/launcher/FSM.gd"
+Spark="*res://addons/saltmire_spark/spark.gd"
 
 [debug]
 
@@ -60,7 +61,7 @@ convert_text_resources_to_binary_on_export=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord_gd/plugin.cfg", "res://addons/game_data_manager/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/tiled_importer/plugin.cfg")
+enabled=PackedStringArray("res://addons/discord_gd/plugin.cfg", "res://addons/game_data_manager/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/tiled_importer/plugin.cfg", "res://addons/saltmire_spark/plugin.cfg")
 
 [filesystem]
 

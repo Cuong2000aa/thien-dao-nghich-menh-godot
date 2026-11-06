@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dwgxr70dkhrro"]
 
-[ext_resource type="Texture2D" uid="uid://beom6m0ab5pfv" path="res://data/graphics/effects/particles/fog.png" id="1_3o0mc"]
+[ext_resource type="Texture2D" uid="uid://beom6m0ab5pfv" path="res://data/graphics/effects/particles/kenney/smoke_05.png" id="1_3o0mc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1pdty"]
 

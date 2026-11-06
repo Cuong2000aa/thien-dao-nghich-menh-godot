@@ -212,6 +212,7 @@ func AddExperience(value : int, hasFeedback : bool = true):
 		return
 	experience += value
 	# Manage level up
+	var oldLevel : int = level
 	var experiencelNeeded = Experience.GetNeededExperienceForNextLevel(level)
 	while experiencelNeeded != Experience.MAX_LEVEL_REACHED and experience >= experiencelNeeded:
 		experience -= experiencelNeeded
@@ -220,6 +221,10 @@ func AddExperience(value : int, hasFeedback : bool = true):
 	vital_stats_updated.emit()
 	if actor is PlayerAgent:
 		Network.TargetAlteration(actor.get_rid().get_id(), actor.get_rid().get_id(), value, ActorCommons.Alteration.EXP, DB.UnknownHash, hasFeedback, actor.peerID)
+		if level > oldLevel:
+			var SkillTree = preload("res://sources/actor/HeroSkillTree.gd")
+			SkillTree.GrantSkillsBetweenLevels(actor, oldLevel, level)
+			Network.LevelUp(actor.get_rid().get_id(), actor.peerID)
 
 func AddGP(value : int, hasFeedback : bool = true):
 	if not ActorCommons.IsAlive(actor) or value <= 0:

@@ -263,7 +263,30 @@ static func PlaySkillAct(parent : Node2D, caster : Node2D, key : String, pos : V
 static func PlayHitFx(parent : Node2D, key : String, at : Vector2, flipH : bool = false, scaleMul : float = -1.0) -> Node2D:
 	if key.is_empty():
 		return null
+	_SparkHitJuice(key, at)
 	return SpawnPixelFx(parent, key, at, scaleMul, flipH, true, null)
+
+## Saltmire Spark (MIT) — light juice under PixelFX hit sheets.
+static func _SparkHitJuice(hitKey : String, at : Vector2) -> void:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree == null:
+		return
+	var spark := tree.root.get_node_or_null("/root/Spark")
+	if spark == null or not spark.has_method("burst"):
+		return
+	var preset := "spark"
+	match hitKey:
+		"crit_hit", "hit_flash", "hit_spark", "slash", "sword_slash", "zap_hit":
+			preset = "hit"
+		"ice_spikes", "heal", "heal_aoe", "blessing", "feather_burst", "life_steal", "thorns":
+			preset = "pickup"
+		"ground_slam", "blunt_hit", "earth_stomp":
+			preset = "dust"
+		"implosion", "big_explosion", "small_explosion":
+			preset = "explode"
+		_:
+			preset = "spark"
+	spark.call("burst", at, preset)
 
 ## Status / buff on an entity — attach so it follows like gallery onBody.
 static func PlayBodyFx(parent : Node2D, host : Node2D, key : String, flipH : bool = false, scaleMul : float = -1.0) -> Node2D:

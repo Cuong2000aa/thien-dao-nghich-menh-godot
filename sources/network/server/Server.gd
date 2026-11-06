@@ -163,7 +163,12 @@ func CreateCharacter(charName : String, traits : Dictionary, attributes : Dictio
 				Network.characters_list_update.emit()
 				for itemData in ActorCommons.DefaultInventory:
 					Launcher.SQL.AddItem(characterID, itemData.get("item_id", DB.UnknownHash), itemData.get("customfield", ""), itemData.get("count", 1))
-				for skillData in ActorCommons.DefaultSkills:
+				var shapeHash : int = int(traits.get("shape", "Player".hash()))
+				var SkillTree = preload("res://sources/actor/HeroSkillTree.gd")
+				var starterSkills : Array = SkillTree.GetStarterSkillPayloadByShape(shapeHash)
+				if starterSkills.is_empty():
+					starterSkills = ActorCommons.DefaultSkills
+				for skillData in starterSkills:
 					Launcher.SQL.SetSkill(characterID, skillData.get("skill_id", DB.UnknownHash), skillData.get("level", 1))
 
 				Network.CharacterInfo(Launcher.SQL.GetCharacterInfo(characterID), Launcher.SQL.GetEquipment(characterID), peerID)

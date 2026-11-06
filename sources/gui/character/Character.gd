@@ -293,7 +293,7 @@ func EnableCharacterCreator(enable : bool):
 			heroRow.visible = true
 		var daoRow = traitsPanel.get_node_or_null("Margin/VBox/Race")
 		if daoRow:
-			daoRow.visible = true
+			daoRow.visible = false
 
 	if enable:
 		RequestFocus(characterNameLineEdit)
@@ -308,7 +308,7 @@ func EnableCharacterCreator(enable : bool):
 		if enable:
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.PRIMARY, "Tạo Nhân Vật", CreateCharacter)
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.SECONDARY, "Ngẫu Nhiên", RandomizeCharacter)
-			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Xem Trước", OpenPreviewGallery)
+			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.TERTIARY, "Cây Kỹ Năng", OpenSkillTreeForCreator)
 			Launcher.GUI.buttonBoxes.Bind(UICommons.ButtonBox.CANCEL, "Hủy", EnableCharacterCreator.bind(false))
 			RefreshSuggestedButton()
 		else:
@@ -404,6 +404,17 @@ func Close():
 func OpenPreviewGallery():
 	if Launcher.GUI:
 		Launcher.GUI.TogglePreviewGallery()
+
+func OpenSkillTreeForCreator():
+	if Launcher.GUI == null:
+		return
+	var idx : int = 0
+	if traitsPanel and traitsPanel.has_method("GetHeroIndex"):
+		idx = traitsPanel.GetHeroIndex()
+	if Launcher.GUI.has_method("OpenSkillTreePreview"):
+		Launcher.GUI.OpenSkillTreePreview(idx)
+	elif Launcher.GUI.has_method("ToggleSkillTree"):
+		Launcher.GUI.ToggleSkillTree()
 
 func _EnsurePreviewButton():
 	if previewButton and is_instance_valid(previewButton):

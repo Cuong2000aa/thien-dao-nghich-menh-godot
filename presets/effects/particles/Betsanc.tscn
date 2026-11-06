@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cbetsancfx11a"]
 
-[ext_resource type="Texture2D" uid="uid://cwlcajt78phca" path="res://data/graphics/effects/particles/orb.png" id="1_m5v5c"]
+[ext_resource type="Texture2D" uid="uid://cwlcajt78phca" path="res://data/graphics/effects/particles/kenney/magic_01.png" id="1_m5v5c"]
 
 [sub_resource type="Gradient" id="Gradient_re0c8"]
 resource_local_to_scene = true

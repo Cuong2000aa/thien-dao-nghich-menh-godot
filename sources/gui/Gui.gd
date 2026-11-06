@@ -8,6 +8,7 @@ const CraftingWindowClass = preload("res://sources/gui/CraftingWindow.gd")
 const StoryWindowClass = preload("res://sources/gui/StoryWindow.gd")
 const MultiplayerWindowClass = preload("res://sources/gui/MultiplayerWindow.gd")
 const PreviewGalleryWindowClass = preload("res://sources/gui/PreviewGalleryWindow.gd")
+const SkillTreeWindowClass = preload("res://sources/gui/SkillTreeWindow.gd")
 const TeamHudClass = preload("res://sources/gui/TeamHud.gd")
 
 @onready var background : TextureRect			= $Background
@@ -56,6 +57,7 @@ var craftingWindow : WindowPanel				= null
 var storyWindow : WindowPanel					= null
 var multiplayerWindow : WindowPanel				= null
 var previewGalleryWindow : WindowPanel			= null
+var skillTreeWindow : WindowPanel				= null
 var teamHud : Control							= null
 var targetPanel : Control						= null
 
@@ -431,6 +433,11 @@ func _ready():
 	previewGalleryWindow.set_visible(false)
 	windows.add_child(previewGalleryWindow)
 
+	skillTreeWindow = SkillTreeWindowClass.new()
+	skillTreeWindow.name = "SkillTreeWindow"
+	skillTreeWindow.set_visible(false)
+	windows.add_child(skillTreeWindow)
+
 	teamHud = TeamHudClass.new()
 	teamHud.name = "TeamHud"
 	add_child(teamHud)
@@ -474,6 +481,21 @@ func TogglePreviewGallery():
 		if previewGalleryWindow.has_method("Refresh"):
 			previewGalleryWindow.Refresh()
 		previewGalleryWindow.ToggleControl()
+
+func ToggleSkillTree():
+	if skillTreeWindow == null:
+		return
+	if skillTreeWindow.visible:
+		skillTreeWindow.EnableControl(false)
+		return
+	if skillTreeWindow.has_method("OpenForPlayer"):
+		skillTreeWindow.OpenForPlayer()
+	else:
+		skillTreeWindow.ToggleControl()
+
+func OpenSkillTreePreview(heroIndex : int):
+	if skillTreeWindow and skillTreeWindow.has_method("OpenForHero"):
+		skillTreeWindow.OpenForHero(heroIndex, true)
 
 func _on_ui_margin_resized():
 	if CRTShader and CRTShader.material:

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SkillCell" format=3 uid="uid://cbetsancskil1"]
 
 [ext_resource type="PackedScene" uid="uid://cbetsanccast1" path="res://presets/effects/particles/casts/Betsanc.tscn" id="1_betsanccast"]
-[ext_resource type="Texture2D" uid="uid://bndieinr0kcie" path="res://data/graphics/items/skill/spell.png" id="2_betsancicon"]
+[ext_resource type="Texture2D" uid="uid://b0sjefu0rrrlq" path="res://data/graphics/items/skill/mana-burst.png" id="2_betsancicon"]
 [ext_resource type="Script" uid="uid://l20aaqylleqo" path="res://sources/cell/SkillCell.gd" id="3_betsanc"]
 [ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="4_betsancmod"]
 [ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="5_betsancmods"]
@@ -51,7 +51,7 @@ skillTime = 2.0
 buffTime = 120.0
 id = 0
 name = "Betsanc"
-description = "Feel the mana warping your and raising your defense and evasion for 2 minutes."
+description = "Bế Tán Chú: bùa dị làm méo linh lực, tăng phòng ngự và né tránh trong khoảng hai phút."
 icon = ExtResource("2_betsancicon")
 type = 2
 weight = 0.0

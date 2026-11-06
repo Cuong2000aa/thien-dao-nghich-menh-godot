@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillCell" format=3 uid="uid://cx7nhatkiem07"]
 
-[ext_resource type="Texture2D" uid="uid://b0sjefu0rrrlq" path="res://data/graphics/items/skill/mana-burst.png" id="1_icon"]
+[ext_resource type="Texture2D" uid="uid://cs2d4q80ggkmh" path="res://data/graphics/items/skill/melee.png" id="1_icon"]
 [ext_resource type="Script" uid="uid://l20aaqylleqo" path="res://sources/cell/SkillCell.gd" id="2_skill"]
 [ext_resource type="Script" uid="uid://hdd6y6syvlm6" path="res://sources/actor/stat/StatModifier.gd" id="3_stat"]
 [ext_resource type="Script" uid="uid://btqmbqq2q7cm8" path="res://sources/cell/CellModifier.gd" id="4_cell"]

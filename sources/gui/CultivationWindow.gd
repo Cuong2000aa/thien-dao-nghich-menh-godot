@@ -197,6 +197,15 @@ func _BuildUI():
 	btnBreakthrough.pressed.connect(AttemptBreakthrough)
 	btnHBox.add_child(btnBreakthrough)
 
+	var btnSkillTree := Button.new()
+	btnSkillTree.text = "Cây Kỹ Năng"
+	btnSkillTree.custom_minimum_size = Vector2(130, 36)
+	btnSkillTree.pressed.connect(func():
+		if Launcher.GUI and Launcher.GUI.has_method("ToggleSkillTree"):
+			Launcher.GUI.ToggleSkillTree()
+	)
+	btnHBox.add_child(btnSkillTree)
+
 	btnClose = Button.new()
 	btnClose.text = "Thu Công"
 	btnClose.custom_minimum_size = Vector2(100, 36)
