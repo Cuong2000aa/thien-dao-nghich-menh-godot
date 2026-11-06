@@ -2,6 +2,7 @@ extends WindowPanel
 
 const Cultivation = preload("res://sources/actor/Cultivation.gd")
 const Localization = preload("res://sources/system/Localization.gd")
+const QuestGuidanceClass = preload("res://sources/quest/QuestGuidance.gd")
 
 # Control accessors
 @onready var activeQuestContainer : Container		= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/Active
@@ -143,6 +144,14 @@ func RefreshQuestDescription(questID : int):
 		else:
 			questDescription.text += "Tiến Độ:\n[color=#4db8ff]⚔ Đang thực hiện: %d/5 Linh Trùng[/color]\n\n" % kills
 
+	# Precise map guidance (spawn-resolved)
+	if qState > ProgressCommons.UnknownProgress and qState < ProgressCommons.CompletedProgress:
+		var step : Dictionary = QuestGuidanceClass.BuildStep(questID, qState)
+		if not step.is_empty():
+			questDescription.text += "Chỉ Dẫn Bản Đồ:\n%s\n\n" % QuestGuidanceClass.FormatStepRich(step)
+			if step.get("resolved", false) and Launcher.Map and int(step.get("map_id", -1)) == Launcher.Map.currentMapID:
+				questDescription.text += "[url=goto_quest]▶ Đi tới mục tiêu trên map[/url]\n\n"
+
 	if not questData.reward.is_empty():
 		questDescription.text += "Phần Thưởng:\n[color=#%s]%s[/color]\n\n" % [UICommons.WarnTextColor.to_html(false), questData.reward]
 
@@ -155,3 +164,17 @@ func _ready():
 	ThemeClass.PolishWindow(self)
 	if questDescription:
 		ThemeClass.AccentRichText(questDescription)
+		if not questDescription.meta_clicked.is_connected(_OnQuestMetaClicked):
+			questDescription.meta_clicked.connect(_OnQuestMetaClicked)
+
+func _OnQuestMetaClicked(meta : Variant) -> void:
+	if str(meta) != "goto_quest":
+		return
+	if currentQuest == DB.UnknownHash or Launcher.Player == null:
+		return
+	var state : int = Launcher.Player.progress.GetQuest(currentQuest) if Launcher.Player.progress else 0
+	var step : Dictionary = QuestGuidanceClass.BuildStep(currentQuest, state)
+	if step.is_empty() or not step.get("resolved", false):
+		return
+	if Launcher.Map and int(step.get("map_id", -1)) == Launcher.Map.currentMapID and Launcher.Action:
+		Launcher.Action.MoveTo(step.get("position", Vector2.ZERO))

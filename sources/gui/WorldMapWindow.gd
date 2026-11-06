@@ -266,16 +266,32 @@ func _BuildUI():
 func _PopulateRegions():
 	for child in regionListContainer.get_children():
 		child.queue_free()
+
+	var questMapIds : Dictionary = {}
+	var QuestGuidanceClass = preload("res://sources/quest/QuestGuidance.gd")
+	for step in QuestGuidanceClass.GetActiveSteps():
+		var mid : int = int(step.get("map_id", DB.UnknownHash))
+		if mid != DB.UnknownHash:
+			if not questMapIds.has(mid):
+				questMapIds[mid] = []
+			questMapIds[mid].append(step)
 		
 	for i in range(REGION_DATA.size()):
 		var data = REGION_DATA[i]
 		var btn = Button.new()
-		btn.text = "%s [%s]" % [data["name"], data["status"]]
+		var questTag : String = ""
+		var regionMapId : int = int(data.get("map_id", DB.UnknownHash))
+		if questMapIds.has(regionMapId):
+			var n : int = questMapIds[regionMapId].size()
+			questTag = " ⚔%d" % n
+		btn.text = "%s [%s]%s" % [data["name"], data["status"], questTag]
 		btn.custom_minimum_size = Vector2(230, 36)
 		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		
 		if data["status"] == "CHƯA KHÁM PHÁ":
 			btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+		elif questMapIds.has(regionMapId):
+			btn.add_theme_color_override("font_color", Color(1.0, 0.85, 0.25))
 		else:
 			btn.add_theme_color_override("font_color", data["danger_color"])
 			
@@ -291,14 +307,29 @@ func _SelectRegion(index : int):
 	detailDanger.text = "Độ nguy hiểm: %s" % data["danger"]
 	detailDanger.add_theme_color_override("font_color", data["danger_color"])
 	detailPOIs.text = "Điểm mốc: %s" % data["pois"]
-	detailDesc.text = data["desc"]
+	var desc : String = data["desc"]
+	var QuestGuidanceClass = preload("res://sources/quest/QuestGuidance.gd")
+	var regionMapId : int = int(data.get("map_id", DB.UnknownHash))
+	var questLines : PackedStringArray = PackedStringArray()
+	for step in QuestGuidanceClass.GetActiveSteps():
+		if int(step.get("map_id", DB.UnknownHash)) != regionMapId:
+			continue
+		var pos : Vector2 = step.get("position", Vector2.ZERO)
+		if step.get("resolved", false):
+			questLines.append("• %s — %s @ (%d,%d)" % [step.get("quest_name", ""), step.get("hint", ""), int(pos.x), int(pos.y)])
+		else:
+			questLines.append("• %s — %s" % [step.get("quest_name", ""), step.get("hint", "")])
+	if not questLines.is_empty():
+		desc += "\n\n[Ủy thác đang mở]\n" + "\n".join(questLines)
+	detailDesc.text = desc
 
 func Refresh():
 	var mapID : int = Launcher.Map.currentMapID if Launcher.Map else DB.UnknownHash
 	var currentName : String = LocationNaming.GetDisplayName(mapID)
 	if currentLocLabel:
 		currentLocLabel.text = "Vị trí hiện tại: [%s]" % (currentName if not currentName.is_empty() else "Trúc Sơn Tiên Cảnh")
-		
+
+	_PopulateRegions()
 	_PopulateJournal()
 	_PopulateRuins()
 	_PopulatePois()

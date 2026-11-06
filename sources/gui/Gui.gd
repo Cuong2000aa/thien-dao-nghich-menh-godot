@@ -10,6 +10,7 @@ const MultiplayerWindowClass = preload("res://sources/gui/MultiplayerWindow.gd")
 const PreviewGalleryWindowClass = preload("res://sources/gui/PreviewGalleryWindow.gd")
 const SkillTreeWindowClass = preload("res://sources/gui/SkillTreeWindow.gd")
 const TeamHudClass = preload("res://sources/gui/TeamHud.gd")
+const QuestGuideControllerClass = preload("res://sources/quest/QuestGuideController.gd")
 
 @onready var background : TextureRect			= $Background
 
@@ -60,6 +61,7 @@ var previewGalleryWindow : WindowPanel			= null
 var skillTreeWindow : WindowPanel				= null
 var teamHud : Control							= null
 var targetPanel : Control						= null
+var questGuideController : Node					= null
 
 @onready var chatContainer : ChatContainer		= $Windows/Floating/Chat/Margin/VBoxContainer
 @onready var emoteContainer : Container			= $Windows/Floating/Emote/Layout/ItemContainer/Grid
@@ -287,6 +289,19 @@ func EnterGame():
 	actionBoxes.set_visible(true)
 	shortcuts.set_visible(true)
 	menu.SetItemsVisible(true)
+	EnsureQuestGuide()
+	RefreshQuestGuidance()
+
+func EnsureQuestGuide() -> void:
+	if questGuideController and is_instance_valid(questGuideController):
+		return
+	questGuideController = QuestGuideControllerClass.new()
+	add_child(questGuideController)
+
+func RefreshQuestGuidance() -> void:
+	EnsureQuestGuide()
+	if questGuideController and questGuideController.has_method("Refresh"):
+		questGuideController.Refresh(true)
 
 func ExitGame():
 	notificationLabel.ClearNotification()

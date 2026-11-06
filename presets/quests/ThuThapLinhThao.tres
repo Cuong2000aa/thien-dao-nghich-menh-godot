@@ -9,5 +9,6 @@ description = "Đạo Huyền Trưởng Lão cần Ngân Linh Thảo để khai 
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Thu thập 3 Ngân Linh Thảo"
-targetLocation = "Trúc Sơn Ngoại Vi"
+targetLocation = "Trúc Sơn Tiên Cảnh (1150, 1400)"
+
 reward = "80 Tu Vi, 150 Linh Thạch, 2 Hồi Xuân Đan"
