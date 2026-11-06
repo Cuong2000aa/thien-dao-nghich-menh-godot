@@ -25,6 +25,12 @@ func SetData():
 		altData = DB.EntitiesDB.get(stat.currentShape, null)
 	SetVisual(altData if altData else data)
 	interactive.Init(altData if altData else data)
+	# Apply selectable hero body from trait.shape (Kiếm Khách / Ảnh Sát / Kiếm Sĩ)
+	if type == ActorCommons.Type.PLAYER and visual and stat:
+		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+		var heroIdx : int = HeroLib.FindIndexByShape(stat.shape)
+		if heroIdx >= 0:
+			HeroLib.ApplyToEntity(self, heroIdx)
 
 func SetVisual(altData : EntityData, morphed : bool = false):
 	if morphed:

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EntityData" format=3]
+
+[ext_resource type="Script" path="res://sources/cell/ItemCell.gd" id="1_amg8s"]
+[ext_resource type="Script" path="res://sources/db/instance/EntityData.gd" id="2_c6ynp"]
+[ext_resource type="Script" path="res://sources/cell/SkillCell.gd" id="2_gh5bu"]
+[ext_resource type="PackedScene" path="res://presets/entities/sprites/SwordsmanPreset.tscn" id="spr_Player"]
+
+[resource]
+script = ExtResource("2_c6ynp")
+_id = 4050825327
+_name = "PlayerWuxiaSword"
+_spritePreset = ExtResource("spr_Player")
+_radius = 10
+_stats = {
+"level": 1,
+"walkSpeed": 160.0
+}
+_equipment = Array[ExtResource("1_amg8s")]([null, null, null, null, null, null, null, null])
+_displayName = true
+_behaviour = 0

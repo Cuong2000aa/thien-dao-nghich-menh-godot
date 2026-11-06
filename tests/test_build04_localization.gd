@@ -237,7 +237,7 @@ func _RunSceneLocalizationTests():
 	var statsLabel = charScene.get_node_or_null("Display/Stats/Margin/VBox/Label")
 	assert(statsLabel != null and statsLabel.text == "Căn Cốt & Cảnh Giới", "Stats header must be Căn Cốt & Cảnh Giới")
 	var traitsLabel = charScene.get_node_or_null("Display/Traits/Margin/VBox/Label")
-	assert(traitsLabel != null and (traitsLabel.text == "Hệ Tu Luyện & Tướng Mạo" or traitsLabel.text == "Tướng Mạo & Căn Cốt"), "Traits header must be Hệ Tu Luyện & Tướng Mạo")
+	assert(traitsLabel != null and (traitsLabel.text == "Chọn Nhân Vật" or traitsLabel.text == "Hệ Tu Luyện & Tướng Mạo" or traitsLabel.text == "Tướng Mạo & Căn Cốt"), "Traits header must be Chọn Nhân Vật")
 	charScene.queue_free()
 	print("  ✔ presets/gui/Character.tscn: Tạo Nhân Vật verified!")
 

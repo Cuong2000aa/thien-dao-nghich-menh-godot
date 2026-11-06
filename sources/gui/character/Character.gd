@@ -78,6 +78,7 @@ func FillMissingCharacterInfo(info : Dictionary):
 	Util.DicCheckOrAdd(info, "gender", ActorCommons.Gender.MALE)
 	Util.DicCheckOrAdd(info, "race", DB.UnknownHash)
 	Util.DicCheckOrAdd(info, "skintone", DB.UnknownHash)
+	Util.DicCheckOrAdd(info, "shape", "Player".hash())
 
 func HasSlot(slotID : int) -> bool:
 	return slotID >= 0 and slotID <= ActorCommons.MaxCharacterCount
@@ -123,10 +124,14 @@ func AddCharacter(info : Dictionary, equipment : Dictionary, slotID : int = Acto
 	entity.stat.gender		= info["gender"]
 	entity.stat.race		= info["race"]
 	entity.stat.skintone	= info["skintone"]
-	# Swordsman only — no paperdoll hair/face overlays (those caused floating heads)
+	if info.has("shape"):
+		entity.stat.shape = info["shape"]
+		entity.stat.currentShape = info["shape"]
+	# Swordsman-pipeline heroes — no paperdoll hair/face overlays
 	if entity.visual:
 		entity.visual.ClearSwordsmanCosmetics()
 		entity.visual.SetBody()
+		_ApplyHeroVisual(entity, info)
 		_ApplyDaoPathVisual(entity, info)
 
 	RemoveCharacter(availableSlot)
@@ -195,8 +200,11 @@ func CreateCharacter():
 		else:
 			var traits : Dictionary = traitsPanel.GetValues()
 			# Strip preview-only keys so SQL trait row update stays valid
+			# Keep "shape" — selects hero body (Player / PlayerAssassin / PlayerWuxiaSword)
 			traits.erase("dao_path")
 			traits.erase("dao_path_name")
+			traits.erase("hero_id")
+			traits.erase("hero_name")
 			if Network.CreateCharacter(nickname, traits, attributesPanel.GetValues()):
 				FSM.EnterState(FSM.States.CHAR_PROGRESS)
 
@@ -274,9 +282,22 @@ func EnableCharacterCreator(enable : bool):
 	characterNameLineEdit.set_visible(enable)
 	traitsPanel.set_visible(enable)
 	attributesPanel.set_visible(enable)
+	# Create screen: Hình Thể is top row (Hairstyle node)
+	if enable and traitsPanel:
+		if traitsPanel.has_method("_SetupLabels"):
+			traitsPanel._SetupLabels()
+		if traitsPanel.has_method("RefreshHero"):
+			traitsPanel.RefreshHero()
+		var heroRow = traitsPanel.get_node_or_null("Margin/VBox/Hairstyle")
+		if heroRow:
+			heroRow.visible = true
+		var daoRow = traitsPanel.get_node_or_null("Margin/VBox/Race")
+		if daoRow:
+			daoRow.visible = true
 
 	if enable:
 		RequestFocus(characterNameLineEdit)
+		UpdateCharacterCreatorBody()
 	else:
 		pendingFocusControl = null
 
@@ -305,15 +326,20 @@ func EnableCharacterCreator(enable : bool):
 func UpdateCharacterCreatorBody():
 	if isCharacterCreatorEnabled and charactersNode[ActorCommons.MaxCharacterCount]:
 		var vals : Dictionary = traitsPanel.GetValues()
-		charactersNode[ActorCommons.MaxCharacterCount].stat.race = vals["race"]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.skintone = vals["skintone"]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.gender = vals["gender"]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.hairstyle = vals["hairstyle"]
-		charactersNode[ActorCommons.MaxCharacterCount].stat.haircolor = vals["haircolor"]
-		if charactersNode[ActorCommons.MaxCharacterCount].visual:
-			charactersNode[ActorCommons.MaxCharacterCount].visual.ClearSwordsmanCosmetics()
-			charactersNode[ActorCommons.MaxCharacterCount].visual.SetBody()
-			_ApplyDaoPathVisual(charactersNode[ActorCommons.MaxCharacterCount], vals)
+		var ent : Entity = charactersNode[ActorCommons.MaxCharacterCount]
+		ent.stat.race = vals["race"]
+		ent.stat.skintone = vals["skintone"]
+		ent.stat.gender = vals["gender"]
+		ent.stat.hairstyle = vals["hairstyle"]
+		ent.stat.haircolor = vals["haircolor"]
+		if vals.has("shape"):
+			ent.stat.shape = vals["shape"]
+			ent.stat.currentShape = vals["shape"]
+		if ent.visual:
+			ent.visual.ClearSwordsmanCosmetics()
+			ent.visual.SetBody()
+			_ApplyHeroVisual(ent, vals)
+			_ApplyDaoPathVisual(ent, vals)
 
 func UpdateCharacterCreatorHair():
 	# Hair UI removed — dao path refresh goes through bodyUpdate / pathUpdate
@@ -326,6 +352,19 @@ func _ApplyDaoPathVisual(entity : Entity, _info : Dictionary = {}) -> void:
 	if traitsPanel and traitsPanel.has_method("GetDaoPathModulate"):
 		col = traitsPanel.GetDaoPathModulate()
 	entity.visual.ApplyDaoPathTint(col)
+
+func _ApplyHeroVisual(entity : Entity, info : Dictionary = {}) -> void:
+	if entity == null or entity.visual == null:
+		return
+	var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+	var idx : int = 0
+	if info.has("shape"):
+		idx = HeroLib.FindIndexByShape(int(info["shape"]))
+	elif traitsPanel and traitsPanel.has_method("GetHeroIndex"):
+		idx = traitsPanel.GetHeroIndex()
+	if idx < 0:
+		idx = 0
+	HeroLib.ApplyToEntity(entity, idx)
 
 func RefreshOnce():
 	if isCharacterCreatorEnabled:
@@ -408,6 +447,8 @@ func _ready():
 	traitsPanel.hairUpdate.connect(UpdateCharacterCreatorHair)
 	if traitsPanel.has_signal("pathUpdate"):
 		traitsPanel.pathUpdate.connect(UpdateCharacterCreatorBody)
+	if traitsPanel.has_signal("heroUpdate"):
+		traitsPanel.heroUpdate.connect(UpdateCharacterCreatorBody)
 	FSM.enter_game.connect(Clear)
 	_EnsurePreviewButton()
 	_SetPreviewButtonVisible(false)

@@ -56,7 +56,9 @@ func DisplaySelection(hue : float, alpha : float = 1.0):
 		if selectionFx and ActorCommons.interactionDisplayOffset > 0:
 			var targetRadius : int = entity.data._radius if entity.data else ActorCommons.selectionRadius
 			var sizeRatio : float = float(targetRadius) / float(ActorCommons.selectionRadius)
-			if entity.data:
+			# Keep ring at entity feet (sprite foot-anchor already at origin)
+			selectionFx.position = Vector2.ZERO
+			if entity.data and entity.data._groundOffset != 0:
 				selectionFx.position.y = -entity.data._groundOffset
 			var emissionShapeScale : Vector3 = selectionFx.process_material.get("emission_shape_scale")
 			if emissionShapeScale != Vector3.ZERO:

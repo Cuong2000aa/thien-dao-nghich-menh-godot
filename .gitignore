@@ -36,3 +36,12 @@ presets/maps/navigations/*
 *.tmp
 __pycache__/
 prototype_iso/
+
+# Local VFX download scratch (not game runtime)
+assets/vfx/_incoming/
+.cursor-tmp-fx-debug/
+assets/_incoming_chars/
+assets/vfx/**/_backup_old/
+
+# Local Godot editor binary (do not ship)
+tools/godot/

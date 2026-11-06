@@ -281,24 +281,24 @@ const CATALOG : Dictionary = {
 	"storm": "weather/storm",
 }
 
-## Ngũ Hành → preferred sheet key (may include looping sheets — cast/ambient only)
+## Ngũ Hành → preferred sheet key (cast/ambient — may loop). Core stays PixelFX catalog.
 const ELEMENT_FX : Dictionary = {
-	0: "hit_spark",
-	1: "slash",
-	2: "leaf_storm",
-	3: "frost_nova",
-	4: "fire_spirit",
-	5: "earth_spike",
+	0: "hit_spark",       # NONE
+	1: "sword_slash",     # Kim — crisp metal arc
+	2: "vine_whip",       # Mộc — readable plant strike (not looping leaf_storm)
+	3: "ice_lance",       # Thủy
+	4: "spirit_flame",    # Hỏa
+	5: "earth_spike",     # Thổ
 }
 
-## Hit impacts must be short one-shots (no looping weather/element sheets)
+## Hit impacts must be short one-shots (PixelFX impacts/melee only — fits isometric read)
 const IMPACT_FX : Dictionary = {
 	0: "hit_spark",
-	1: "slash",
-	2: "hit_spark",
-	3: "ice_spikes",
-	4: "crit_hit",
-	5: "ground_slam",
+	1: "slash",           # Kim → sword_slash
+	2: "thorns",          # Mộc
+	3: "ice_spikes",      # Thủy
+	4: "hit_flash",       # Hỏa (crit still overrides via ImpactKey isCrit)
+	5: "ground_slam",     # Thổ
 }
 
 ## Legacy short keys used by combat/UI → catalog stem keys after full-import
@@ -570,7 +570,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"heavy_cleave": 0.50,
 	"heavy_landing": 0.45,
 	"hex_sigil": 0.45,
-	"hit_flash": 0.60,
+	"hit_flash": 0.70,
 	"hit_spark": 0.65,
 	"hologram": 0.50,
 	"holy_pillar": 0.40,
@@ -669,7 +669,7 @@ const DEFAULT_SCALE : Dictionary = {
 	"summon_rise": 0.45,
 	"sunburst": 0.40,
 	"sword_combo": 0.50,
-	"sword_slash": 0.50,
+	"sword_slash": 0.58,
 	"teleporter_pad": 0.50,
 	"tesla_coil": 0.50,
 	"thorns": 0.50,

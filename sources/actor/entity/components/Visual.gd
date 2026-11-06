@@ -51,6 +51,8 @@ const SWORDSMAN_LAYER_SOCKETS : Dictionary = {
 }
 
 var sprites : Array[Sprite2D]				= []
+## Per-hero foot anchors (from characters.json); empty → SWORDSMAN_FOOT_OFFSETS
+var _heroFootOffsets : Dictionary			= {}
 
 var previousOrientation : Vector2			= Vector2.ZERO
 var previousState : ActorCommons.State		= ActorCommons.State.UNKNOWN
@@ -606,7 +608,7 @@ func ResetAnimationValue():
 func GetPlayerOffset() -> int:
 	var spriteOffset : int = ActorCommons.interactionDisplayOffset
 	if animatedSprite:
-		spriteOffset = int(SWORDSMAN_FOOT_OFFSETS.get(currentAction, Vector2(20, 38)).y)
+		spriteOffset = int(_FootForAction(currentAction).y)
 	elif sprites[ActorCommons.Slot.BODY]:
 		spriteOffset = -1 * int(sprites[ActorCommons.Slot.BODY].offset.y)
 	return spriteOffset
@@ -615,6 +617,14 @@ func GetPlayerOffset() -> int:
 func Init(data : EntityData):
 	Callback.PlugCallback(entity.stat.entity_stats_updated, self.UpdateScale)
 	LoadData(data)
+
+func SetHeroFootOverrides(feet : Dictionary) -> void:
+	_heroFootOffsets = feet if feet != null else {}
+
+func _FootForAction(action : String) -> Vector2:
+	if _heroFootOffsets.has(action):
+		return _heroFootOffsets[action]
+	return SWORDSMAN_FOOT_OFFSETS.get(action, Vector2(20, 38))
 
 func GetSwordsmanDirection(vec : Vector2) -> String:
 	if vec.length_squared() < 0.001:
@@ -679,7 +689,7 @@ func UpdateSwordsmanVisual(vel : Vector2, orientation : Vector2, st : ActorCommo
 	if animatedSprite.sprite_frames.has_animation(animName):
 		if animatedSprite.animation != animName or not animatedSprite.is_playing():
 			animatedSprite.play(animName)
-		var foot : Vector2 = SWORDSMAN_FOOT_OFFSETS.get(action, Vector2(20, 38))
+		var foot : Vector2 = _FootForAction(action)
 		animatedSprite.offset = -foot
 
 		# Dynamic foot sync with movement speed

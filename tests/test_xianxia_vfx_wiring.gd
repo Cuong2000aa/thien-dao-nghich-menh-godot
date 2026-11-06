@@ -84,11 +84,14 @@ func _run():
 	# Unknown → empty (no false positive on raw skillID lookup into catalog)
 	_assert(CombatSystemClass.GetMartialForSkill(999999999).is_empty(), "map_unknown_empty")
 
-	# P0 — Impact keys are one-shot friendly (not looping leaf_storm / frost_nova / fire_spirit)
-	_assert(Lib.ImpactKey(2, false) == "hit_spark", "impact_wood_oneshot")
+	# P0 — Impact keys are short PixelFX one-shots (ngũ hành readable, no looping weather)
+	_assert(Lib.ImpactKey(1, false) == "slash", "impact_metal_slash")
+	_assert(Lib.ImpactKey(2, false) == "thorns", "impact_wood_oneshot")
 	_assert(Lib.ImpactKey(3, false) == "ice_spikes", "impact_water_oneshot")
-	_assert(Lib.ImpactKey(4, false) == "crit_hit", "impact_fire_oneshot")
+	_assert(Lib.ImpactKey(4, false) == "hit_flash", "impact_fire_oneshot")
+	_assert(Lib.ImpactKey(5, false) == "ground_slam", "impact_earth_oneshot")
 	_assert(Lib.ImpactKey(0, true) == "crit_hit", "impact_crit")
+	_assert(Lib.Has("thorns") and Lib.Has("hit_flash") and Lib.Has("sword_slash"), "impact_catalog_present")
 
 	# P1 — Xianxia VFX spawn without crash
 	var host := Node2D.new()

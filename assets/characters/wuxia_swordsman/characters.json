@@ -1,0 +1,127 @@
+{
+ "name": "wuxia_swordsman",
+ "label": "Wuxia Swordsman",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "attack",
+ "anims": {
+  "idle": {
+   "cell": [
+    38,
+    44
+   ],
+   "frames": 5,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    19,
+    42
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    40,
+    44
+   ],
+   "frames": 9,
+   "fps": 9,
+   "loop": true,
+   "foot_px": [
+    20,
+    42
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    54,
+    44
+   ],
+   "frames": 9,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    27,
+    42
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "death": {
+   "cell": [
+    172,
+    44
+   ],
+   "frames": 9,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    86,
+    42
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    54,
+    44
+   ],
+   "frames": 9,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    27,
+    42
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    54,
+    44
+   ],
+   "frames": 9,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    27,
+    42
+   ],
+   "hold_last_ms": 200,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    38,
+    44
+   ],
+   "frames": 5,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    19,
+    42
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "Wuxia RTS Pixel Lite — DQYYY",
+  "scale": "trimmed + nearest ~44px tall"
+ }
+}

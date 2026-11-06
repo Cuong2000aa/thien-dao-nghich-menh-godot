@@ -1,7 +1,8 @@
 extends PanelContainer
 
-## Character creator traits: Dao Path + Gender (Swordsman look).
-## Hair/Race/Skin UI hidden — values auto-filled for server CheckTraits.
+## Character creator: Hình Thể (hero) first, then Dao Path, then Gender.
+## Hairstyle row = Hình Thể (always visible top row).
+## Race row = Hệ Tu Luyện.
 
 const DAO_PATHS : Array[Dictionary] = [
 	{"id": "tu_dao", "name": "Tu Đạo", "modulate": Color(1.08, 1.06, 0.95, 1.0)},
@@ -11,17 +12,21 @@ const DAO_PATHS : Array[Dictionary] = [
 	{"id": "kiem_tu", "name": "Kiếm Tu", "modulate": Color(0.92, 0.98, 1.12, 1.0)},
 ]
 
-@onready var daoPathRow : HBoxContainer			= $Margin/VBox/Hairstyle
-@onready var daoPathLabel : Label				= $Margin/VBox/Hairstyle/Name
-@onready var daoPathPrev : Button				= $Margin/VBox/Hairstyle/Previous
-@onready var daoPathNext : Button				= $Margin/VBox/Hairstyle/Next
-@onready var daoPathTitle : Label				= $Margin/VBox/Hairstyle/Label
+const HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+
+@onready var heroRow : HBoxContainer			= $Margin/VBox/Hairstyle
+@onready var heroLabel : Label					= $Margin/VBox/Hairstyle/Name
+@onready var heroPrev : Button					= $Margin/VBox/Hairstyle/Previous
+@onready var heroNext : Button					= $Margin/VBox/Hairstyle/Next
+@onready var heroTitle : Label					= $Margin/VBox/Hairstyle/Label
 
 @onready var haircolorRow : HBoxContainer		= $Margin/VBox/HairColor
 @onready var genderLabel : Label				= $Margin/VBox/Gender/Name
 @onready var genderPrev : Button				= $Margin/VBox/Gender/Previous
 @onready var genderNext : Button				= $Margin/VBox/Gender/Next
-@onready var raceRow : HBoxContainer			= $Margin/VBox/Race
+@onready var daoPathRow : HBoxContainer			= $Margin/VBox/Race
+@onready var daoPathLabel : Label				= $Margin/VBox/Race/Name
+@onready var daoPathTitle : Label				= $Margin/VBox/Race/Label
 @onready var skintoneRow : HBoxContainer		= $Margin/VBox/SkinTone
 
 # Kept for Character.gd / Randomize compatibility
@@ -36,22 +41,48 @@ var haircolorValue : int					= 0
 var genderValue : int						= 0
 var raceValue : int							= 0
 var skintoneValue : int						= 0
+var heroValue : int							= 0
 
 signal bodyUpdate
 signal hairUpdate
 signal pathUpdate
+signal heroUpdate
 
 func _ready():
+	_SetupLabels()
+	RefreshHero()
+	RefreshDaoPath()
+	RefreshGender()
+
+func _SetupLabels() -> void:
+	var panelTitle : Label = get_node_or_null("Margin/VBox/Label") as Label
+	if panelTitle:
+		panelTitle.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+		panelTitle.text = "Chọn Nhân Vật"
+
+	# Top row (Hairstyle node) → Hình Thể
+	if heroRow:
+		heroRow.visible = true
+	if heroTitle:
+		heroTitle.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+		heroTitle.text = "Hình Thể"
+	if heroLabel:
+		heroLabel.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+		heroLabel.custom_minimum_size.x = 140
+
+	# Race node → Hệ Tu Luyện (must be visible)
+	if daoPathRow:
+		daoPathRow.visible = true
 	if daoPathTitle:
+		daoPathTitle.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 		daoPathTitle.text = "Hệ Tu Luyện"
+	if daoPathLabel:
+		daoPathLabel.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+
 	if haircolorRow:
 		haircolorRow.visible = false
-	if raceRow:
-		raceRow.visible = false
 	if skintoneRow:
 		skintoneRow.visible = false
-	# Rebind Hairstyle buttons → dao path (connections already point to hairstyle handlers)
-	RefreshDaoPath()
 
 func GetDaoPath() -> Dictionary:
 	if daoPathValue < 0 or daoPathValue >= DAO_PATHS.size():
@@ -60,6 +91,12 @@ func GetDaoPath() -> Dictionary:
 
 func GetDaoPathModulate() -> Color:
 	return GetDaoPath().get("modulate", Color.WHITE)
+
+func GetHeroIndex() -> int:
+	return clampi(heroValue, 0, HeroLib.Count() - 1)
+
+func GetHeroShapeHash() -> int:
+	return HeroLib.GetShapeHash(GetHeroIndex())
 
 func GetValues():
 	_EnsureDefaults()
@@ -74,6 +111,7 @@ func GetValues():
 	skintoneValue = 0
 	hairstyleValue = mini(hairstyleValue, maxi(0, hairstyles.size() - 1))
 	haircolorValue = mini(haircolorValue, maxi(0, haircolors.size() - 1))
+	var hero : Dictionary = HeroLib.Get(GetHeroIndex())
 
 	return {
 		"hairstyle" = hairstyles[hairstyleValue] if hairstyles.size() > 0 else DB.UnknownHash,
@@ -81,8 +119,11 @@ func GetValues():
 		"race" = races[raceValue],
 		"skintone" = skinsKeys[skintoneValue].hash() if skinsKeys.size() > 0 else DB.UnknownHash,
 		"gender" = genderValue,
+		"shape" = GetHeroShapeHash(),
 		"dao_path" = String(GetDaoPath().get("id", "tu_dao")),
 		"dao_path_name" = String(GetDaoPath().get("name", "Tu Đạo")),
+		"hero_id" = String(hero.get("id", "swordsman")),
+		"hero_name" = String(hero.get("name", "Kiếm Khách")),
 	}
 
 func _FindHumanRaceIndex(races : PackedInt64Array) -> int:
@@ -97,23 +138,24 @@ func _EnsureDefaults():
 	haircolorsCount = DB.PalettesDB[DB.Palette.HAIR].size()
 	raceCount = DB.RacesDB.size()
 
-func RefreshDaoPath():
-	if daoPathValue < 0 or daoPathValue >= DAO_PATHS.size():
-		daoPathValue = 0
-	if daoPathLabel:
-		daoPathLabel.set_text(String(DAO_PATHS[daoPathValue].get("name", "Tu Đạo")))
-	pathUpdate.emit()
+# --- Hình Thể (wired to Hairstyle buttons in Character.tscn) ---
+func RefreshHero():
+	_SetupLabels()
+	heroValue = clampi(heroValue, 0, HeroLib.Count() - 1)
+	var hero : Dictionary = HeroLib.Get(heroValue)
+	if heroLabel:
+		heroLabel.set_text(String(hero.get("name", "Kiếm Khách")))
+	heroUpdate.emit()
 	bodyUpdate.emit()
 
 func _on_hairstyle_prev_button():
-	daoPathValue = daoPathValue - 1 if daoPathValue > 0 else DAO_PATHS.size() - 1
-	RefreshDaoPath()
+	heroValue = heroValue - 1 if heroValue > 0 else HeroLib.Count() - 1
+	RefreshHero()
 
 func _on_hairstyle_next_button():
-	daoPathValue = daoPathValue + 1 if daoPathValue < DAO_PATHS.size() - 1 else 0
-	RefreshDaoPath()
+	heroValue = heroValue + 1 if heroValue < HeroLib.Count() - 1 else 0
+	RefreshHero()
 
-# Unused hair handlers kept so old connections don't error if re-enabled
 func RefreshHairstyle():
 	pass
 
@@ -126,13 +168,34 @@ func _on_haircolor_prev_button():
 func _on_haircolor_next_button():
 	pass
 
+# --- Hệ Tu Luyện (wired to Race buttons) ---
+func RefreshDaoPath():
+	if daoPathValue < 0 or daoPathValue >= DAO_PATHS.size():
+		daoPathValue = 0
+	if daoPathLabel:
+		daoPathLabel.set_text(String(DAO_PATHS[daoPathValue].get("name", "Tu Đạo")))
+	pathUpdate.emit()
+	bodyUpdate.emit()
+
+func RefreshRace():
+	RefreshDaoPath()
+
+func _on_race_prev_button():
+	daoPathValue = daoPathValue - 1 if daoPathValue > 0 else DAO_PATHS.size() - 1
+	RefreshDaoPath()
+
+func _on_race_next_button():
+	daoPathValue = daoPathValue + 1 if daoPathValue < DAO_PATHS.size() - 1 else 0
+	RefreshDaoPath()
+
 func RefreshGender():
 	var gName : String = "Nam Tu"
 	match genderValue:
 		ActorCommons.Gender.MALE: gName = "Nam Tu"
 		ActorCommons.Gender.FEMALE: gName = "Nữ Tu"
 		_: gName = "Vô Tướng"
-	genderLabel.set_text(gName)
+	if genderLabel:
+		genderLabel.set_text(gName)
 	bodyUpdate.emit()
 
 func _on_gender_prev_button():
@@ -142,15 +205,6 @@ func _on_gender_prev_button():
 func _on_gender_next_button():
 	genderValue = genderValue + 1 if genderValue < ActorCommons.Gender.COUNT - 1 else 0
 	RefreshGender()
-
-func RefreshRace():
-	bodyUpdate.emit()
-
-func _on_race_prev_button():
-	pass
-
-func _on_race_next_button():
-	pass
 
 func RefreshSkintone():
 	bodyUpdate.emit()
@@ -163,6 +217,8 @@ func _on_skintone_next_button():
 
 func Randomize():
 	_EnsureDefaults()
+	heroValue = randi() % HeroLib.Count()
+	RefreshHero()
 	daoPathValue = randi() % DAO_PATHS.size()
 	RefreshDaoPath()
 	genderValue = randi() % ActorCommons.Gender.COUNT

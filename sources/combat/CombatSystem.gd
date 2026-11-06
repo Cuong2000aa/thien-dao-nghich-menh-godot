@@ -187,7 +187,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 2.5,
 		"range": 220,
 		"fxKey": "sword_combo",
-		"hitFx": "hit_spark",
+		"hitFx": "slash",
+		"forceHitFx": true,
 		"flipFacing": true
 	},
 	1003: {
@@ -202,7 +203,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 6.0,
 		"radius": 100,
 		"fxKey": "spin_slash",
-		"hitFx": "hit_spark"
+		"hitFx": "slash",
+		"forceHitFx": true
 	},
 	1004: {
 		"id": 1004,
@@ -274,7 +276,8 @@ const MARTIAL_CATALOG : Dictionary = {
 		"radius": 140,
 		"fxKey": "van_kiem_quy_tong",
 		"fxPlace": "floor",
-		"hitFx": "sword_slash"
+		"hitFx": "slash",
+		"forceHitFx": true
 	},
 	1009: {
 		"id": 1009,
@@ -287,7 +290,9 @@ const MARTIAL_CATALOG : Dictionary = {
 		"qiCost": 36,
 		"cooldown": 16.0,
 		"radius": 160,
-		"fxKey": "nhat_kiem_tram_thien_mon"
+		"fxKey": "nhat_kiem_tram_thien_mon",
+		"hitFx": "slash",
+		"forceHitFx": true
 	},
 	1010: {
 		"id": 1010,
@@ -302,7 +307,7 @@ const MARTIAL_CATALOG : Dictionary = {
 		"radius": 120,
 		"fxKey": "fire_breath",
 		"fxPlace": "body_dir",
-		"hitFx": "crit_hit",
+		"hitFx": "hit_flash",
 		"flipFacing": true
 	},
 	1011: {
@@ -332,7 +337,7 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 8.0,
 		"radius": 150,
 		"fxKey": "lightning_call",
-		"hitFx": "lightning_strike"
+		"hitFx": "zap_hit"
 	},
 	1013: {
 		"id": 1013,

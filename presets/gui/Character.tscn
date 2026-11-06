@@ -315,7 +315,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Display/Traits/Margin/VBox" unique_id=2091144788]
 layout_mode = 2
-text = "Hệ Tu Luyện & Tướng Mạo"
+text = "Chọn Nhân Vật"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Display/Traits/Margin/VBox" unique_id=83373938]
@@ -326,7 +326,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Display/Traits/Margin/VBox/Hairstyle" unique_id=1332827135]
 layout_mode = 2
-text = "Hệ Tu Luyện"
+text = "Hình Thể"
 
 [node name="Empty" type="Control" parent="Display/Traits/Margin/VBox/Hairstyle" unique_id=1268846793]
 layout_mode = 2
@@ -338,9 +338,9 @@ layout_mode = 2
 text = "<"
 
 [node name="Name" type="Label" parent="Display/Traits/Margin/VBox/Hairstyle" unique_id=319746681]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-text = "Tu Đạo"
+text = "Kiếm Khách"
 horizontal_alignment = 1
 
 [node name="Next" type="Button" parent="Display/Traits/Margin/VBox/Hairstyle" unique_id=765522096]
@@ -404,12 +404,11 @@ layout_mode = 2
 text = ">"
 
 [node name="Race" type="HBoxContainer" parent="Display/Traits/Margin/VBox" unique_id=2040908106]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Display/Traits/Margin/VBox/Race" unique_id=1672928982]
 layout_mode = 2
-text = "Thân Phận"
+text = "Hệ Tu Luyện"
 
 [node name="Empty" type="Control" parent="Display/Traits/Margin/VBox/Race" unique_id=1153148062]
 layout_mode = 2
@@ -423,7 +422,7 @@ text = "<"
 [node name="Name" type="Label" parent="Display/Traits/Margin/VBox/Race" unique_id=744329124]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-text = "Thân Phận"
+text = "Kiếm Khách"
 horizontal_alignment = 1
 
 [node name="Next" type="Button" parent="Display/Traits/Margin/VBox/Race" unique_id=865615364]
