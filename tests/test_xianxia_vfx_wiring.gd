@@ -38,12 +38,17 @@ func _run():
 	_assert(int(m406.get("id", 0)) == 1008, "map_van_kiem_quy_tong")
 	_assert(Lib.Has("van_kiem_quy_tong"), "catalog_van_kiem_quy_tong")
 
+	var m407 = CombatSystemClass.GetMartialForSkill(182736407)
+	_assert(int(m407.get("id", 0)) == 1009, "map_nhat_kiem_tram_thien_mon")
+	_assert(Lib.Has("nhat_kiem_tram_thien_mon"), "catalog_nhat_kiem_tram_thien_mon")
+
 	# Direct martial id still works
 	_assert(int(CombatSystemClass.GetMartialForSkill(1002).get("id", 0)) == 1002, "map_direct_martial_id")
 
 	# Name fallback
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Quy Nguyên Hộ Thể Thuẫn")) == 1006, "map_by_name")
 	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Vạn Kiếm Quy Tông")) == 1008, "map_van_kiem_by_name")
+	_assert(int(CombatSystemClass.GetMartialIdForSkill(0, "Nhất Kiếm Trảm Thiên Môn")) == 1009, "map_nhat_kiem_by_name")
 
 	# Unknown → empty (no false positive on raw skillID lookup into catalog)
 	_assert(CombatSystemClass.GetMartialForSkill(999999999).is_empty(), "map_unknown_empty")
@@ -74,6 +79,15 @@ func _run():
 	_assert(vanKiem != null and is_instance_valid(vanKiem), "spawn_van_kiem_quy_tong")
 	var vkFrames = Lib.GetSpriteFrames("van_kiem_quy_tong")
 	_assert(vkFrames != null and vkFrames.get_frame_count("default") >= 49, "van_kiem_49_frames")
+
+	var nhatKiem = CombatVfx.SpawnPixelFx(host, "nhat_kiem_tram_thien_mon", Vector2(60, 60), -1.0, false, true)
+	_assert(nhatKiem != null and is_instance_valid(nhatKiem), "spawn_nhat_kiem_tram_thien_mon")
+	_assert(nhatKiem.material != null, "nhat_kiem_add_blend")
+	var nkFrames = Lib.GetSpriteFrames("nhat_kiem_tram_thien_mon")
+	_assert(nkFrames != null and nkFrames.get_frame_count("default") >= 64, "nhat_kiem_64_frames")
+	# Corner of first frame should be transparent (no solid black plate)
+	var nkMeta = Lib.GetMeta("nhat_kiem_tram_thien_mon")
+	_assert(int(nkMeta.get("frame_w", 0)) == 192 and int(nkMeta.get("frame_h", 0)) == 128, "nhat_kiem_frame_size")
 
 	var impact = CombatVfx.SpawnImpactVfx(host, Vector2(40, 40), 2, false)
 	_assert(impact != null and is_instance_valid(impact), "spawn_impact_wood_oneshot")

@@ -88,6 +88,7 @@ const SKILL_CELL_TO_MARTIAL : Dictionary = {
 	182736404: 1005, # Bát Hoang Liệt Không Quyền
 	182736405: 1006, # Quy Nguyên Hộ Thể Thuẫn
 	182736406: 1008, # Vạn Kiếm Quy Tông
+	182736407: 1009, # Nhất Kiếm Trảm Thiên Môn
 }
 
 ## Display / fallback name → martial id (when only SkillCell.name is known).
@@ -100,6 +101,7 @@ const SKILL_NAME_TO_MARTIAL : Dictionary = {
 	"Quy Nguyên Hộ Thể Thuẫn": 1006,
 	"Bản Nguyên Kiếm Ý": 1007,
 	"Vạn Kiếm Quy Tông": 1008,
+	"Nhất Kiếm Trảm Thiên Môn": 1009,
 }
 
 ## Resolve martial data from SkillCell.id, martial id, or skill display name.
@@ -217,6 +219,19 @@ const MARTIAL_CATALOG : Dictionary = {
 		"cooldown": 12.0,
 		"radius": 140,
 		"fxKey": "van_kiem_quy_tong"
+	},
+	1009: {
+		"id": 1009,
+		"name": "Nhất Kiếm Trảm Thiên Môn",
+		"category": Category.SWORD,
+		"element": Element.METAL,
+		"grade": Grade.HEAVEN,
+		"reqRealm": 4,
+		"description": "Ngưng kiếm ý xé mở thiên môn — một kiếm trảm xuống, lôi quang kim sát phạt diện rộng.",
+		"qiCost": 36,
+		"cooldown": 16.0,
+		"radius": 160,
+		"fxKey": "nhat_kiem_tram_thien_mon"
 	}
 }
 

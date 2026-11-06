@@ -218,6 +218,9 @@ func DisplaySkill(emitter : Entity, skillID : int, cooldown : float):
 					1008: # Vạn Kiếm Quy Tông — full sheet sword rain ultimate
 						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "van_kiem_quy_tong", emitter.global_position, -1.0, false, true)
 						CombatVisualSystemClass.SpawnSwordArrayVfx(Launcher.Map.currentFringe, emitter.global_position, 130.0, 1.6)
+					1009: # Nhất Kiếm Trảm Thiên Môn — sky-split slash ultimate (ADD, no black plate)
+						CombatVisualSystemClass.SpawnPixelFx(Launcher.Map.currentFringe, "nhat_kiem_tram_thien_mon", emitter.global_position, -1.0, false, true)
+						CombatVisualSystemClass.SpawnMeleeSlashVfx(Launcher.Map.currentFringe, emitter.global_position, facing, true)
 					_:
 						var elem : int = int(martial.get("element", 0))
 						var Lib = preload("res://sources/effects/PixelFxLibrary.gd")

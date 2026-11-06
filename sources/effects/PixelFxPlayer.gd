@@ -36,9 +36,14 @@ static func Spawn(parent : Node2D, key : String, worldPos : Vector2, scaleMul : 
 	# Combat / world-ground FX must never leave looping assets stuck on the map.
 	player._looping = bool(meta.get("loop", false)) and not forceOneShot
 	player.autoFree = forceOneShot or not player._looping
-	if key == "dragon_golden_spiral" or key == "van_kiem_quy_tong":
-		# Long one-shots on dark plate — ADD blend avoids black box residual
-		player.lifetimeCap = 3.5 if key == "dragon_golden_spiral" else 2.1
+	# Long sword/cultivation sheets: alpha keyed + ADD so black plate never shows
+	const ADD_KEYS := {
+		"dragon_golden_spiral": 3.5,
+		"van_kiem_quy_tong": 2.1,
+		"nhat_kiem_tram_thien_mon": 2.4,
+	}
+	if ADD_KEYS.has(key):
+		player.lifetimeCap = float(ADD_KEYS[key])
 		var mat := CanvasItemMaterial.new()
 		mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 		player.material = mat

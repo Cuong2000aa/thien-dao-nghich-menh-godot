@@ -1,0 +1,1500 @@
+{
+ "frames": [
+  {
+   "filename": "nhat_kiem_tram_thien_mon 0",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 1",
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 2",
+   "frame": {
+    "x": 384,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 3",
+   "frame": {
+    "x": 576,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 4",
+   "frame": {
+    "x": 768,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 5",
+   "frame": {
+    "x": 960,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 6",
+   "frame": {
+    "x": 1152,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 7",
+   "frame": {
+    "x": 1344,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 8",
+   "frame": {
+    "x": 0,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 9",
+   "frame": {
+    "x": 192,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 10",
+   "frame": {
+    "x": 384,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 11",
+   "frame": {
+    "x": 576,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 12",
+   "frame": {
+    "x": 768,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 13",
+   "frame": {
+    "x": 960,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 14",
+   "frame": {
+    "x": 1152,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 15",
+   "frame": {
+    "x": 1344,
+    "y": 128,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 16",
+   "frame": {
+    "x": 0,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 17",
+   "frame": {
+    "x": 192,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 18",
+   "frame": {
+    "x": 384,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 19",
+   "frame": {
+    "x": 576,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 20",
+   "frame": {
+    "x": 768,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 21",
+   "frame": {
+    "x": 960,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 22",
+   "frame": {
+    "x": 1152,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 23",
+   "frame": {
+    "x": 1344,
+    "y": 256,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 24",
+   "frame": {
+    "x": 0,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 25",
+   "frame": {
+    "x": 192,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 26",
+   "frame": {
+    "x": 384,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 27",
+   "frame": {
+    "x": 576,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 28",
+   "frame": {
+    "x": 768,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 29",
+   "frame": {
+    "x": 960,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 30",
+   "frame": {
+    "x": 1152,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 31",
+   "frame": {
+    "x": 1344,
+    "y": 384,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 32",
+   "frame": {
+    "x": 0,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 33",
+   "frame": {
+    "x": 192,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 34",
+   "frame": {
+    "x": 384,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 35",
+   "frame": {
+    "x": 576,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 36",
+   "frame": {
+    "x": 768,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 37",
+   "frame": {
+    "x": 960,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 38",
+   "frame": {
+    "x": 1152,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 39",
+   "frame": {
+    "x": 1344,
+    "y": 512,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 40",
+   "frame": {
+    "x": 0,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 41",
+   "frame": {
+    "x": 192,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 42",
+   "frame": {
+    "x": 384,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 43",
+   "frame": {
+    "x": 576,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 44",
+   "frame": {
+    "x": 768,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 45",
+   "frame": {
+    "x": 960,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 46",
+   "frame": {
+    "x": 1152,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 47",
+   "frame": {
+    "x": 1344,
+    "y": 640,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 48",
+   "frame": {
+    "x": 0,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 49",
+   "frame": {
+    "x": 192,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 50",
+   "frame": {
+    "x": 384,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 51",
+   "frame": {
+    "x": 576,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 52",
+   "frame": {
+    "x": 768,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 53",
+   "frame": {
+    "x": 960,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 54",
+   "frame": {
+    "x": 1152,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 55",
+   "frame": {
+    "x": 1344,
+    "y": 768,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 56",
+   "frame": {
+    "x": 0,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 57",
+   "frame": {
+    "x": 192,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 58",
+   "frame": {
+    "x": 384,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 59",
+   "frame": {
+    "x": 576,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 60",
+   "frame": {
+    "x": 768,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 61",
+   "frame": {
+    "x": 960,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 62",
+   "frame": {
+    "x": 1152,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  },
+  {
+   "filename": "nhat_kiem_tram_thien_mon 63",
+   "frame": {
+    "x": 1344,
+    "y": 896,
+    "w": 192,
+    "h": 128
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 128
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 128
+   },
+   "duration": 33
+  }
+ ],
+ "meta": {
+  "app": "tdnm-import",
+  "version": "1",
+  "image": "nhat-kiem-tram-thien-mon.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 1536,
+   "h": 1024
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "nhat_kiem_tram_thien_mon",
+    "from": 0,
+    "to": 63,
+    "direction": "forward"
+   },
+   {
+    "name": "energy_gather",
+    "from": 0,
+    "to": 7,
+    "direction": "forward"
+   },
+   {
+    "name": "sky_split",
+    "from": 8,
+    "to": 23,
+    "direction": "forward"
+   },
+   {
+    "name": "sword_slash",
+    "from": 24,
+    "to": 39,
+    "direction": "forward"
+   },
+   {
+    "name": "impact",
+    "from": 40,
+    "to": 51,
+    "direction": "forward"
+   },
+   {
+    "name": "fade_out",
+    "from": 52,
+    "to": 63,
+    "direction": "forward"
+   }
+  ],
+  "pixelfx": {
+   "id": "sword/nhat-kiem-tram-thien-mon",
+   "name": "Nh\u1ea5t Ki\u1ebfm Tr\u1ea3m Thi\u00ean M\u00f4n",
+   "fps": 30,
+   "loop": false,
+   "frames": 64,
+   "frameSize": [
+    192,
+    128
+   ],
+   "pivot": [
+    96,
+    105
+   ],
+   "columns": 8,
+   "rows": 8,
+   "sequences": {
+    "energy_gather": {
+     "start": 0,
+     "end": 7
+    },
+    "sky_split": {
+     "start": 8,
+     "end": 23
+    },
+    "sword_slash": {
+     "start": 24,
+     "end": 39
+    },
+    "impact": {
+     "start": 40,
+     "end": 51
+    },
+    "fade_out": {
+     "start": 52,
+     "end": 63
+    }
+   }
+  }
+ }
+}

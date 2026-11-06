@@ -11,6 +11,7 @@ func Execute(actor : Actor, _cell : BaseCell):
 		"Trúc Sơn Kiếm Trận",
 		"Đạp Phong Bộ",
 		"Vạn Kiếm Quy Tông",
+		"Nhất Kiếm Trảm Thiên Môn",
 	]
 	
 	for sName in skillNames:
@@ -34,5 +35,6 @@ func Execute(actor : Actor, _cell : BaseCell):
 				CombatSystemClass.SaveMartialArt(db, charID, 1003, 1, 0, 2) # Trúc Sơn Kiếm Trận
 				CombatSystemClass.SaveMartialArt(db, charID, 1004, 1, 0, 3) # Đạp Phong Bộ
 				CombatSystemClass.SaveMartialArt(db, charID, 1008, 1, 0, 4) # Vạn Kiếm Quy Tông
+				CombatSystemClass.SaveMartialArt(db, charID, 1009, 1, 0, 5) # Nhất Kiếm Trảm Thiên Môn
 				db.close_db()
-		NpcCommons.PushNotification(actor, "LĨNH HỘI THÀNH CÔNG! Đạo hữu đã học được [Thanh Phong Kiếm Quyết] và tuyệt học [Vạn Kiếm Quy Tông]!")
+		NpcCommons.PushNotification(actor, "LĨNH HỘI THÀNH CÔNG! Đạo hữu đã học được [Thanh Phong Kiếm Quyết] cùng tuyệt học [Vạn Kiếm Quy Tông] và [Nhất Kiếm Trảm Thiên Môn]!")
