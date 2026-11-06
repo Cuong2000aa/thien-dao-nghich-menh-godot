@@ -31,7 +31,7 @@ const ZONES : Dictionary = {
 	},
 	"ZONE_SON_LAM_NGOAI_VI": {
 		"id": "ZONE_SON_LAM_NGOAI_VI",
-		"map_id": 1841251538,
+		"map_id": 482856684,
 		"name": "Sơn Lâm Ngoại Vi",
 		"type": "Lâm Uyên Dã Ngoại",
 		"danger": "Cấp 1-5 • Nguy Hiểm",
@@ -47,7 +47,7 @@ const ZONES : Dictionary = {
 	},
 	"ZONE_CO_DAO_PHE_TICH": {
 		"id": "ZONE_CO_DAO_PHE_TICH",
-		"map_id": 1967386498,
+		"map_id": 2011687557, # Tulimshar Western Cave (Cổ Đạo Phế Tích)
 		"name": "Cổ Đạo Phế Tích",
 		"type": "Động Quật Cổ Xưa",
 		"danger": "Cấp 5-8 • Hiểm Địa",
@@ -253,7 +253,7 @@ const ANCIENT_RUINS : Dictionary = {
 		"id": "RUIN_TRUC_SON_CO_DONG",
 		"name": "Trúc Sơn Cổ Đạo Di Tích",
 		"zone_id": "ZONE_CO_DAO_PHE_TICH",
-		"map_id": 1967386498,
+		"map_id": 2011687557, # Tulimshar Western Cave (Cổ Đạo Phế Tích)
 		"stepsTotal": 5,
 		"stepsDesc": [
 			"Đọc và giải mã Bia Đá Minh Văn Cổ Xưa",
@@ -307,7 +307,7 @@ const DUNGEONS : Dictionary = {
 		"id": "DUNGEON_CO_DAO_PHE_TICH",
 		"name": "Cổ Đạo Phế Tích (Di Tích Khám Phá)",
 		"type": "ANCIENT_RUIN",
-		"map_id": 1967386498,
+		"map_id": 2011687557, # Tulimshar Western Cave (Cổ Đạo Phế Tích)
 		"minLevel": 4,
 		"bossOrElite": "Cổ Thạch Khôi Lỗi",
 		"target": "Vượt qua cạm bẫy, giải cơ quan thạch môn và đoạt bảo rương",
@@ -318,7 +318,7 @@ const DUNGEONS : Dictionary = {
 		"id": "DUNGEON_U_MINH_KHOANG_QUAT",
 		"name": "U Minh Phế Khoáng Quật (Hang Động Nguy Hiểm)",
 		"type": "DANGEROUS_CAVE",
-		"map_id": 1841251538,
+		"map_id": 482856684,
 		"minLevel": 3,
 		"bossOrElite": "U Minh Trùng Vương",
 		"target": "Đột phá vòng vây yêu trùng, tiêu diệt Trùng Vương và thu thập Cổ Linh Khoáng",

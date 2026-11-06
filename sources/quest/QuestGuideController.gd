@@ -143,6 +143,7 @@ func _RefreshWaypoints(steps : Array) -> void:
 		var marker : Node2D = _MakeWaypoint(step)
 		root.add_child(marker)
 		marker.position = step.get("position", Vector2.ZERO)
+		_PulseWaypoint(marker)
 
 func _UpdateWaypointPositions(steps : Array) -> void:
 	if waypointRoot == null or not is_instance_valid(waypointRoot):
@@ -185,11 +186,17 @@ func _MakeWaypoint(step : Dictionary) -> Node2D:
 	label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
 	label.add_theme_constant_override("outline_size", 3)
 	root.add_child(label)
+	return root
 
-	var pulse : Tween = root.create_tween().set_loops()
+func _PulseWaypoint(marker : Node2D) -> void:
+	if marker == null or not is_instance_valid(marker) or not marker.is_inside_tree():
+		return
+	var ring : Polygon2D = marker.get_child(0) as Polygon2D
+	if ring == null:
+		return
+	var pulse : Tween = marker.create_tween().set_loops()
 	pulse.tween_property(ring, "modulate:a", 0.45, 0.7)
 	pulse.tween_property(ring, "modulate:a", 1.0, 0.7)
-	return root
 
 func _ActionColor(action : int) -> Color:
 	match action:

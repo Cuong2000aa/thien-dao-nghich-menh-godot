@@ -27,7 +27,7 @@
 [sub_resource type="Resource" id="Resource_warp_to_tanthuthon"]
 script = ExtResource("3_spawn")
 id = 2089709631
-nick = "Lối xuống Sơn Lâm Ngoại Vi"
+nick = "Lối xuống Thanh Vân Thôn"
 type = 2
 own_script = ExtResource("4_warpglobal")
 spawn_position = Vector2i(1000, 1500)
@@ -35,6 +35,20 @@ respawn_delay = 0.0
 is_persistant = true
 trigger_radius = 64.0
 destination_map = 1841251538
+destination_pos = Vector2(2650, 1260)
+auto_warp = true
+
+[sub_resource type="Resource" id="Resource_warp_to_sonlam"]
+script = ExtResource("3_spawn")
+id = 2089709631
+nick = "Lối xuống Sơn Lâm Ngoại Vi"
+type = 2
+own_script = ExtResource("4_warpglobal")
+spawn_position = Vector2i(1120, 1500)
+respawn_delay = 0.0
+is_persistant = true
+trigger_radius = 64.0
+destination_map = 482856684
 destination_pos = Vector2(2650, 1260)
 auto_warp = true
 
@@ -249,6 +263,7 @@ name = "SacredSectHub"
 nav_poly = ExtResource("2_nav")
 spawns = [
 	SubResource("Resource_warp_to_tanthuthon"),
+	SubResource("Resource_warp_to_sonlam"),
 	SubResource("Resource_npc_daohuyen"),
 	SubResource("Resource_monster_maggot"),
 	SubResource("Resource_bicanh_portal"),

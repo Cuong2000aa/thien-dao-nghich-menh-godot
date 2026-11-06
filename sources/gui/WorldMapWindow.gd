@@ -29,7 +29,8 @@ const REGION_DATA : Array[Dictionary] = [
 		"zone_id": "ZONE_TRUC_SON",
 		"name": "Trúc Sơn Tiên Cảnh",
 		"internal_name": "SacredSectHub",
-		"map_id": 995840901,
+		# map_id = internal map name.hash() from DB.MapsDB
+		"map_id": 995840901, # SacredSectHub
 		"type": "Tông Môn Sơn Vũ",
 		"danger": "Cấp 1 • An Toàn",
 		"danger_color": Color(0.3, 0.9, 0.3),
@@ -41,7 +42,7 @@ const REGION_DATA : Array[Dictionary] = [
 		"zone_id": "ZONE_SON_LAM_NGOAI_VI",
 		"name": "Sơn Lâm Ngoại Vi",
 		"internal_name": "Tulimshar Eastern Hills",
-		"map_id": 1841251538,
+		"map_id": 482856684, # was wrongly 1841251538 (TanThuThon)
 		"type": "Lâm Uyên Dã Ngoại",
 		"danger": "Cấp 1-5 • Nguy Hiểm",
 		"danger_color": Color(0.9, 0.8, 0.2),
@@ -53,7 +54,7 @@ const REGION_DATA : Array[Dictionary] = [
 		"zone_id": "ZONE_CO_DAO_PHE_TICH",
 		"name": "Cổ Đạo Phế Tích",
 		"internal_name": "Tulimshar Western Cave",
-		"map_id": 1967386498,
+		"map_id": 2011687557, # was wrongly 1967386498
 		"type": "Động Quật Cổ Xưa",
 		"danger": "Cấp 5-8 • Hiểm Địa",
 		"danger_color": Color(0.95, 0.5, 0.2),
@@ -89,7 +90,7 @@ const REGION_DATA : Array[Dictionary] = [
 		"zone_id": "ZONE_VAN_XA_KHANH",
 		"name": "Vạn Xà Khanh",
 		"internal_name": "Snake Pit",
-		"map_id": 1284567890,
+		"map_id": 1717452900, # was wrongly 1284567890
 		"type": "Tử Địa Hung Hiểm",
 		"danger": "Cấp 15-25 • Cực Nguy Hiểm",
 		"danger_color": Color(0.8, 0.1, 0.1),
