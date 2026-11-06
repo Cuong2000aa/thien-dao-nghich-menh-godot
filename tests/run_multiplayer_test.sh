@@ -39,5 +39,5 @@ echo "--- Screenshots Generated ---"
 ls -la tests/screenshots/ || true
 
 echo "=== DATABASE PERSISTENCE CHECK ==="
-sqlite3 "/Users/it/Library/Application Support/SourceOfMana/testing.db" "SELECT account_id, username, email FROM account;" || true
-sqlite3 "/Users/it/Library/Application Support/SourceOfMana/testing.db" "SELECT char_id, account_id, nickname, pos_x, pos_y, pos_map FROM character;" || true
+sqlite3 "/Users/it/Library/Application Support/ThienDaoNghichMenh/testing.db" "SELECT account_id, username, email FROM account;" || true
+sqlite3 "/Users/it/Library/Application Support/ThienDaoNghichMenh/testing.db" "SELECT char_id, account_id, nickname, pos_x, pos_y, pos_map FROM character;" || true

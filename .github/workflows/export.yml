@@ -82,11 +82,11 @@ jobs:
               else map(select(.name | IN($wanted[])))
               end' <<'EOF'
           [
-            { "name": "Linux", "export_template": "Linux/X11", "outname": "Source of Mana", "ext": "x86_64" },
-            { "name": "Linux (Headless Server)", "export_template": "Linux/X11 Headless Server", "outname": "Source of Mana Server", "ext": "x86_64" },
-            { "name": "Windows", "export_template": "Windows Desktop", "outname": "Source of Mana", "ext": "exe" },
-            { "name": "macOS", "export_template": "macOS", "outname": "Source of Mana", "ext": "zip" },
-            { "name": "Android", "export_template": "Android", "outname": "Source of Mana", "ext": "apk" },
+            { "name": "Linux", "export_template": "Linux/X11", "outname": "ThienDaoNghichMenh", "ext": "x86_64" },
+            { "name": "Linux (Headless Server)", "export_template": "Linux/X11 Headless Server", "outname": "ThienDaoNghichMenh Server", "ext": "x86_64" },
+            { "name": "Windows", "export_template": "Windows Desktop", "outname": "ThienDaoNghichMenh", "ext": "exe" },
+            { "name": "macOS", "export_template": "macOS", "outname": "ThienDaoNghichMenh", "ext": "zip" },
+            { "name": "Android", "export_template": "Android", "outname": "ThienDaoNghichMenh", "ext": "apk" },
             { "name": "Web", "export_template": "Web", "outname": "index", "ext": "html" }
           ]
           EOF

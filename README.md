@@ -1,100 +1,48 @@
-# Source of Mana
+# Thiên Đạo Nghịch Mệnh
 
 ![screenshot](data/press/readme/header.png)
 
-**Source of Mana** is a classic 2D MMORPG inspired by the golden era of pixel art RPGs. This game project is truly open source and welcomes contributions from around the globe.
+**Thiên Đạo Nghịch Mệnh** (TDNM) là game tu tiên 2D (Godot) — thế giới Trúc Sơn, ngũ hành, kiếm đạo và đột phá cảnh giới.
 
-The game is still in early development but already offers a playable solo and multiplayer experience.
+Bản web chơi ngay: https://cuong2000aa.github.io/thien-dao-nghich-menh-godot/?autologin=1
 
-## About the Project
+## Về dự án
 
-**Engine:** Godot 4 (client and server)
+**Engine:** Godot 4.7 (client + server)
 
-**Design Tools:** (exact versions in [versions.cfg](versions.cfg))
-- Game editor: [Godot](https://godotengine.org/)
-- Level editor: [Tiled](https://www.mapeditor.org/)
+**Công cụ:** (phiên bản trong [versions.cfg](versions.cfg))
+- Editor: [Godot](https://godotengine.org/)
+- Map: [Tiled](https://www.mapeditor.org/)
 
-**Organization:** [Manasource](https://manasource.org)
+**Nền tảng kỹ thuật:** fork từ [Source of Mana](https://github.com/sourceofmana/sourceofmana) (MIT) — xem [NOTICE_THIEN_DAO.md](NOTICE_THIEN_DAO.md).
 
-**Origins:** We are veterans of *The Mana World*, building upon and improving its assets
+**Mục tiêu:** MMORPG tu tiên Việt hoá, chơi được solo / co-op / web.
 
-**Goal:** Become the go-to open source 2D MMORPG project
+**Nền tảng:** Desktop (Windows, macOS, Linux), Mobile (Android), Web (HTML5/WASM)
 
-**Platforms:** Desktop (Windows, macOS, Linux), Mobile (Android) and Web (HTML5/WebAssembly) clients
+## Gameplay
 
-## Gameplay Highlights
+- Tu luyện, đột phá, ngũ hành khắc chế
+- Chiêu thức kiếm đạo (Thanh Phong, Vạn Kiếm Quy Tông, Nhất Kiếm Trảm Thiên Môn…)
+- Nhiệm vụ, giao thương, tông môn
+- Server-authoritative + offline in-process
 
-- Explore a fantasy world crafted in charming pixel art
-- Interact with NPCs and other players in real-time
-- Battle monsters, complete quests, and collect loot
-- Dynamic server-authoritative design
-- Frequent updates and community-driven development
+## Điều khiển (tóm tắt)
 
-## Screenshots
+- **Di chuyển:** `WASD` / click
+- **Tương tác:** `Ctrl` · **Nhắm:** `E`
+- **Chạy:** giữ `Shift` · **Nhặt:** `Q`
+- **Xem Trước FX/chiêu:** `V` / Xbox Start
+- **UI:** `F1`–`F9` (menu, chỉ số, túi, kỹ năng…)
 
-![exploration](data/press/readme/exploration.png)
-![combat](data/press/readme/combat.png)
-![dialogue](data/press/readme/dialogue.png)
+## VFX
 
-## Controls
+PixelFX (MIT) full catalog dưới `assets/vfx/pixelfx/` — xem `assets/vfx/pixelfx/NOTICE.md`.
 
-### General Movement
-- **Move:** `WASD`
-- **Click to Move / Interact:** Left Mouse Button
-- **Interact:** `Ctrl`
-- **Target:** `E`
-- **Untarget:** `R`
-- **Run (Hold):** `Shift`
-- **Pickup Items:** `Q`
-- **Morph / Transformation:** `M`
-- **Sit:** `C`
+## Giấy phép
 
-### Camera
-- **Zoom In / Out:** Mouse Scroll
-- **Reset Zoom:** Middle Mouse Button
-- **Screenshot:** `P`
+Chi tiết: [LICENSE.md](LICENSE.md) và [NOTICE_THIEN_DAO.md](NOTICE_THIEN_DAO.md).
 
-### UI Shortcuts (Keyboard Only)
-- **Menu Bar:** `F1`
-- **Open Stats:** `F2`
-- **Inventory:** `F3`
-- **Skills:** `F4`
-- **Quest Progress:** `F5`
-- **Minimap:** `F6`
-- **Chat:** `F7`
-- **Social:** `F8`
-- **Settings:** `F9`
-- **Toggle Fullscreen:** `F11`
-- **Emotes:** `F12`
-
-### Contextual Actions
-- **Confirm / Open Chat:** `Enter`
-- **Cancel / Close:** `Esc`
-- **Context Options:** `1`, `2`, `3`, `4`
-
-## Community & Contribution
-
-We’re always looking for contributors of all kinds:
-- Pixel artists
-- SFX makers
-- GDScript or general programmers
-- UI/UX designers
-- Writers and worldbuilders
-
-### Contact
-
-If you’re interested in helping, join our community and check out our open issues.
-
-- **Discord:** [Join here](https://discord.com/channels/581622549566193664/1013487216493854780)
-- **IRC:** `#sourceofmana` and `#sourceofmana-dev` on [Libera.Chat](https://web.libera.chat/#sourceofmana,#sourceofmana-dev)
-
-## License
-
-For detailed information on the licensing of code, assets, and design, as well as credits for individual asset files, please refer to the [LICENSE.md](LICENSE.md) file.
-
-- **Code License:** MIT License
-- **Art & Design License:** CC BY-SA 4.0
-
----
-
-Source of Mana is developed by volunteers in their free time. If you like retro RPGs & MMORPGs and want to help shape the future of open-source gaming, come say hi!
+- Code nền SoM: MIT
+- Art SoM gốc: CC BY-SA 4.0 (giữ attribution)
+- Nội dung Thiên Đạo: theo vault / NOTICE dự án

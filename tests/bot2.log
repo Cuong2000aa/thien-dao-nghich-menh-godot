@@ -5,7 +5,7 @@ Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
 Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
 Sentry: DEBUG: Automatic initialization is disabled in the project settings.
 Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
-[0.670][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot2/
+[0.670][Config] Using profile: /Users/it/Library/Application Support/ThienDaoNghichMenh/profiles/bot2/
 [0.670][Config] Loading file: res://data/conf/settings.cfg
 [1.048][Launcher] Entering new FSM state: LOGIN_SCREEN
 [Bot 2][INIT][0.00] ClientBot started with Bot ID: 2, Account: DaoHuu02, Char: NghichMenh02, Partner: ThienKiem01, WebSocket: false

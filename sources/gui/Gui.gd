@@ -156,15 +156,15 @@ func OpenDiscord():
 
 func DisplayFirstLogin():
 	if LauncherCommons.isWeb:
-		UICommons.MessageBox("""Welcome to Source of Mana!
+		UICommons.MessageBox("""Chào mừng đạo hữu đến với Thiên Đạo Nghịch Mệnh!
 
-You're currently playing the web version, which may run slower and isn't as stable as the downloadable versions.
+Bạn đang chơi bản web — có thể chậm hơn và kém ổn định hơn bản cài native.
 
-This version is mainly here to showcase the game.
-For the best experience, we recommend using the native client found on our itch.io page (Available on Windows, Linux, macOS, and Android).
+Bản này chủ yếu để trải nghiệm nhanh. Nhấn V / Start để mở Xem Trước (FX · chiêu · nhân vật).
+Chúc đạo hữu tu vi tinh tiến!
 """,
-			settingsWindow.set_sessionfirstlogin.bind(false), "OK",
-			OpenDiscord, "Join our Discord")
+			settingsWindow.set_sessionfirstlogin.bind(false), "Bắt Đầu",
+			OpenDiscord, "Gia Nhập Cộng Đồng")
 	else:
 		UICommons.MessageBox("""Chào mừng đạo hữu đến với Thiên Đạo Nghịch Mệnh!
 

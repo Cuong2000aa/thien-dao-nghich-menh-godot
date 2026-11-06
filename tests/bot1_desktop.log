@@ -5,7 +5,7 @@ Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
 Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
 Sentry: DEBUG: Automatic initialization is disabled in the project settings.
 Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
-[0.721][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot_desktop/
+[0.721][Config] Using profile: /Users/it/Library/Application Support/ThienDaoNghichMenh/profiles/bot_desktop/
 [0.721][Config] Loading file: res://data/conf/settings.cfg
 [0.721][Config] Loading file: user://profiles/bot_desktop/settings.cfg
 [1.119][Launcher] Entering new FSM state: LOGIN_SCREEN

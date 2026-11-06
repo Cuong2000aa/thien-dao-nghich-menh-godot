@@ -23,7 +23,9 @@ func _run():
 	_assert(Lib.Has("crit_hit"), "catalog_crit")
 	_assert(Lib.Has("frost_nova"), "catalog_frost")
 	_assert(Lib.Has("level_up"), "catalog_level_up")
-	_assert(not Lib.Has("god_rays"), "catalog_skips_god_rays")
+	_assert(Lib.Has("god_rays"), "catalog_includes_god_rays")
+	_assert(Lib.Has("slash"), "alias_slash_to_sword_slash")
+	_assert(Lib.Has("fish_school"), "catalog_fish_school")
 
 	# Load frames from disk
 	var sf = Lib.GetSpriteFrames("hit_spark")

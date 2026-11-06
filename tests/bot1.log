@@ -5,7 +5,7 @@ Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 (Apple9)
 Sentry: DEBUG: starting Sentry SDK version 2.1.1+d288ad9
 Sentry: DEBUG: Automatic initialization is disabled in the project settings.
 Sentry: INFO: Automatic initialization is disabled! Operations with Sentry SDK will result in no-ops.
-[0.661][Config] Using profile: /Users/it/Library/Application Support/SourceOfMana/profiles/bot1/
+[0.661][Config] Using profile: /Users/it/Library/Application Support/ThienDaoNghichMenh/profiles/bot1/
 [0.661][Config] Loading file: res://data/conf/settings.cfg
 [0.662][Config] Loading file: user://profiles/bot1/settings.cfg
 [1.003][Launcher] Entering new FSM state: LOGIN_SCREEN
@@ -35,7 +35,7 @@ SCRIPT ERROR: Assertion failed: Could not load the minimap resource
 [Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Disconnecting Bot 1 for disconnect/reconnect test...
 [Bot 1][WAIT_FOR_DISCONNECT_TEST][9.37] Captured screenshot: tests/screenshots/bot1_pre_disconnect.png (err=0)
 [11.216][Launcher] Entering new FSM state: LOGIN_SCREEN
-Opened database successfully (/Users/it/Library/Application Support/SourceOfMana/testing.db)
+Opened database successfully (/Users/it/Library/Application Support/ThienDaoNghichMenh/testing.db)
 [11.217][Launcher] Entering new FSM state: LOGIN_SCREEN
 [11.218][Discord] Discord bot disabled
 [11.218][File] Loading file: res://data/conf/email_password_reset.html
@@ -43,7 +43,7 @@ Opened database successfully (/Users/it/Library/Application Support/SourceOfMana
 [11.218][Server] Peer connected: 1 with Offline from 127.0.0.1
 [11.219][Config] Saving file: user://profiles/bot1/settings.cfg
 [Bot 1][RECONNECT_DELAY][10.88] Bot 1 reconnecting to server...
-Closed database (/Users/it/Library/Application Support/SourceOfMana/testing.db)
+Closed database (/Users/it/Library/Application Support/ThienDaoNghichMenh/testing.db)
 [12.878][Launcher] Entering new FSM state: LOGIN_SCREEN
 [13.310][Client] Initialized with: ENet, Online, Public, Testing
 [Bot 1][RECONNECT_AUTH][11.89] Logging back in: DaoHuu01

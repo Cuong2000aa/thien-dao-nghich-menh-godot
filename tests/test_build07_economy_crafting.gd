@@ -228,7 +228,7 @@ func _RunEconomyAntiExploitTests():
 func _RunSQLiteSchemaTests():
 	print("\n--- [SYSTEM 7: SQLITE PERSISTENCE SCHEMA] ---")
 	var db = SQLite.new()
-	db.path = "/Users/it/Library/Application Support/SourceOfMana/testing.db"
+	db.path = "/Users/it/Library/Application Support/ThienDaoNghichMenh/testing.db"
 	if db.open_db():
 		assert(CraftingSystemClass.EnsureCraftingTables(db), "Crafting tables must be ensured")
 		var res = db.query("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'char_%';")
