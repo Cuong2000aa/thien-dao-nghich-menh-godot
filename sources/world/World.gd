@@ -33,7 +33,7 @@ func GetGlobalNpc(nickname : String) -> NpcAgent:
 func BulkPreload(agent : BaseAgent, agentRID : int, peerID : int):
 	if agent is PlayerAgent:
 		Network.Bulk("PreloadPlayer", [
-			agentRID, agent.stat.spirit, agent.stat.currentShape, agent.nick,
+			agentRID, agent.stat.spirit, agent.stat.shape, agent.stat.currentShape, agent.nick,
 			agent.stat.level, agent.stat.health,
 			agent.stat.hairstyle, agent.stat.haircolor,
 			agent.stat.gender, agent.stat.race, agent.stat.skintone,

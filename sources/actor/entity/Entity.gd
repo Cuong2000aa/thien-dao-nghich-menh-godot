@@ -26,9 +26,12 @@ func SetData():
 	SetVisual(altData if altData else data)
 	interactive.Init(altData if altData else data)
 	# Apply selectable hero body from trait.shape (Kiếm Khách / Ảnh Sát / Kiếm Sĩ)
-	if type == ActorCommons.Type.PLAYER and visual and stat:
+	# Skip while morphing (ship / form) so we don't overwrite morph preset with Swordsman.
+	if type == ActorCommons.Type.PLAYER and visual and stat and not isMorph:
 		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
 		var heroIdx : int = HeroLib.FindIndexByShape(stat.shape)
+		if heroIdx < 0:
+			heroIdx = HeroLib.FindIndexByShape(stat.currentShape)
 		if heroIdx >= 0:
 			HeroLib.ApplyToEntity(self, heroIdx)
 

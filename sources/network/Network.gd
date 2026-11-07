@@ -173,8 +173,8 @@ func PreloadEntity(agentRID : int, actorType : ActorCommons.Type, currentShape :
 	CallClient("PreloadEntity", [agentRID, actorType, currentShape, nick, defaultState], peerID)
 
 @rpc("authority", "call_remote", "reliable", EChannel.ENTITY)
-func PreloadPlayer(agentRID : int, spirit : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : ActorCommons.Gender, race : int, skintone : int, equipment : Dictionary, peerID : int = NetworkCommons.PeerOfflineID):
-	CallClient("PreloadPlayer", [agentRID, spirit, currentShape, nick, level, health, hairstyle, haircolor, gender, race, skintone, equipment], peerID)
+func PreloadPlayer(agentRID : int, spirit : int, shape : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : ActorCommons.Gender, race : int, skintone : int, equipment : Dictionary, peerID : int = NetworkCommons.PeerOfflineID):
+	CallClient("PreloadPlayer", [agentRID, spirit, shape, currentShape, nick, level, health, hairstyle, haircolor, gender, race, skintone, equipment], peerID)
 
 @rpc("authority", "call_remote", "reliable", EChannel.ENTITY)
 func RemoveEntity(agentRID : int, peerID : int = NetworkCommons.PeerOfflineID):

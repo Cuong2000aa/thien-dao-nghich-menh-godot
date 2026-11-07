@@ -4,6 +4,8 @@ extends Object
 #
 var actorType : ActorCommons.Type	= ActorCommons.Type.MONSTER
 var spirit : int					= DB.UnknownHash
+## Base hero body (Player / PlayerAssassin / PlayerWuxiaSword). Distinct from morph currentShape.
+var shape : int						= DB.UnknownHash
 var currentShape : int				= DB.UnknownHash
 var nick : String					= ""
 var level : int						= 0

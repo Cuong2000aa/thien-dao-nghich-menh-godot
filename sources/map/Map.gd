@@ -98,10 +98,11 @@ func PreloadEntity(agentRID : int, actorType : ActorCommons.Type, currentShape :
 	entry.defaultState = defaultState
 	entityCache[agentRID] = entry
 
-func PreloadPlayer(agentRID : int, spirit : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : int, race : int, skintone : int, equipment : Dictionary):
+func PreloadPlayer(agentRID : int, spirit : int, shape : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : int, race : int, skintone : int, equipment : Dictionary):
 	var entry : EntityCacheEntry = EntityCacheEntry.new()
 	entry.actorType = ActorCommons.Type.PLAYER
 	entry.spirit = spirit
+	entry.shape = shape
 	entry.currentShape = currentShape
 	entry.nick = nick
 	entry.level = level
@@ -118,8 +119,9 @@ func SpawnEntity(agentRID : int, entry : EntityCacheEntry) -> Entity:
 	if not currentFringe:
 		return null
 
-	var shape : int = ActorCommons.PlayerEntityID if entry.actorType == ActorCommons.Type.PLAYER else entry.currentShape
-	var entityData : EntityData = DB.EntitiesDB.get(shape, null)
+	# Visual preset always loads Player base; hero frames applied via HeroLibrary from trait.shape
+	var entityDataID : int = ActorCommons.PlayerEntityID if entry.actorType == ActorCommons.Type.PLAYER else entry.currentShape
+	var entityData : EntityData = DB.EntitiesDB.get(entityDataID, null)
 	if not entityData:
 		return null
 
@@ -129,9 +131,17 @@ func SpawnEntity(agentRID : int, entry : EntityCacheEntry) -> Entity:
 	var entity : Entity = Instantiate.CreateEntity(entry.actorType, entityData, entityData._name if entry.nick.is_empty() else entry.nick, isLocalPlayer)
 	entity.agentRID = agentRID
 	entity.defaultState = entry.defaultState
-	entity.stat.shape = shape
 	entity.stat.spirit = entry.spirit
 	entity.stat.currentShape = entry.currentShape
+	# Keep base hero shape (Ảnh Sát / Kiếm Sĩ…) — do NOT force Player/Swordsman
+	if isPlayerType:
+		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+		var baseShape : int = entry.shape if entry.shape != DB.UnknownHash else entry.currentShape
+		if not HeroLib.IsHeroShape(baseShape):
+			baseShape = ActorCommons.PlayerEntityID
+		entity.stat.shape = baseShape
+	else:
+		entity.stat.shape = entityDataID
 
 	if isPlayerType:
 		entity.stat.level = entry.level
@@ -151,7 +161,8 @@ func SpawnEntity(agentRID : int, entry : EntityCacheEntry) -> Entity:
 		pendingWarp = false
 
 	AddChild(entity)
-	if entry.currentShape != shape:
+	# Always refresh player visuals so hero frames + equipment overlays apply after ready
+	if isPlayerType or entry.currentShape != entityDataID:
 		entity.SetData.call_deferred()
 	Entities.Add(entity, agentRID)
 

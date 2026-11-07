@@ -10,6 +10,7 @@ const QuestGuidanceClass = preload("res://sources/quest/QuestGuidance.gd")
 @onready var questSeparator : Separator				= $Layout/Margin/TabBar/QuestLog/QuestScroll/QuestList/HSeparator
 @onready var questDescription : RichTextLabel		= $Layout/Margin/TabBar/QuestLog/DetailPane/Description
 @onready var questActions : Control					= $Layout/Margin/TabBar/QuestLog/DetailPane/QuestActions
+@onready var autoButton : Button					= %AutoButton
 @onready var skipButton : Button					= %SkipButton
 @onready var abandonButton : Button					= %AbandonButton
 @onready var bestiaryContainer : Container			= $Layout/Margin/TabBar/Manapedia/BestiaryList/Monsters
@@ -134,6 +135,8 @@ func RefreshQuestDescription(questID : int):
 		return
 
 	currentQuest = questID
+	if Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled:
+		Launcher.GUI.questAutoController.PreferQuest(questID)
 	questDescription.text = "\n"
 
 	var questData : QuestData = DB.GetQuest(questID)
@@ -188,12 +191,32 @@ func _RefreshActionButtons() -> void:
 	if currentQuest != DB.UnknownHash and Launcher.Player and Launcher.Player.progress:
 		var st : int = Launcher.Player.progress.GetQuest(currentQuest)
 		canAct = st > ProgressCommons.UnknownProgress and st < ProgressCommons.CompletedProgress
+	var autoOn : bool = Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled
 	if questActions:
-		questActions.visible = canAct
+		questActions.visible = canAct or autoOn
+	if autoButton:
+		autoButton.disabled = false
+		if Launcher.GUI and Launcher.GUI.questAutoController:
+			autoButton.set_pressed_no_signal(Launcher.GUI.questAutoController.enabled)
+			autoButton.text = "Auto NV: BẬT" if Launcher.GUI.questAutoController.enabled else "Auto NV"
+		elif canAct:
+			autoButton.disabled = false
+		else:
+			autoButton.disabled = true
 	if skipButton:
 		skipButton.disabled = not canAct
 	if abandonButton:
 		abandonButton.disabled = not canAct
+
+func _OnAutoPressed() -> void:
+	if Launcher.GUI:
+		Launcher.GUI.EnsureQuestAuto()
+	if Launcher.GUI and Launcher.GUI.questAutoController:
+		var on : bool = autoButton.button_pressed if autoButton else true
+		Launcher.GUI.questAutoController.SetEnabled(on)
+		if on and currentQuest != DB.UnknownHash:
+			Launcher.GUI.questAutoController.PreferQuest(currentQuest)
+	_RefreshActionButtons()
 
 func _OnSkipPressed() -> void:
 	_PromptQuestAction(false)
@@ -252,11 +275,18 @@ func _ready():
 		ThemeClass.AccentRichText(questDescription)
 		if not questDescription.meta_clicked.is_connected(_OnQuestMetaClicked):
 			questDescription.meta_clicked.connect(_OnQuestMetaClicked)
+	if autoButton and not autoButton.toggled.is_connected(_OnAutoToggled):
+		autoButton.toggled.connect(_OnAutoToggled)
 	if skipButton and not skipButton.pressed.is_connected(_OnSkipPressed):
 		skipButton.pressed.connect(_OnSkipPressed)
 	if abandonButton and not abandonButton.pressed.is_connected(_OnAbandonPressed):
 		abandonButton.pressed.connect(_OnAbandonPressed)
 	_RefreshActionButtons()
+
+func _OnAutoToggled(pressed : bool) -> void:
+	if autoButton:
+		autoButton.button_pressed = pressed
+	_OnAutoPressed()
 
 func _OnQuestMetaClicked(meta : Variant) -> void:
 	if str(meta) != "goto_quest":

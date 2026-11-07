@@ -11,6 +11,7 @@ const PreviewGalleryWindowClass = preload("res://sources/gui/PreviewGalleryWindo
 const SkillTreeWindowClass = preload("res://sources/gui/SkillTreeWindow.gd")
 const TeamHudClass = preload("res://sources/gui/TeamHud.gd")
 const QuestGuideControllerClass = preload("res://sources/quest/QuestGuideController.gd")
+const QuestAutoControllerClass = preload("res://sources/quest/QuestAutoController.gd")
 
 @onready var background : TextureRect			= $Background
 
@@ -62,6 +63,7 @@ var skillTreeWindow : WindowPanel				= null
 var teamHud : Control							= null
 var targetPanel : Control						= null
 var questGuideController : Node					= null
+var questAutoController : Node					= null
 
 @onready var chatContainer : ChatContainer		= $Windows/Floating/Chat/Margin/VBoxContainer
 @onready var emoteContainer : Container			= $Windows/Floating/Emote/Layout/ItemContainer/Grid
@@ -290,6 +292,7 @@ func EnterGame():
 	shortcuts.set_visible(true)
 	menu.SetItemsVisible(true)
 	EnsureQuestGuide()
+	EnsureQuestAuto()
 	RefreshQuestGuidance()
 
 func EnsureQuestGuide() -> void:
@@ -297,6 +300,12 @@ func EnsureQuestGuide() -> void:
 		return
 	questGuideController = QuestGuideControllerClass.new()
 	add_child(questGuideController)
+
+func EnsureQuestAuto() -> void:
+	if questAutoController and is_instance_valid(questAutoController):
+		return
+	questAutoController = QuestAutoControllerClass.new()
+	add_child(questAutoController)
 
 func RefreshQuestGuidance() -> void:
 	EnsureQuestGuide()

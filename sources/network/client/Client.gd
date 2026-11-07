@@ -20,9 +20,9 @@ func Emote(agentRID : int, emoteID : int, _peerID : int):
 	if entity and entity.get_parent() and entity.interactive:
 		entity.interactive.DisplayEmote.call_deferred(emoteID)
 
-func PreloadPlayer(agentRID : int, spirit : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : ActorCommons.Gender, race : int, skintone : int, equipment : Dictionary, _peerID : int):
+func PreloadPlayer(agentRID : int, spirit : int, shape : int, currentShape : int, nick : String, level : int, health : int, hairstyle : int, haircolor : int, gender : ActorCommons.Gender, race : int, skintone : int, equipment : Dictionary, _peerID : int):
 	if Launcher.Map:
-		Launcher.Map.PreloadPlayer(agentRID, spirit, currentShape, nick, level, health, hairstyle, haircolor, gender, race, skintone, equipment)
+		Launcher.Map.PreloadPlayer(agentRID, spirit, shape, currentShape, nick, level, health, hairstyle, haircolor, gender, race, skintone, equipment)
 
 func PreloadEntity(agentRID : int, actorType : ActorCommons.Type, currentShape : int, nick : String, defaultState : ActorCommons.State, _peerID : int):
 	if Launcher.Map:
@@ -211,6 +211,7 @@ func ClearProgressionTracker(_peerID : int):
 
 func UpdatePrivateStats(experience : int, gp : int, mana : int, stamina : int, karma : int, weight : float, shape : int, spirit : int, _peerID : int):
 	if Launcher.Player and Launcher.Player.stat:
+		var shapeChanged : bool = Launcher.Player.stat.shape != shape
 		Launcher.Player.stat.experience		= experience
 		Launcher.Player.stat.gp				= gp
 		Launcher.Player.stat.mana			= mana
@@ -220,6 +221,12 @@ func UpdatePrivateStats(experience : int, gp : int, mana : int, stamina : int, k
 		Launcher.Player.stat.shape			= shape
 		Launcher.Player.stat.spirit			= spirit
 		Launcher.Player.stat.RefreshVitalStats()
+		# Re-apply hero body when base shape syncs (fix: was stuck on default Swordsman)
+		if shapeChanged and not Launcher.Player.stat.IsMorph():
+			var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+			var heroIdx : int = HeroLib.FindIndexByShape(shape)
+			if heroIdx >= 0:
+				HeroLib.ApplyToEntity(Launcher.Player, heroIdx)
 
 func UpdateAttributes(strength : int, vitality : int, agility : int, endurance : int, concentration : int, _peerID : int):
 	if Launcher.Player and Launcher.Player.stat:
@@ -277,6 +284,13 @@ func ItemEquiped(agentRID : int, itemID : int, customfield : StringName, state :
 				entity.inventory.UnequipItem(cell)
 
 			entity.visual.SetEquipment(cell.slot)
+			# Equip overlays must not wipe hero body frames back to default Swordsman
+			if entity.type == ActorCommons.Type.PLAYER and entity.stat and not entity.stat.IsMorph():
+				var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+				var heroIdx : int = HeroLib.FindIndexByShape(entity.stat.shape)
+				if heroIdx >= 0:
+					HeroLib.ApplyToEntity(entity, heroIdx)
+					entity.visual.SetEquipment(cell.slot)
 			if entity == Launcher.Player:
 				Launcher.GUI.inventoryWindow.RefreshInventory()
 				Launcher.GUI.tradePanel.RefreshInventory()
