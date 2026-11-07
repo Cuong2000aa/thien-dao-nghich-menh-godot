@@ -54,3 +54,29 @@ static func CopyDatabase(targetPath : String) -> bool:
 		return true
 	assert(false, "Could not find the default database template")
 	return false
+
+## Web/Android Chrome: godot-sqlite writes via Emscripten MEMFS, not Godot FileAccess,
+## so IndexedDB never updates unless we nudge syncfs. Without this, reload = empty saves.
+static func FlushUserFs(reason : String = "") -> void:
+	if not LauncherCommons.isWeb:
+		return
+	var marker := FileAccess.open(Path.Local + ".tdnm_idb_flush", FileAccess.WRITE)
+	if marker:
+		marker.store_string(str(Time.get_ticks_msec()) + ":" + reason)
+		marker.close()
+	JavaScriptBridge.eval("""
+(function () {
+	try {
+		var fs = (typeof FS !== 'undefined' && FS) || (typeof Module !== 'undefined' && Module.FS) || null;
+		if (!fs || typeof fs.syncfs !== 'function') {
+			console.warn('[TDNM] IDBFS syncfs unavailable');
+			return;
+		}
+		fs.syncfs(false, function (err) {
+			if (err) console.warn('[TDNM] IDBFS syncfs failed', err);
+		});
+	} catch (e) {
+		console.warn('[TDNM] FlushUserFs', e);
+	}
+})();
+""", true)

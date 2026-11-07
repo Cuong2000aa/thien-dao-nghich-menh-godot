@@ -28,6 +28,10 @@ signal launchModeUpdated
 signal dbInitialized
 signal shadersWarmed
 
+# Web IDBFS: keep JS callbacks alive (GC otherwise drops them)
+var _web_visibility_cb = null
+var _web_pagehide_cb = null
+
 #
 ## forceRestart: required for BUILD 11 Host/Offline when topology looks unchanged
 ## (still client+server) but SessionManager flags changed (listen socket vs in-process).
@@ -187,7 +191,49 @@ func _ready():
 	await Scene.ready
 
 	_post_launch()
+	_setup_web_persist.call_deferred()
 	_check_web_autologin.call_deferred()
+
+func _setup_web_persist() -> void:
+	if not LauncherCommons.isWeb:
+		return
+	Util.PrintLog("Launcher", "Web save: userfs_persistent=%s db=%s" % [
+		str(OS.is_userfs_persistent()), SQLCommons.GetDBPath()
+	])
+	if not OS.is_userfs_persistent():
+		Util.PrintLog("Launcher", "WARNING: browser storage may be ephemeral — saves can vanish on reload")
+
+	var window = JavaScriptBridge.get_interface("window")
+	var document = JavaScriptBridge.get_interface("document")
+	if window == null or document == null:
+		return
+
+	_web_visibility_cb = JavaScriptBridge.create_callback(_on_web_visibility)
+	_web_pagehide_cb = JavaScriptBridge.create_callback(_on_web_pagehide)
+	document.addEventListener("visibilitychange", _web_visibility_cb)
+	window.addEventListener("pagehide", _web_pagehide_cb)
+
+func _on_web_visibility(_args) -> void:
+	var document = JavaScriptBridge.get_interface("document")
+	if document and str(document.visibilityState) == "hidden":
+		_persist_web_now("visibility")
+
+func _on_web_pagehide(_args) -> void:
+	_persist_web_now("pagehide")
+
+func _persist_web_now(reason : String) -> void:
+	if World and SQL and SQL.isInitialized:
+		World.BackupPlayers()
+	elif SQL and SQL.isInitialized:
+		SQL.FlushUserFs(reason)
+	else:
+		SQLCommons.FlushUserFs(reason)
+
+func _notification(what : int) -> void:
+	if not LauncherCommons.isWeb:
+		return
+	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		_persist_web_now("pause")
 
 func _check_web_autologin():
 	if not OS.has_feature("web"):

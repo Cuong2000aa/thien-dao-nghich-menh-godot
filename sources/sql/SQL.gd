@@ -67,7 +67,10 @@ func AddAccount(username : String, password : String, email : String) -> bool:
 		"email" : email,
 		"created_timestamp" : SQLCommons.Timestamp()
 	}
-	return InsertRow("account", accountData)
+	var ok : bool = InsertRow("account", accountData)
+	if ok:
+		FlushUserFs("AddAccount")
+	return ok
 
 func RemoveAccount(accountID : int) -> bool:
 	return ExecuteBindings("DELETE FROM account WHERE account_id = ?;", [accountID])
@@ -100,6 +103,9 @@ func UpdateAccount(accountID : int, platform : int = NetworkCommons.Platform.UNK
 		data["platform"] = platform
 	return UpdateRow("account", "account_id = ?", [accountID], data)
 
+func FlushUserFs(reason : String = "") -> void:
+	SQLCommons.FlushUserFs(reason)
+
 # Characters
 func AddCharacter(accountID : int, nickname : String, stats : Dictionary, traits : Dictionary, attributes : Dictionary) -> bool:
 	var charData : Dictionary = {
@@ -113,6 +119,8 @@ func AddCharacter(accountID : int, nickname : String, stats : Dictionary, traits
 		ret = ret and UpdateRow("stat", "char_id = ?", [charID], stats)
 		ret = ret and UpdateRow("trait", "char_id = ?", [charID], traits)
 		ret = ret and UpdateRow("attribute", "char_id = ?", [charID], attributes)
+	if ret:
+		FlushUserFs("AddCharacter")
 	return ret
 
 func RemoveCharacter(charID : int) -> bool:
@@ -136,7 +144,7 @@ WHERE character.char_id = %d;" % charID)
 	assert(results.size() == 1, "Character information tables are missing")
 	return {} if results.is_empty() else results[0]
 
-func RefreshCharacter(player : PlayerAgent) -> bool:
+func RefreshCharacter(player : PlayerAgent, flush : bool = true) -> bool:
 	var charID : int = Peers.GetCharacter(player.peerID)
 	if charID == NetworkCommons.PeerUnknownID:
 		return false
@@ -152,6 +160,8 @@ func RefreshCharacter(player : PlayerAgent) -> bool:
 	Query("COMMIT;")
 	queryMutex.unlock()
 
+	if success and flush:
+		FlushUserFs("RefreshCharacter")
 	return success
 
 func HasCharacter(nickname : String) -> bool:
@@ -283,7 +293,10 @@ func GetEquipment(charID : int) -> Dictionary:
 	return {} if results.is_empty() else results[0]
 
 func UpdateEquipment(charID : int, data : Dictionary) -> bool:
-	return UpdateRow("equipment", "char_id = ?", [charID], data)
+	var ok : bool = UpdateRow("equipment", "char_id = ?", [charID], data)
+	if ok:
+		FlushUserFs("UpdateEquipment")
+	return ok
 
 # Progress
 func UpdateProgress(charID : int, progress : ActorProgress) -> bool:
@@ -517,7 +530,11 @@ func _post_launch():
 		db = null
 		return
 	else:
-		if not LauncherCommons.isWeb:
+		if LauncherCommons.isWeb:
+			# FULL so pages hit MEMFS; WAL unsupported / risky on IDBFS
+			Query("PRAGMA synchronous=FULL;")
+			Query("PRAGMA busy_timeout=5000;")
+		else:
 			Query("PRAGMA journal_mode=WAL;")
 			Query("PRAGMA synchronous=NORMAL;")
 			Query("PRAGMA busy_timeout=5000;")
@@ -540,15 +557,38 @@ func _post_launch():
 	CleanExpiredTokens()
 
 	isInitialized = true
+	FlushUserFs("open_db")
 
 	if backups:
 		backups.Start()
+	elif LauncherCommons.isWeb:
+		_start_web_persist_timer()
+
+func _start_web_persist_timer() -> void:
+	if has_node("WebPersistTimer"):
+		return
+	var t := Timer.new()
+	t.name = "WebPersistTimer"
+	t.wait_time = 30.0
+	t.autostart = true
+	t.timeout.connect(_on_web_persist_tick)
+	add_child(t)
+
+func _on_web_persist_tick() -> void:
+	if Launcher.World:
+		Launcher.World.BackupPlayers()
+	else:
+		FlushUserFs("web_timer")
 
 func Destroy():
 	if backups:
 		backups.Stop()
+	if Launcher.World and isInitialized:
+		Launcher.World.BackupPlayers()
+	FlushUserFs("destroy")
 	if db:
 		db.close_db()
+		FlushUserFs("close_db")
 
 func Wipe():
 	for table in ["account", "attribute", "auth_token", "ban", "bestiary", "character", "equipment", "ip_ban", "item", "quest", "skill", "sqlite_sequence", "stat", "trait"]:

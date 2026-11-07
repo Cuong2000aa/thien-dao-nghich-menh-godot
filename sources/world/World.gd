@@ -143,10 +143,13 @@ func AgentWarped(map : WorldMap, agent : BaseAgent):
 
 # Generic
 func BackupPlayers():
+	if not Launcher.SQL:
+		return
 	for area : WorldMap in areas.values():
 		for inst : WorldInstance in area.instances.values():
 			for player : PlayerAgent in inst.players:
-				Launcher.SQL.RefreshCharacter(player)
+				Launcher.SQL.RefreshCharacter(player, false)
+	Launcher.SQL.FlushUserFs("BackupPlayers")
 
 
 func _post_launch():
