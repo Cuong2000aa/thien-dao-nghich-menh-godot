@@ -314,14 +314,18 @@ static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
 				}
 		ProgressCommons.Quest.MINE_EXPLORATION:
 			# After Ekinu accepts expedition — do NOT bounce back to Ekinu (dialogue menu loops).
+			# Dausen = directions only (no state change); next_do Ryan at mine is the real advance.
 			if state == ProgressCommons.MINE_EXPLORATION.STARTED:
-				return {"do": "Dausen", "return": "Dausen", "kind": "talk", "need": 1, "force_turn_in": false}
+				return {
+					"do": "Dausen", "next_do": "Ryan", "return": "Ryan", "kind": "talk",
+					"need": 1, "force_turn_in": false,
+				}
 			if state == ProgressCommons.MINE_EXPLORATION.FIND_NICKOS:
-				return {"do": "Nickos", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
+				return {"do": "Nickos", "next_do": "Xakelbael", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
 			if state >= ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED and state < ProgressCommons.MINE_EXPLORATION.DEFEATED:
 				return {"do": "Xakelbael", "return": "Ryan", "kind": "kill", "need": 1, "force_turn_in": false, "kill_targets": ["Xakelbael"]}
 			if state == ProgressCommons.MINE_EXPLORATION.DEFEATED:
-				return {"do": "Mana Tree", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
+				return {"do": "Mana Tree", "next_do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
 			if state == ProgressCommons.MINE_EXPLORATION.MANA_TREE_MET:
 				return {"do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": true}
 	return {}
@@ -483,6 +487,7 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	var returnNick : String = str(override.get("return", ""))
 	if returnNick.is_empty():
 		returnNick = questData.giver
+	var nextNick : String = str(override.get("next_do", ""))
 	var killTargets : Array = []
 	if override.has("kill_targets"):
 		killTargets = override.get("kill_targets", [])
@@ -499,6 +504,7 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 		"action_label": actionLabel,
 		"nick": nick,
 		"alt_nick": altNick,
+		"next_nick": nextNick,
 		"return_nick": returnNick,
 		"kill_targets": killTargets,
 		"need": int(override.get("need", 0)),
@@ -515,6 +521,92 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 		"target": questData.target,
 		"turn_in": turnIn,
 	}
+
+## Final turn-in / completion waypoint (Skip + Auto fly-to).
+static func BuildCompletionStep(questID : int) -> Dictionary:
+	EnsureIndex()
+	_EnsureObjectiveTable()
+	var questData : QuestData = DB.GetQuest(questID)
+	if questData == null:
+		return {}
+	var override : Dictionary = _objectiveTable.get(questID, {}).duplicate()
+	# Prefer highest phase return nick when known
+	var phaseReturn : String = ""
+	match questID:
+		ProgressCommons.Quest.MINE_EXPLORATION:
+			phaseReturn = "Ryan"
+		ProgressCommons.Quest.TUTORIAL:
+			phaseReturn = "Ekinu"
+		ProgressCommons.Quest.ELANORE_POTION:
+			phaseReturn = "Elanore"
+	var nick : String = phaseReturn
+	if nick.is_empty():
+		nick = str(override.get("return", ""))
+	if nick.is_empty():
+		nick = questData.giver
+	var spawns : Array = FindSpawns(nick)
+	if spawns.is_empty():
+		return {}
+	var chosen : Dictionary = spawns[0]
+	return {
+		"quest_id": questID,
+		"nick": nick,
+		"map_id": int(chosen.get("map_id", DB.UnknownHash)),
+		"map_display": str(chosen.get("map_display", "")),
+		"position": chosen.get("position", Vector2.ZERO),
+		"resolved": true,
+	}
+
+## Offline / listen-server warp to a guidance step (Auto + Skip).
+static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bool:
+	if step.is_empty() or not bool(step.get("resolved", false)):
+		return false
+	if Launcher.World == null:
+		return false
+	var mapID : int = int(step.get("map_id", DB.UnknownHash))
+	var pos : Vector2 = step.get("position", Vector2.ZERO)
+	if mapID == DB.UnknownHash:
+		return false
+	var agent : PlayerAgent = null
+	if Peers:
+		agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
+		if agent == null:
+			agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
+	if agent == null:
+		return false
+	ProgressCommons.Warp(agent, mapID, pos)
+	if not notify.is_empty() and Launcher.GUI and Launcher.GUI.notificationLabel:
+		Launcher.GUI.notificationLabel.AddNotification(notify)
+	return true
+
+## Resolve spawn for an arbitrary nick (Auto next_do hop).
+static func BuildNickStep(nick : String, fallback : Dictionary = {}) -> Dictionary:
+	if nick.is_empty():
+		return fallback
+	EnsureIndex()
+	var spawns : Array = FindSpawns(nick)
+	if spawns.is_empty():
+		return fallback
+	var chosen : Dictionary = spawns[0]
+	if Launcher.Map:
+		for s in spawns:
+			if s.get("map_id", DB.UnknownHash) == Launcher.Map.currentMapID:
+				chosen = s
+				break
+	var mapID : int = int(chosen.get("map_id", DB.UnknownHash))
+	var pos : Vector2 = chosen.get("position", Vector2.ZERO)
+	var live : Vector2 = ResolveLivePosition(nick, mapID)
+	if live != Vector2.INF:
+		pos = live
+		if Launcher.Map:
+			mapID = Launcher.Map.currentMapID
+	var out : Dictionary = fallback.duplicate() if not fallback.is_empty() else {}
+	out["nick"] = nick
+	out["map_id"] = mapID
+	out["position"] = pos
+	out["map_display"] = str(chosen.get("map_display", out.get("map_display", "")))
+	out["resolved"] = true
+	return out
 
 static func _ResolveMapIdFromLocationLabel(label : String) -> int:
 	if label.is_empty():

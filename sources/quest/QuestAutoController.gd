@@ -21,6 +21,12 @@ var _noTargetSince : float = 0.0
 var _lastPickedChoice : String = ""
 var _sameChoiceStreak : int = 0
 var _dialogueStuckTicks : int = 0
+## questID|state|nick → true after a finished talk (advance to next_do)
+var _talkedKeys : Dictionary = {}
+var _lastWarpAt : float = 0.0
+var _wasInDialogue : bool = false
+var _dialogueQuestID : int = DB.UnknownHash
+var _dialogueQuestState : int = ProgressCommons.UnknownProgress
 
 const TICK_SEC : float = 0.45
 const DIALOGUE_TICK_SEC : float = 0.28
@@ -31,6 +37,8 @@ const NPC_REINTERACT_COOLDOWN_SEC : float = 2.5
 const KILL_PROGRESS_CHECK_SEC : float = 8.0
 const NO_TARGET_RETURN_SEC : float = 6.0
 const DIALOGUE_STUCK_TICKS : int = 4
+const WARP_COOLDOWN_SEC : float = 1.6
+const SAME_MAP_WARP_DIST : float = 720.0
 
 ## Decline / leave early — avoid while accepting a quest.
 const AVOID_CHOICE_KEYS : PackedStringArray = [
@@ -51,6 +59,7 @@ const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"chỉ điểm", "chi diem", "accept", "quest", "nhiệm vụ",
 	"giết", "giet", "ngay", "kael bảo", "làm tốt", "thám hiểm",
 	"ta phải làm gì?", # first-time job ask (exact-ish); "nhắc lại" is avoided above
+	"đi gặp", "di gap", "ryan", "tệ hại", "te hai", "ta làm", "ta lam",
 ]
 
 ## End conversation / leave NPC after objective done (Gilgames "Ổn hết!", Ekinu "đi thôi").
@@ -58,6 +67,7 @@ const EXIT_CHOICE_KEYS : PackedStringArray = [
 	"đi thôi", "di thoi", "ổn hết", "on het", "ta đi", "ta di",
 	"được, ta đi", "duoc, ta di", "cảm ơn. ta đi", "farewell",
 	"thôi, ta tưởng", "giữ tinh thần",
+	"đi gặp ryan", "di gap ryan", "gặp ryan", "gap ryan",
 ]
 
 func SetEnabled(on : bool) -> void:
@@ -74,9 +84,14 @@ func SetEnabled(on : bool) -> void:
 	_lastPickedChoice = ""
 	_sameChoiceStreak = 0
 	_dialogueStuckTicks = 0
+	_talkedKeys.clear()
+	_lastWarpAt = 0.0
+	_wasInDialogue = false
+	_dialogueQuestID = DB.UnknownHash
+	_dialogueQuestState = ProgressCommons.UnknownProgress
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
-			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — tìm đường, tương tác & tự chọn đối thoại.")
+			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — bay tới mục tiêu, tương tác & tự chọn thoại.")
 		else:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: TẮT.")
 
@@ -104,6 +119,10 @@ func _IsDialogueOpen() -> bool:
 	return Launcher.GUI != null and Launcher.GUI.IsDialogueContextOpened()
 
 func _Step() -> void:
+	var inDialogue : bool = _IsDialogueOpen()
+	if _wasInDialogue and not inDialogue:
+		_OnDialogueClosed()
+	_wasInDialogue = inDialogue
 	if _TryAdvanceDialogue():
 		return
 
@@ -112,7 +131,14 @@ func _Step() -> void:
 		return
 	var state : int = Launcher.Player.progress.GetQuest(questID) if Launcher.Player.progress else ProgressCommons.UnknownProgress
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
-		return
+		# Current done — hop to next active quest if any
+		_preferQuestID = DB.UnknownHash
+		questID = _ResolveActiveQuest()
+		if questID == DB.UnknownHash:
+			return
+		state = Launcher.Player.progress.GetQuest(questID) if Launcher.Player.progress else ProgressCommons.UnknownProgress
+		if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
+			return
 	if questID != _killQuestID:
 		_killCounts.clear()
 		_killQuestID = questID
@@ -121,17 +147,20 @@ func _Step() -> void:
 	var step : Dictionary = QuestGuidanceClass.BuildStep(questID, state)
 	if step.is_empty() or not step.get("resolved", false):
 		return
+	step = _ApplyTalkAdvance(questID, state, step)
+	if step.is_empty() or not step.get("resolved", false):
+		return
+
+	_dialogueQuestID = questID
+	_dialogueQuestState = state
+
 	var mapID : int = int(step.get("map_id", DB.UnknownHash))
 	var targetPos : Vector2 = step.get("position", Vector2.ZERO)
 	var nick : String = str(step.get("nick", ""))
 	var action : int = int(step.get("action", QuestGuidanceClass.Action.UNKNOWN))
 
-	if mapID != DB.UnknownHash and mapID != Launcher.Map.currentMapID:
-		if _lastNotifyMap != mapID:
-			_lastNotifyMap = mapID
-			var mapName : String = str(step.get("map_display", mapID))
-			if Launcher.GUI and Launcher.GUI.notificationLabel:
-				Launcher.GUI.notificationLabel.AddNotification("Auto NV: hãy dịch chuyển tới [%s]." % mapName)
+	# Fly/warp to objective map or far same-map points (no more “đứng không biết làm gì”).
+	if _EnsureNearObjective(step):
 		return
 
 	var returnNick : String = str(step.get("return_nick", ""))
@@ -144,6 +173,84 @@ func _Step() -> void:
 		_:
 			if Launcher.Player.position.distance_to(targetPos) > 48.0:
 				Launcher.Action.MoveTo(targetPos)
+
+func _TalkKey(questID : int, state : int, nick : String) -> String:
+	return "%d|%d|%s" % [questID, state, nick]
+
+func _HasTalked(questID : int, state : int, nick : String) -> bool:
+	return bool(_talkedKeys.get(_TalkKey(questID, state, nick), false))
+
+func _MarkTalked(questID : int, state : int, nick : String) -> void:
+	if nick.is_empty() or questID == DB.UnknownHash:
+		return
+	_talkedKeys[_TalkKey(questID, state, nick)] = true
+
+func _OnDialogueClosed() -> void:
+	if _lastNpcNick.is_empty():
+		return
+	_MarkTalked(_dialogueQuestID, _dialogueQuestState, _lastNpcNick)
+	# Immediately fly to next_do if this talk phase has a follow-up.
+	var step : Dictionary = QuestGuidanceClass.BuildStep(_dialogueQuestID, _dialogueQuestState)
+	if step.is_empty():
+		return
+	var nextNick : String = str(step.get("next_nick", ""))
+	if nextNick.is_empty():
+		return
+	if str(step.get("nick", "")) != _lastNpcNick and not _HasTalked(_dialogueQuestID, _dialogueQuestState, str(step.get("nick", ""))):
+		return
+	var nextStep : Dictionary = QuestGuidanceClass.BuildNickStep(nextNick, step)
+	if nextStep.get("resolved", false):
+		_WarpToStep(nextStep, "Auto NV: bay tới [%s]." % nextNick)
+
+func _ApplyTalkAdvance(questID : int, state : int, step : Dictionary) -> Dictionary:
+	var nick : String = str(step.get("nick", ""))
+	var nextNick : String = str(step.get("next_nick", ""))
+	if nextNick.is_empty() or nick.is_empty():
+		return step
+	if not _HasTalked(questID, state, nick):
+		return step
+	# Already finished this talk NPC → chase next objective (e.g. Dausen → Ryan).
+	var advanced : Dictionary = QuestGuidanceClass.BuildNickStep(nextNick, step)
+	if advanced.get("resolved", false):
+		advanced["action"] = step.get("action", QuestGuidanceClass.Action.TALK)
+		# If next is a kill target name, switch action
+		var killTargets : Array = step.get("kill_targets", [])
+		for t in killTargets:
+			if str(t) == nextNick:
+				advanced["action"] = QuestGuidanceClass.Action.KILL
+				break
+		if nextNick == "Xakelbael":
+			advanced["action"] = QuestGuidanceClass.Action.KILL
+			advanced["kill_targets"] = ["Xakelbael"]
+		return advanced
+	return step
+
+func _EnsureNearObjective(step : Dictionary) -> bool:
+	if Launcher.Player == null or Launcher.Map == null:
+		return false
+	var mapID : int = int(step.get("map_id", DB.UnknownHash))
+	var targetPos : Vector2 = step.get("position", Vector2.ZERO)
+	if mapID != DB.UnknownHash and mapID != Launcher.Map.currentMapID:
+		return _WarpToStep(step, "Auto NV: bay tới [%s]." % str(step.get("map_display", mapID)))
+	if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > SAME_MAP_WARP_DIST:
+		return _WarpToStep(step, "Auto NV: bay tới mục tiêu.")
+	return false
+
+func _WarpToStep(step : Dictionary, notify : String = "") -> bool:
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if now - _lastWarpAt < WARP_COOLDOWN_SEC:
+		return true
+	if QuestGuidanceClass.WarpLocalPlayerToStep(step, notify):
+		_lastWarpAt = now
+		_lastNotifyMap = int(step.get("map_id", DB.UnknownHash))
+		return true
+	# Fallback: notify manual travel if warp unavailable
+	var mapID : int = int(step.get("map_id", DB.UnknownHash))
+	if mapID != DB.UnknownHash and _lastNotifyMap != mapID:
+		_lastNotifyMap = mapID
+		if Launcher.GUI and Launcher.GUI.notificationLabel:
+			Launcher.GUI.notificationLabel.AddNotification("Auto NV: hãy tới [%s]." % str(step.get("map_display", mapID)))
+	return mapID != DB.UnknownHash and Launcher.Map and mapID != Launcher.Map.currentMapID
 
 func _DoTalkStep(nick : String, targetPos : Vector2) -> void:
 	var now : float = Time.get_ticks_msec() / 1000.0

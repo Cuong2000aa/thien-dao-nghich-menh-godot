@@ -246,16 +246,54 @@ func _PromptQuestAction(abandon : bool) -> void:
 		)
 
 func _ConfirmSkipQuest(questID : int) -> void:
+	# Fly to where this quest would complete, mark done, then focus next active quest.
+	var finishStep : Dictionary = QuestGuidanceClass.BuildCompletionStep(questID)
 	_ApplyQuestState(questID, ProgressCommons.CompletedProgress, "Đã bỏ qua nhiệm vụ (không thưởng).")
+	if finishStep.get("resolved", false):
+		QuestGuidanceClass.WarpLocalPlayerToStep(
+			finishStep,
+			"Bay tới chỗ hoàn thành [%s]." % str(finishStep.get("nick", ""))
+		)
+	_FocusNextActiveQuest()
 
 func _ConfirmAbandonQuest(questID : int) -> void:
 	_ApplyQuestState(questID, ProgressCommons.UnknownProgress, "Đã từ bỏ nhiệm vụ.")
+	_FocusNextActiveQuest()
+
+func _FocusNextActiveQuest() -> void:
+	var nextID : int = DB.UnknownHash
+	for qid in activeQuests.keys():
+		nextID = int(qid)
+		break
+	if nextID == DB.UnknownHash:
+		if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):
+			Launcher.GUI.RefreshQuestGuidance()
+		return
+	RefreshQuestDescription(nextID)
+	if Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled:
+		Launcher.GUI.questAutoController.PreferQuest(nextID)
+		var st : int = Launcher.Player.progress.GetQuest(nextID) if Launcher.Player and Launcher.Player.progress else 0
+		var step : Dictionary = QuestGuidanceClass.BuildStep(nextID, st)
+		if step.get("resolved", false):
+			QuestGuidanceClass.WarpLocalPlayerToStep(
+				step,
+				"Auto NV: nhiệm vụ mới — bay tới [%s]." % str(step.get("nick", ""))
+			)
+	if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):
+		Launcher.GUI.RefreshQuestGuidance()
 
 func _ApplyQuestState(questID : int, state : int, notify : String) -> void:
 	if Launcher.Player == null or Launcher.Player.progress == null:
 		return
 	# Persist + sync UI (UpdateQuest path refreshes highlights / log)
 	Launcher.Player.progress.SetQuest(questID, state, true)
+	# Also mirror on server agent when offline host (client Entity.progress may be the same object)
+	if Launcher.World and Peers:
+		var agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
+		if agent == null:
+			agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
+		if agent and agent.progress and agent.progress != Launcher.Player.progress:
+			agent.progress.SetQuest(questID, state, true)
 	# Client.UpdateQuest may already refresh; ensure local UI even if network is quiet
 	RefreshQuest(questID, state)
 	if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):

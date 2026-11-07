@@ -188,15 +188,23 @@ func _TestAutoChoicePrefersExitOverReminder() -> void:
 		_ok("Auto choice prefers exit over reminder/lore loops")
 
 func _TestMineExplorationNotStuckOnEkinu() -> void:
-	## After accepting expedition, Auto must leave Ekinu (menu loops) → Dausen.
+	## After accepting expedition, Auto must leave Ekinu (menu loops) → Dausen, then Ryan.
 	var qid : int = ProgressCommons.Quest.MINE_EXPLORATION
 	var step : Dictionary = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.STARTED)
 	if str(step.get("nick", "")) != "Dausen":
 		_fail("MINE STARTED should target Dausen, got %s" % step.get("nick", ""))
+	elif str(step.get("next_nick", "")) != "Ryan":
+		_fail("MINE STARTED next_do should be Ryan, got %s" % step.get("next_nick", ""))
 	elif int(step.get("action", -1)) != QuestGuidanceClass.Action.TALK:
 		_fail("MINE STARTED should be talk")
 	else:
-		_ok("MINE STARTED → Dausen (not Ekinu loop)")
+		_ok("MINE STARTED → Dausen → next Ryan (not Ekinu loop)")
+
+	var fin : Dictionary = QuestGuidanceClass.BuildCompletionStep(qid)
+	if str(fin.get("nick", "")) != "Ryan":
+		_fail("MINE completion step should be Ryan")
+	else:
+		_ok("MINE Skip completion → Ryan")
 
 func _TestKillQuestTurnInNotPremature() -> void:
 	## state>need heuristic must not force turn-in mid objective for all active quests.
