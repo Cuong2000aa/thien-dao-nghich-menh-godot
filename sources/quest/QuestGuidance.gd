@@ -44,6 +44,9 @@ const ANCHORS : Array = [
 	{"nick": "Yêu Thú Cuồng Bạo", "map": "Tulimshar Eastern Hills", "pos": Vector2(2000, 1374)},
 	{"nick": "Dị Thú", "map": "Tulimshar Eastern Hills", "pos": Vector2(1330, 3884)},
 	{"nick": "Ratto Ship", "map": "Ship Alige Hide", "pos": Vector2(1200, 1000)},
+	# Kael field cleanup (Tutorial KAEL_MET) — north cactus field
+	{"nick": "Peyote", "map": "Tulimshar", "pos": Vector2(2912, 1312)},
+	{"nick": "Maggot", "map": "Tulimshar", "pos": Vector2(2912, 1312)},
 
 	{"nick": "Tinh Hoa Linh Khí", "map": "Tulimshar Eastern Hills", "pos": Vector2(2450, 2342)},
 	{"nick": "Chest Outskirts", "map": "Tulimshar Eastern Hills", "pos": Vector2(2206, 1018)},
@@ -109,13 +112,15 @@ static func _EnsureObjectiveTable() -> void:
 		Q.EQ_CO_TRAN_BAT_ON: {"do": "Thanh Phong Tinh Thiết", "return": "Đạo Huyền Trưởng Lão", "kind": "gather", "need": 3},
 		# --- SoM legacy ---
 		Q.NINA_HUNGRY: {"do": "Nina", "return": "Nina", "kind": "talk", "need": 1},
-		Q.ELANORE_POTION: {"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6},
+		# Maggot drops slime; turn-in is inventory-gated at Elanore (not state>need).
+		Q.ELANORE_POTION: {"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6, "turn_state": -1},
 		Q.GRAIN_IN_THE_SAND: {"do": "Flour Barrel", "return": "Riskim", "kind": "go", "need": 1},
-		Q.TUTORIAL: {"do": "Elanore", "return": "Kael", "kind": "talk", "need": 1},
+		# Multi-phase — resolved in _ResolvePhaseOverride (do/return here = early/late defaults).
+		Q.TUTORIAL: {"do": "Elanore", "return": "Kael", "kind": "talk", "need": 1, "turn_state": -1},
 		Q.TULIMSHAR_OLD_FRIENDSHIP: {"do": "Ben", "return": "Frost", "kind": "talk", "need": 1},
 		Q.TULIMSHAR_GLASSMAKING: {"do": "Eridu", "return": "Eridu", "kind": "talk", "need": 1},
 		Q.TULIMSHAR_EASTERN_HILLS_CHEST: {"do": "Chest Outskirts", "return": "Chest Outskirts", "kind": "go", "need": 1},
-		Q.MINE_EXPLORATION: {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1},
+		Q.MINE_EXPLORATION: {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "turn_state": -1},
 		Q.SANDSTORM_NATHAN_WATER: {"do": "Nathan", "return": "Nathan", "kind": "talk", "need": 1},
 		Q.SANDSTORM_NAEM_HELMET: {"do": "Naem", "return": "Naem", "kind": "talk", "need": 1},
 		Q.SANDSTORM_MINE_ABANDONED_TREASURE: {"do": "SandstormMineKey", "return": "Chest", "kind": "go", "need": 1},
@@ -280,22 +285,61 @@ static func ResolveLivePosition(nick : String, preferMapID : int = DB.UnknownHas
 		return sum / float(count)
 	return Vector2.INF
 
+## Multi-phase quests: nick/kind change with state (avoids Auto re-talking giver mid-objective).
+static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
+	match questID:
+		ProgressCommons.Quest.TUTORIAL:
+			# Talk Elanore → talk Kael → kill field mobs → talk Kael → talk Ekinu
+			if state < ProgressCommons.TUTORIAL.ELANORE_DONE:
+				return {"do": "Elanore", "return": "Elanore", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.TUTORIAL.ELANORE_DONE:
+				return {"do": "Kael", "return": "Kael", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.TUTORIAL.KAEL_MET:
+				# Kill phase — NEVER treat as turn-in or Auto loops Kael dialogue.
+				return {"do": "Peyote", "return": "Kael", "kind": "kill", "need": 5, "force_turn_in": false, "alt_do": "Maggot"}
+			if state == ProgressCommons.TUTORIAL.KAEL_DONE:
+				return {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "force_turn_in": false}
+		ProgressCommons.Quest.ELANORE_POTION:
+			# State stays STARTED until brew; turn-in is item-based at Elanore.
+			if state == ProgressCommons.ELANORE_POTION.STARTED:
+				return {"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6, "force_turn_in": false}
+		ProgressCommons.Quest.MINE_EXPLORATION:
+			# Never use state>need turn-in; keep pointing at Ekinu (chain hub).
+			return {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "force_turn_in": false}
+	return {}
+
 static func IsReadyToTurnIn(questID : int, state : int) -> bool:
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 		return false
 	_EnsureObjectiveTable()
-	var override : Dictionary = _objectiveTable.get(questID, {})
-	if not override.is_empty():
-		var need : int = maxi(1, int(override.get("need", 1)))
-		if state > need:
-			return true
+	var phase : Dictionary = _ResolvePhaseOverride(questID, state)
+	if not phase.is_empty() and phase.has("force_turn_in"):
+		return bool(phase.get("force_turn_in", false))
+
+	# Explicit quest milestones first (before need heuristic — need≠turn-in for multi-phase).
 	match questID:
 		ProgressCommons.Quest.THANH_TRU_LINH_TRUNG:
 			return state >= ProgressCommons.THANH_TRU_LINH_TRUNG.OBJECTIVE_MET
 		ProgressCommons.Quest.THU_THAP_LINH_THAO:
 			return state >= ProgressCommons.THU_THAP_LINH_THAO.OBJECTIVE_MET
+		ProgressCommons.Quest.LUYEN_DAN_NHAP_MON:
+			return state >= ProgressCommons.LUYEN_DAN_NHAP_MON.OBJECTIVE_MET
+		ProgressCommons.Quest.KHAM_PHA_CO_BI:
+			return state >= ProgressCommons.KHAM_PHA_CO_BI.OBJECTIVE_MET
 		ProgressCommons.Quest.THAO_PHAT_THU_VUONG:
 			return state >= ProgressCommons.THAO_PHAT_THU_VUONG.BOSS_SLAIN
+		ProgressCommons.Quest.THU_THAP_KHOANG_THACH:
+			return state >= ProgressCommons.THU_THAP_KHOANG_THACH.OBJECTIVE_MET
+		ProgressCommons.Quest.NHAP_MON_KHAO_NGHIEM:
+			return state >= ProgressCommons.NHAP_MON_KHAO_NGHIEM.OBJECTIVE_MET
+		ProgressCommons.Quest.TUAN_TRA_SON_MON:
+			return state >= ProgressCommons.TUAN_TRA_SON_MON.OBJECTIVE_MET
+		ProgressCommons.Quest.CONG_HIEN_DUOC_THAO:
+			return state >= ProgressCommons.CONG_HIEN_DUOC_THAO.OBJECTIVE_MET
+		ProgressCommons.Quest.CONG_HIEN_KHOANG_THACH:
+			return state >= ProgressCommons.CONG_HIEN_KHOANG_THACH.OBJECTIVE_MET
+		ProgressCommons.Quest.DIET_TRU_MA_VAT:
+			return state >= ProgressCommons.DIET_TRU_MA_VAT.OBJECTIVE_MET
 		ProgressCommons.Quest.KHAO_HACH_NGOAI_MON:
 			return state >= ProgressCommons.KHAO_HACH_NGOAI_MON.SPARRING_WON
 		ProgressCommons.Quest.KHAO_HACH_NOI_MON:
@@ -304,6 +348,21 @@ static func IsReadyToTurnIn(questID : int, state : int) -> bool:
 			return state >= ProgressCommons.TRUYEN_THUA_TONG_MON.COMPREHENDED
 		ProgressCommons.Quest.SHIP_PETER_BOUNTY:
 			return state >= ProgressCommons.SHIP_PETER_BOUNTY.ALL_DONE
+		ProgressCommons.Quest.TUTORIAL, ProgressCommons.Quest.ELANORE_POTION, ProgressCommons.Quest.MINE_EXPLORATION:
+			return false
+
+	var override : Dictionary = _objectiveTable.get(questID, {})
+	if override.is_empty():
+		return false
+	# Optional explicit turn_state; -1 disables need heuristic.
+	if override.has("turn_state"):
+		var ts : int = int(override.get("turn_state", -1))
+		return ts >= 0 and state >= ts
+	var kind : String = str(override.get("kind", ""))
+	# Only kill/gather counters use need as turn-in threshold (STARTED=1 → OBJECTIVE = need+1).
+	if kind == "kill" or kind == "gather":
+		var need : int = maxi(1, int(override.get("need", 1)))
+		return state > need
 	return false
 
 static func InferActionFromText(targetText : String) -> int:
@@ -333,10 +392,18 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	if questData == null:
 		return empty
 
-	var turnIn : bool = IsReadyToTurnIn(questID, state)
+	var phase : Dictionary = _ResolvePhaseOverride(questID, state)
 	var override : Dictionary = _objectiveTable.get(questID, {})
+	if not phase.is_empty():
+		# Phase wins over static table for multi-step quests.
+		override = override.duplicate()
+		for k in phase.keys():
+			override[k] = phase[k]
+
+	var turnIn : bool = IsReadyToTurnIn(questID, state)
 	var action : int = Action.UNKNOWN
 	var nick : String = ""
+	var altNick : String = str(override.get("alt_do", ""))
 
 	if turnIn:
 		action = Action.RETURN
@@ -355,6 +422,10 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 			nick = questData.giver
 
 	var spawns : Array = FindSpawns(nick)
+	if spawns.is_empty() and not altNick.is_empty():
+		spawns = FindSpawns(altNick)
+		if not spawns.is_empty():
+			nick = altNick
 	# If return nick missing, try giver nick from override
 	if spawns.is_empty() and turnIn and not questData.giver.is_empty():
 		spawns = FindSpawns(questData.giver)
@@ -391,6 +462,9 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	if not progressText.is_empty():
 		hint += " — %s" % progressText
 
+	var returnNick : String = str(override.get("return", ""))
+	if returnNick.is_empty():
+		returnNick = questData.giver
 	var resolved : bool = not chosen.is_empty() or live != Vector2.INF
 	return {
 		"quest_id": questID,
@@ -398,6 +472,8 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 		"action": action,
 		"action_label": actionLabel,
 		"nick": nick,
+		"alt_nick": altNick,
+		"return_nick": returnNick,
 		"map_id": mapID,
 		"map_display": mapDisplay if not mapDisplay.is_empty() else LocationNaming.GetDisplayName(mapID),
 		"map_internal": mapInternal,

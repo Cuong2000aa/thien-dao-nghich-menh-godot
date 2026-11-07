@@ -26,6 +26,8 @@ func _ready():
 	_TestNpcLocalization()
 	_TestSkipAbandonConstants()
 	_TestQuestGiverNicksResolve()
+	_TestTutorialPhasesNoDialogueLoop()
+	_TestKillQuestTurnInNotPremature()
 
 	print("=== RESULT fails=%d ===" % fails)
 	get_tree().quit(0 if fails == 0 else 1)
@@ -131,3 +133,51 @@ func _TestQuestGiverNicksResolve() -> void:
 			_fail("Critical quest unresolved at STARTED: " + str(qid))
 		else:
 			_ok("Resolve %s → %s" % [step.get("quest_name", qid), step.get("nick", "")])
+
+func _TestTutorialPhasesNoDialogueLoop() -> void:
+	## After accepting Kael's kill quest, guidance must NOT send Auto back to Kael as talk/return.
+	var qid : int = ProgressCommons.Quest.TUTORIAL
+	var phases : Array = [
+		[ProgressCommons.TUTORIAL.INTRO_ITEMS_GIVEN, "Elanore", QuestGuidanceClass.Action.TALK, false],
+		[ProgressCommons.TUTORIAL.ELANORE_DONE, "Kael", QuestGuidanceClass.Action.TALK, false],
+		[ProgressCommons.TUTORIAL.KAEL_MET, "Peyote", QuestGuidanceClass.Action.KILL, false],
+		[ProgressCommons.TUTORIAL.KAEL_DONE, "Ekinu", QuestGuidanceClass.Action.TALK, false],
+	]
+	for p in phases:
+		var step : Dictionary = QuestGuidanceClass.BuildStep(qid, int(p[0]))
+		var nick : String = str(step.get("nick", ""))
+		var action : int = int(step.get("action", -1))
+		var turnIn : bool = bool(step.get("turn_in", true))
+		if nick != str(p[1]) or action != int(p[2]) or turnIn != bool(p[3]):
+			_fail("Tutorial state %s → nick=%s action=%s turn_in=%s (want %s/%s/%s)" % [
+				p[0], nick, action, turnIn, p[1], p[2], p[3]
+			])
+		elif not step.get("resolved", false):
+			_fail("Tutorial state %s unresolved" % p[0])
+		else:
+			_ok("Tutorial %s → %s (action %s)" % [p[0], nick, action])
+	# Kill phase must keep return_nick for progress check, without turn_in
+	var killStep : Dictionary = QuestGuidanceClass.BuildStep(qid, ProgressCommons.TUTORIAL.KAEL_MET)
+	if str(killStep.get("return_nick", "")) != "Kael":
+		_fail("KAEL_MET should keep return_nick=Kael for progress check")
+	else:
+		_ok("KAEL_MET return_nick=Kael (progress check only)")
+
+func _TestKillQuestTurnInNotPremature() -> void:
+	## state>need heuristic must not force turn-in mid objective for all active quests.
+	QuestGuidanceClass._EnsureObjectiveTable()
+	var premature : Array = []
+	for qid in DB.QuestsDB:
+		var override : Dictionary = QuestGuidanceClass._objectiveTable.get(qid, {})
+		if override.is_empty():
+			continue
+		var kind : String = str(override.get("kind", ""))
+		if kind != "kill" and kind != "gather":
+			continue
+		# Mid-progress state = STARTED (1) must not be turn-in
+		if QuestGuidanceClass.IsReadyToTurnIn(qid, 1):
+			premature.append(DB.QuestsDB[qid].name)
+	if premature.is_empty():
+		_ok("No kill/gather quest marks STARTED as turn-in")
+	else:
+		_fail("Premature turn-in at STARTED: " + ", ".join(premature))
