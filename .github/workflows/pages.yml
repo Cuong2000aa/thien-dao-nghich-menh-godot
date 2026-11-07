@@ -15,9 +15,8 @@ on:
         type: string
         default: ""
 
-# Deploy via gh-pages branch (deploy-pages@v4 times out on ~300MB Godot pck).
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -41,7 +40,7 @@ jobs:
     name: Deploy to GitHub Pages
     environment:
       name: github-pages
-      url: https://cuong2000aa.github.io/thien-dao-nghich-menh-godot/
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Download Web build
@@ -95,13 +94,19 @@ jobs:
           test -f site/index.html
           grep -n 'GODOT_THREADS_ENABLED\|gdextensionLibs' site/index.html || true
           ls -lah site/index.side.wasm site/index.wasm site/libgdsqlite*.wasm 2>/dev/null || true
+          du -sh site
 
-      - name: Publish to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
-          publish_branch: gh-pages
-          force_orphan: true
-          enable_jekyll: false
-          commit_message: "deploy(web): Pages site from ${{ github.sha }}"
+          path: site
+          # Default retention; keep artifact lean path only
+          retention-days: 1
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # Godot Web pck ~300MB — default 10m wait often times out on Pages
+          timeout: 1800000
+          error_count: 20
