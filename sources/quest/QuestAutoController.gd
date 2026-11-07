@@ -18,6 +18,9 @@ var _killProgressCheckAt : float = 0.0
 var _killCounts : Dictionary = {}
 var _killQuestID : int = DB.UnknownHash
 var _noTargetSince : float = 0.0
+var _lastPickedChoice : String = ""
+var _sameChoiceStreak : int = 0
+var _dialogueStuckTicks : int = 0
 
 const TICK_SEC : float = 0.45
 const DIALOGUE_TICK_SEC : float = 0.28
@@ -27,21 +30,34 @@ const CHOICE_COOLDOWN_SEC : float = 0.35
 const NPC_REINTERACT_COOLDOWN_SEC : float = 2.5
 const KILL_PROGRESS_CHECK_SEC : float = 8.0
 const NO_TARGET_RETURN_SEC : float = 6.0
+const DIALOGUE_STUCK_TICKS : int = 4
 
-## Prefer quest-progress lines; avoid farewell / decline.
+## Decline / leave early — avoid while accepting a quest.
 const AVOID_CHOICE_KEYS : PackedStringArray = [
 	"cáo từ", "cao tu", "hẹn gặp", "hen gap", "để lần khác", "de lan khac",
 	"đi ngang", "di ngang", "thêm thời gian", "them thoi gian", "không cần",
-	"khong can", "từ chối", "tu choi", "thôi", "thoi", "đóng", "dong",
-	"hủy", "huy", "cancel", "farewell", "goodbye", "later", "ta phải đi",
-	"ta di day", "cảm ơn. ta đi",
+	"khong can", "từ chối", "tu choi",
+	"hủy", "huy", "cancel", "goodbye", "later",
+	# Lore / reminder loops (Ekinu / Gilgames gate menus)
+	"nhắc lại", "nhac lai", "kể về", "ke ve", "red queen", "nguy hiểm thì",
+	"nguy hiem thi", "mạnh hơn", "manh hon", "lạc đường thì", "lac duong",
+	"truy cập đồ", "truy cap do", "sao phải đi hướng", "cha nàng",
 ]
 
+## Quest progress accept / continue.
 const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"nhận", "nhan", "đồng ý", "dong y", "giúp", "giup", "xin", "khảo", "khao",
 	"hoàn tất", "hoan tat", "giao", "mang", "đủ", "du ", "tiếp", "tiep",
-	"chỉ điểm", "chi diem", "làm", "lam", "accept", "quest", "nhiệm vụ",
-	"được", "duoc", "giết", "giet", "ngay",
+	"chỉ điểm", "chi diem", "accept", "quest", "nhiệm vụ",
+	"giết", "giet", "ngay", "kael bảo", "làm tốt", "thám hiểm",
+	"ta phải làm gì?", # first-time job ask (exact-ish); "nhắc lại" is avoided above
+]
+
+## End conversation / leave NPC after objective done (Gilgames "Ổn hết!", Ekinu "đi thôi").
+const EXIT_CHOICE_KEYS : PackedStringArray = [
+	"đi thôi", "di thoi", "ổn hết", "on het", "ta đi", "ta di",
+	"được, ta đi", "duoc, ta di", "cảm ơn. ta đi", "farewell",
+	"thôi, ta tưởng", "giữ tinh thần",
 ]
 
 func SetEnabled(on : bool) -> void:
@@ -55,6 +71,9 @@ func SetEnabled(on : bool) -> void:
 	_killCounts.clear()
 	_killQuestID = DB.UnknownHash
 	_noTargetSince = 0.0
+	_lastPickedChoice = ""
+	_sameChoiceStreak = 0
+	_dialogueStuckTicks = 0
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — tìm đường, tương tác & tự chọn đối thoại.")
@@ -331,6 +350,7 @@ func _MatchesKillNick(ent : Entity, nick : String, expectID : int) -> bool:
 ## Advance dialogue UI: finish typewriter → Continue → pick best choice.
 func _TryAdvanceDialogue() -> bool:
 	if Launcher.GUI == null or not Launcher.GUI.IsDialogueContextOpened():
+		_dialogueStuckTicks = 0
 		return false
 	var dialogue = Launcher.GUI.dialoguePanel
 	if dialogue == null:
@@ -338,13 +358,16 @@ func _TryAdvanceDialogue() -> bool:
 
 	if dialogue.get("lastTween") and dialogue.lastTween:
 		dialogue.lastTween.custom_step(INF)
+		_dialogueStuckTicks = 0
 		return true
 
 	var choiceMenu = Launcher.GUI.choiceContext
 	if choiceMenu and choiceMenu.is_visible() and choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0:
+		_dialogueStuckTicks = 0
 		return _PickDialogueChoice(choiceMenu)
 
 	if dialogue.button and dialogue.button.is_visible():
+		_dialogueStuckTicks = 0
 		var btnText : String = str(dialogue.buttonLabel.get_text()) if dialogue.buttonLabel else ""
 		var lower : String = btnText.to_lower()
 		if lower.contains("tiếp") or lower.contains("tiep") or lower == "continue" or lower.contains("next"):
@@ -353,11 +376,19 @@ func _TryAdvanceDialogue() -> bool:
 		if lower.contains("đóng") or lower.contains("dong") or lower == "close":
 			dialogue.ButtonPressed()
 			_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+			_lastPickedChoice = ""
+			_sameChoiceStreak = 0
 			return true
 		dialogue.ButtonPressed()
 		return true
 
-	return false
+	# Stuck: panel open but no Continue / choices (HighlightUI / camera beat).
+	_dialogueStuckTicks += 1
+	if _dialogueStuckTicks >= DIALOGUE_STUCK_TICKS:
+		_dialogueStuckTicks = 0
+		Network.TriggerNextContext()
+		return true
+	return true
 
 func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 	var now : float = Time.get_ticks_msec() / 1000.0
@@ -365,7 +396,9 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 		return true
 	var bestIdx : int = -1
 	var bestScore : int = -9999
+	var bestTitle : String = ""
 	var children : Array = choiceMenu.contextList.get_children()
+	var forceExit : bool = _sameChoiceStreak >= 2
 	for i in children.size():
 		var child = children[i]
 		var title : String = ""
@@ -373,12 +406,22 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 			title = str(child._data._title)
 		elif child.has_node("Label"):
 			title = str(child.get_node("Label").get_text())
-		var score : int = _ScoreChoice(title, i)
+		var score : int = _ScoreChoice(title, i, forceExit)
+		# Break loops: heavily penalize repeating the same line
+		if not forceExit and title == _lastPickedChoice:
+			score -= 80
 		if score > bestScore:
 			bestScore = score
 			bestIdx = i
+			bestTitle = title
 	if bestIdx < 0:
 		bestIdx = 0
+		bestTitle = ""
+	if bestTitle == _lastPickedChoice:
+		_sameChoiceStreak += 1
+	else:
+		_sameChoiceStreak = 1
+		_lastPickedChoice = bestTitle
 	_lastChoiceAt = now
 	var pick = children[bestIdx]
 	if pick and pick.has_method("_on_trigger"):
@@ -388,15 +431,28 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 		choiceMenu.Hide()
 	return true
 
-func _ScoreChoice(title : String, index : int) -> int:
+func _ScoreChoice(title : String, index : int, forceExit : bool = false) -> int:
 	var t : String = title.to_lower()
 	var score : int = 10 - index
 	for key in AVOID_CHOICE_KEYS:
 		if t.contains(key):
-			score -= 50
+			score -= 60
 	for key in PREFER_CHOICE_KEYS:
 		if t.contains(key):
 			score += 25
+	var isExit : bool = false
+	for key in EXIT_CHOICE_KEYS:
+		if t.contains(key):
+			isExit = true
+			# Prefer leaving once quest advanced; strong boost if looping
+			score += 40 if forceExit else 15
+			break
+	# Generic short affirmations that end menus
+	if t.contains("ổn") or t.begins_with("được,") or t.begins_with("duoc,"):
+		score += 20 if forceExit else 8
+		isExit = true
+	if forceExit and not isExit:
+		score -= 30
 	return score
 
 func _ResolveActiveQuest() -> int:

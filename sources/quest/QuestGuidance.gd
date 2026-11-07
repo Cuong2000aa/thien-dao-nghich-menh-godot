@@ -313,8 +313,17 @@ static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
 					"turn_items": [["Maggot Slime", 6], ["Water Bottle", 1], ["Pitaya", 1]],
 				}
 		ProgressCommons.Quest.MINE_EXPLORATION:
-			# Never use state>need turn-in; keep pointing at Ekinu (chain hub).
-			return {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "force_turn_in": false}
+			# After Ekinu accepts expedition — do NOT bounce back to Ekinu (dialogue menu loops).
+			if state == ProgressCommons.MINE_EXPLORATION.STARTED:
+				return {"do": "Dausen", "return": "Dausen", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.MINE_EXPLORATION.FIND_NICKOS:
+				return {"do": "Nickos", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state >= ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED and state < ProgressCommons.MINE_EXPLORATION.DEFEATED:
+				return {"do": "Xakelbael", "return": "Ryan", "kind": "kill", "need": 1, "force_turn_in": false, "kill_targets": ["Xakelbael"]}
+			if state == ProgressCommons.MINE_EXPLORATION.DEFEATED:
+				return {"do": "Mana Tree", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.MINE_EXPLORATION.MANA_TREE_MET:
+				return {"do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": true}
 	return {}
 
 static func IsReadyToTurnIn(questID : int, state : int) -> bool:

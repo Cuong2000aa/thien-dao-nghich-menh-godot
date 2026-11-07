@@ -26,8 +26,12 @@ func Toggle(toggle : bool):
 		autoGrowFloor = minf(defaultHeight, autoGrowHeight)
 		SetHeight(autoGrowFloor)
 	else:
+		_KillTween()
 		Launcher.GUI.infoContext.FadeOut()
 		Launcher.GUI.choiceContext.FadeOut()
+		# LookAtNpc leaves cinematic camera; always re-attach on close
+		if Launcher.Camera:
+			Launcher.Camera.ResetCinematic()
 
 	EnableControl(toggle)
 
@@ -42,13 +46,14 @@ func AddName(text : String):
 		var prefix : String = "\n" if newName else ""
 		var titleTag : String = "" if isPlayer else ThemeClass.NpcTitleTag(lastName)
 		label.set_text("%s[color=#%s]%s%s[/color]" % [prefix, titleColor.to_html(false), titleTag, lastName])
-		scrollable.textContainer.add_child.call_deferred(label)
+		# Immediate add — deferred broke get_total_character_count() → empty tween / stuck Continue
+		scrollable.textContainer.add_child(label)
 
 func AddDialogue(text : String):
-	var isPlayer : bool = lastName == Launcher.Player.nick
+	var isPlayer : bool = Launcher.Player and lastName == Launcher.Player.nick
 	var label : RichTextLabel = PlayerDialogueLabel.instantiate() if isPlayer else Scrollable.contentLabel.instantiate()
 	label.set_text("[color=#%s]%s[/color]" % [UICommons.TextColor.to_html(false), text])
-	scrollable.textContainer.add_child.call_deferred(label)
+	scrollable.textContainer.add_child(label)
 	if not isPlayer:
 		TweenText(label)
 
@@ -56,20 +61,39 @@ func AddThink(text : String):
 	var label : RichTextLabel = Scrollable.contentLabel.instantiate()
 	label.set_text("[color=#%s]%s[/color]" % [UICommons.WarnTextColor.to_html(false), text])
 	label.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
-	scrollable.textContainer.add_child.call_deferred(label)
+	scrollable.textContainer.add_child(label)
 	TweenText(label)
 
 func TweenText(label : RichTextLabel):
-	var textSize : int = label.get_total_character_count()
+	if label == null or not is_instance_valid(label):
+		return
+	# Force BBCode layout so character count is valid before tween
+	label.visible_characters = -1
+	var textSize : int = maxi(label.get_total_character_count(), 1)
 	label.visible_characters = 0
-	if lastTween:
-		lastTween.custom_step(INF)
+	_KillTween()
 	lastTween = create_tween()
 	lastTween.tween_property(label, "visible_characters", textSize, textSize * UICommons.DialogueTextSpeed)
 	lastTween.tween_callback(DialogueDisplayed)
 
 func DialogueDisplayed():
 	lastTween = null
+
+func _KillTween() -> void:
+	if lastTween != null and is_instance_valid(lastTween):
+		lastTween.kill()
+	lastTween = null
+
+## Never await an already-finished tween (Godot hangs forever on that).
+func _AwaitLastTween() -> void:
+	var tw : Tween = lastTween
+	if tw == null or not is_instance_valid(tw):
+		lastTween = null
+		return
+	if tw.is_running():
+		await tw.finished
+	if lastTween == tw:
+		lastTween = null
 
 func SetHeight(height : float):
 	var bottom : float = position.y + size.y
@@ -92,29 +116,35 @@ func AutoScroll():
 	scrollbar.value = scrollbar.max_value
 
 func ToggleButton(enable : bool, text : String):
-	if enable and lastTween:
-		await lastTween.finished
-	button.set_visible(enable)
-	buttonLabel.set_text(text)
+	if enable:
+		await _AwaitLastTween()
+	# Always apply — even if a previous await was cancelled mid-flight
+	if button:
+		button.set_visible(enable)
+	if buttonLabel:
+		buttonLabel.set_text(text)
 
 func ButtonPressed():
-	if lastTween:
+	if lastTween and is_instance_valid(lastTween) and lastTween.is_running():
 		lastTween.custom_step(INF)
 		return
 
 	if Launcher.Player:
 		Network.TriggerNextContext()
-	if buttonLabel.get_text() == "Close" or buttonLabel.get_text() == "Đóng":
+	if buttonLabel and (buttonLabel.get_text() == "Close" or buttonLabel.get_text() == "Đóng"):
 		set_visible(false)
+		if Launcher.Camera:
+			Launcher.Camera.ResetCinematic()
 
 func Clear():
+	_KillTween()
 	scrollable.Clear()
 	lastName = ""
-	button.set_visible(false)
+	if button:
+		button.set_visible(false)
 
 func AddChoices(choices : PackedStringArray):
-	if lastTween:
-		await lastTween.finished
+	await _AwaitLastTween()
 
 	ToggleButton(false, "")
 	Launcher.GUI.choiceContext.Clear()
@@ -153,3 +183,5 @@ func _input(event : InputEvent):
 			ButtonPressed()
 		if Launcher.Action.TryJustPressed(event, "ui_cancel", true):
 			Network.TriggerCloseContext()
+			if Launcher.Camera:
+				Launcher.Camera.ResetCinematic()

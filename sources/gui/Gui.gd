@@ -378,7 +378,9 @@ func HighlightUI(target : UICommons.UITarget):
 	if highlight:
 		var node : Control = GetUITarget(target)
 		if node:
-			OpenUI(target)
+			# Opening Stat/Inventory mid-dialogue steals input and soft-locks the gate tutorial.
+			if not IsDialogueContextOpened():
+				OpenUI(target)
 			highlight.Show(node)
 		else:
 			highlight.Clear()

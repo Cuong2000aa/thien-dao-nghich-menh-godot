@@ -63,6 +63,8 @@ func ChatSystem(channelName : String, text : String, _peerID : int):
 func ToggleContext(enable : bool, _peerID : int):
 	if Launcher.Player:
 		Launcher.GUI.dialoguePanel.Toggle(enable)
+		if not enable and Launcher.Camera:
+			Launcher.Camera.ResetCinematic()
 
 func ContextText(author : String, text : String, _peerID : int):
 	if not Launcher.Player:
@@ -87,6 +89,8 @@ func ContextContinue(_peerID : int):
 func ContextClose(_peerID : int):
 	if Launcher.Player:
 		Launcher.GUI.dialoguePanel.ToggleButton(true, "Đóng")
+		if Launcher.Camera:
+			Launcher.Camera.ResetCinematic()
 
 func ContextChoice(texts : PackedStringArray, _peerID : int):
 	if Launcher.Player:
@@ -105,8 +109,10 @@ func CameraLookAt(pos : Vector2, _peerID : int):
 		Launcher.Camera.LookAt(pos)
 
 func CameraReset(_peerID : int):
+	# Must ResetCinematic — LookAt(player) kept cinematic=true and froze follow-cam
+	# after Ekinu/Gilgames LookAtNpc (gate soft-lock after quest turn-in).
 	if Launcher.Camera:
-		Launcher.Camera.LookAt(Launcher.Player.position)
+		Launcher.Camera.ResetCinematic()
 
 func TargetAlteration(agentRID : int, targetRID : int, value : int, alteration : ActorCommons.Alteration, skillID : int, hasFeedback : bool, _peerID : int):
 	var entity : Entity = Entities.Get(targetRID)

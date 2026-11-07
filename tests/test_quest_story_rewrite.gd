@@ -27,7 +27,9 @@ func _ready():
 	_TestSkipAbandonConstants()
 	_TestQuestGiverNicksResolve()
 	_TestTutorialPhasesNoDialogueLoop()
+	_TestMineExplorationNotStuckOnEkinu()
 	_TestKillQuestTurnInNotPremature()
+	_TestAutoChoicePrefersExitOverReminder()
 
 	print("=== RESULT fails=%d ===" % fails)
 	get_tree().quit(0 if fails == 0 else 1)
@@ -169,6 +171,32 @@ func _TestTutorialPhasesNoDialogueLoop() -> void:
 		_fail("KAEL_MET must set need_each")
 	else:
 		_ok("KAEL_MET kill_targets Peyote+Maggot need_each")
+
+func _TestAutoChoicePrefersExitOverReminder() -> void:
+	## Gate menus: never prefer "nhắc lại" over "đi thôi" / "Ổn hết!".
+	var auto := QuestAutoController.new()
+	var reminder : int = auto._ScoreChoice("Ta phải làm gì nhắc lại?", 0)
+	var leave : int = auto._ScoreChoice("Được, ta đi thôi.", 3)
+	var tip : int = auto._ScoreChoice("Ta mạnh hơn thế nào?", 0)
+	var okExit : int = auto._ScoreChoice("Ổn hết!", 3)
+	auto.free()
+	if leave <= reminder:
+		_fail("Exit 'đi thôi' must beat reminder loop (%d vs %d)" % [leave, reminder])
+	elif okExit <= tip:
+		_fail("Gilgames 'Ổn hết!' must beat lore tip (%d vs %d)" % [okExit, tip])
+	else:
+		_ok("Auto choice prefers exit over reminder/lore loops")
+
+func _TestMineExplorationNotStuckOnEkinu() -> void:
+	## After accepting expedition, Auto must leave Ekinu (menu loops) → Dausen.
+	var qid : int = ProgressCommons.Quest.MINE_EXPLORATION
+	var step : Dictionary = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.STARTED)
+	if str(step.get("nick", "")) != "Dausen":
+		_fail("MINE STARTED should target Dausen, got %s" % step.get("nick", ""))
+	elif int(step.get("action", -1)) != QuestGuidanceClass.Action.TALK:
+		_fail("MINE STARTED should be talk")
+	else:
+		_ok("MINE STARTED → Dausen (not Ekinu loop)")
 
 func _TestKillQuestTurnInNotPremature() -> void:
 	## state>need heuristic must not force turn-in mid objective for all active quests.
