@@ -6,9 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 826825219
 name = "Mine Exploration"
-description = "Đạo hữu được ủy thác thám sát Khoáng Trường Sandstorm, đảm bảo hệ thống hang động không còn đại uy hiểm trước khi dân khai thác vào."
+description = "Thám sát khoáng trường sa mạc: ghi nhận lối đi, nguy hiểm và dấu dị thường linh khí dưới lòng đất."
 giver = "Ekinu"
-giverLocation = "Tulimshar"
+giverLocation = "Khu mỏ sa mạc"
 targetLocation = "Khoáng Trường Sandstorm"
-reward = "Chưa biết"
+reward = "120 Tu Vi, 100 Linh Thạch, 1 khoáng thạch thường"
+target = "Khám phá các tầng mỏ và báo cáo"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

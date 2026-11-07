@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Điều Tra Hầm Ngục Cổ Xưa"
-description = "Một cánh cửa hầm ngầm cổ xưa vừa hé mở dưới tầng hầm Tàng Kinh Các. Cần tiến vào điều tra dấu tích của cổ trận trước khi khí độc lan tràn."
+description = "[Ẩn] Phong ấn địa hạ dưới Tàng Kinh Các — Bạch Hạc Chân Nhân mới giao khi đủ tin."
 giver = "Bạch Hạc Chân Nhân"
 giverLocation = "Tàng Kinh Các"
 target = "Thám sát tầng 1 Hầm Ngục Cổ Xưa"

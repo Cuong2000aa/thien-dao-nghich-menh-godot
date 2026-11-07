@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Bí Cảnh Thảo Dược"
-description = "Phát hiện một biệt viện trồng dược liệu cổ xưa bị sương mù che phủ. Thu thập giống Huyết Sâm ngàn năm còn sót lại mang về cho Dược Đường."
+description = "[Ẩn] Biệt viện dược điền — tìm khi quen Liễu Thanh Y / đi đúng lối."
 giver = "Liễu Thanh Y"
 giverLocation = "Dược Đường"
 target = "Thu hoạch 2 củ Huyết Sâm tại Biệt Viện Dược Điền"

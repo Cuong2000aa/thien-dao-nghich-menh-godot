@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Bí Quyết Truốt Kiếm"
-description = "Hà Thiết Thủ muốn rèn một thanh bảo kiếm chứa hỏa sát khí, cần tìm 3 khối Xích Viêm Khoáng từ tổ quái vật."
+description = "Nhiệm vụ chiến đấu sâu hơn với Hà Thiết Thủ; hảo cảm mở chỉ điểm thực chiến."
 giver = "Hà Thiết Thủ"
 giverLocation = "Luyện Khí Đường"
 target = "Thu thập 3 Xích Viêm Khoáng"

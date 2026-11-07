@@ -6,9 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 3532436717
 name = "Desert Seed"
-description = "Sâu trong Khoáng Trường Sandstorm, đạo hữu phát hiện cây Mana Tree còn sống và thu hoạch được Kano — hạt giống Mana hiếm có."
+description = "Hạt giống linh mộc sa mạc cần người mang đi tìm Ni Na / Manayir. Cơ duyên nhỏ giúp hiểu linh khí đất Thanh Sa."
 giver = "Mana Tree"
-giverLocation = "Khoáng Trường Sandstorm"
-targetLocation = "Chưa biết"
-reward = "Chưa biết"
+giverLocation = "Sa mạc / Cây Linh Mộc"
+targetLocation = "Thanh Sa / Manayir"
+reward = "80 Tu Vi, 50 Linh Thạch, hiểu biết Linh Mộc"
+target = "Đưa hạt tới đúng người tiếp nhận"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

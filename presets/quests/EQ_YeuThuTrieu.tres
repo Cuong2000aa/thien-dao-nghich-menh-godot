@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Đẩy Lùi Yêu Thú Triều Tịch"
-description = "Sự kiện thế giới: Đàn yêu thú cuồng nộ đang tràn về sơn môn. Chung tay cùng các đệ tử đẩy lùi 10 đợt tiến công của quái vật."
+description = "Sự kiện: yêu thú triều — thế giới đáp ứng khi đạo hữu đã có chỗ đứng."
 giver = "Nhiệm Vụ Đường Chấp Sự"
 giverLocation = "Nhiệm Vụ Đường"
 target = "Tiêu diệt 10 Yêu Thú trong thời gian sự kiện"

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Săn Bắt Dị Thú"
-description = "Một đầu dị thú mang gai nhọn bốc lửa xuất hiện đe dọa tuyến đường săn bắn. Diệp Tử Lăng mời đạo hữu cùng hợp lực vây trảm."
+description = "Điều tra sâu dấu dị biến cùng Diệp Tử Lăng; hảo cảm và manh mối yêu đan."
 giver = "Diệp Tử Lăng"
 giverLocation = "Sơn Lâm Ngoại Vi"
 target = "Tiêu diệt Dị Thú và thu lấy Yêu Thú Huyết Tinh"

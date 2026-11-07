@@ -6,8 +6,9 @@
 script = ExtResource("1_quest")
 id = 4235969129
 name = "Found a Chest in the Outskirts"
-description = "Đạo hữu phát hiện một rương ở ngoại vi phía đông Tulimshar."
-target = "Chest"
+description = "Rương bị bỏ quên trên Đông Lĩnh Thanh Sa. Mở ra khi đi tuần / thám hiểm ngoại thành — quest ẩn sống sót."
+target = "Mở rương Đông Lĩnh"
 targetLocation = "Đồi Đông Tulimshar"
-reward = "Desert Shield"
+reward = "Khiên Sa Mạc (Desert Shield)"
+giverLocation = "Thanh Sa — Đông Lĩnh"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

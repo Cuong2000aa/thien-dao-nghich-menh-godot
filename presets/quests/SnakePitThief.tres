@@ -6,10 +6,10 @@
 script = ExtResource("1_quest")
 id = 647884116
 name = "Snake Pit Thief"
-description = "Điều tra phòng ngủ ẩn sâu trong Snake Pit, tìm manh mối về số phận đạo tặc Tulimshar, giải câu đố của hắn và thu hồi bảo vật chưa kịp lấy."
+description = "Kẻ trộm lẩn trong Hố Rắn. Truy tìm / đối chất — phần thưởng nhỏ và manh mối địa mạch."
 giver = "Snake Pit Clue"
-giverLocation = "Snake Pit"
-target = "Thiefs Chest"
+giverLocation = "Hố Rắn"
+target = "Xử lý kẻ trộm Hố Rắn"
 targetLocation = "Snake Pit"
-reward = "Chưa biết"
+reward = "180 Tu Vi, 150 Linh Thạch"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

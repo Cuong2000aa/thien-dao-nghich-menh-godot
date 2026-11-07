@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Con Đường Tu Đạo"
-description = "Học tập quy tắc tu luyện cơ bản, thám sát chân núi Trúc Sơn và giải mã những dòng văn khắc bất thường đầu tiên trên Trúc Sơn Cổ Bi."
+description = "Học cách cảm ứng linh khí, làm quen chấp sự sơn môn. Đọc Trúc Sơn Cổ Bi — mảnh ký ức hiện đại xen với minh văn cổ, hé lộ dị thường linh khí."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Khám phá Trúc Sơn Cổ Bi và ngộ nhập Tụ Khí cảnh"
 targetLocation = "Trúc Sơn Cổ Bi"
-reward = "150 Tu Vi, 100 Linh Thạch, 1 Hồi Xuân Đan"
+reward = "150 Tu Vi, 100 Linh Thạch, 1 Hồi Xuân Đan, Mảnh Ký Ức II"

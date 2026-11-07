@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Huyết Tích Dã Ngoại"
-description = "Diệp Tử Lăng phát hiện vết máu kỳ quái dẫn sâu vào hẻm núi. Hắn cần một người gan dạ đi cùng kiểm tra thực hư."
+description = "Diệp Tử Lăng giao việc ngoại vi — mắt thám sát dị biến, gắn với mạch MQ3."
 giver = "Diệp Tử Lăng"
 giverLocation = "Sơn Lâm Ngoại Vi"
 target = "Truy vết huyết tích và tiêu diệt 3 Yêu Thú Cuồng Bạo"

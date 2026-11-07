@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Khoáng Thạch Thí Luyện"
-description = "Hà Thiết Thủ muốn thử tài nhận biết quặng sắt của đệ tử, yêu cầu đào 5 khối Huyền Thiết Khoáng nguyên chất."
+description = "Hà Thiết Thủ thử thách thân thủ — spar / thu thập theo yêu cầu để chứng minh không phải kẻ ăn bám."
 giver = "Hà Thiết Thủ"
 giverLocation = "Luyện Khí Đường"
 target = "Khai khoáng 5 Huyền Thiết Khoáng giao nộp"

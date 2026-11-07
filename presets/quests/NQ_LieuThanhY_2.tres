@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Cứu Trợ Thương Binh"
-description = "Nhiều đệ tử tuần tra bị trúng độc khí lạ từ rừng sâu. Liễu Thanh Y nhờ đạo hữu đem Thanh Tâm Đan đến cứu trị kịp thời."
+description = "Tiếp tục hỗ trợ Dược Đường; hảo cảm Liễu Thanh Y mở lời khuyên về tạp căn và đan dược."
 giver = "Liễu Thanh Y"
 giverLocation = "Dược Đường"
 target = "Phân phát Thanh Tâm Đan cho đệ tử bị thương"

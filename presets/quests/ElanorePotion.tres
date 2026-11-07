@@ -6,10 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 3984490417
 name = "Elanore's Potions"
-description = "Elanore cần linh dược để luyện đan hồi khí. Mang cho nàng sáu Maggot Slime, một Water và một Pitaya."
+description = "Ái Lan cần nguyên liệu pha đan hồi sinh cho lính canh và dân thành. Thu thập dịch trùng linh (Maggot Slime), nước và thanh long đổi lấy đan xương rồng."
 giver = "Elanore"
-giverLocation = "Cổng Thành Tulimshar"
-target = "Maggot Slime x6, Water x1, Pitaya x1"
-targetLocation = "Vùng Tulimshar"
-reward = "Cactus Potion"
+giverLocation = "Cổng Thành Thanh Sa"
+target = "6 Dịch Trùng Linh + 1 Bình Nước + 1 Thanh Long / mỗi bình đan"
+targetLocation = "Ngoại thành Thanh Sa / Đông Lĩnh"
+reward = "Đan Xương Rồng (Cactus Potion) × số bình pha"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

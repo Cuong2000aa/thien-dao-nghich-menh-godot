@@ -6,13 +6,10 @@
 script = ExtResource("1_7vvcv")
 id = 665326971
 name = "Splatyna's Offering"
-description = "Bicies đợi ở cửa hang, say mê đại slime tên Splatyna. Hắn bảo nàng thích vàng và giữ tà khí xa.
-Muốn đến chỗ nàng, đạo hữu phải hạ ba thuộc hạ — mỗi kẻ giữ một chìa khóa.
-
-Mang đủ ba chìa đến cuối hang, mở cổng và đối đầu Splatyna."
+description = "Cống phẩm / nghi thức phong ấn Vạn Yêu Quật (Splatyna). Hạ ba thuộc hạ lấy chìa, mở cổng đối đầu — quest muộn đụng chạm D-02."
 giver = "Bicies"
-giverLocation = "Cửa Hang Splatyna"
-target = "Splatyna"
+giverLocation = "Vạn Yêu Quật (Splatyna)"
+target = "Hoàn tất cống phẩm phong ấn"
 targetLocation = "Điện Splatyna"
-reward = "Chưa biết"
+reward = "300 Tu Vi, 250 Linh Thạch, 50 Điểm Cống Hiến"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

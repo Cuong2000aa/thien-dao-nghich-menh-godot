@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thảo Phạt Thú Vương"
-description = "Linh Khí Bí Cảnh phong ấn đã có dấu hiệu buông lỏng, Xích Viêm Thú Hậu hung hãn sắp phá phong. Hãy tiến vào Bí Cảnh và tiêu diệt Thú Hậu bảo vệ an nguy tông môn!"
+description = "Thảo phạt thú vương ngoại vi — thử thách thực lực trước khi chạm dị biến lớn hơn."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Tiêu diệt Xích Viêm Thú Hậu trong Linh Khí Bí Cảnh"

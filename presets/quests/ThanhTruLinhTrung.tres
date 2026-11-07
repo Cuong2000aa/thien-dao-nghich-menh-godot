@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thanh Trừ Linh Trùng"
-description = "Linh khí quanh Trúc Sơn xuất hiện dị biến, Linh Trùng sinh sôi quấy nhiễu linh mạch sơn môn. Đạo Huyền Trưởng Lão giao phó đệ tử tiêu diệt 5 Linh Trùng dưới chân núi để ổn định linh mạch."
+description = "Thanh trừ Linh Trùng quanh sơn môn theo lệnh Đạo Huyền — nhiệm vụ ngoại môn kinh điển."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Tiêu diệt 5 Linh Trùng"

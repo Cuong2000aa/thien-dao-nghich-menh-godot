@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Đồng Môn Tương Trợ"
-description = "Trần Phương gặp khó khăn khi đột phá Tụ Khí tầng 2 do thiếu đan dược bồi dưỡng. Hắn nhờ đạo hữu chia sẻ 1 viên Bổ Khí Đan hoặc Hồi Xuân Đan."
+description = "Trần Phương gặp nạn / cần giúp quanh suối — lựa chọn cứu người hay đuổi dị tượng (Story choice)."
 giver = "Trần Phương"
 giverLocation = "Diễn Võ Trường"
 target = "Trao 1 Bổ Khí Đan cho Trần Phương"

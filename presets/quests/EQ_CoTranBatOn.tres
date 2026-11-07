@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Ổn Định Linh Mạch Cổ Trận"
-description = "Sự kiện thế giới: Cổ trận dưới lòng đất chấn động dữ dội. Tiếp viện nguyên liệu trận thạch và phối hợp cùng trưởng lão trấn áp linh nhãn."
+description = "Sự kiện: cổ trận bất ổn — tiền đề cao trào Thiên Đạo có khuyết."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Cung cấp 3 Thanh Phong Tinh Thiết và vận khí gia cố trận nhãn"

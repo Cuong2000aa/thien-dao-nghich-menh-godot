@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Truyền Thừa Tông Môn"
-description = "Đạo Huyền Trưởng Lão nhận thấy thiên phú trác tuyệt của đệ tử, quyết định triệu kiến tại Đại Điện, truyền thụ tuyệt học bí truyền của tông môn."
+description = "Nhận truyền thừa kiếm quyết / bí kíp tông môn — bước ngoặt sức mạnh có nguồn gốc rõ ràng."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Diện kiến Trưởng lão & Tham ngộ Truyền Thừa Kiếm Kinh"

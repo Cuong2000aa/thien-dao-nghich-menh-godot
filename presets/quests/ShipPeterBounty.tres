@@ -6,10 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 2607006912
 name = "Peter's Bounty"
-description = "Peter trên boong thuyền phát hành ủy thác tiêu diệt Rattos trong khoang hàng."
+description = "Tiêu sư Bạch Đạt trên linh thuyền treo thưởng diệt Ratto — chứng tỏ bản lĩnh trước khi vào tử địa sâu hơn."
 giver = "Peter"
-giverLocation = "Boong Thuyền Tầng Hai"
-target = "Thanh trừ Rattos trong khoang hàng"
+giverLocation = "Linh Thuyền (Ship)"
+target = "Hạ Ratto Ship rồi báo Bạch Đạt"
 targetLocation = "Khoang Hàng Thuyền"
 reward = "100 Tu Vi, 500 Linh Thạch"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

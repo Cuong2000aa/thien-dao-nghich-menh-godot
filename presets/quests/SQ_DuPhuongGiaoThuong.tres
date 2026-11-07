@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Tiếp Đón Du Phương Thương Đội"
-description = "Đoàn buôn của Khang Vạn Kim dừng chân tại Tiếp Dẫn Đài. Hắn nhờ đạo hữu gom giúp các loại linh thảo và khoáng thạch bản địa với giá ưu đãi."
+description = "Giao thương với Khang Vạn Kim — học giá trị linh thạch và mạng lưới phàm/tu."
 giver = "Khang Vạn Kim"
 giverLocation = "Tiếp Dẫn Đài"
 target = "Giao dịch 2 Ngân Linh Thảo và 2 Huyền Thiết Khoáng"

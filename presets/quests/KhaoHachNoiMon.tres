@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Khảo Hạch Nội Môn"
-description = "Đệ tử Ngoại Môn khi đạt cảnh giới Tụ Khí Tầng 5 và tích lũy đủ 500 Điểm Cống Hiến có thể tiến hành khảo thí khốc liệt: Tiến vào Linh Khí Bí Cảnh, trảm sát Thí Luyện Thú để thăng cấp lên Nội Môn Đệ Tử."
+description = "Thăng Nội Môn: trách nhiệm nặng hơn, tài nguyên sâu hơn. Ký ức về quy tắc thế giới ngày một rõ."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Trảm sát Thí Luyện Thú trong Bí Cảnh & Nhận Nội Môn Kiếm Lệnh"

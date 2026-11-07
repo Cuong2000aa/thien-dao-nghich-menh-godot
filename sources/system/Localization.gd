@@ -234,23 +234,33 @@ const GLOSSARY : Dictionary = {
 	"Breakthrough Successful": "Đột phá thành công!",
 
 	# Side quests (English name hash → Vietnamese display title)
-	"Desert Seed": "Hạt Giống Mana",
-	"Elanore's Potions": "Đan Dược Elanore",
+	"Desert Seed": "Hạt Giống Linh Mộc",
+	"Elanore's Potions": "Đan Dược Ái Lan",
 	"Grain in the desert": "Lúa Mì Sa Mạc",
 	"Mine Exploration": "Thám Sát Khoáng Trường",
-	"Nina's Snack": "Bánh cho Nina",
+	"Nina's Snack": "Bánh Cho Ni Na",
 	"A Drop of Relief": "Giọt Nước Giải Khát",
-	"A Miner's Helping Hand": "Mũ cho thợ mỏ",
+	"A Miner's Helping Hand": "Mũ Cho Nẫm Công",
 	"Sandstorm Mine Abandoned Treasure": "Bảo Vật Mỏ Hoang",
-	"Peter's Bounty": "Ủy Thác Peter",
-	"A Biting Thirst": "Khát cháy họng",
-	"Snake Pit Thief": "Kẻ trộm Hố Rắn",
-	"Splatyna's Offering": "Cống Phẩm Splatyna",
-	"Found a Chest in the Outskirts": "Rương Ngoại Thành",
-	"When the desert gives you sand...": "Sa mạc cho cát...",
-	"An Old Friendship": "Tình cũ",
-	"Tutorial": "Nhập Môn",
-	"Veteran Cave Explorer": "Tiền Bối Thám Hang"
+	"Peter's Bounty": "Ủy Thác Bạch Đạt",
+	"A Biting Thirst": "Khát Cháy Họng",
+	"Snake Pit Thief": "Kẻ Trộm Hố Rắn",
+	"Splatyna's Offering": "Cống Phẩm Phong Ấn",
+	"Found a Chest in the Outskirts": "Rương Đông Lĩnh",
+	"When the desert gives you sand...": "Sa Mạc Cho Cát",
+	"An Old Friendship": "Cố Nhân Thanh Sa",
+	"Tutorial": "Tỉnh Dậy Thanh Sa",
+	"Veteran Cave Explorer": "Tiền Bối Thám Hang",
+
+	# NPC technical nick → display (Progress / dialogue glue)
+	"Elanore": "Ái Lan",
+	"Nina": "Ni Na",
+	"Kael": "Kha Nhĩ",
+	"Ekinu": "Nghê Khôn",
+	"Nathan": "Na Thiên",
+	"Naem": "Nẫm Công",
+	"Peter": "Bạch Đạt",
+	"Mana Tree": "Cây Linh Mộc",
 }
 
 ## 2. GIẢI THÍCH THUỘC TÍNH (ATTRIBUTE & STAT TOOLTIPS)

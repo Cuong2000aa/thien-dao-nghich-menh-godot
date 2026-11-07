@@ -6,10 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 2893494389
 name = "Grain in the desert"
-description = "Riskim thợ bánh đang chờ lô lương mang ấn xanh Artis. Đạo hữu hãy kiểm tra các thùng gỗ ở bến cảng."
+description = "Thương hộ / nông dân ven sa mạc nhờ thu thập lúa mì chịu hạn — sống sót bằng lao động chân tay nơi đất lạ."
 giver = "Riskim"
-giverLocation = "Trung Tâm Tulimshar"
-target = "Barrel"
+giverLocation = "Sa mạc Thanh Sa"
+target = "Thu thập lúa mì sa mạc theo yêu cầu"
 targetLocation = "Vịnh Tulimshar"
-reward = "Chưa biết"
+reward = "100 Tu Vi, 80 Linh Thạch, ít lương khô"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

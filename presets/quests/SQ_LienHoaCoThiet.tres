@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Khai Thác Liên Hoa Cổ Thiết"
-description = "Vách núi cheo leo kết tụ mỏ khoáng thạch mang hình hoa sen phát ra ánh xanh lục. Khai thác mẫu quặng tinh khiết về nghiên cứu độ dẻo của kim loại."
+description = "[Ẩn] Liên Hoa Cổ Thiết — khoáng trận ẩn trong địa mạch."
 giver = "Hà Thiết Thủ"
 giverLocation = "Luyện Khí Đường"
 target = "Khai thác 2 khối Thanh Phong Tinh Thiết"

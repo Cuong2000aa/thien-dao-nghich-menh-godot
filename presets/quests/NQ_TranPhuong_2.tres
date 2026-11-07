@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Tâm Ma Thử Thách"
-description = "Sau khi đột phá, Trần Phương bị tạp niệm quấy nhiễu. Hắn muốn cùng đạo hữu luận kiếm luận đạo tại diễn võ đài để tẩy rửa tâm thức."
+description = "Củng cố tình đồng môn với Trần Phương sau lần cứu viện."
 giver = "Trần Phương"
 giverLocation = "Diễn Võ Trường"
 target = "Tỉ thí giao lưu võ học cùng Trần Phương"

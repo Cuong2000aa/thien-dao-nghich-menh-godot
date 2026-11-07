@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thiên Đạo Có Khuyết"
-description = "Đại chấn động linh mạch cổ trận bùng nổ. Nhận diện sự thật tối hậu: Thiên Đạo bị thương tổn từ ngàn năm trước. Đưa ra đại quyết định cứu vãn sơn môn hay thích ứng quy tắc mới."
+description = "Linh mạch cổ trận chấn động. Ghép đủ mảnh ký ức: Thiên Đạo vốn có khuyết — không phải ác thần, mà quy tắc vũ trụ bị rạn. Đưa ra lựa chọn nghịch mệnh đầu tiên."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Trấn áp hoặc phân tán dòng linh khí hỗn loạn của Cổ Trận"
 targetLocation = "Đại Điện Trúc Sơn"
-reward = "600 Tu Vi, 500 Linh Thạch, Danh Hiệu Cốt Truyện"
+reward = "600 Tu Vi, 500 Linh Thạch, Danh Hiệu [Nghịch Mệnh Sơ Tâm], Ký Ức Hoàn Chỉnh"

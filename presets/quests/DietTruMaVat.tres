@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Diệt Trừ Ma Vật"
-description = "Nhiệm vụ thường ngày: Quét sạch 3 ma vật hoặc linh trùng xâm nhập khu vực cận sơn môn để bảo vệ an toàn cho các đệ tử tạp dịch đang thu hoạch thảo dược."
+description = "Diệt trừ ma vật quấy phá ngoại vi — bảo vệ thôn / môn, tích lũy thực chiến."
 giver = "Chấp Sự Nhiệm Vụ Đường"
 giverLocation = "Nhiệm Vụ Đường"
 target = "Tiêu diệt 3 Ma Vật / Linh Trùng"

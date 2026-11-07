@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thu Thập Linh Thảo"
-description = "Đạo Huyền Trưởng Lão cần Ngân Linh Thảo để khai lò luyện chế đan dược trị thương. Hãy tìm và hái 3 cọng Ngân Linh Thảo trong rừng Trúc Sơn."
+description = "Thu thập linh thảo theo danh sách Dược Đường — học nhận biết dược liệu bản địa bằng mắt và tay."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Thu thập 3 Ngân Linh Thảo"

@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Tỉnh Lạc Dị Giới"
-description = "Tỉnh dậy nơi sơn dã hoang vu sau biến cố xuyên không. Nhận diện thể trạng Ngũ Hành Tạp Căn và làm quen với hoàn cảnh mới bằng tư duy quan sát hiện đại."
+description = "Xuyên không bất ngờ — tỉnh dậy giữa sơn môn lạ lẫm, ký ức đứt đoạn. Gặp Tiếp Dẫn Chấp Sự để nhận diện thân xác phàm trần mang Ngũ Hành Tạp Căn và bắt đầu tìm hiểu thế giới này."
 giver = "Tiếp Dẫn Chấp Sự"
-giverLocation = "Trúc Sơn Tiên Cảnh (1050, 1460)"
-target = "Nói chuyện với Tiếp Dẫn Chấp Sự và kiểm tra Đan Điền"
-targetLocation = "Trúc Sơn Tiên Cảnh (1050, 1460)"
-reward = "100 Tu Vi, 50 Linh Thạch, Khăn Vải Thô"
+giverLocation = "Trúc Sơn Tiên Cảnh — Sơn Môn"
+target = "Nói chuyện với Tiếp Dẫn Chấp Sự, kiểm tra đan điền, ghi nhận trạng thái hiện tại"
+targetLocation = "Trúc Sơn Tiên Cảnh"
+reward = "100 Tu Vi, 50 Linh Thạch, Khăn Vải Thô, Mảnh Ký Ức I"

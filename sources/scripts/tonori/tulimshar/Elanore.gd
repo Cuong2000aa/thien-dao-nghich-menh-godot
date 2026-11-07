@@ -21,45 +21,45 @@ func OnStart():
 			Mes("Lại gặp rồi. Cần gì không?")
 			OnMainChoice()
 
-# First meeting
+# First meeting — xuyên không bất ngờ tại Thanh Sa
 func OnFirstMeeting():
 	var waterBottleID : int = DB.GetCellHash("Water Bottle")
 	var cactusSourCandyID : int = DB.GetCellHash("Cactus Sour Candy")
 
-	Mes("Chào cậu. Chào mừng đến Tulimshar!")
-	Mes("May cậu kịp tới cổng thành. Lính canh thấy cậu nằm bất tỉnh gần tường.")
-	Mes("Ta là Elanore. Cậu thấy thế nào? Uống nước này và ăn chút kẹo xương rồng — sẽ dễ chịu hơn.")
+	Mes("Tỉnh rồi à? Lính canh thấy cậu bất tỉnh ngoài tường Thanh Sa Cảng.")
+	Mes("Nơi này người địa phương gọi là Thanh Sa — các đạo hữu phương xa còn gọi Tulimshar.")
+	Mes("Ta là Ái Lan, dược sư trông cổng thành. Uống nước này và ăn chút kẹo xương rồng đã.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.INTRO_ITEMS_GIVEN)
 	AddItem(waterBottleID)
 	AddItem(cactusSourCandyID)
 	OnFeelingChoice()
 
 func OnFeelingChoice():
-	Choice("Ta khá hơn rồi, cảm ơn.", OnFeelingBetter)
-	Choice("Vẫn còn hơi mệt...", OnFeelingWeak)
+	Choice("Khá hơn rồi... nhưng ta chẳng nhớ mình tới đây thế nào.", OnFeelingBetter)
+	Choice("Vẫn chóng mặt... mọi thứ quá lạ.", OnFeelingWeak)
 
 func OnFeelingWeak():
 	var pitayaID : int = DB.GetCellHash("Pitaya")
 
-	Mes("Ồ... Được rồi. Cầm lấy quả này. Ngoài ra cậu nên nghỉ thêm chút.")
+	Mes("Cơ thể phàm trần khó chịu khí hậu sa mạc. Cầm lấy quả thanh long này, nghỉ thêm chút.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.POTION_GIVEN)
 	AddItem(pitayaID)
 	OnFeelingBetter()
 
 func OnFeelingBetter():
-	Mes("Sao cậu lại lạc trong sa mạc? Gần đây vùng ngoại thành rất nguy hiểm — đừng đi một mình.")
-	Choice("Ta là lính đánh thuê, muốn lập danh nơi này.", OnGiveStarterClothes)
-	Choice("Ta muốn giao thương với dân địa phương.", OnGiveStarterClothes)
-	Choice("Ta là học giả, tìm hiểu Linh Khí và pháp thuật.", OnGiveStarterClothes)
-	Choice("Ta là thủy thủ, tìm cơ hội mới trên bờ và dưới biển.", OnGiveStarterClothes)
+	Mes("Ký ức đứt đoạn cũng thường thấy ở kẻ bị linh khí dị thường cuốn tới. Ngoại thành đang nguy hiểm — đừng đi một mình.")
+	Choice("Ta chỉ muốn hiểu nơi này là đâu.", OnGiveStarterClothes)
+	Choice("Có cách nào sống sót và kiếm ăn không?", OnGiveStarterClothes)
+	Choice("Ta cảm thấy trong người có khí lạ... tạp loạn.", OnGiveStarterClothes)
+	Choice("Có tông môn hay người tu hành gần đây không?", OnGiveStarterClothes)
 
 func OnGiveStarterClothes():
 	var cottonShirtID : int = DB.GetCellHash("Cotton Shirt")
 	var linenShortsID : int = DB.GetCellHash("Shorts")
 
-	Mes("Tốt lắm khi cậu còn ở đây. Thành phố cần người giỏi giúp giữ an toàn.")
-	Mes("Gần đây sa mạc ngày càng nguy hiểm. Một nhóm cuồng tín Kaore ẩn trong núi phía đông, tấn công lữ khách và từng gần phá tường thành.")
-	Mes("Đây là quần áo cơ bản thay cho bộ giẻ rách lúc tìm thấy cậu.")
+	Mes("Trước hết phải mặc tạm cho tử tế. Thành cần người làm việc thật, không cần danh phận cao siêu.")
+	Mes("Sa mạc ngoài tường có yêu thú và dòng khí mục. Về sau nếu muốn hỏi đạo, hãy nghe ngóng đường lên sơn môn phương bắc.")
+	Mes("Đây là quần áo thô — thay bộ giẻ lúc tìm thấy cậu.")
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.CLOTHES_GIVEN)
 	AddItem(cottonShirtID, 1, "Used")
 	AddItem(linenShortsID, 1, "Used")
@@ -83,7 +83,7 @@ func OnExplainUI():
 	Narrate("Trong túi đồ có thể quản lý vật phẩm, trang bị, đan dược và những thứ nhặt được.")
 	HighlightUI(UICommons.UITarget.NONE)
 	SetQuest(ProgressCommons.Quest.TUTORIAL, ProgressCommons.TUTORIAL.ELANORE_DONE)
-	Mes("Ta không giữ cậu lâu hơn được. Người mới đến thành cần tự tìm chỗ đứng.")
+	Mes("Ta không giữ cậu lâu hơn. Người mới tới phải tự tìm chỗ đứng — tuần phòng trong thành sẽ giao việc chân tay.")
 	OnSendToKael()
 	DisplayActions(["gp_interact", "gp_target"])
 	Narrate("Dùng Tương Tác gần NPC để trò chuyện. Có thể dùng Nhắm Mục Tiêu để chọn trước.")
@@ -120,7 +120,7 @@ func OnMainChoice():
 			else:
 				Choice("Về mấy nguyên liệu kia...", OnPotionQuestReminder)
 
-	Choice("Kaore là gì?", OnExplainKaore)
+	Choice("Linh khí mục / Kaore là gì?", OnExplainKaore)
 	Choice("Ngươi là ai?", OnExplainSelf)
 
 	if GetQuest(ProgressCommons.Quest.TUTORIAL) == ProgressCommons.CompletedProgress:
@@ -128,22 +128,22 @@ func OnMainChoice():
 
 # Help with potions
 func OnHelpWithPotions():
-	Mes("Được! Ta pha rất nhiều Đan Hồi Sinh cho lính canh và dân thành. Chúng trị nhanh hầu hết thương tích.")
-	Mes("Pha đan cần bí quyết và nguyên liệu. Cậu có muốn giúp thu thập nguyên liệu, đổi lấy vài bình đan không?")
+	Mes("Được. Ta pha đan hồi sinh cho lính canh và dân thành — trị thương nhanh.")
+	Mes("Thiếu nguyên liệu. Cậu giúp thu thập, ta đổi vài bình đan xương rồng. Vừa kiếm sống vừa quen vùng ngoại thành.")
 	Choice("Ta sẽ đi thu thập giúp.", OnPotionQuestAccept)
 	Choice("Để lần khác.", OnPotionQuestDecline)
 
 func OnPotionQuestAccept():
-	Mes("Mỗi bình đan cần sáu Maggot Slime, một Bình Nước và một Pitaya. Mang đủ đến đây, ta sẽ đổi Cactus Potion.")
+	Mes("Mỗi bình cần sáu Dịch Trùng Linh (Maggot Slime), một Bình Nước và một Thanh Long. Mang đủ tới đây.")
 	SetQuest(ProgressCommons.Quest.ELANORE_POTION, ProgressCommons.ELANORE_POTION.STARTED)
 	Action(OnMainChoice)
 
 func OnPotionQuestDecline():
-	Mes("Khi nào sẵn sàng cứ đến tìm ta.")
+	Mes("Khi nào sẵn sàng cứ đến tìm Ái Lan.")
 	Action(OnMainChoice)
 
 func OnPotionQuestReminder():
-	Mes("Vẫn cần sáu Maggot Slime, một Bình Nước và một Pitaya cho mỗi bình đan. Có đủ rồi hãy quay lại.")
+	Mes("Vẫn cần sáu Dịch Trùng Linh, một Bình Nước và một Thanh Long cho mỗi bình đan.")
 	OnMainChoice()
 
 func OnPotionQuestTurnIn():
@@ -181,25 +181,25 @@ func OnPotionBrewedChoice():
 	Choice("Ta còn muốn hỏi chuyện khác.", OnMainChoice)
 	Choice("Ta đi đây.", Farewell)
 
-# What is Kaore
+# What is Kaore — reframed as linh khí mục
 func OnExplainKaore():
-	Mes("Linh Khí (Mana) là sinh lực nối kết vạn vật. Kaore là dạng Linh Khí đã mục nát, làm tha hóa chứ không nuôi sống. Còn nhiều tầng nữa, nhưng đại khái là vậy.")
+	Mes("Linh khí là sinh lực nuôi vạn vật. Khi bị ô nhiễm hay rạn nứt quy tắc trời đất, nó mục thành khí độc — dân cũ từng gọi Kaore.")
 	LookAtNpc("Nina")
-	Mes("Muốn hiểu sâu hơn hãy hỏi đệ tử Nina. Cô ấy đang trông coi Soul Menhir của thành — học được rất nhiều từ cô ấy.")
+	Mes("Muốn hiểu sâu hãy hỏi Ni Na. Nàng canh linh thạch (Soul Menhir) của thành — biết nhiều về khí mạch nơi này.")
 	ResetCamera()
 	OnMainChoice()
 
 # Who are you
 func OnExplainSelf():
-	Mes("Ta là Elanore, Kahwe của thành này và vùng đất xung quanh. Người ngoài gọi chúng ta là Druid. Ta đại diện Kaumatua — dòng truyền thống cổ nhất thế giới này.")
-	Mes("Đừng lo chuyện đó lúc này. Sau này nói tiếp. Hiện tại ta chỉ ở đây pha đan và tiếp nhận người bị thương từ ngoài tường.")
+	Mes("Ta là Ái Lan. Người phương Tây còn ghi tên cũ Elanore trên sổ sách — đừng bận tâm. Ta pha đan và cứu người bị thương ngoài tường.")
+	Mes("Chuyện tông môn, Thiên Đạo… hỏi sau khi cậu đứng vững đã. Giờ sống sót đã là công phu.")
 	OnMainChoice()
 
 func Farewell():
 	if randi() % 2:
 		Chat("Giữ gìn bản thân ngoài kia.")
 	else:
-		Chat("Bình an.")
+		Chat("Bình an. Nhớ uống nước.")
 
 # Directions
 func OnDirections():
@@ -211,14 +211,14 @@ func OnDirections():
 	Action(Farewell)
 
 func OnSendToKael():
-	Mes("Tuần phòng Kael đang phụ trách tuần tra trong tường thành — nên nói chuyện với anh ấy nếu muốn nhận việc.")
+	Mes("Tuần phòng Kha Nhĩ tuần trong tường — nói chuyện với anh ấy nếu muốn nhận việc chân tay.")
 	LookAtNpc("Kael")
 	Mes("Anh ấy đứng phía đông bắc gần đám cây cọ.")
 	Mes("Theo chân tường đến góc rồi đi lên là tới.")
 	ResetCamera()
 
 func OnSendToEkinu():
-	Mes("Tuần phòng Ekinu đóng ở cổng phía nam.")
+	Mes("Tuần phòng Nghê Khôn đóng cổng nam.")
 	LookAtNpc("Ekinu")
-	Mes("Kể cho anh ấy việc cậu giúp Kael — anh ấy sẽ biết bước tiếp theo.")
+	Mes("Kể việc cậu đã giúp Kha Nhĩ — anh ấy sẽ chỉ bước tiếp.")
 	ResetCamera()

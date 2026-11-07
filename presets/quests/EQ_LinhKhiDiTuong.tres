@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thu Thập Tinh Hoa Dị Tượng"
-description = "Sự kiện thế giới: Vầng sáng ngũ sắc xuất hiện trên bầu trời. Khai thác các tinh thể ngưng tụ trong thời gian linh khí bùng nổ."
+description = "Sự kiện: linh khí dị tượng — gợi ý D-02 trước khi MQ5."
 giver = "Liễu Thanh Y"
 giverLocation = "Trúc Sơn Ngoại Vi"
 target = "Thu thập 3 Tinh Hoa Linh Khí trong lúc dị tượng diễn ra"

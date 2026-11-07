@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Tìm Kiếm U Hồn Trầm Bảo"
-description = "Đầm lầy u uất đầy chướng khí giấu một bảo rương thời tiền triều. Cần dùng Thanh Tâm Đan kháng độc để trục vớt rương báu."
+description = "[Ẩn] U Hồn Trảm Bảo — dị vật / thảo dược tử khí. Không hiện journal cho đến khi kích hoạt."
 giver = "Lời Đồn Tán Tu"
 giverLocation = "Tiếp Dẫn Đài"
 target = "Trục vớt rương cổ tại đầm lầy U Hồn"
 targetLocation = "U Hồn Đầm Lầy"
-reward = "160 Tu Vi, 150 Linh Thạch, 3 U Hồn Thảo"
+reward = "160 Tu Vi, 150 Linh Thạch, 3 U Hồn Thảo, Mảnh Ký Ức Ẩn"

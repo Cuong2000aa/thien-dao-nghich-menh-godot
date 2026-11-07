@@ -142,7 +142,7 @@ const MAIN_STORY_CHAPTERS : Dictionary = {
 		"title": "Chương 1: Người Lạ Tại Dị Giới",
 		"questId": "MQ_CHUONG_1_TINH_LAC_DI_GIOI",
 		"reqLevel": 1,
-		"synopsis": "Tỉnh lại nơi thế giới tu tiên xa lạ, nhận ra bản thân xuyên không vào thân xác một đệ tử kiệt sức mang Ngũ Hành Tạp Căn. Bằng tư duy quan sát và phân tích hiện đại, nhân vật chính phát hiện những hiện tượng linh khí bất thường đầu tiên.",
+		"synopsis": "Xuyên không bất ngờ bằng thân xác thật (không đoạt xá). Tỉnh dậy giữa thế giới tu tiên, ký ức đứt đoạn, mang Ngũ Hành Tạp Căn. Quan sát và làm nhiệm vụ quanh vùng để lần ra manh mối linh khí bất thường đầu tiên.",
 		"clueUnlocked": "CLUE_1_QI_FLUCTUATION"
 	},
 	StoryChapter.CHAPTER_2_PATH: {
@@ -150,7 +150,7 @@ const MAIN_STORY_CHAPTERS : Dictionary = {
 		"title": "Chương 2: Con Đường Tu Đạo",
 		"questId": "MQ_CHUONG_2_CON_DUONG_TU_DAO",
 		"reqLevel": 2,
-		"synopsis": "Khám phá quy luật tu luyện, làm quen các chấp sự và sư đồ trong sơn môn. Vận dụng kiến thức khoa học phân tích cơ chế hấp thụ linh khí và tìm thấy manh mối đầu tiên từ bia đá cổ.",
+		"synopsis": "Học quy luật tu luyện từ chấp sự sơn môn. Mảnh ký ức hiện đại xen với minh văn cổ bi — bắt đầu hiểu linh khí bằng quan sát, không bằng cheat.",
 		"clueUnlocked": "CLUE_2_MUTATED_CORES"
 	},
 	StoryChapter.CHAPTER_3_MUTATION: {
@@ -158,7 +158,7 @@ const MAIN_STORY_CHAPTERS : Dictionary = {
 		"title": "Chương 3: Dấu Vết Dị Biến",
 		"questId": "MQ_CHUONG_3_DAU_VET_DI_BIEN",
 		"reqLevel": 5,
-		"synopsis": "Yêu thú vùng ngoại vi bỗng nhiên cuồng bạo dị biến. Nhân vật chính cùng đồng môn điều tra và phải đối diện với lựa chọn đạo đức có ảnh hưởng trực tiếp đến tính mạng đệ tử và việc bảo toàn bí mật.",
+		"synopsis": "Yêu thú ngoại vi dị biến. Điều tra cùng đồng môn; mỗi dấu vết kích hoạt thêm ký ức — vì sao mình bị kéo vào thế giới này — và buộc phải chọn giữa cứu người hay đuổi theo dị tượng.",
 		"clueUnlocked": "CLUE_3_ANCIENT_CONFLICT"
 	},
 	StoryChapter.CHAPTER_4_ANCIENT_SECRETS: {
@@ -166,7 +166,7 @@ const MAIN_STORY_CHAPTERS : Dictionary = {
 		"title": "Chương 4: Bí Mật Trong Cổ Tích",
 		"questId": "MQ_CHUONG_4_BI_MAT_CO_TICH",
 		"reqLevel": 8,
-		"synopsis": "Thâm nhập cổ động di tích bị lãng quên. Khám phá những tài liệu mâu thuẫn hoàn toàn với lịch sử chính thống, nhận ra các trận pháp phong ấn đang trượt dần khỏi quỹ đạo ban đầu.",
+		"synopsis": "Thâm nhập cổ động. Cổ tịch mâu thuẫn sử sách tông môn; trận pháp lệch quỹ đạo. Ký ức về quy tắc Trái Đất và Thiên Đạo bắt đầu khớp thành một bức tranh.",
 		"clueUnlocked": "CLUE_4_ARRAY_DRIFT"
 	},
 	StoryChapter.CHAPTER_5_DAMAGED_DAO: {
@@ -174,7 +174,7 @@ const MAIN_STORY_CHAPTERS : Dictionary = {
 		"title": "Chương 5: Thiên Đạo Có Khuyết",
 		"questId": "MQ_CHUONG_5_THIEN_DAO_CO_KHUYET",
 		"reqLevel": 10,
-		"synopsis": "Đối mặt với sự cố chấn động linh mạch cổ trận. Sự thật về 'Thiên Đạo Tổn Thương' hé lộ: Thiên Đạo không phải ác nhân, mà là quy tắc vũ trụ từng chịu vết rạn nứt khổng lồ. Mở ra bước ngoặt nghịch mệnh tu chân.",
+		"synopsis": "Linh mạch cổ trận chấn động. Ghép đủ mảnh ký ức: Thiên Đạo vốn có khuyết — quy tắc vũ trụ bị rạn, không phải ác thần. Bước ngoặt nghịch mệnh mở ra.",
 		"clueUnlocked": "CLUE_5_DAMAGED_DAO"
 	}
 }
@@ -187,8 +187,8 @@ const STORY_CLUES : Dictionary = {
 		"id": "CLUE_1_QI_FLUCTUATION",
 		"title": "Manh Mối 1: Linh Khí Triều Tịch Đảo Nghịch",
 		"chapter": 1,
-		"content": "Linh khí quanh chân núi Trúc Sơn không tuần hoàn điều hòa theo ngũ hành mà xuất hiện các đợt sóng xung kích ngắt quãng như nhịp thở của một sinh thể bị thương.",
-		"deduction": "Theo nguyên lý bảo toàn năng lượng hiện đại, có một điểm rò rỉ hoặc khe nứt vô hình đang phát tán tạp khí vào môi trường tự nhiên."
+		"content": "Vừa xuyên không bất ngờ, đã thấy linh khí quanh chân núi Trúc Sơn không tuần hoàn theo ngũ hành — các đợt sóng xung kích ngắt quãng như nhịp thở của sinh thể bị thương.",
+		"deduction": "Theo tư duy quan sát hiện đại (ký ức còn mơ hồ): có điểm rò hoặc khe nứt vô hình đang phát tán tạp khí. Mảnh nhớ này chưa giải thích vì sao mình bị kéo tới."
 	},
 	"CLUE_2_MUTATED_CORES": {
 		"id": "CLUE_2_MUTATED_CORES",

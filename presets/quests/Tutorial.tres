@@ -6,8 +6,10 @@
 script = ExtResource("1_25ln0")
 id = 1180319673
 name = "Tutorial"
-description = "Nhờ Elanore dẫn dắt, đạo hữu làm quen và an cư tại Tulimshar."
+description = "Tỉnh dậy ngoài tường Thanh Sa Cảng trong trạng thái mất phương hướng. Ái Lan (dược sư cổng thành) cứu giúp, chỉ cách sinh tồn và làm quen giao diện cơ bản."
 giver = "Elanore"
-giverLocation = "Cổng Thành Tulimshar"
-reward = "Chưa biết"
+giverLocation = "Cổng Thành Thanh Sa (Tulimshar)"
+reward = "Bình Nước, Kẹo Xương Rồng, Áo Vải Thô, Quần Vải, 50 Tu Vi"
+target = "Làm theo hướng dẫn Ái Lan, gặp tuần phòng Kha Nhĩ rồi Nghê Khôn"
+targetLocation = "Thanh Sa Cảng"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

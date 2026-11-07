@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Thám Hiểm Hiên Viên Động"
-description = "Vượt qua thác nước cuồn cuộn khám phá Hiên Viên Cổ Động, tìm kiếm rương bảo thạch thượng cổ giấu kín trong hang sâu."
+description = "[Ẩn] Bí mật Hiên Viên — chỉ lộ khi đủ flag / tới đúng POI. Thưởng khoáng và manh mối cổ."
 giver = "Bản Đồ Chỉ Dẫn"
 giverLocation = "Sơn Lâm Ngoại Vi"
 target = "Tìm thấy bảo rương trong Hiên Viên Cổ Động"
 targetLocation = "Hiên Viên Cổ Động"
-reward = "180 Tu Vi, 200 Linh Thạch, 2 Bạch Ngân Khoáng"
+reward = "180 Tu Vi, 200 Linh Thạch, 2 Bạch Ngân Khoáng, Mảnh Ký Ức Ẩn"

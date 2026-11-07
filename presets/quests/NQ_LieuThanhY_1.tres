@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Dược Điển Tầm Thảo"
-description = "Liễu Thanh Y cần tìm 3株 Ngân Linh Thảo và 1株 U Hồn Thảo để phối dược giải trừ chứng đau nhức kinh mạch cho tân đệ tử."
+description = "Liễu Thanh Y nhờ tìm Ngân Linh Thảo và U Hồn Thảo chữa kinh mạch đệ tử mới — người ngoài học cách giúp đỡ để được chấp nhận."
 giver = "Liễu Thanh Y"
 giverLocation = "Dược Đường"
 target = "Thu thập đủ dược thảo giao nộp cho Liễu Thanh Y"

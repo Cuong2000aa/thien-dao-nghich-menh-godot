@@ -17,13 +17,20 @@ func OnStart():
 	var rankName : String = SectSystemClass.GetDiscipleRankName(rank)
 	
 	if rank == SectSystemClass.DiscipleRank.NONE:
-		# Player is not yet in sect
-		Mes("Thiện tai! Bần đạo là Tiếp Dẫn Chấp Sự trông coi sơn môn Trúc Sơn.")
-		Mes("Quan sát căn cốt đạo hữu thanh kỳ, khí tức bình ổn. Chẳng hay đạo hữu có chí bái nhập môn phái, dấn thân vào con đường tu tiên vấn đạo?")
-		
+		# Player is not yet in sect — người xuyên không vừa tới
+		Mes("Thiện tai. Bần đạo là Tiếp Dẫn Chấp Sự trông coi sơn môn Trúc Sơn.")
+		Mes("Khí tức đạo hữu tạp loạn như kẻ vừa bị cuốn khỏi nơi khác — thân xác thật, không phải đoạt xá. Ngũ hành trong đan điền hỗn độn: tạp căn.")
+		Mes("Nếu còn ký ức đứt đoạn, hãy ở lại sơn môn làm việc và hỏi đạo dần. Chẳng hay có chí bái nhập môn phái?")
+
 		var qState : int = GetQuest(QUEST_NHAP_MON)
+		var mq1 : int = GetQuest(ProgressCommons.Quest.MQ_CHUONG_1_TINH_LAC_DI_GIOI)
+		if mq1 != ProgressCommons.CompletedProgress and mq1 != ProgressCommons.UnknownProgress:
+			# Active MQ1 — ưu tiên chỉ dẫn tỉnh lạc
+			Choice("Đạo hữu lạc lối xin chỉ điểm (Tỉnh Lạc Dị Giới).", OnMainStoryMQ1)
+		elif mq1 == ProgressCommons.UnknownProgress:
+			Choice("Ta vừa xuyên tới nơi này — xin chấp sự giúp nhận diện thân thể.", OnMainStoryMQ1)
 		if qState == ProgressCommons.UnknownProgress:
-			Choice("Đệ tử một lòng hướng đạo, xin chấp sự cho thử thách khảo nghiệm!", OnAcceptTrial)
+			Choice("Đệ tử lạc lối, xin chấp sự cho khảo nghiệm nhập môn!", OnAcceptTrial)
 			Choice("Xin thỉnh giáo tôn chỉ và quy tắc của môn phái.", OnExplainSect)
 			Choice("Vãn bối chỉ đi ngang qua, xin phép cáo từ.", Farewell)
 		elif qState == ProgressCommons.NHAP_MON_KHAO_NGHIEM.STARTED:
@@ -39,6 +46,39 @@ func OnStart():
 		Mes("Sơn môn Trúc Sơn linh khí dồi dào. Đạo hữu hãy tích cực hoàn thành nhiệm vụ tông môn và rèn luyện đạo tâm.")
 		Choice("Xin hỏi các khu vực công trình trong môn phái.", OnGuideFacilities)
 		Choice("Cáo từ Tiếp Dẫn Chấp Sự.", Farewell)
+
+func OnMainStoryMQ1():
+	var qId : int = ProgressCommons.Quest.MQ_CHUONG_1_TINH_LAC_DI_GIOI
+	var st : int = GetQuest(qId)
+	if st == ProgressCommons.UnknownProgress:
+		SetQuest(qId, ProgressCommons.XIANXIA_STORY_QUEST.STARTED)
+		Mes("Được. Hãy tĩnh tâm cảm nhận đan điền — ngũ hành tạp loạn là thật, không phải ảo giác.")
+		Mes("Ký ức sẽ về dần khi đạo hữu đi lại, làm việc và hỏi đạo. Đây là bước đầu: nhận mình đang ở dị giới.")
+		Choice("Đệ tử đã cảm nhận — xin ghi nhận tiến trình.", OnMainStoryMQ1Complete)
+		Choice("Đệ tử cần thêm thời gian.", Farewell)
+	elif st > ProgressCommons.UnknownProgress and st < ProgressCommons.CompletedProgress:
+		OnMainStoryMQ1Complete()
+	else:
+		Mes("Đạo hữu đã nhận diện thân cảnh. Hãy tiếp tục hỏi đạo và xét khảo nghiệm nhập môn.")
+		Choice("Xin cảm ơn chấp sự.", Farewell)
+
+func OnMainStoryMQ1Complete():
+	var qId : int = ProgressCommons.Quest.MQ_CHUONG_1_TINH_LAC_DI_GIOI
+	if GetQuest(qId) >= ProgressCommons.CompletedProgress:
+		Mes("Đạo hữu đã nhận diện thân cảnh rồi.")
+		Choice("Xin cảm ơn chấp sự.", Farewell)
+		return
+	SetQuest(qId, ProgressCommons.CompletedProgress)
+	AddExp(100)
+	AddGP(50)
+	var clothHash : int = DB.GetCellHash("Cotton Shirt")
+	if clothHash != DB.UnknownHash:
+		AddItem(clothHash, 1, "Used")
+	var StorySystemClass = preload("res://sources/story/StorySystem.gd")
+	StorySystemClass.UnlockClue(own, "CLUE_1_QI_FLUCTUATION")
+	Mes("Ghi nhận: đạo hữu tỉnh lạc dị giới, tạp căn, ký ức đứt đoạn. Phần thưởng sơ: Tu Vi, Linh Thạch, vật dụng thô — và manh mối linh khí triều tịch.")
+	NpcCommons.PushNotification(own, "Hoàn thành [Tỉnh Lạc Dị Giới] — Mảnh Ký Ức I!")
+	Choice("Đệ tử xin tuân theo.", Farewell)
 
 func OnAcceptTrial():
 	SetQuest(QUEST_NHAP_MON, ProgressCommons.NHAP_MON_KHAO_NGHIEM.STARTED)

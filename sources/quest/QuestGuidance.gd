@@ -494,11 +494,15 @@ static func FormatStepRich(step : Dictionary) -> String:
 	var warn : String = UICommons.WarnTextColor.to_html(false)
 	var text : String = UICommons.TextColor.to_html(false)
 	var lines : PackedStringArray = PackedStringArray()
-	lines.append("[b]%s[/b]" % step.get("quest_name", ""))
+	var qTitle : String = Localization.Get(str(step.get("quest_name", "")), str(step.get("quest_name", "")))
+	lines.append("[b]%s[/b]" % qTitle)
 	lines.append("[color=#%s]%s[/color]" % [warn, step.get("hint", "")])
 	var mapName : String = str(step.get("map_display", ""))
 	var pos : Vector2 = step.get("position", Vector2.ZERO)
+	var nickDisplay : String = Localization.Get(str(step.get("nick", "")), str(step.get("nick", "")))
 	if step.get("resolved", false):
+		if not nickDisplay.is_empty():
+			lines.append("[color=#%s]Mốc: %s[/color]" % [text, nickDisplay])
 		lines.append("[color=#%s]Bản đồ: %s @ (%d, %d)[/color]" % [text, mapName, int(pos.x), int(pos.y)])
 	elif not mapName.is_empty():
 		lines.append("[color=#%s]Khu vực: %s (chưa có mốc spawn chính xác)[/color]" % [text, mapName])

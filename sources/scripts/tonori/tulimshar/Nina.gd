@@ -19,8 +19,8 @@ func OnStart():
 
 # Intro
 func OnIntro():
-	Mes("Xin chào. Elanore cử cậu đến à? Mời vào.")
-	Mes("Chúng ta đang đứng trước Soul Menhir cổ xưa của Tulimshar. Ta là người giữ gìn nó, dùng sức mạnh của đá để bảo vệ dân thành — trong phạm vi được phép.")
+	Mes("Xin chào. Ái Lan cử cậu đến à? Mời đứng gần đá.")
+	Mes("Đây là linh thạch cổ của Thanh Sa Cảng — sổ cũ còn ghi Soul Menhir. Ta là Ni Na, thủ hộ khí mạch đá này trong phạm vi được phép.")
 	OnPlayerChoice()
 
 func OnPlayerChoice():
@@ -28,8 +28,8 @@ func OnPlayerChoice():
 		Choice("Ta mang bánh sừng bò cho ngươi!", OnCroissantTurnIn)
 	else:
 		Choice("Có ai cản trở ngươi không?", OnExplainOpposition)
-		Choice("Kể thêm về Mana và Kaore được không?", OnExplainMana)
-		Choice("Soul Menhir là gì?", OnExplainMenhir)
+		Choice("Kể về linh khí và khí mục được không?", OnExplainMana)
+		Choice("Linh thạch / Soul Menhir là gì?", OnExplainMenhir)
 	Choice("Hẹn gặp lại.", Farewell)
 
 # Opposition and faith

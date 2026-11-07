@@ -149,7 +149,8 @@ func RefreshQuestDescription(questID : int):
 		var questDesc : String = Localization.Get(questData.description, questData.description)
 		questDescription.text += "Mô Tả:\n[color=#%s]%s[/color]\n\n" % [UICommons.TextColor.to_html(false), questDesc]
 	if not questData.giver.is_empty():
-		questDescription.text += "Người Giao:\n[color=#%s]%s" % [UICommons.WarnTextColor.to_html(false), questData.giver]
+		var giverDisplay : String = Localization.Get(questData.giver, questData.giver)
+		questDescription.text += "Người Giao:\n[color=#%s]%s" % [UICommons.WarnTextColor.to_html(false), giverDisplay]
 		if not questData.giverLocation.is_empty():
 			questDescription.text += " (%s)" % questData.giverLocation
 		questDescription.text += "[/color]\n\n"

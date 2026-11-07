@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Minh Văn Trận Phù"
-description = "Mặc Lão Nhân cần thu thập các mảnh vụn trận phù cổ xưa rơi vãi quanh bia đá để phục dựng lại phù trận đã thất truyền."
+description = "Mặc Lão Nhân thử lòng kẻ muốn đọc cổ tịch — kiên nhẫn hơn bạo lực."
 giver = "Mặc Lão Nhân"
 giverLocation = "Trúc Sơn Cổ Bi"
 target = "Thu thập 3 Mảnh Trận Phù Cổ"

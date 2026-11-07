@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Luyện Đan Nhập Môn"
-description = "Đạo Huyền Trưởng Lão hướng dẫn đệ tử đến Luyện Đan Lô tại Trúc Sơn, sử dụng 2 Linh Trùng Tương và 1 Ngân Linh Thảo để luyện thành 1 Hồi Xuân Dược."
+description = "Học luyện đan nhập môn: không lấy hóa học Trái Đất thay linh dược — phải làm đúng quy tắc nơi này."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Luyện chế 1 Hồi Xuân Dược tại Luyện Đan Lô"

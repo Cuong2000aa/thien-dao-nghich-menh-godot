@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Khám Phá Cổ Bi"
-description = "Truyền thuyết kể rằng trên sườn núi Trúc Sơn có một tấm Cổ Bi ngàn năm do khai sơn tổ sư để lại. Hãy tìm đến Cổ Bi và lĩnh ngộ tàn thiên tâm pháp."
+description = "Khám phá Trúc Sơn Cổ Bi — quest bán ẩn gắn MQ2; tàn quyển kích hoạt mảnh ký ức phụ."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Trúc Sơn Tiên Cảnh"
 target = "Tìm và lĩnh ngộ Trúc Sơn Cổ Bi"
 targetLocation = "Cổ Đạo Phế Tích / Trúc Sơn Hiểm Địa"
-reward = "150 Tu Vi, 200 Linh Thạch, Trúc Sơn Cổ Bi Tàn Quyển"
+reward = "150 Tu Vi, 200 Linh Thạch, Trúc Sơn Cổ Bi Tàn Quyển, Mảnh Ký Ức Phụ"

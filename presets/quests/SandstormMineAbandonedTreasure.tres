@@ -6,11 +6,10 @@
 script = ExtResource("1_quest")
 id = 1083446768
 name = "Sandstorm Mine Abandoned Treasure"
-description = "Ở tận sâu mỏ hoang, một chiếc chìa khóa gỉ sét đang ẩn mình.
-Tìm nó rồi dùng mở rương nhỏ gần đó để nhận phần bảo vật còn sót lại."
+description = "Tin đồn bảo vật trong mỏ hoang — tìm chìa gỉ rồi mở rương. Quest ẩn khám phá; cẩn thận yêu thú."
 giver = "Mine Key"
-giverLocation = "Mỏ Hoang"
-target = "Chest"
+giverLocation = "Mỏ Bão Cát — khu bỏ hoang"
+target = "Tìm bảo vật mỏ hoang"
 targetLocation = "Mỏ Hoang"
-reward = "Piou Slayer"
+reward = "Piou Slayer (dị binh), 80 Tu Vi"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

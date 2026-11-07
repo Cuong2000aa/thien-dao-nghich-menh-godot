@@ -6,6 +6,8 @@
 script = ExtResource("1_quest")
 id = 2409290506
 name = "Veteran Cave Explorer"
-description = "Dành cho những đạo hữu từng bước chân trên sơn hà này trước khi thiên địa tái sinh."
-reward = "Chưa biết"
+description = "Lão thám hiểm chỉ điểm hang động. Quest ẩn: lắng nghe rồi tự đi xác minh — mở góc nhìn địa mạch."
+reward = "120 Tu Vi, 80 Linh Thạch, bản đồ hang sơ"
+giverLocation = "Hang động Thanh Sa / Candor"
+target = "Theo chỉ dẫn thám hang và trở về"
 metadata/_custom_type_script = "uid://bqxdwogial88g"

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qd")
 name = "Khảo Hạch Ngoại Môn"
-description = "Đệ tử Tạp Dịch khi đạt cảnh giới Tụ Khí Tầng 1 và tích lũy đủ 100 Điểm Cống Hiến có thể tiến hành khảo thí tại Diễn Võ Đường để thăng cấp lên Ngoại Môn Đệ Tử."
+description = "Chứng minh đã quen sơn môn: khảo hạch Ngoại Môn mở Tụ Linh Trận và Tàng Kinh Các — sức mạnh mở bằng công sức, không phải thiên tư."
 giver = "Đạo Huyền Trưởng Lão"
 giverLocation = "Đại Điện Trúc Sơn"
 target = "Chiến thắng trận luận bàn khảo thí tại Diễn Võ Đường"
