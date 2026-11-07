@@ -162,6 +162,13 @@ func _TestTutorialPhasesNoDialogueLoop() -> void:
 		_fail("KAEL_MET should keep return_nick=Kael for progress check")
 	else:
 		_ok("KAEL_MET return_nick=Kael (progress check only)")
+	var kTargets : Array = killStep.get("kill_targets", [])
+	if kTargets.size() < 2 or not kTargets.has("Peyote") or not kTargets.has("Maggot"):
+		_fail("KAEL_MET kill_targets must be Peyote+Maggot, got %s" % str(kTargets))
+	elif not bool(killStep.get("need_each", false)):
+		_fail("KAEL_MET must set need_each")
+	else:
+		_ok("KAEL_MET kill_targets Peyote+Maggot need_each")
 
 func _TestKillQuestTurnInNotPremature() -> void:
 	## state>need heuristic must not force turn-in mid objective for all active quests.

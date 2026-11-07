@@ -90,9 +90,17 @@ func RefreshAttributes():
 
 #
 func SetStats(stats : Dictionary):
+	var hadShape : bool = stats.has("shape") and stats["shape"] != null
+	var hadCurrentShape : bool = stats.has("currentShape") and stats["currentShape"] != null
 	for statName in stats:
 		if stats[statName] != null and statName in self:
 			self[statName] = stats[statName]
+
+	# Trait SQL persists `shape` but not `currentShape`. After CreateAgent Init both are
+	# Player/Swordsman; loading shape alone left currentShape stuck → IsMorph() true →
+	# client skipped HeroLibrary and always showed Kiếm Khách (Swordsman).
+	if hadShape and not hadCurrentShape:
+		currentShape = shape
 
 	RefreshAttributes()
 

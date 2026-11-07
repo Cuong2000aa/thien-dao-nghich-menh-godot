@@ -59,6 +59,8 @@ func SetCharacterInfo(charData : Dictionary, charID : int):
 	# Stats
 	stat.SetStats(charData)
 	stat.ResetAttributesIfOverBudget()
+	# Ensure hero body is not treated as a morph (currentShape not in trait table).
+	_SyncHeroShapeOnLogin()
 	# Inventory
 	var inventoryData : Array[Dictionary] = Launcher.SQL.GetStorage(charID, 0)
 	inventory.ImportInventory(inventoryData)
@@ -72,6 +74,16 @@ func SetCharacterInfo(charData : Dictionary, charID : int):
 	# Progress
 	progress.ImportProgress(charID)
 	RestoreActiveTrackers()
+
+func _SyncHeroShapeOnLogin() -> void:
+	if stat == null:
+		return
+	var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+	if not HeroLib.IsHeroShape(stat.shape):
+		# Legacy / corrupt trait → fall back to default swordsman body
+		stat.shape = ActorCommons.PlayerEntityID
+	# Login never starts mid-morph; align currentShape to base hero.
+	stat.currentShape = stat.shape
 
 #
 func UpdateLastStats():

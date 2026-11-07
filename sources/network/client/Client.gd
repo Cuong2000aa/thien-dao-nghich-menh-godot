@@ -162,6 +162,12 @@ func UpdatePublicStats(agentRID : int, level : int, health : int, maxHealth : in
 		return
 
 	var entry : EntityCacheEntry = Launcher.Map.entityCache.get(agentRID, null)
+	var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+	# Ignore false-morph packets: currentShape=Player while cached/base shape is another hero
+	var resolvedShape : int = currentShape
+	if entry and HeroLib.IsHeroShape(entry.shape) and entry.shape != ActorCommons.PlayerEntityID:
+		if currentShape == ActorCommons.PlayerEntityID:
+			resolvedShape = entry.shape
 	if entry:
 		entry.level			= level
 		entry.health		= health
@@ -170,18 +176,18 @@ func UpdatePublicStats(agentRID : int, level : int, health : int, maxHealth : in
 		entry.gender		= gender
 		entry.race			= race
 		entry.skintone		= skintone
-		entry.currentShape	= currentShape
+		entry.currentShape	= resolvedShape
 
 	var entity : Entity = Entities.Get(agentRID)
 	if not entity:
 		return
 
 	if entity.stat:
-		var newShape : bool = entity.stat.currentShape != currentShape
+		var newShape : bool = entity.stat.currentShape != resolvedShape
 		entity.stat.level				= level
 		entity.stat.health				= health
 		entity.stat.current.maxHealth	= maxHealth
-		entity.stat.currentShape		= currentShape
+		entity.stat.currentShape		= resolvedShape
 		if newShape:
 			entity.SetData()
 
@@ -220,10 +226,15 @@ func UpdatePrivateStats(experience : int, gp : int, mana : int, stamina : int, k
 		Launcher.Player.stat.weight			= weight
 		Launcher.Player.stat.shape			= shape
 		Launcher.Player.stat.spirit			= spirit
+		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+		# Keep currentShape aligned with hero base unless sailing / real form morph
+		if HeroLib.IsHeroShape(shape) and not Launcher.Player.stat.IsSailing():
+			var cur : int = Launcher.Player.stat.currentShape
+			if cur == DB.UnknownHash or cur == ActorCommons.PlayerEntityID or HeroLib.IsHeroShape(cur):
+				Launcher.Player.stat.currentShape = shape
 		Launcher.Player.stat.RefreshVitalStats()
 		# Re-apply hero body when base shape syncs (fix: was stuck on default Swordsman)
 		if shapeChanged and not Launcher.Player.stat.IsMorph():
-			var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
 			var heroIdx : int = HeroLib.FindIndexByShape(shape)
 			if heroIdx >= 0:
 				HeroLib.ApplyToEntity(Launcher.Player, heroIdx)
@@ -314,6 +325,15 @@ func RefreshEquipment(agentRID : int, equipment : Dictionary, _peerID : int):
 	if entity:
 		if entity.inventory:
 			entity.inventory.ImportEquipment(equipment)
+		# Re-apply hero body then equipment overlays (ImportEquipment alone can leave default frames)
+		if entity.type == ActorCommons.Type.PLAYER and entity.stat and not entity.stat.IsMorph():
+			var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+			var heroIdx : int = HeroLib.FindIndexByShape(entity.stat.shape)
+			if heroIdx >= 0:
+				HeroLib.ApplyToEntity(entity, heroIdx)
+			if entity.visual:
+				for slot in range(ActorCommons.SlotEquipmentCount):
+					entity.visual.SetEquipment(slot)
 		if entity == Launcher.Player and Launcher.GUI and Launcher.GUI.inventoryWindow:
 			Launcher.GUI.inventoryWindow.RefreshInventory()
 

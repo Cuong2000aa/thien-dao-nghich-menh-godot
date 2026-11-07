@@ -87,6 +87,11 @@ static func CheckTraits(traits : Dictionary) -> bool:
 		return false
 	if "gender" not in traits:
 		return false
+	# Hero body (Kiếm Khách / Ảnh Sát / Kiếm Sĩ) — reject unknown shape hashes
+	if "shape" in traits:
+		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+		if not HeroLib.IsHeroShape(int(traits["shape"])):
+			return false
 	return true
 
 static func CheckAttributes(attributes : Dictionary) -> bool:

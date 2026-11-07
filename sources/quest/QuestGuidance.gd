@@ -296,13 +296,22 @@ static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
 				return {"do": "Kael", "return": "Kael", "kind": "talk", "need": 1, "force_turn_in": false}
 			if state == ProgressCommons.TUTORIAL.KAEL_MET:
 				# Kill phase — NEVER treat as turn-in or Auto loops Kael dialogue.
-				return {"do": "Peyote", "return": "Kael", "kind": "kill", "need": 5, "force_turn_in": false, "alt_do": "Maggot"}
+				# need_each: 5 Peyote + 5 Maggot (KaelGlobal counters).
+				return {
+					"do": "Peyote", "return": "Kael", "kind": "kill", "need": 5,
+					"force_turn_in": false, "alt_do": "Maggot", "need_each": true,
+					"kill_targets": ["Peyote", "Maggot"],
+				}
 			if state == ProgressCommons.TUTORIAL.KAEL_DONE:
 				return {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "force_turn_in": false}
 		ProgressCommons.Quest.ELANORE_POTION:
-			# State stays STARTED until brew; turn-in is item-based at Elanore.
+			# State stays STARTED until brew; turn-in when inventory has slime batches.
 			if state == ProgressCommons.ELANORE_POTION.STARTED:
-				return {"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6, "force_turn_in": false}
+				return {
+					"do": "Maggot", "return": "Elanore", "kind": "kill", "need": 6,
+					"force_turn_in": false, "kill_targets": ["Maggot"],
+					"turn_items": [["Maggot Slime", 6], ["Water Bottle", 1], ["Pitaya", 1]],
+				}
 		ProgressCommons.Quest.MINE_EXPLORATION:
 			# Never use state>need turn-in; keep pointing at Ekinu (chain hub).
 			return {"do": "Ekinu", "return": "Ekinu", "kind": "talk", "need": 1, "force_turn_in": false}
@@ -465,6 +474,14 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	var returnNick : String = str(override.get("return", ""))
 	if returnNick.is_empty():
 		returnNick = questData.giver
+	var killTargets : Array = []
+	if override.has("kill_targets"):
+		killTargets = override.get("kill_targets", [])
+	else:
+		if not nick.is_empty() and action == Action.KILL:
+			killTargets.append(nick)
+		if not altNick.is_empty() and action == Action.KILL:
+			killTargets.append(altNick)
 	var resolved : bool = not chosen.is_empty() or live != Vector2.INF
 	return {
 		"quest_id": questID,
@@ -474,6 +491,10 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 		"nick": nick,
 		"alt_nick": altNick,
 		"return_nick": returnNick,
+		"kill_targets": killTargets,
+		"need": int(override.get("need", 0)),
+		"need_each": bool(override.get("need_each", false)),
+		"turn_items": override.get("turn_items", []),
 		"map_id": mapID,
 		"map_display": mapDisplay if not mapDisplay.is_empty() else LocationNaming.GetDisplayName(mapID),
 		"map_internal": mapInternal,

@@ -19,6 +19,14 @@ signal entity_died
 
 # Init
 func SetData():
+	var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
+	# Heal false-morph before visual resolve (shape=hero, currentShape stuck on Player).
+	if type == ActorCommons.Type.PLAYER and stat and HeroLib.IsHeroShape(stat.shape):
+		if stat.currentShape == ActorCommons.PlayerEntityID and stat.shape != ActorCommons.PlayerEntityID:
+			stat.currentShape = stat.shape
+		elif stat.currentShape == DB.UnknownHash:
+			stat.currentShape = stat.shape
+
 	var altData : EntityData = null
 	var isMorph : bool = stat.IsMorph()
 	if isMorph:
@@ -28,7 +36,6 @@ func SetData():
 	# Apply selectable hero body from trait.shape (Kiếm Khách / Ảnh Sát / Kiếm Sĩ)
 	# Skip while morphing (ship / form) so we don't overwrite morph preset with Swordsman.
 	if type == ActorCommons.Type.PLAYER and visual and stat and not isMorph:
-		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
 		var heroIdx : int = HeroLib.FindIndexByShape(stat.shape)
 		if heroIdx < 0:
 			heroIdx = HeroLib.FindIndexByShape(stat.currentShape)

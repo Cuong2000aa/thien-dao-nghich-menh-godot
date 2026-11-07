@@ -14,14 +14,19 @@ var _lastChoiceAt : float = 0.0
 var _lastNpcTalkAt : float = 0.0
 var _lastNpcNick : String = ""
 var _killProgressCheckAt : float = 0.0
+## Local kill tallies for current auto session: entityName → count
+var _killCounts : Dictionary = {}
+var _killQuestID : int = DB.UnknownHash
+var _noTargetSince : float = 0.0
 
 const TICK_SEC : float = 0.45
 const DIALOGUE_TICK_SEC : float = 0.28
 const INTERACT_RANGE : float = 220.0
-const KILL_RANGE : float = 480.0
+const KILL_RANGE : float = 520.0
 const CHOICE_COOLDOWN_SEC : float = 0.35
 const NPC_REINTERACT_COOLDOWN_SEC : float = 2.5
-const KILL_PROGRESS_CHECK_SEC : float = 12.0
+const KILL_PROGRESS_CHECK_SEC : float = 8.0
+const NO_TARGET_RETURN_SEC : float = 6.0
 
 ## Prefer quest-progress lines; avoid farewell / decline.
 const AVOID_CHOICE_KEYS : PackedStringArray = [
@@ -47,6 +52,9 @@ func SetEnabled(on : bool) -> void:
 	_lastNpcTalkAt = 0.0
 	_lastNpcNick = ""
 	_killProgressCheckAt = 0.0
+	_killCounts.clear()
+	_killQuestID = DB.UnknownHash
+	_noTargetSince = 0.0
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — tìm đường, tương tác & tự chọn đối thoại.")
@@ -77,7 +85,6 @@ func _IsDialogueOpen() -> bool:
 	return Launcher.GUI != null and Launcher.GUI.IsDialogueContextOpened()
 
 func _Step() -> void:
-	# 1) Dialogue first — continue text / pick choice before walking again
 	if _TryAdvanceDialogue():
 		return
 
@@ -87,13 +94,17 @@ func _Step() -> void:
 	var state : int = Launcher.Player.progress.GetQuest(questID) if Launcher.Player.progress else ProgressCommons.UnknownProgress
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 		return
+	if questID != _killQuestID:
+		_killCounts.clear()
+		_killQuestID = questID
+		_noTargetSince = 0.0
+
 	var step : Dictionary = QuestGuidanceClass.BuildStep(questID, state)
 	if step.is_empty() or not step.get("resolved", false):
 		return
 	var mapID : int = int(step.get("map_id", DB.UnknownHash))
 	var targetPos : Vector2 = step.get("position", Vector2.ZERO)
 	var nick : String = str(step.get("nick", ""))
-	var altNick : String = str(step.get("alt_nick", ""))
 	var action : int = int(step.get("action", QuestGuidanceClass.Action.UNKNOWN))
 
 	if mapID != DB.UnknownHash and mapID != Launcher.Map.currentMapID:
@@ -110,9 +121,8 @@ func _Step() -> void:
 		QuestGuidanceClass.Action.TALK, QuestGuidanceClass.Action.RETURN:
 			_DoTalkStep(nick, targetPos)
 		QuestGuidanceClass.Action.KILL:
-			_DoKillStep(nick, altNick, returnNick, targetPos)
+			_DoKillStep(step, targetPos, returnNick)
 		_:
-			# gather / go — walk only; do not re-open NPC dialogue
 			if Launcher.Player.position.distance_to(targetPos) > 48.0:
 				Launcher.Action.MoveTo(targetPos)
 
@@ -129,30 +139,194 @@ func _DoTalkStep(nick : String, targetPos : Vector2) -> void:
 	if Launcher.Player.position.distance_to(targetPos) > 48.0:
 		Launcher.Action.MoveTo(targetPos)
 
-func _DoKillStep(nick : String, altNick : String, returnNick : String, targetPos : Vector2) -> void:
-	# Prefer live monsters in range (never spam return-NPC while killing).
-	var targetEnt : Entity = _FindEntityByNick(nick, true, KILL_RANGE)
-	if targetEnt == null and not altNick.is_empty():
-		targetEnt = _FindEntityByNick(altNick, true, KILL_RANGE)
-	if targetEnt == null:
-		targetEnt = _FindNearestMonsterNear(targetPos, KILL_RANGE)
+func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) -> void:
+	var killTargets : Array = step.get("kill_targets", [])
+	if killTargets.is_empty():
+		var n : String = str(step.get("nick", ""))
+		var alt : String = str(step.get("alt_nick", ""))
+		if not n.is_empty():
+			killTargets.append(n)
+		if not alt.is_empty():
+			killTargets.append(alt)
+
+	# Inventory turn-in (Elanore potion): enough mats → go return NPC
+	if _HasTurnItems(step.get("turn_items", [])):
+		_GoReturnNpc(returnNick, targetPos)
+		return
+
+	# Quest state already OBJECTIVE_MET handled by BuildStep → RETURN.
+	# Local / tracker completion for kill quotas:
+	var need : int = maxi(1, int(step.get("need", 1)))
+	var needEach : bool = bool(step.get("need_each", false))
+	if _KillQuotaMet(killTargets, need, needEach):
+		_GoReturnNpc(returnNick, targetPos)
+		return
+
+	# Only engage monsters that match remaining kill targets — never random mobs.
+	var focusTargets : Array = _IncompleteKillTargets(killTargets, need, needEach)
+	if focusTargets.is_empty():
+		focusTargets = killTargets
+
+	var targetEnt : Entity = null
+	for tName in focusTargets:
+		targetEnt = _FindKillTarget(str(tName), KILL_RANGE)
+		if targetEnt:
+			break
+
 	if targetEnt:
-		Entities.InteractHovered(targetEnt)
+		_noTargetSince = 0.0
+		_EngageKillTarget(targetEnt)
 		return
 
 	var now : float = Time.get_ticks_msec() / 1000.0
-	# No mobs left nearby — periodically report to return NPC (Kael progress check).
-	if not returnNick.is_empty() and (now - _killProgressCheckAt) >= KILL_PROGRESS_CHECK_SEC:
-		var returnEnt : Entity = _FindEntityByNick(returnNick, false, INTERACT_RANGE * 2.0)
-		if returnEnt and (now - _lastNpcTalkAt) >= NPC_REINTERACT_COOLDOWN_SEC:
-			_killProgressCheckAt = now
-			_lastNpcNick = returnNick
-			_lastNpcTalkAt = now
-			Entities.InteractHovered(returnEnt)
-			return
+	if _noTargetSince <= 0.0:
+		_noTargetSince = now
+	# No matching mobs for a while → check in with return NPC (or walk to field).
+	if (now - _noTargetSince) >= NO_TARGET_RETURN_SEC and not returnNick.is_empty():
+		_GoReturnNpc(returnNick, targetPos)
+		return
 
 	if Launcher.Player.position.distance_to(targetPos) > 64.0:
 		Launcher.Action.MoveTo(targetPos)
+
+func _GoReturnNpc(returnNick : String, fallbackPos : Vector2) -> void:
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if returnNick.is_empty():
+		return
+	if returnNick == _lastNpcNick and (now - _lastNpcTalkAt) < NPC_REINTERACT_COOLDOWN_SEC:
+		return
+	if (now - _killProgressCheckAt) < KILL_PROGRESS_CHECK_SEC and returnNick == _lastNpcNick:
+		return
+	var returnEnt : Entity = _FindEntityByNick(returnNick, false, INTERACT_RANGE * 3.0)
+	if returnEnt:
+		_killProgressCheckAt = now
+		_lastNpcNick = returnNick
+		_lastNpcTalkAt = now
+		Entities.InteractHovered(returnEnt)
+		return
+	# Walk toward return NPC spawn if known via guidance nick index
+	var spawns : Array = QuestGuidanceClass.FindSpawns(returnNick)
+	if not spawns.is_empty():
+		var pos : Vector2 = spawns[0].get("position", fallbackPos)
+		if Launcher.Player.position.distance_to(pos) > 48.0:
+			Launcher.Action.MoveTo(pos)
+
+func _HasTurnItems(turnItems : Array) -> bool:
+	if turnItems.is_empty() or Launcher.Player == null or Launcher.Player.inventory == null:
+		return false
+	for entry in turnItems:
+		if entry is Array and entry.size() >= 2:
+			var cell : ItemCell = DB.GetItem(DB.GetCellHash(str(entry[0])))
+			if cell == null or not Launcher.Player.inventory.HasItem(cell, int(entry[1])):
+				return false
+		else:
+			return false
+	return true
+
+func _KillQuotaMet(killTargets : Array, need : int, needEach : bool) -> bool:
+	if killTargets.is_empty():
+		return false
+	# Tracker complete for the active target + local counts
+	var tracker = Launcher.GUI.progressionTracker if Launcher.GUI else null
+	if needEach:
+		for tName in killTargets:
+			if _CountForTarget(str(tName), tracker) < need:
+				return false
+		return true
+	# Single pool: sum counts across targets OR any one reaching need
+	var total : int = 0
+	for tName in killTargets:
+		total += _CountForTarget(str(tName), tracker)
+	return total >= need
+
+func _IncompleteKillTargets(killTargets : Array, need : int, needEach : bool) -> Array:
+	var out : Array = []
+	var tracker = Launcher.GUI.progressionTracker if Launcher.GUI else null
+	for tName in killTargets:
+		var n : String = str(tName)
+		if needEach:
+			if _CountForTarget(n, tracker) < need:
+				out.append(n)
+		else:
+			out.append(n)
+	if not needEach:
+		# Prefer target that tracker currently tracks if incomplete
+		if tracker and tracker.has_method("IsComplete") and not tracker.IsComplete():
+			for tName in killTargets:
+				if tracker.MatchesTarget(str(tName)):
+					return [str(tName)]
+	return out
+
+func _CountForTarget(tName : String, tracker) -> int:
+	var local : int = int(_killCounts.get(tName, 0))
+	# Also accept localized / case variants as keys
+	for k in _killCounts.keys():
+		if str(k).to_lower() == tName.to_lower():
+			local = maxi(local, int(_killCounts[k]))
+	var fromTracker : int = 0
+	if tracker and tracker.has_method("MatchesTarget") and tracker.MatchesTarget(tName):
+		fromTracker = int(tracker.lastValue)
+	return maxi(local, fromTracker)
+
+func _EngageKillTarget(ent : Entity) -> void:
+	if ent and ent.has_signal("entity_died"):
+		if not ent.entity_died.is_connected(_OnKillTargetDied):
+			ent.entity_died.connect(_OnKillTargetDied.bind(ent), ConnectFlags.CONNECT_ONE_SHOT)
+	Entities.InteractHovered(ent)
+
+func _OnKillTargetDied(ent : Entity) -> void:
+	if ent == null:
+		return
+	var key : String = _EntityKillKey(ent)
+	if key.is_empty():
+		return
+	_killCounts[key] = int(_killCounts.get(key, 0)) + 1
+	if Launcher.GUI and Launcher.GUI.notificationLabel and enabled:
+		var needHint : String = ""
+		# Light feedback every few kills
+		var c : int = int(_killCounts[key])
+		if c == 1 or c % 5 == 0:
+			Launcher.GUI.notificationLabel.AddNotification("Auto NV: %s %d" % [key, c])
+
+func _EntityKillKey(ent : Entity) -> String:
+	if ent == null:
+		return ""
+	if ent.data and not str(ent.data._name).is_empty():
+		return str(ent.data._name)
+	return str(ent.nick)
+
+func _FindKillTarget(nick : String, maxRange : float) -> Entity:
+	if nick.is_empty() or Launcher.Player == null:
+		return null
+	var expectID : int = nick.hash()
+	var best : Entity = null
+	var bestDist : float = maxRange
+	for ent in Entities.entities.values():
+		if ent == null or ent == Launcher.Player:
+			continue
+		if ent.type != ActorCommons.Type.MONSTER:
+			continue
+		if ent.state == ActorCommons.State.DEATH:
+			continue
+		if not _MatchesKillNick(ent, nick, expectID):
+			continue
+		var d : float = Launcher.Player.position.distance_to(ent.position)
+		if d < bestDist:
+			bestDist = d
+			best = ent
+	return best
+
+func _MatchesKillNick(ent : Entity, nick : String, expectID : int) -> bool:
+	if _NickMatches(ent, nick):
+		return true
+	if ent.data:
+		if str(ent.data._name) == nick or str(ent.data._name).to_lower() == nick.to_lower():
+			return true
+		if ent.data._id == expectID:
+			return true
+	if ent.stat and ent.stat.currentShape == expectID:
+		return true
+	return false
 
 ## Advance dialogue UI: finish typewriter → Continue → pick best choice.
 func _TryAdvanceDialogue() -> bool:
@@ -162,7 +336,6 @@ func _TryAdvanceDialogue() -> bool:
 	if dialogue == null:
 		return false
 
-	# Finish typewriter so Continue / choices appear
 	if dialogue.get("lastTween") and dialogue.lastTween:
 		dialogue.lastTween.custom_step(INF)
 		return true
@@ -171,7 +344,6 @@ func _TryAdvanceDialogue() -> bool:
 	if choiceMenu and choiceMenu.is_visible() and choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0:
 		return _PickDialogueChoice(choiceMenu)
 
-	# "Tiếp tục" / continue / close button
 	if dialogue.button and dialogue.button.is_visible():
 		var btnText : String = str(dialogue.buttonLabel.get_text()) if dialogue.buttonLabel else ""
 		var lower : String = btnText.to_lower()
@@ -180,10 +352,8 @@ func _TryAdvanceDialogue() -> bool:
 			return true
 		if lower.contains("đóng") or lower.contains("dong") or lower == "close":
 			dialogue.ButtonPressed()
-			# Cooldown so we don't immediately re-open the same NPC after close.
 			_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
 			return true
-		# Any visible advance button — click it (covers unexpected labels)
 		dialogue.ButtonPressed()
 		return true
 
@@ -220,7 +390,7 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 
 func _ScoreChoice(title : String, index : int) -> int:
 	var t : String = title.to_lower()
-	var score : int = 10 - index  # slight preference for earlier options
+	var score : int = 10 - index
 	for key in AVOID_CHOICE_KEYS:
 		if t.contains(key):
 			score -= 50
@@ -267,36 +437,18 @@ func _FindEntityByNick(nick : String, monstersOnly : bool, maxRange : float) -> 
 	for ent in Entities.entities.values():
 		if ent == null or ent == Launcher.Player:
 			continue
-		if monstersOnly and ent.type != ActorCommons.Type.MONSTER:
-			continue
-		if not monstersOnly and ent.type != ActorCommons.Type.NPC and ent.type != ActorCommons.Type.MONSTER:
-			continue
-		if monstersOnly and ent.state == ActorCommons.State.DEATH:
-			continue
+		if monstersOnly:
+			if ent.type != ActorCommons.Type.MONSTER:
+				continue
+			if ent.state == ActorCommons.State.DEATH:
+				continue
+		else:
+			if ent.type != ActorCommons.Type.NPC:
+				continue
 		if not _NickMatches(ent, nick):
 			continue
 		var d : float = Launcher.Player.position.distance_to(ent.position)
 		if d < bestDist:
 			bestDist = d
-			best = ent
-	return best
-
-func _FindNearestMonsterNear(nearPos : Vector2, maxRange : float) -> Entity:
-	if Launcher.Player == null:
-		return null
-	var best : Entity = null
-	var bestScore : float = INF
-	for ent in Entities.entities.values():
-		if ent == null or ent == Launcher.Player:
-			continue
-		if ent.type != ActorCommons.Type.MONSTER or ent.state == ActorCommons.State.DEATH:
-			continue
-		var dPlayer : float = Launcher.Player.position.distance_to(ent.position)
-		if dPlayer > maxRange:
-			continue
-		var dAnchor : float = nearPos.distance_to(ent.position)
-		var score : float = dPlayer + dAnchor * 0.25
-		if score < bestScore:
-			bestScore = score
 			best = ent
 	return best

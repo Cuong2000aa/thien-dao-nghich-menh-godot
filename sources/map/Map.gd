@@ -132,7 +132,6 @@ func SpawnEntity(agentRID : int, entry : EntityCacheEntry) -> Entity:
 	entity.agentRID = agentRID
 	entity.defaultState = entry.defaultState
 	entity.stat.spirit = entry.spirit
-	entity.stat.currentShape = entry.currentShape
 	# Keep base hero shape (Ảnh Sát / Kiếm Sĩ…) — do NOT force Player/Swordsman
 	if isPlayerType:
 		var HeroLib = preload("res://sources/actor/HeroLibrary.gd")
@@ -140,7 +139,15 @@ func SpawnEntity(agentRID : int, entry : EntityCacheEntry) -> Entity:
 		if not HeroLib.IsHeroShape(baseShape):
 			baseShape = ActorCommons.PlayerEntityID
 		entity.stat.shape = baseShape
+		var cur : int = entry.currentShape
+		# False-morph: trait.shape is Ảnh Sát/Kiếm Sĩ but currentShape still default Player
+		var falseMorph : bool = (
+			cur == DB.UnknownHash
+			or (HeroLib.IsHeroShape(baseShape) and cur == ActorCommons.PlayerEntityID and baseShape != ActorCommons.PlayerEntityID)
+		)
+		entity.stat.currentShape = baseShape if falseMorph else cur
 	else:
+		entity.stat.currentShape = entry.currentShape
 		entity.stat.shape = entityDataID
 
 	if isPlayerType:
