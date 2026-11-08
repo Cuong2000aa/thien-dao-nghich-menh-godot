@@ -117,7 +117,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y libfontconfig1 unzip
+          apt-get install -y libfontconfig1 unzip curl
 
       - name: Setup Godot templates
         run: |
@@ -160,6 +160,24 @@ jobs:
           echo "$BUILD_VERSION" > android/.build_version
           echo "Installed Android build template version: $BUILD_VERSION"
 
+          # Pre-download Gradle distribution via curl and configure local wrapper path to avoid Java socket timeout
+          GRADLE_PROP=$(find android/build -name "gradle-wrapper.properties" 2>/dev/null | head -n 1)
+          if [ -n "$GRADLE_PROP" ] && [ -f "$GRADLE_PROP" ]; then
+            GRADLE_URL=$(grep '^distributionUrl=' "$GRADLE_PROP" | cut -d= -f2- | tr -d '\\')
+            GRADLE_ZIP=$(basename "$GRADLE_URL")
+            echo "Found $GRADLE_PROP with URL: $GRADLE_URL"
+            echo "Pre-downloading Gradle via curl: $GRADLE_URL"
+            curl -fL --retry 5 --retry-delay 3 --connect-timeout 60 -o "/tmp/$GRADLE_ZIP" "$GRADLE_URL" || \
+              curl -fL --retry 5 --retry-delay 3 --connect-timeout 60 -o "/tmp/$GRADLE_ZIP" "https://downloads.gradle.org/distributions/$GRADLE_ZIP"
+            sed -i "s|distributionUrl=.*|distributionUrl=file\\\\:/tmp/$GRADLE_ZIP|" "$GRADLE_PROP"
+            echo "Updated $GRADLE_PROP to file\:/tmp/$GRADLE_ZIP"
+            GRADLEW=$(find android/build -name "gradlew" 2>/dev/null | head -n 1)
+            if [ -n "$GRADLEW" ]; then
+              chmod +x "$GRADLEW"
+              (cd "$(dirname "$GRADLEW")" && ./gradlew --version)
+            fi
+          fi
+
       - name: Import assets
         run: |
           cd "$PROJECT_PATH"
@@ -174,6 +192,7 @@ jobs:
           GODOT_ANDROID_KEYSTORE_RELEASE_PATH: /root/debug.keystore
           GODOT_ANDROID_KEYSTORE_RELEASE_USER: androiddebugkey
           GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: android
+          GRADLE_OPTS: "-Dorg.gradle.internal.http.socketTimeout=120000 -Dorg.gradle.internal.http.connectionTimeout=120000"
 
       - name: Package ${{ matrix.name }}
         if: startsWith(matrix.name, 'Linux')
