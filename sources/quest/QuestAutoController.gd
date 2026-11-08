@@ -58,6 +58,11 @@ const AVOID_CHOICE_KEYS : PackedStringArray = [
 	"nhắc lại", "nhac lai", "kể về", "ke ve", "red queen", "nguy hiểm thì",
 	"nguy hiem thi", "mạnh hơn", "manh hon", "lạc đường thì", "lac duong",
 	"truy cập đồ", "truy cap do", "sao phải đi hướng", "cha nàng",
+	# Mana Tree lore loops (ManaTree.gd OnTreeBranch & OnWhatNext)
+	"sống sót dưới đây thế nào", "song sot duoi day",
+	"sao ngươi lại ở hang này", "ở hang này", "o hang nay",
+	"từ đó đến nay", "tu do den nay",
+	"ngươi biết gì về hắn", "nguoi biet gi ve han",
 ]
 
 ## Quest progress accept / continue.
@@ -73,6 +78,11 @@ const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"thảo phạt", "thao phat", "tuần tra", "tuan tra", "tiếp nhận", "tiep nhan",
 	"đi ngay", "di ngay", "xuất phát", "xuat phat", "đưa", "dua", "trao",
 	"được, ta đi", "duoc, ta di", "ta đi", "ta di",
+	# Mana Tree dialogue progression (ManaTree.gd)
+	"ngươi... là cây", "nguoi... la cay", "ngươi là cây", "nguoi la cay",
+	"giờ ta nên làm gì", "gio ta nen lam gi", "nên làm gì", "nen lam gi",
+	"ta sẽ đến gặp", "ta se den gap", "đến gặp nina", "den gap nina",
+	"gặp nina", "gap nina",
 ]
 
 ## End conversation / leave NPC after objective done (Gilgames "Ổn hết!", Ekinu "đi thôi").
@@ -81,6 +91,7 @@ const EXIT_CHOICE_KEYS : PackedStringArray = [
 	"được, ta đi", "duoc, ta di", "cảm ơn. ta đi", "farewell",
 	"thôi, ta tưởng", "giữ tinh thần",
 	"đi gặp ryan", "di gap ryan", "gặp ryan", "gap ryan",
+	"ta sẽ đến gặp nina", "đến gặp nina",
 ]
 
 func QueueInteractionWithNick(nick : String) -> void:
@@ -814,6 +825,13 @@ func _NickMatches(entity : Entity, nick : String) -> bool:
 	if entity.data:
 		var dn : String = str(entity.data._name)
 		if dn == nick or dn.to_lower() == targetNickLower:
+			return true
+	if QuestGuidanceClass:
+		var targetAlias : String = str(QuestGuidanceClass.NAME_ALIASES.get(nick, "")).to_lower()
+		if not targetAlias.is_empty() and (n.to_lower() == targetAlias or locN.to_lower() == targetAlias):
+			return true
+		var entAlias : String = str(QuestGuidanceClass.NAME_ALIASES.get(n, "")).to_lower()
+		if not entAlias.is_empty() and (targetNickLower == entAlias or Localization.Get(nick, nick).to_lower() == entAlias):
 			return true
 	return false
 

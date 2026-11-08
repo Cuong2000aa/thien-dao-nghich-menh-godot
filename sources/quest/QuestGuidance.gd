@@ -26,6 +26,11 @@ const ACTION_LABEL : Dictionary = {
 const NAME_ALIASES : Dictionary = {
 	"Xich Viem Thu Hau": "Xích Viêm Thú Hậu",
 	"Boss Arena Controller": "Xích Viêm Thú Hậu",
+	"Cây Linh Mộc": "Mana Tree",
+	"Linh Mộc": "Mana Tree",
+	"ManaTree": "Mana Tree",
+	"Cây Mana": "Mana Tree",
+	"Uru": "Mana Tree",
 }
 
 ## Hard anchors when no spawn nick exists (still exact map + coords from design).
@@ -58,9 +63,11 @@ const ANCHORS : Array = [
 	{"nick": "Ryan", "map": "Desert Mines", "pos": Vector2(1080, 994)},
 	{"nick": "Nickos", "map": "Desert Abandoned Level", "pos": Vector2(2860, 1832)},
 	{"nick": "Xakelbael", "map": "Desert Deep Level", "pos": Vector2(1331, 1478)},
-	{"nick": "Mana Tree", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
-	{"nick": "ManaTree", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
-	{"nick": "Cây Mana", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
+	{"nick": "Mana Tree", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
+	{"nick": "ManaTree", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
+	{"nick": "Cây Mana", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
+	{"nick": "Cây Linh Mộc", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
+	{"nick": "Uru", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
 ]
 
 static var _nickIndex : Dictionary = {} # nick -> Array[Dictionary]
