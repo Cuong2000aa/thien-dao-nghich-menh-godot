@@ -176,12 +176,12 @@ func _ready():
 		GUI = Scene.get_node("Canvas")
 		Audio = Scene.get_node("Audio")
 		startClient = true
-		# Web Pages / browser: always start Offline-first (in-process client+server).
+		# Offline-first / Standalone: always start in-process client + server (SQLite local)
 		# Browser cannot reliably Host sockets or reach SoM public gateways from GitHub Pages.
-		if LauncherCommons.isWeb:
-			startServer = true
+		if "--client-only" in OS.get_cmdline_args():
+			startServer = false
 		else:
-			startServer = OS.is_debug_build() and not NetworkCommons.IsLocal
+			startServer = true
 
 	if not Root or not Scene:
 		printerr("Could not initialize source's base services")

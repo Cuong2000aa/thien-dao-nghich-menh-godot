@@ -722,7 +722,7 @@ static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bo
 			if agent == null:
 				agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
 		if agent:
-			NpcCommons.Warp(agent, mapID, pos, ActorCommons.Direction.SOUTH)
+			NpcCommons.Warp(agent, mapID, pos, ActorCommons.Direction.DOWN)
 			success = true
 
 	# Client local sync if in the same map or fallback

@@ -219,6 +219,8 @@ func _MakeList() -> ItemList:
 	return list
 
 func Refresh():
+	if not DB.isInitialized:
+		return
 	_LoadCatalogs()
 	_ApplyFilter(filterEdit.text if filterEdit else "")
 	if detailLabel:
@@ -234,20 +236,22 @@ func _LoadCatalogs():
 
 	_skillsAll.clear()
 	var skillEntries : Array = []
-	for skillID in DB.SkillsDB:
-		var cell : SkillCell = DB.SkillsDB[skillID]
-		if cell:
-			skillEntries.append(cell)
-	skillEntries.sort_custom(func(a, b): return String(a.name) < String(b.name))
+	if DB.SkillsDB:
+		for skillID in DB.SkillsDB:
+			var cell : SkillCell = DB.SkillsDB[skillID]
+			if cell:
+				skillEntries.append(cell)
+		skillEntries.sort_custom(func(a, b): return String(a.name) < String(b.name))
 	_skillsAll = skillEntries
 
 	_entitiesAll.clear()
 	var entityEntries : Array = []
-	for eid in DB.EntitiesDB:
-		var data : EntityData = DB.EntitiesDB[eid]
-		if data and data._spritePreset:
-			entityEntries.append(data)
-	entityEntries.sort_custom(func(a, b): return String(a._name) < String(b._name))
+	if DB.EntitiesDB:
+		for eid in DB.EntitiesDB:
+			var data : EntityData = DB.EntitiesDB[eid]
+			if data and data._spritePreset:
+				entityEntries.append(data)
+		entityEntries.sort_custom(func(a, b): return String(a._name) < String(b._name))
 	_entitiesAll = entityEntries
 
 func _OnFilterChanged(text : String):

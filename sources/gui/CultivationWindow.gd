@@ -216,9 +216,6 @@ func _BuildUI():
 func GetActivePlayer():
 	if Launcher.Player:
 		return Launcher.Player
-	for agent in WorldAgent.agents.values():
-		if agent is PlayerAgent:
-			return agent
 	return null
 
 ## Refresh dynamic cultivation state from Player data

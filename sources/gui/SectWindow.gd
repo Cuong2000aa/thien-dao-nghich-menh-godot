@@ -252,7 +252,7 @@ func _BuildMissionsTab():
 		cardVBox.add_child(lblName)
 
 		var qHash = mName.hash()
-		var qCell = DB.QuestsDB.get(qHash, null)
+		var qCell = DB.QuestsDB.get(qHash, null) if DB.QuestsDB else null
 		var descText = qCell.description if qCell else "Ủy thác rèn luyện và bảo hộ sơn môn."
 		var lblDesc = Label.new()
 		lblDesc.text = descText
