@@ -31,6 +31,7 @@ var _pendingInteractNick : String = ""
 var _lastPos : Vector2 = Vector2.ZERO
 var _stuckTicks : int = 0
 var _currentAutoStatus : String = ""
+var _lastEngagedTargetPos : Vector2 = Vector2.ZERO
 
 const TICK_SEC : float = 0.25
 const DIALOGUE_TICK_SEC : float = 0.08
@@ -115,6 +116,7 @@ func SetEnabled(on : bool) -> void:
 	_lastPos = Vector2.ZERO
 	_stuckTicks = 0
 	_currentAutoStatus = ""
+	_lastEngagedTargetPos = Vector2.ZERO
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — Tự bay, tự nhận & trả chuỗi nhiệm vụ.")
@@ -143,6 +145,16 @@ func _process(delta : float) -> void:
 
 func _IsDialogueOpen() -> bool:
 	return Launcher.GUI != null and Launcher.GUI.IsDialogueContextOpened()
+
+func _IsPlayerInCombat() -> bool:
+	if Launcher.Player == null:
+		return false
+	if Launcher.Player.state == ActorCommons.State.ATTACK:
+		return true
+	if Entities.target != null and is_instance_valid(Entities.target):
+		if Entities.target.type == ActorCommons.Type.MONSTER and ActorCommons.IsAlive(Entities.target):
+			return true
+	return false
 
 func _Step() -> void:
 	var inDialogue : bool = _IsDialogueOpen()
@@ -234,14 +246,18 @@ func _Step() -> void:
 	# Chống kẹt địa hình
 	if Launcher.Player:
 		var curPos : Vector2 = Launcher.Player.position
-		if _lastPos != Vector2.ZERO and curPos.distance_to(targetPos) > 64.0:
+		if _IsPlayerInCombat() or _IsDialogueOpen():
+			_stuckTicks = 0
+		elif _lastPos != Vector2.ZERO and curPos.distance_to(targetPos) > 64.0:
 			if curPos.distance_to(_lastPos) < 4.0:
 				_stuckTicks += 1
-				if _stuckTicks >= 6:
+				if _stuckTicks >= 16:
 					_stuckTicks = 0
 					_WarpToStep(step, "Auto NV: Gỡ kẹt — bay thẳng tới mục tiêu.")
 			else:
 				_stuckTicks = 0
+		else:
+			_stuckTicks = 0
 		_lastPos = curPos
 
 	# Fly/warp to objective map or far same-map points (no more “đứng không biết làm gì”).
@@ -250,14 +266,23 @@ func _Step() -> void:
 
 	var returnNick : String = str(step.get("return_nick", ""))
 
+	# If kill quota is already satisfied, advance directly to return NPC (avoid wandering or rubberbanding)
+	if action == QuestGuidanceClass.Action.KILL:
+		var killTargets : Array = step.get("kill_targets", [])
+		var need : int = maxi(1, int(step.get("need", 1)))
+		var needEach : bool = bool(step.get("need_each", false))
+		var quotaMet : bool = _KillQuotaMet(killTargets, need, needEach) or _HasTurnItems(step.get("turn_items", []))
+		if quotaMet and not returnNick.is_empty():
+			var npcStep : Dictionary = QuestGuidanceClass.BuildNickStep(returnNick, step)
+			if npcStep.get("resolved", false):
+				if _EnsureNearObjective(npcStep):
+					return
+				_DoTalkStep(returnNick, npcStep.get("position", targetPos))
+				return
+
 	match action:
 		QuestGuidanceClass.Action.TALK, QuestGuidanceClass.Action.RETURN:
 			_DoTalkStep(nick, targetPos)
-		QuestGuidanceClass.Action.KILL:
-			_DoKillStep(step, targetPos, returnNick)
-		_:
-			if Launcher.Player.position.distance_to(targetPos) > 48.0:
-				Launcher.Action.MoveTo(targetPos)
 		QuestGuidanceClass.Action.KILL:
 			_DoKillStep(step, targetPos, returnNick)
 		_:
@@ -320,8 +345,24 @@ func _EnsureNearObjective(step : Dictionary) -> bool:
 		return false
 	var mapID : int = int(step.get("map_id", DB.UnknownHash))
 	var targetPos : Vector2 = step.get("position", Vector2.ZERO)
+	var action : int = int(step.get("action", QuestGuidanceClass.Action.UNKNOWN))
+
+	# 1. Map switch
 	if mapID != DB.UnknownHash and mapID != Launcher.Map.currentMapID:
 		return _WarpToStep(step, "Auto NV: bay tới [%s]." % str(step.get("map_display", mapID)))
+
+	# 2. Never warp on same map while actively fighting or in dialogue
+	if _IsPlayerInCombat() or _IsDialogueOpen():
+		return false
+
+	# 3. For KILL and GATHER objectives, the hunting ground is large (e.g. cactus farm).
+	# Do NOT warp if player is within 1600.0px of the hunting waypoint.
+	if action == QuestGuidanceClass.Action.KILL or action == QuestGuidanceClass.Action.GATHER:
+		if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > 1600.0:
+			return _WarpToStep(step, "Auto NV: bay tới bãi quái.")
+		return false
+
+	# 4. For TALK / RETURN objectives: warp if far from target
 	if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > SAME_MAP_WARP_DIST:
 		return _WarpToStep(step, "Auto NV: bay tới mục tiêu.")
 	return false
@@ -383,27 +424,40 @@ func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) ->
 	if focusTargets.is_empty():
 		focusTargets = killTargets
 
+	# 1. Retain and maintain engagement on current target if alive & matching
+	if _IsMatchingKillTarget(Entities.target, focusTargets):
+		_noTargetSince = 0.0
+		_MaintainKillTarget(Entities.target)
+		return
+
+	# 2. Search nearest matching monster in normal range (520px)
 	var targetEnt : Entity = null
 	for tName in focusTargets:
 		targetEnt = _FindKillTarget(str(tName), KILL_RANGE)
 		if targetEnt:
 			break
 
+	# 3. If none in 520px, search broader area (up to 1000px across field)
+	if targetEnt == null:
+		for tName in focusTargets:
+			targetEnt = _FindKillTarget(str(tName), 1000.0)
+			if targetEnt:
+				break
+
 	if targetEnt:
 		_noTargetSince = 0.0
-		_EngageKillTarget(targetEnt)
+		_MaintainKillTarget(targetEnt)
 		return
 
+	# 4. No monsters in view: do NOT return to NPC early!
+	# Patrol towards center of hunting zone to await respawns.
 	var now : float = Time.get_ticks_msec() / 1000.0
 	if _noTargetSince <= 0.0:
 		_noTargetSince = now
-	# No matching mobs for a while → check in with return NPC (or walk to field).
-	if (now - _noTargetSince) >= NO_TARGET_RETURN_SEC and not returnNick.is_empty():
-		_GoReturnNpc(returnNick, targetPos)
-		return
 
-	if Launcher.Player.position.distance_to(targetPos) > 64.0:
-		Launcher.Action.MoveTo(targetPos)
+	if Launcher.Player.position.distance_to(targetPos) > 120.0:
+		if Launcher.Player.state != ActorCommons.State.WALK:
+			Launcher.Action.MoveTo(targetPos)
 
 func _GoReturnNpc(returnNick : String, fallbackPos : Vector2) -> void:
 	var now : float = Time.get_ticks_msec() / 1000.0
@@ -484,11 +538,55 @@ func _CountForTarget(tName : String, tracker) -> int:
 		fromTracker = int(tracker.lastValue)
 	return maxi(local, fromTracker)
 
-func _EngageKillTarget(ent : Entity) -> void:
-	if ent and ent.has_signal("entity_died"):
+func _IsMatchingKillTarget(ent : Entity, focusTargets : Array) -> bool:
+	if ent == null or not is_instance_valid(ent):
+		return false
+	if ent.type != ActorCommons.Type.MONSTER or ent.state == ActorCommons.State.DEATH or not ActorCommons.IsAlive(ent):
+		return false
+	for tName in focusTargets:
+		var n : String = str(tName)
+		var expectID : int = n.hash()
+		if _MatchesKillNick(ent, n, expectID):
+			return true
+	return false
+
+func _MaintainKillTarget(ent : Entity) -> void:
+	if ent == null or not is_instance_valid(ent) or not ActorCommons.IsAlive(ent):
+		_lastEngagedTargetPos = Vector2.ZERO
+		return
+
+	if ent.has_signal("entity_died"):
 		if not ent.entity_died.is_connected(_OnKillTargetDied):
 			ent.entity_died.connect(_OnKillTargetDied.bind(ent), ConnectFlags.CONNECT_ONE_SHOT)
-	Entities.InteractHovered(ent)
+
+	var attackRange : float = 48.0
+	var walkToDistance : int = 24
+	if Launcher.Player and Launcher.Player.stat and Launcher.Player.stat.current:
+		attackRange = maxf(48.0, float(Launcher.Player.stat.current.attackRange))
+		walkToDistance = maxi(24, int(Launcher.Player.stat.current.attackRange / 2.0))
+
+	var playerPos : Vector2 = Launcher.Player.position
+	var targetPos : Vector2 = ent.position
+	var dist : float = playerPos.distance_to(targetPos)
+	var inAttackRange : bool = ActorCommons.IsActorNear(Launcher.Player, ent, walkToDistance)
+
+	if inAttackRange or dist <= attackRange:
+		if Entities.target != ent:
+			Entities.SetTarget(ent)
+		if Launcher.Player.state != ActorCommons.State.ATTACK:
+			Entities.JustInteract()
+	else:
+		var isWalking : bool = (Launcher.Player.state == ActorCommons.State.WALK)
+		var targetMoved : bool = (_lastEngagedTargetPos == Vector2.ZERO or _lastEngagedTargetPos.distance_to(targetPos) > 36.0)
+		if not isWalking or targetMoved:
+			_lastEngagedTargetPos = targetPos
+			var targetPosition : Vector2 = targetPos
+			if dist > walkToDistance:
+				targetPosition = playerPos + playerPos.direction_to(targetPos) * (dist - walkToDistance)
+			Launcher.Action.MoveTo(targetPosition)
+
+func _EngageKillTarget(ent : Entity) -> void:
+	_MaintainKillTarget(ent)
 
 func _OnKillTargetDied(ent : Entity) -> void:
 	if ent == null:
@@ -497,6 +595,9 @@ func _OnKillTargetDied(ent : Entity) -> void:
 	if key.is_empty():
 		return
 	_killCounts[key] = int(_killCounts.get(key, 0)) + 1
+	_lastEngagedTargetPos = Vector2.ZERO
+	if Entities.target == ent:
+		Entities.ClearTarget()
 	if Launcher.GUI and Launcher.GUI.notificationLabel and enabled:
 		var needHint : String = ""
 		# Light feedback every few kills

@@ -37,6 +37,7 @@ const ANCHORS : Array = [
 	{"nick": "Huyết Sâm", "map": "SacredSectHub", "pos": Vector2(1150, 1400)},
 	{"nick": "Xích Viêm Khoáng", "map": "Candor Arena", "pos": Vector2(1680, 1800)},
 	{"nick": "Thanh Phong Tinh Thiết", "map": "Tulimshar Eastern Hills", "pos": Vector2(2600, 1300)},
+	{"nick": "Huyền Thiết Khoáng", "map": "Tulimshar Eastern Hills", "pos": Vector2(2600, 1300)},
 	{"nick": "U Hồn Đầm Lầy", "map": "Manayir Beach", "pos": Vector2(3108, 2557)},
 	{"nick": "Hầm Ngục Cổ Xưa", "map": "Artis Sewer", "pos": Vector2(2023, 1599)},
 	{"nick": "Di Tích Tiền Nhân", "map": "Tulimshar Eastern Hills", "pos": Vector2(2206, 1018)},
