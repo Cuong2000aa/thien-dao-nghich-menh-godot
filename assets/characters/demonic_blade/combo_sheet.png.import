@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7a7a3668cf367338"
+uid="uid://cekjopneqd5mr"
+path="res://.godot/imported/combo_sheet.png-c383722c987f6ebd5c6a3156b453dcf5.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/combo_sheet.png"
+dest_files=["res://.godot/imported/combo_sheet.png-c383722c987f6ebd5c6a3156b453dcf5.ctex"]
 
 [params]
 

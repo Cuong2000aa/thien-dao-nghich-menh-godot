@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6688d193ea9db01"
+uid="uid://cg750uit0l8vs"
+path="res://.godot/imported/death_sheet.png-b5c330e5acab3b357af4f89279a67dd3.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-b5c330e5acab3b357af4f89279a67dd3.ctex"]
 
 [params]
 

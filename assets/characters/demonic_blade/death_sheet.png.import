@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6d56ee6a969ab63c"
+uid="uid://c1dj5l6p0e4du"
+path="res://.godot/imported/death_sheet.png-0a40996a5c5aa59f8a2076a7fe7869b2.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-0a40996a5c5aa59f8a2076a7fe7869b2.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://545ecb0f7ee793c"
+uid="uid://dnv6b5m1qsjxa"
+path="res://.godot/imported/death_sheet.png-58565224def6cffefcf3e2139f78d885.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/heifeng/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-58565224def6cffefcf3e2139f78d885.ctex"]
 
 [params]
 

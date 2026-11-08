@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4f71b74541d34bc3"
+uid="uid://b1k44ssfem76o"
+path="res://.godot/imported/idle_sheet.png-edbe9591a0005f79ee24b4aa60e0fe14.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/xuanxiao/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-edbe9591a0005f79ee24b4aa60e0fe14.ctex"]
 
 [params]
 

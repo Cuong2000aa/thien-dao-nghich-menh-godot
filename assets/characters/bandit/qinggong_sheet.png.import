@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7e12845f3a16727e"
+uid="uid://yxrwijeomqiq"
+path="res://.godot/imported/qinggong_sheet.png-15a5262512f2953fdfdf576333956ad6.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-15a5262512f2953fdfdf576333956ad6.ctex"]
 
 [params]
 

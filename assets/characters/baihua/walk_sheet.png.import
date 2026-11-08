@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5e8447d6d6150c84"
+uid="uid://b80vydjain06f"
+path="res://.godot/imported/walk_sheet.png-7e2e56de5113e4e9fe7053184bd19085.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-7e2e56de5113e4e9fe7053184bd19085.ctex"]
 
 [params]
 

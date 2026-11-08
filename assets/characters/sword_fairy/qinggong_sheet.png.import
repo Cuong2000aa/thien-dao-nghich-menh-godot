@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://390bec93f21b21e8"
+uid="uid://duqfnef1vutft"
+path="res://.godot/imported/qinggong_sheet.png-8bee93d55a81dbbdf6712f984ac398ca.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-8bee93d55a81dbbdf6712f984ac398ca.ctex"]
 
 [params]
 

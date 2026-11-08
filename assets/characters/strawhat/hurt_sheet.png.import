@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://17a389f12b76bbdb"
+uid="uid://bdedbsar3obrn"
+path="res://.godot/imported/hurt_sheet.png-02d93b9fd852502fa29688f4fef8220a.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-02d93b9fd852502fa29688f4fef8220a.ctex"]
 
 [params]
 

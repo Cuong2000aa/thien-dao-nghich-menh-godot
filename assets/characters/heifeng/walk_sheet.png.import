@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6804a1241c47ae3a"
+uid="uid://vfmtc1c3se3q"
+path="res://.godot/imported/walk_sheet.png-9e0a754b0a2b87aca2919f84c3b13eb0.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/heifeng/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-9e0a754b0a2b87aca2919f84c3b13eb0.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6b1d885528aa04a0"
+uid="uid://bhbjkjhxhi6jx"
+path="res://.godot/imported/attack_sheet.png-182915945fcd827dea6da2b5f24ea1e9.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-182915945fcd827dea6da2b5f24ea1e9.ctex"]
 
 [params]
 

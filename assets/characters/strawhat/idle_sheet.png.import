@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6f7176b7aae38237"
+uid="uid://bw8hauxxiyqdg"
+path="res://.godot/imported/idle_sheet.png-1db3428de066840ee99270b0db887101.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-1db3428de066840ee99270b0db887101.ctex"]
 
 [params]
 

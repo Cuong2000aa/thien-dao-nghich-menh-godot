@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4ddeddff3a1f5303"
+uid="uid://b14y38mgueusk"
+path="res://.godot/imported/attack_sheet.png-59a24eb6b381284f1661260391905a02.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-59a24eb6b381284f1661260391905a02.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3bee618792785bb4"
+uid="uid://dryblqsv1ym32"
+path="res://.godot/imported/attack_sheet.png-e96b9c35a0c1587f1ebcadc1c43bb59b.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/xuanxiao/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-e96b9c35a0c1587f1ebcadc1c43bb59b.ctex"]
 
 [params]
 

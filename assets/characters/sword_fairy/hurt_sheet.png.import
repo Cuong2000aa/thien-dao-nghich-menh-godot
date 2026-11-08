@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://27b0535a57ed5ff3"
+uid="uid://cri36gqbml7u1"
+path="res://.godot/imported/hurt_sheet.png-5c5ed7571fd81fec1b21b88712cec080.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-5c5ed7571fd81fec1b21b88712cec080.ctex"]
 
 [params]
 

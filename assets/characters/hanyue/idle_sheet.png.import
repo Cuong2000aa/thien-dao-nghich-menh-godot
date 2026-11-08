@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://651d8f791734be5"
+uid="uid://c4k4gobj2lumc"
+path="res://.godot/imported/idle_sheet.png-551acad80e8a3f69aec1093d6987597a.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/hanyue/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-551acad80e8a3f69aec1093d6987597a.ctex"]
 
 [params]
 

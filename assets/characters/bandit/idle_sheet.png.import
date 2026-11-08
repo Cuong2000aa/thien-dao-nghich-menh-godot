@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://71ad17a1c419a57f"
+uid="uid://bqkwml72anidp"
+path="res://.godot/imported/idle_sheet.png-d78454ff480de2a723b16df84fa4778f.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-d78454ff480de2a723b16df84fa4778f.ctex"]
 
 [params]
 

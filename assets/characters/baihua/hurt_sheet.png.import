@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6b731fa47dec0727"
+uid="uid://b7ebqcd67lnm1"
+path="res://.godot/imported/hurt_sheet.png-b65a03bf688acd751b37addd4cd83031.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-b65a03bf688acd751b37addd4cd83031.ctex"]
 
 [params]
 

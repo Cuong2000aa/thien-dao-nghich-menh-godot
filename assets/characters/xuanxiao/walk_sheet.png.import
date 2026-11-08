@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5bed2344f3d36831"
+uid="uid://bnqcltqj08cbm"
+path="res://.godot/imported/walk_sheet.png-e8e51b1826b23f7719a566d0441675e1.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/xuanxiao/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-e8e51b1826b23f7719a566d0441675e1.ctex"]
 
 [params]
 

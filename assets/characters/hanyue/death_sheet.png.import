@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://36d4c2bd9a904228"
+uid="uid://bj8xsc338wqr0"
+path="res://.godot/imported/death_sheet.png-64ec052b60df6b30743185b20bb342a5.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/hanyue/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-64ec052b60df6b30743185b20bb342a5.ctex"]
 
 [params]
 

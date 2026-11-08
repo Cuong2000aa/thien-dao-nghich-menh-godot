@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6a21b80e05b1a726"
+uid="uid://c1kewkdr6fqb2"
+path="res://.godot/imported/combo_sheet.png-6ae092a150fbe7688a2e7af305af34de.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/combo_sheet.png"
+dest_files=["res://.godot/imported/combo_sheet.png-6ae092a150fbe7688a2e7af305af34de.ctex"]
 
 [params]
 

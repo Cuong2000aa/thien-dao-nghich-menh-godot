@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1be5abaa7747922d"
+uid="uid://csm2fdljxik5b"
+path="res://.godot/imported/idle_sheet.png-031fa6e240e0d89e5ebed57cadb7134c.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-031fa6e240e0d89e5ebed57cadb7134c.ctex"]
 
 [params]
 

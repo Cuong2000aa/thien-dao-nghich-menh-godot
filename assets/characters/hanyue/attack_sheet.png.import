@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://580dafa5b298e4c4"
+uid="uid://h2wl1au8ngk8"
+path="res://.godot/imported/attack_sheet.png-f35168a8e082951ebc25352fca79cf62.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/hanyue/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-f35168a8e082951ebc25352fca79cf62.ctex"]
 
 [params]
 

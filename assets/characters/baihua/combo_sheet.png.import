@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://61491bcadff7894e"
+uid="uid://ss2drtsuqmvu"
+path="res://.godot/imported/combo_sheet.png-51bfff57526445d2c0af56b1d4d9c87c.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/combo_sheet.png"
+dest_files=["res://.godot/imported/combo_sheet.png-51bfff57526445d2c0af56b1d4d9c87c.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5d015c9d770fd2f5"
+uid="uid://ba3sf3nfpukqe"
+path="res://.godot/imported/hurt_sheet.png-21c72ed8451680efde1985b0e901b9b0.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-21c72ed8451680efde1985b0e901b9b0.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1352474b0c4bc3ee"
+uid="uid://b7x0xevo5eos7"
+path="res://.godot/imported/attack_sheet.png-e0f9bfee4e8adea6a4f942229658d72c.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/daoist/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-e0f9bfee4e8adea6a4f942229658d72c.ctex"]
 
 [params]
 

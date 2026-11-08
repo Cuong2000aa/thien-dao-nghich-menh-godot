@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5d6217e6adc92c0c"
+uid="uid://bdcsx42fntg41"
+path="res://.godot/imported/qinggong_sheet.png-0ef6de6bae2301bcb98e99227282dbfe.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-0ef6de6bae2301bcb98e99227282dbfe.ctex"]
 
 [params]
 

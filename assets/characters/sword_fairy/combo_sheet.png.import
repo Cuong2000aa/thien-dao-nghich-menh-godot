@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://375c89b3ff481411"
+uid="uid://18puk3g5nw4i"
+path="res://.godot/imported/combo_sheet.png-5216e1aaaf9af9c4cd09938d98d74338.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/combo_sheet.png"
+dest_files=["res://.godot/imported/combo_sheet.png-5216e1aaaf9af9c4cd09938d98d74338.ctex"]
 
 [params]
 

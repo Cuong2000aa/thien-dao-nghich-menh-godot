@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4afd09c46c327e97"
+uid="uid://cu1rw0j7iedwm"
+path="res://.godot/imported/death_sheet.png-ddd82b8c984dd682b2f2629ee5460e18.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/xuanxiao/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-ddd82b8c984dd682b2f2629ee5460e18.ctex"]
 
 [params]
 

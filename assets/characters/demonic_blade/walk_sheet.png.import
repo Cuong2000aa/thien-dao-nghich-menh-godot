@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1a37338663d5aad4"
+uid="uid://bvxrm8foy2wel"
+path="res://.godot/imported/walk_sheet.png-0d6b4fe2cf534160bed23a99149f965b.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-0d6b4fe2cf534160bed23a99149f965b.ctex"]
 
 [params]
 

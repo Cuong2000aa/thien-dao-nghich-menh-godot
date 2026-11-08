@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://33ce15e9e8f81b1b"
+uid="uid://dxsm80884f2k8"
+path="res://.godot/imported/hurt_sheet.png-f2973954cd9682ffc3db72f2a44625e7.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/xuanxiao/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-f2973954cd9682ffc3db72f2a44625e7.ctex"]
 
 [params]
 

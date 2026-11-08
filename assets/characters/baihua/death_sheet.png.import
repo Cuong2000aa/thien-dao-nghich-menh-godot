@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://44db86f97928dcba"
+uid="uid://b6qmxg4oy6bje"
+path="res://.godot/imported/death_sheet.png-2adb97f06727b603f7e985605a1d96bd.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-2adb97f06727b603f7e985605a1d96bd.ctex"]
 
 [params]
 

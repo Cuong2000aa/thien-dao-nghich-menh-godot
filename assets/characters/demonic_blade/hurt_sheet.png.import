@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2f7ae68cd3c07f5e"
+uid="uid://cbbpggekqv4w"
+path="res://.godot/imported/hurt_sheet.png-2e08413b4f18f181a2b5c2a7452cbfbe.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-2e08413b4f18f181a2b5c2a7452cbfbe.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4659a0ab858a1201"
+uid="uid://b68w3t78d7doq"
+path="res://.godot/imported/walk_sheet.png-bb194b12ab40c469f2d5a98b0a4210c2.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-bb194b12ab40c469f2d5a98b0a4210c2.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2ea3a93e1f77316"
+uid="uid://kfdgkl8d24nn"
+path="res://.godot/imported/walk_sheet.png-f3f92a6816087eeee2d17a1975f81aab.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-f3f92a6816087eeee2d17a1975f81aab.ctex"]
 
 [params]
 

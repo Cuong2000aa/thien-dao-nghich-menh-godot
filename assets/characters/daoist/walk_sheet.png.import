@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3dec5bff4a10e8a"
+uid="uid://4j3357rt0qb7"
+path="res://.godot/imported/walk_sheet.png-70ad1c61c9e0017274e387f8240d4687.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/daoist/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-70ad1c61c9e0017274e387f8240d4687.ctex"]
 
 [params]
 

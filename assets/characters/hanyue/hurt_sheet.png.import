@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://18eeff12bd3d8892"
+uid="uid://sqitit02b65l"
+path="res://.godot/imported/hurt_sheet.png-f438c429f1cbb43ea307eeec7f87914d.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/hanyue/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-f438c429f1cbb43ea307eeec7f87914d.ctex"]
 
 [params]
 

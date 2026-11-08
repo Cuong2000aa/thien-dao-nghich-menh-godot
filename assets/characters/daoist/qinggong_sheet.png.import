@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://200b729e45badd31"
+uid="uid://do37l1y2dsh0i"
+path="res://.godot/imported/qinggong_sheet.png-9a2742f9b528a8ada309e235a2eef2d9.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/daoist/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-9a2742f9b528a8ada309e235a2eef2d9.ctex"]
 
 [params]
 

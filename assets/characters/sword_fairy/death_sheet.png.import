@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6ebbfdd97085b2d1"
+uid="uid://dwmfwiwnj4hd1"
+path="res://.godot/imported/death_sheet.png-54cef92566894a93749cd32b515dd603.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-54cef92566894a93749cd32b515dd603.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://26368ac9222f244a"
+uid="uid://cp5jkqq3kog03"
+path="res://.godot/imported/idle_sheet.png-7edb8b4566a5ef0db66335d1043cfe4a.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/sword_fairy/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-7edb8b4566a5ef0db66335d1043cfe4a.ctex"]
 
 [params]
 

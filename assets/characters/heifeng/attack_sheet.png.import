@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4570d5552f2368ff"
+uid="uid://cxa0hojmlr3bb"
+path="res://.godot/imported/attack_sheet.png-ecf487018ad8afd5f3b9e925ba1caa7e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/heifeng/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-ecf487018ad8afd5f3b9e925ba1caa7e.ctex"]
 
 [params]
 

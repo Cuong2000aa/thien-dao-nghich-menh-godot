@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://21c173e571e91fbf"
+uid="uid://qot1aayngied"
+path="res://.godot/imported/attack_sheet.png-1aad73b00b7fc7ff7b7109d6ca6d4eec.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/demonic_blade/attack_sheet.png"
+dest_files=["res://.godot/imported/attack_sheet.png-1aad73b00b7fc7ff7b7109d6ca6d4eec.ctex"]
 
 [params]
 

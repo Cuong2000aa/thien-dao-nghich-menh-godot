@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3c857d89f282e133"
+uid="uid://dkf2o75l0ser1"
+path="res://.godot/imported/walk_sheet.png-ef2bbdcd80d4ecd2074ad440af527e20.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/hanyue/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-ef2bbdcd80d4ecd2074ad440af527e20.ctex"]
 
 [params]
 

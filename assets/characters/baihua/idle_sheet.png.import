@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://310c9753203fd2ef"
+uid="uid://cpf1o11nwue06"
+path="res://.godot/imported/idle_sheet.png-632512dc760b0c05ad8b2ba7f6e85d1e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/idle_sheet.png"
+dest_files=["res://.godot/imported/idle_sheet.png-632512dc760b0c05ad8b2ba7f6e85d1e.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5504cacd6e98087f"
+uid="uid://b7fef6lchgfmv"
+path="res://.godot/imported/death_sheet.png-397b7e144a6969d0efd92c78bcec08c6.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-397b7e144a6969d0efd92c78bcec08c6.ctex"]
 
 [params]
 

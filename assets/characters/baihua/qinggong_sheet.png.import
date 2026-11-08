@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5da9a6b295c5727f"
+uid="uid://yukqgxolsepd"
+path="res://.godot/imported/qinggong_sheet.png-9792371a0b32ccec34c1eea23d7bda2b.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/baihua/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-9792371a0b32ccec34c1eea23d7bda2b.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://44c59983f4a83af6"
+uid="uid://3accpu5k34f2"
+path="res://.godot/imported/walk_sheet.png-fe1c0236367234c8ce5311bc49a7d846.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/bandit/walk_sheet.png"
+dest_files=["res://.godot/imported/walk_sheet.png-fe1c0236367234c8ce5311bc49a7d846.ctex"]
 
 [params]
 

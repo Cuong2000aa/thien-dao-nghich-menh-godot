@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5d9dc3026b76235c"
+uid="uid://bc202wnaasp4q"
+path="res://.godot/imported/qinggong_sheet.png-b3292f84b02006e94d26eb98df9f3392.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/strawhat/qinggong_sheet.png"
+dest_files=["res://.godot/imported/qinggong_sheet.png-b3292f84b02006e94d26eb98df9f3392.ctex"]
 
 [params]
 

@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2e40ad063f25904b"
+uid="uid://dx0lc7wqgjklj"
+path="res://.godot/imported/hurt_sheet.png-c96847efbfce9c7b7cf61eb1a955348d.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/daoist/hurt_sheet.png"
+dest_files=["res://.godot/imported/hurt_sheet.png-c96847efbfce9c7b7cf61eb1a955348d.ctex"]
 
 [params]
 

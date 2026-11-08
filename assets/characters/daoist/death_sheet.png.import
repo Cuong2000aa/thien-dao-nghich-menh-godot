@@ -2,11 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://28ce638149ea9d86"
+uid="uid://pwi7cayfgy3f"
+path="res://.godot/imported/death_sheet.png-284c73f2f8c0b37556a8659aac94d3a0.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/characters/daoist/death_sheet.png"
+dest_files=["res://.godot/imported/death_sheet.png-284c73f2f8c0b37556a8659aac94d3a0.ctex"]
 
 [params]
 
