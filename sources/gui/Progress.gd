@@ -246,14 +246,41 @@ func _PromptQuestAction(abandon : bool) -> void:
 		)
 
 func _ConfirmSkipQuest(questID : int) -> void:
-	# Fly to where this quest would complete, mark done, then focus next active quest.
-	var finishStep : Dictionary = QuestGuidanceClass.BuildCompletionStep(questID)
-	_ApplyQuestState(questID, ProgressCommons.CompletedProgress, "Đã bỏ qua nhiệm vụ (không thưởng).")
-	if finishStep.get("resolved", false):
-		QuestGuidanceClass.WarpLocalPlayerToStep(
-			finishStep,
-			"Bay tới chỗ hoàn thành [%s]." % str(finishStep.get("nick", ""))
-		)
+	var questData : QuestData = DB.GetQuest(questID)
+	var title : String = Localization.Get(questData.name, questData.name) if questData else str(questID)
+	_ApplyQuestState(questID, ProgressCommons.CompletedProgress, "Đã hoàn thành/bỏ qua nhiệm vụ [%s]." % title)
+
+	# Tra cứu nhiệm vụ kế tiếp trong chuỗi liên hoàn
+	var nextQuestID : int = QuestGuidanceClass.GetNextQuestInChain(questID)
+	var targetStep : Dictionary = {}
+	var notifyMsg : String = ""
+
+	if nextQuestID != DB.UnknownHash:
+		var nextData : QuestData = DB.GetQuest(nextQuestID)
+		var nextTitle : String = Localization.Get(nextData.name, nextData.name) if nextData else str(nextQuestID)
+		var st : int = Launcher.Player.progress.GetQuest(nextQuestID) if Launcher.Player and Launcher.Player.progress else ProgressCommons.UnknownProgress
+		if st <= ProgressCommons.UnknownProgress:
+			# Chưa nhận -> Bay tới gặp NPC giao nhiệm vụ mới
+			targetStep = QuestGuidanceClass.BuildStartStep(nextQuestID)
+			notifyMsg = "Bỏ qua [%s] ➔ Bay tới gặp [%s] nhận [%s]!" % [title, str(targetStep.get("nick", "NPC")), nextTitle]
+		else:
+			# Đã nhận -> Bay tới mục tiêu hiện tại của nhiệm vụ đó
+			targetStep = QuestGuidanceClass.BuildStep(nextQuestID, st)
+			notifyMsg = "Bỏ qua [%s] ➔ Tiếp tục nhiệm vụ [%s]!" % [title, nextTitle]
+	else:
+		# Hết chuỗi -> Bay tới NPC trả nhiệm vụ của nhiệm vụ vừa hoàn thành
+		targetStep = QuestGuidanceClass.BuildCompletionStep(questID)
+		notifyMsg = "Đã bỏ qua [%s] ➔ Bay tới gặp [%s]." % [title, str(targetStep.get("nick", "NPC"))]
+
+	if targetStep.get("resolved", false):
+		QuestGuidanceClass.WarpLocalPlayerToStep(targetStep, notifyMsg)
+		if Launcher.GUI and Launcher.GUI.questAutoController:
+			if nextQuestID != DB.UnknownHash:
+				Launcher.GUI.questAutoController.PreferQuest(nextQuestID)
+			var targetNick : String = str(targetStep.get("nick", ""))
+			if not targetNick.is_empty():
+				Launcher.GUI.questAutoController.QueueInteractionWithNick(targetNick)
+
 	_FocusNextActiveQuest()
 
 func _ConfirmAbandonQuest(questID : int) -> void:
@@ -266,6 +293,22 @@ func _FocusNextActiveQuest() -> void:
 		nextID = int(qid)
 		break
 	if nextID == DB.UnknownHash:
+		# Không còn active quest trong log -> Tự động tìm nhiệm vụ khả dụng tiếp theo trong game
+		var availableID : int = QuestGuidanceClass.FindNextAvailableQuest()
+		if availableID != DB.UnknownHash:
+			var startStep : Dictionary = QuestGuidanceClass.BuildStartStep(availableID)
+			if startStep.get("resolved", false):
+				var qData : QuestData = DB.GetQuest(availableID)
+				var qTitle : String = Localization.Get(qData.name, qData.name) if qData else str(availableID)
+				if Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled:
+					Launcher.GUI.questAutoController.PreferQuest(availableID)
+					QuestGuidanceClass.WarpLocalPlayerToStep(
+						startStep,
+						"Auto NV: Tiếp nhận nhiệm vụ mới — bay tới gặp [%s] ([%s])." % [str(startStep.get("nick", "")), qTitle]
+					)
+					var targetNick : String = str(startStep.get("nick", ""))
+					if not targetNick.is_empty():
+						Launcher.GUI.questAutoController.QueueInteractionWithNick(targetNick)
 		if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):
 			Launcher.GUI.RefreshQuestGuidance()
 		return
@@ -279,6 +322,9 @@ func _FocusNextActiveQuest() -> void:
 				step,
 				"Auto NV: nhiệm vụ mới — bay tới [%s]." % str(step.get("nick", ""))
 			)
+			var targetNick : String = str(step.get("nick", ""))
+			if not targetNick.is_empty():
+				Launcher.GUI.questAutoController.QueueInteractionWithNick(targetNick)
 	if Launcher.GUI and Launcher.GUI.has_method("RefreshQuestGuidance"):
 		Launcher.GUI.RefreshQuestGuidance()
 

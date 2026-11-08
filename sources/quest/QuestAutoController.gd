@@ -27,24 +27,29 @@ var _lastWarpAt : float = 0.0
 var _wasInDialogue : bool = false
 var _dialogueQuestID : int = DB.UnknownHash
 var _dialogueQuestState : int = ProgressCommons.UnknownProgress
+var _pendingInteractNick : String = ""
+var _lastPos : Vector2 = Vector2.ZERO
+var _stuckTicks : int = 0
+var _currentAutoStatus : String = ""
 
-const TICK_SEC : float = 0.45
-const DIALOGUE_TICK_SEC : float = 0.28
-const INTERACT_RANGE : float = 220.0
+const TICK_SEC : float = 0.25
+const DIALOGUE_TICK_SEC : float = 0.08
+const INTERACT_RANGE : float = 280.0
 const KILL_RANGE : float = 520.0
-const CHOICE_COOLDOWN_SEC : float = 0.35
-const NPC_REINTERACT_COOLDOWN_SEC : float = 2.5
-const KILL_PROGRESS_CHECK_SEC : float = 8.0
-const NO_TARGET_RETURN_SEC : float = 6.0
-const DIALOGUE_STUCK_TICKS : int = 4
-const WARP_COOLDOWN_SEC : float = 1.6
-const SAME_MAP_WARP_DIST : float = 720.0
+const CHOICE_COOLDOWN_SEC : float = 0.10
+const NPC_REINTERACT_COOLDOWN_SEC : float = 1.5
+const KILL_PROGRESS_CHECK_SEC : float = 6.0
+const NO_TARGET_RETURN_SEC : float = 4.0
+const DIALOGUE_STUCK_TICKS : int = 3
+const WARP_COOLDOWN_SEC : float = 1.2
+const SAME_MAP_WARP_DIST : float = 500.0
 
 ## Decline / leave early — avoid while accepting a quest.
 const AVOID_CHOICE_KEYS : PackedStringArray = [
 	"cáo từ", "cao tu", "hẹn gặp", "hen gap", "để lần khác", "de lan khac",
 	"đi ngang", "di ngang", "thêm thời gian", "them thoi gian", "không cần",
-	"khong can", "từ chối", "tu choi",
+	"khong can", "từ chối", "tu choi", "rời đi", "roi di", "để sau", "de sau",
+	"hẹn gặp lại", "hen gap lai", "ngươi là ai", "nguoi la ai", "chuyện cũ", "chuyen cu",
 	"hủy", "huy", "cancel", "goodbye", "later",
 	# Lore / reminder loops (Ekinu / Gilgames gate menus)
 	"nhắc lại", "nhac lai", "kể về", "ke ve", "red queen", "nguy hiểm thì",
@@ -55,11 +60,16 @@ const AVOID_CHOICE_KEYS : PackedStringArray = [
 ## Quest progress accept / continue.
 const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"nhận", "nhan", "đồng ý", "dong y", "giúp", "giup", "xin", "khảo", "khao",
+	"khảo nghiệm", "khao nghiem", "bắt đầu", "bat dau", "gia nhập", "gia nhap",
 	"hoàn tất", "hoan tat", "giao", "mang", "đủ", "du ", "tiếp", "tiep",
-	"chỉ điểm", "chi diem", "accept", "quest", "nhiệm vụ",
+	"chỉ điểm", "chi diem", "accept", "quest", "nhiệm vụ", "nhiem vu",
 	"giết", "giet", "ngay", "kael bảo", "làm tốt", "thám hiểm",
 	"ta phải làm gì?", # first-time job ask (exact-ish); "nhắc lại" is avoided above
 	"đi gặp", "di gap", "ryan", "tệ hại", "te hai", "ta làm", "ta lam",
+	"bái kiến", "bai kien", "xin chỉ giáo", "xin chi giao", "luyện đan", "luyen dan",
+	"thảo phạt", "thao phat", "tuần tra", "tuan tra", "tiếp nhận", "tiep nhan",
+	"đi ngay", "di ngay", "xuất phát", "xuat phat", "đưa", "dua", "trao",
+	"được, ta đi", "duoc, ta di", "ta đi", "ta di",
 ]
 
 ## End conversation / leave NPC after objective done (Gilgames "Ổn hết!", Ekinu "đi thôi").
@@ -69,6 +79,18 @@ const EXIT_CHOICE_KEYS : PackedStringArray = [
 	"thôi, ta tưởng", "giữ tinh thần",
 	"đi gặp ryan", "di gap ryan", "gặp ryan", "gap ryan",
 ]
+
+func QueueInteractionWithNick(nick : String) -> void:
+	_pendingInteractNick = nick
+	_lastNpcNick = ""
+	_lastNpcTalkAt = 0.0
+
+func SetAutoStatus(text : String) -> void:
+	if _currentAutoStatus == text:
+		return
+	_currentAutoStatus = text
+	if Launcher.GUI and Launcher.GUI.notificationLabel and enabled:
+		Launcher.GUI.notificationLabel.AddNotification("⚡ [AUTO] " + text)
 
 func SetEnabled(on : bool) -> void:
 	enabled = on
@@ -89,9 +111,13 @@ func SetEnabled(on : bool) -> void:
 	_wasInDialogue = false
 	_dialogueQuestID = DB.UnknownHash
 	_dialogueQuestState = ProgressCommons.UnknownProgress
+	_pendingInteractNick = ""
+	_lastPos = Vector2.ZERO
+	_stuckTicks = 0
+	_currentAutoStatus = ""
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
-			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — bay tới mục tiêu, tương tác & tự chọn thoại.")
+			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — Tự bay, tự nhận & trả chuỗi nhiệm vụ.")
 		else:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: TẮT.")
 
@@ -126,19 +152,52 @@ func _Step() -> void:
 	if _TryAdvanceDialogue():
 		return
 
+	# 1. Hàng đợi tương tác ưu tiên (ví dụ vừa bay tới trước mặt NPC mới)
+	if not _pendingInteractNick.is_empty():
+		var pendingEnt : Entity = _FindEntityByNick(_pendingInteractNick, false, INTERACT_RANGE * 1.5)
+		if pendingEnt:
+			_lastNpcNick = _pendingInteractNick
+			_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+			_pendingInteractNick = ""
+			Entities.InteractHovered(pendingEnt)
+			return
+
 	var questID : int = _ResolveActiveQuest()
 	if questID == DB.UnknownHash:
+		# Không còn active quest -> Tự động tìm nhiệm vụ tiếp theo trong chuỗi hoặc game
+		var nextAvailable : int = QuestGuidanceClass.FindNextAvailableQuest()
+		if nextAvailable != DB.UnknownHash:
+			var startStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvailable)
+			if startStep.get("resolved", false):
+				SetAutoStatus("Bay tới gặp [%s] nhận nhiệm vụ mới [%s]" % [str(startStep.get("nick", "")), str(startStep.get("quest_name", ""))])
+				if _EnsureNearObjective(startStep):
+					_pendingInteractNick = str(startStep.get("nick", ""))
+					return
+				_DoTalkStep(str(startStep.get("nick", "")), startStep.get("position", Vector2.ZERO))
+				return
+		SetAutoStatus("Đã hoàn thành toàn bộ chuỗi nhiệm vụ khả dụng.")
 		return
+
 	var state : int = Launcher.Player.progress.GetQuest(questID) if Launcher.Player.progress else ProgressCommons.UnknownProgress
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 		# Current done — hop to next active quest if any
 		_preferQuestID = DB.UnknownHash
 		questID = _ResolveActiveQuest()
 		if questID == DB.UnknownHash:
+			var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+			if nextAvail != DB.UnknownHash:
+				var sStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvail)
+				if sStep.get("resolved", false):
+					SetAutoStatus("Bay tới gặp [%s] nhận nhiệm vụ [%s]" % [str(sStep.get("nick", "")), str(sStep.get("quest_name", ""))])
+					if _EnsureNearObjective(sStep):
+						_pendingInteractNick = str(sStep.get("nick", ""))
+						return
+					_DoTalkStep(str(sStep.get("nick", "")), sStep.get("position", Vector2.ZERO))
 			return
 		state = Launcher.Player.progress.GetQuest(questID) if Launcher.Player.progress else ProgressCommons.UnknownProgress
 		if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 			return
+
 	if questID != _killQuestID:
 		_killCounts.clear()
 		_killQuestID = questID
@@ -159,6 +218,32 @@ func _Step() -> void:
 	var nick : String = str(step.get("nick", ""))
 	var action : int = int(step.get("action", QuestGuidanceClass.Action.UNKNOWN))
 
+	# Cập nhật trạng thái hiển thị
+	var qData : QuestData = DB.GetQuest(questID)
+	var qName : String = Localization.Get(qData.name, qData.name) if qData else str(questID)
+	match action:
+		QuestGuidanceClass.Action.TALK:
+			SetAutoStatus("Gặp [%s] (NV: %s)" % [nick, qName])
+		QuestGuidanceClass.Action.RETURN:
+			SetAutoStatus("Hoàn thành! Trở về gặp [%s] trả [%s]" % [nick, qName])
+		QuestGuidanceClass.Action.KILL:
+			SetAutoStatus("Đang săn diệt mục tiêu [%s] (%s)" % [nick, qName])
+		QuestGuidanceClass.Action.GATHER:
+			SetAutoStatus("Đang thu thập [%s] (%s)" % [nick, qName])
+
+	# Chống kẹt địa hình
+	if Launcher.Player:
+		var curPos : Vector2 = Launcher.Player.position
+		if _lastPos != Vector2.ZERO and curPos.distance_to(targetPos) > 64.0:
+			if curPos.distance_to(_lastPos) < 4.0:
+				_stuckTicks += 1
+				if _stuckTicks >= 6:
+					_stuckTicks = 0
+					_WarpToStep(step, "Auto NV: Gỡ kẹt — bay thẳng tới mục tiêu.")
+			else:
+				_stuckTicks = 0
+		_lastPos = curPos
+
 	# Fly/warp to objective map or far same-map points (no more “đứng không biết làm gì”).
 	if _EnsureNearObjective(step):
 		return
@@ -168,6 +253,11 @@ func _Step() -> void:
 	match action:
 		QuestGuidanceClass.Action.TALK, QuestGuidanceClass.Action.RETURN:
 			_DoTalkStep(nick, targetPos)
+		QuestGuidanceClass.Action.KILL:
+			_DoKillStep(step, targetPos, returnNick)
+		_:
+			if Launcher.Player.position.distance_to(targetPos) > 48.0:
+				Launcher.Action.MoveTo(targetPos)
 		QuestGuidanceClass.Action.KILL:
 			_DoKillStep(step, targetPos, returnNick)
 		_:
@@ -465,8 +555,8 @@ func _TryAdvanceDialogue() -> bool:
 
 	if dialogue.get("lastTween") and dialogue.lastTween:
 		dialogue.lastTween.custom_step(INF)
+		dialogue.lastTween = null
 		_dialogueStuckTicks = 0
-		return true
 
 	var choiceMenu = Launcher.GUI.choiceContext
 	if choiceMenu and choiceMenu.is_visible() and choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0:

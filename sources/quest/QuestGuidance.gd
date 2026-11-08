@@ -522,6 +522,154 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 		"turn_in": turnIn,
 	}
 
+## Master Quest Chains: defines sequential progression between quests.
+## When a quest completes or is skipped, game automatically chains to the next quest in the chain.
+const QUEST_CHAINS : Array = [
+	# 1. Main Story Chapters (Chính Tuyến Tiên Hiệp)
+	[
+		"Tỉnh Lạc Dị Giới",
+		"Con Đường Tu Đạo",
+		"Dấu Vết Dị Biến",
+		"Bí Mật Trong Cổ Tích",
+		"Thiên Đạo Có Khuyết",
+	],
+	# 2. Tông Môn Trúc Sơn (Sect Foundation & Discipleship)
+	[
+		"Khảo Nghiệm Nhập Môn",
+		"Thanh Trừ Linh Trùng",
+		"Thu Thập Linh Thảo",
+		"Thu Thập Khoáng Thạch",
+		"Cống Hiến Dược Thảo",
+		"Cống Hiến Khoáng Thạch",
+		"Diệt Trừ Ma Vật",
+		"Luyện Đan Nhập Môn",
+		"Khám Phá Cổ Bi",
+		"Thảo Phạt Thú Vương",
+		"Khảo Hạch Ngoại Môn",
+		"Khảo Hạch Nội Môn",
+		"Truyền Thừa Tông Môn",
+		"Tuần Tra Sơn Môn",
+	],
+	# 3. Chuỗi Khởi Đầu & Cảng Thanh Sa (Tonori / Tulimshar Main Sequence)
+	[
+		"Tutorial",
+		"Elanore's Potions",
+		"Nina's Snack",
+		"Mine Exploration",
+		"A Drop of Relief",
+		"A Miner's Helping Hand",
+		"Sandstorm Mine Abandoned Treasure",
+		"Desert Seed",
+		"An Old Friendship",
+		"When the desert gives you sand...",
+		"Found a Chest in the Outskirts",
+		"Grain in the desert",
+		"Peter's Bounty",
+		"Snake Pit Thief",
+		"A Biting Thirst",
+		"Splatyna's Offering",
+		"Veteran Cave Explorer",
+	],
+	# 4. NPC Hảo Cảm Chains
+	[
+		"Dược Điển Tầm Thảo",
+		"Cứu Trợ Thương Binh",
+	],
+	[
+		"Khoáng Thạch Thí Luyện",
+		"Bí Quyết Truốt Kiếm",
+	],
+	[
+		"Huyết Tích Dã Ngoại",
+		"Săn Bắt Dị Thú",
+	],
+	[
+		"Minh Văn Trận Phù",
+		"Cổ Trận Thăm Dò",
+	],
+	[
+		"Đồng Môn Tương Trợ",
+		"Tâm Ma Thử Thách",
+	],
+	# 5. Phụ Tuyến & Khám Phá
+	[
+		"Thám Hiểm Hiên Viên Động",
+		"Tìm Kiếm U Hồn Trầm Bảo",
+		"Giải Mã Trận Pháp Ngũ Hành",
+		"Bí Cảnh Thảo Dược",
+		"Khai Thác Liên Hoa Cổ Thiết",
+		"Điều Tra Hầm Ngục Cổ Xưa",
+		"Bức Thư Của Tiền Nhân Xuyên Không",
+		"Tiếp Đón Du Phương Thương Đội",
+	],
+]
+
+## Finds the next uncompleted quest in the same chain as questID.
+## If the chain is completed, smoothly transitions to the next major story or sect chain.
+static func GetNextQuestInChain(questID : int) -> int:
+	var questProgress = Launcher.Player.progress if Launcher.Player else null
+	for chain in QUEST_CHAINS:
+		var foundIdx : int = -1
+		for i in chain.size():
+			var qName : String = str(chain[i])
+			if qName.hash() == questID:
+				foundIdx = i
+				break
+		if foundIdx >= 0:
+			# Look for the first uncompleted quest further down this chain
+			for j in range(foundIdx + 1, chain.size()):
+				var nextQid : int = str(chain[j]).hash()
+				if questProgress:
+					var st : int = questProgress.GetQuest(nextQid)
+					if st < ProgressCommons.CompletedProgress:
+						return nextQid
+				else:
+					return nextQid
+			break
+	# Fallback: if chain is finished, find the first uncompleted quest in major chains
+	return FindNextAvailableQuest()
+
+## Finds the first uncompleted quest across all major chains in priority order.
+static func FindNextAvailableQuest() -> int:
+	var questProgress = Launcher.Player.progress if Launcher.Player else null
+	for chain in QUEST_CHAINS:
+		for qName in chain:
+			var qid : int = str(qName).hash()
+			if questProgress:
+				var st : int = questProgress.GetQuest(qid)
+				if st < ProgressCommons.CompletedProgress:
+					return qid
+			else:
+				return qid
+	return DB.UnknownHash
+
+## Builds guidance step to the Quest GIVER NPC to receive an unstarted quest.
+static func BuildStartStep(questID : int) -> Dictionary:
+	EnsureIndex()
+	_EnsureObjectiveTable()
+	var questData : QuestData = DB.GetQuest(questID)
+	if questData == null:
+		return {}
+	var giver : String = questData.giver
+	if giver.is_empty():
+		return {}
+	var spawns : Array = FindSpawns(giver)
+	if spawns.is_empty():
+		return {}
+	var chosen : Dictionary = spawns[0]
+	return {
+		"quest_id": questID,
+		"nick": giver,
+		"action": Action.TALK,
+		"map_id": int(chosen.get("map_id", DB.UnknownHash)),
+		"map_display": str(chosen.get("map_display", "")),
+		"position": chosen.get("position", Vector2.ZERO),
+		"resolved": true,
+		"is_start_step": true,
+		"quest_name": Localization.Get(questData.name, questData.name),
+		"hint": "Gặp %s để nhận nhiệm vụ [%s]" % [giver, Localization.Get(questData.name, questData.name)]
+	}
+
 ## Final turn-in / completion waypoint (Skip + Auto fly-to).
 static func BuildCompletionStep(questID : int) -> Dictionary:
 	EnsureIndex()
@@ -561,23 +709,33 @@ static func BuildCompletionStep(questID : int) -> Dictionary:
 static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bool:
 	if step.is_empty() or not bool(step.get("resolved", false)):
 		return false
-	if Launcher.World == null:
-		return false
 	var mapID : int = int(step.get("map_id", DB.UnknownHash))
 	var pos : Vector2 = step.get("position", Vector2.ZERO)
 	if mapID == DB.UnknownHash:
 		return false
-	var agent : PlayerAgent = null
-	if Peers:
-		agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
-		if agent == null:
-			agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
-	if agent == null:
-		return false
-	ProgressCommons.Warp(agent, mapID, pos)
-	if not notify.is_empty() and Launcher.GUI and Launcher.GUI.notificationLabel:
+
+	var success : bool = false
+	if Launcher.World:
+		var agent : PlayerAgent = null
+		if Peers:
+			agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
+			if agent == null:
+				agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
+		if agent:
+			NpcCommons.Warp(agent, mapID, pos, ActorCommons.Direction.SOUTH)
+			success = true
+
+	# Client local sync if in the same map or fallback
+	if Launcher.Player and Launcher.Map:
+		if Launcher.Map.currentMapID == mapID or success:
+			Launcher.Player.position = pos
+			if Launcher.Action:
+				Launcher.Action.MoveTo(pos)
+			success = true
+
+	if success and not notify.is_empty() and Launcher.GUI and Launcher.GUI.notificationLabel:
 		Launcher.GUI.notificationLabel.AddNotification(notify)
-	return true
+	return success
 
 ## Resolve spawn for an arbitrary nick (Auto next_do hop).
 static func BuildNickStep(nick : String, fallback : Dictionary = {}) -> Dictionary:
