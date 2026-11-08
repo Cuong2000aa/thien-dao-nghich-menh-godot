@@ -59,6 +59,8 @@ func Refresh(force : bool = true) -> void:
 
 func _Signature(steps : Array) -> String:
 	var parts : PackedStringArray = PackedStringArray()
+	var autoOn : bool = (Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled)
+	parts.append("auto:%s" % str(autoOn))
 	for s in steps:
 		parts.append("%s:%s:%d:%d:%d" % [
 			s.get("quest_id", 0),
@@ -76,22 +78,36 @@ func _EnsureHud() -> void:
 		return
 	if Launcher.GUI == null:
 		return
-	var info = Launcher.GUI.get_node_or_null("Overlay/VSections/Indicators/Info")
-	if info == null:
-		return
-	hudLabel = info.get_node_or_null("QuestGuideHud") as RichTextLabel
+
+	# Remove any legacy hud label placed inside Indicators/Info
+	var oldHud = Launcher.GUI.get_node_or_null("Overlay/VSections/Indicators/Info/QuestGuideHud")
+	if oldHud and is_instance_valid(oldHud):
+		oldHud.queue_free()
+
+	hudLabel = Launcher.GUI.get_node_or_null("QuestGuideHud") as RichTextLabel
 	if hudLabel == null:
 		hudLabel = RichTextLabel.new()
 		hudLabel.name = "QuestGuideHud"
 		hudLabel.bbcode_enabled = true
 		hudLabel.fit_content = true
 		hudLabel.scroll_active = false
-		hudLabel.custom_minimum_size = Vector2(280, 0)
+		hudLabel.custom_minimum_size = Vector2(310, 0)
+		hudLabel.position = Vector2(20, 92)
 		hudLabel.mouse_filter = Control.MOUSE_FILTER_STOP
-		info.add_child(hudLabel)
-		# Place above progression tracker if possible
-		if Launcher.GUI.progressionTracker:
-			info.move_child(hudLabel, Launcher.GUI.progressionTracker.get_index())
+		hudLabel.z_index = 10
+
+		var sb : StyleBoxFlat = StyleBoxFlat.new()
+		sb.bg_color = Color(0.06, 0.08, 0.12, 0.88)
+		sb.border_color = Color(0.85, 0.72, 0.38, 0.75)
+		sb.set_border_width_all(1)
+		sb.set_corner_radius_all(6)
+		sb.content_margin_left = 12
+		sb.content_margin_top = 8
+		sb.content_margin_right = 12
+		sb.content_margin_bottom = 8
+		hudLabel.add_theme_stylebox_override("normal", sb)
+
+		Launcher.GUI.add_child(hudLabel)
 	else:
 		hudLabel.mouse_filter = Control.MOUSE_FILTER_STOP
 

@@ -79,13 +79,21 @@ func _ready():
 		print("[FAIL] MatchNickInText got:", matched)
 		fails += 1
 
-	# 6) MINE_EXPLORATION STRANGER_SPOTTED -> Xakelbael @ Desert Deep Level
+	# 6) MINE_EXPLORATION STRANGER_SPOTTED -> Xakelbael @ Desert Deep Level (TALK)
 	qid = ProgressCommons.Quest.MINE_EXPLORATION
 	step = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED)
-	if step.get("resolved") and step.get("nick") == "Xakelbael" and step.get("map_internal") == "Desert Deep Level":
-		print("[PASS] MineExploration STRANGER_SPOTTED → Xakelbael @ Desert Deep Level", step.get("position"))
+	if step.get("resolved") and step.get("nick") == "Xakelbael" and step.get("map_internal") == "Desert Deep Level" and step.get("action") == QuestGuidanceClass.Action.TALK:
+		print("[PASS] MineExploration STRANGER_SPOTTED → Xakelbael (TALK) @ Desert Deep Level", step.get("position"))
 	else:
 		print("[FAIL] MineExploration STRANGER_SPOTTED step:", step)
+		fails += 1
+
+	# 7) MINE_EXPLORATION FIGHTING -> Xakelbael @ Desert Deep Level (KILL)
+	var stepFight = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.FIGHTING)
+	if stepFight.get("resolved") and stepFight.get("nick") == "Xakelbael" and stepFight.get("action") == QuestGuidanceClass.Action.KILL:
+		print("[PASS] MineExploration FIGHTING → Xakelbael (KILL) @ Desert Deep Level", stepFight.get("position"))
+	else:
+		print("[FAIL] MineExploration FIGHTING step:", stepFight)
 		fails += 1
 
 	print("=== RESULT fails=%d ===" % fails)

@@ -345,9 +345,6 @@ func _ApplyTalkAdvance(questID : int, state : int, step : Dictionary) -> Diction
 			if str(t) == nextNick:
 				advanced["action"] = QuestGuidanceClass.Action.KILL
 				break
-		if nextNick == "Xakelbael":
-			advanced["action"] = QuestGuidanceClass.Action.KILL
-			advanced["kill_targets"] = ["Xakelbael"]
 		return advanced
 	return step
 
@@ -398,12 +395,17 @@ func _DoTalkStep(nick : String, targetPos : Vector2) -> void:
 	var now : float = Time.get_ticks_msec() / 1000.0
 	if nick == _lastNpcNick and (now - _lastNpcTalkAt) < NPC_REINTERACT_COOLDOWN_SEC:
 		return
-	var targetEnt : Entity = _FindEntityByNick(nick, false, INTERACT_RANGE)
+	var targetEnt : Entity = _FindEntityByNick(nick, false, 1500.0)
 	if targetEnt:
-		_lastNpcNick = nick
-		_lastNpcTalkAt = now
-		Entities.InteractHovered(targetEnt)
-		return
+		var d : float = Launcher.Player.position.distance_to(targetEnt.position)
+		if d <= INTERACT_RANGE:
+			_lastNpcNick = nick
+			_lastNpcTalkAt = now
+			Entities.InteractHovered(targetEnt)
+			return
+		else:
+			Launcher.Action.MoveTo(targetEnt.position)
+			return
 	if Launcher.Player.position.distance_to(targetPos) > 48.0:
 		Launcher.Action.MoveTo(targetPos)
 
@@ -460,7 +462,20 @@ func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) ->
 		_MaintainKillTarget(targetEnt)
 		return
 
-	# 4. No monsters in view: do NOT return to NPC early!
+	# 4. If no monster found, check if target is currently an NPC (boss waiting for dialogue)
+	for tName in focusTargets:
+		var npcEnt : Entity = _FindEntityByNick(str(tName), false, 1200.0)
+		if npcEnt:
+			var d : float = Launcher.Player.position.distance_to(npcEnt.position)
+			if d <= INTERACT_RANGE:
+				_lastNpcNick = str(tName)
+				_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+				Entities.InteractHovered(npcEnt)
+			else:
+				Launcher.Action.MoveTo(npcEnt.position)
+			return
+
+	# 5. No monsters in view: do NOT return to NPC early!
 	# Patrol towards center of hunting zone to await respawns.
 	var now : float = Time.get_ticks_msec() / 1000.0
 	if _noTargetSince <= 0.0:
@@ -665,10 +680,11 @@ func _TryAdvanceDialogue() -> bool:
 	if dialogue == null:
 		return false
 
-	if dialogue.get("lastTween") and dialogue.lastTween:
+	# 1. Typewriter fast-forward: finish text animation and yield a tick so buttons / choices mount cleanly
+	if dialogue.get("lastTween") and dialogue.lastTween and is_instance_valid(dialogue.lastTween) and dialogue.lastTween.is_running():
 		dialogue.lastTween.custom_step(INF)
-		dialogue.lastTween = null
 		_dialogueStuckTicks = 0
+		return true
 
 	var choiceMenu = Launcher.GUI.choiceContext
 	if choiceMenu and choiceMenu.is_visible() and choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0:
@@ -679,9 +695,6 @@ func _TryAdvanceDialogue() -> bool:
 		_dialogueStuckTicks = 0
 		var btnText : String = str(dialogue.buttonLabel.get_text()) if dialogue.buttonLabel else ""
 		var lower : String = btnText.to_lower()
-		if lower.contains("tiếp") or lower.contains("tiep") or lower == "continue" or lower.contains("next"):
-			dialogue.ButtonPressed()
-			return true
 		if lower.contains("đóng") or lower.contains("dong") or lower == "close":
 			dialogue.ButtonPressed()
 			_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
@@ -711,7 +724,7 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 	for i in children.size():
 		var child = children[i]
 		var title : String = ""
-		if child.get("_data") and child._data:
+		if child.get("_data") and child._data and child._data.get("_title"):
 			title = str(child._data._title)
 		elif child.has_node("Label"):
 			title = str(child.get_node("Label").get_text())
@@ -732,12 +745,12 @@ func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 		_sameChoiceStreak = 1
 		_lastPickedChoice = bestTitle
 	_lastChoiceAt = now
-	var pick = children[bestIdx]
-	if pick and pick.has_method("_on_trigger"):
-		pick._on_trigger()
+	var pick = children[bestIdx] if (bestIdx >= 0 and bestIdx < children.size()) else null
+	if pick and pick.get("_data") and pick._data and pick._data.get("_callback") and not pick._data._callback.is_null():
+		pick._data._callback.call()
 	else:
 		Network.TriggerChoice(bestIdx)
-		choiceMenu.Hide()
+	choiceMenu.Hide()
 	return true
 
 func _ScoreChoice(title : String, index : int, forceExit : bool = false) -> int:
@@ -787,15 +800,21 @@ func _ResolveActiveQuest() -> int:
 func _NickMatches(entity : Entity, nick : String) -> bool:
 	if entity == null or nick.is_empty():
 		return false
+	var targetNickLower : String = nick.to_lower()
 	var n : String = str(entity.nick) if entity.get("nick") else ""
 	if n.is_empty() and entity.data:
 		n = str(entity.data._name)
-	if n == nick:
+	if n == nick or n.to_lower() == targetNickLower:
 		return true
-	if Localization.Get(n, n) == nick or Localization.Get(nick, nick) == n:
+	var locN : String = Localization.Get(n, n)
+	if locN == nick or locN.to_lower() == targetNickLower:
 		return true
-	if entity.data and str(entity.data._name) == nick:
+	if Localization.Get(nick, nick).to_lower() == n.to_lower():
 		return true
+	if entity.data:
+		var dn : String = str(entity.data._name)
+		if dn == nick or dn.to_lower() == targetNickLower:
+			return true
 	return false
 
 func _FindEntityByNick(nick : String, monstersOnly : bool, maxRange : float) -> Entity:
@@ -812,7 +831,7 @@ func _FindEntityByNick(nick : String, monstersOnly : bool, maxRange : float) -> 
 			if ent.state == ActorCommons.State.DEATH:
 				continue
 		else:
-			if ent.type != ActorCommons.Type.NPC:
+			if ent.type == ActorCommons.Type.MONSTER:
 				continue
 		if not _NickMatches(ent, nick):
 			continue

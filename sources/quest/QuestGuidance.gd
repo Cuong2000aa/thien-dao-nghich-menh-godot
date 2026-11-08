@@ -330,7 +330,9 @@ static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
 				}
 			if state == ProgressCommons.MINE_EXPLORATION.FIND_NICKOS:
 				return {"do": "Nickos", "next_do": "Xakelbael", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
-			if state >= ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED and state < ProgressCommons.MINE_EXPLORATION.DEFEATED:
+			if state == ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED:
+				return {"do": "Xakelbael", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.MINE_EXPLORATION.FIGHTING:
 				return {"do": "Xakelbael", "return": "Ryan", "kind": "kill", "need": 1, "force_turn_in": false, "kill_targets": ["Xakelbael"]}
 			if state == ProgressCommons.MINE_EXPLORATION.DEFEATED:
 				return {"do": "Mana Tree", "next_do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
