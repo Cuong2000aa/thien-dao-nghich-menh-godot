@@ -97,7 +97,7 @@ func SetAutoStatus(text : String) -> void:
 
 func SetEnabled(on : bool) -> void:
 	enabled = on
-	_tick = 0.0
+	_tick = TICK_SEC if on else 0.0
 	_lastNotifyMap = DB.UnknownHash
 	_lastChoiceAt = 0.0
 	_lastNpcTalkAt = 0.0
@@ -119,12 +119,20 @@ func SetEnabled(on : bool) -> void:
 	_stuckTicks = 0
 	_currentAutoStatus = ""
 	_lastEngagedTargetPos = Vector2.ZERO
+	if on:
+		if _preferQuestID == DB.UnknownHash:
+			_preferQuestID = _ResolveActiveQuest()
+		SetAutoStatus("Auto nhiệm vụ: ĐÃ BẬT")
+	else:
+		SetAutoStatus("Auto nhiệm vụ: ĐÃ TẮT")
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		if on:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — Tự bay, tự nhận & trả chuỗi nhiệm vụ.")
 		else:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: TẮT.")
 	auto_toggled.emit(enabled)
+	if on:
+		call_deferred("_Step")
 
 func Toggle() -> void:
 	SetEnabled(not enabled)
@@ -770,6 +778,10 @@ func _ResolveActiveQuest() -> int:
 	if Launcher.GUI and Launcher.GUI.progressWindow and Launcher.GUI.progressWindow.activeQuests:
 		for qid in Launcher.GUI.progressWindow.activeQuests.keys():
 			return int(qid)
+	if QuestGuidanceClass:
+		var prim : int = QuestGuidanceClass.FindPrimaryActiveQuest(Launcher.Player)
+		if prim != DB.UnknownHash:
+			return prim
 	return DB.UnknownHash
 
 func _NickMatches(entity : Entity, nick : String) -> bool:

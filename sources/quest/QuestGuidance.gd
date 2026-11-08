@@ -713,6 +713,30 @@ static func BuildCompletionStep(questID : int) -> Dictionary:
 		"resolved": true,
 	}
 
+static func GetLocalPlayerAgent() -> PlayerAgent:
+	if not Launcher.World:
+		return null
+	if Peers:
+		var agent : PlayerAgent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
+		if agent == null:
+			agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
+		if agent != null:
+			return agent
+		for pid in Peers.peers.keys():
+			agent = Peers.GetAgent(pid)
+			if agent != null:
+				return agent
+	if Launcher.Player:
+		var pNick : String = Launcher.Player.nick
+		if not pNick.is_empty():
+			var agent = Launcher.World.GetGlobalPlayer(pNick)
+			if agent != null:
+				return agent
+	for a in WorldAgent.agents.values():
+		if a is PlayerAgent:
+			return a
+	return null
+
 ## Offline / listen-server warp to a guidance step (Auto + Skip).
 static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bool:
 	if step.is_empty() or not bool(step.get("resolved", false)):
@@ -723,23 +747,29 @@ static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bo
 		return false
 
 	var success : bool = false
-	if Launcher.World:
-		var agent : PlayerAgent = null
-		if Peers:
-			agent = Peers.GetAgent(NetworkCommons.PeerOfflineID)
-			if agent == null:
-				agent = Peers.GetAgent(NetworkCommons.PeerAuthorityID)
-		if agent:
-			NpcCommons.Warp(agent, mapID, pos, ActorCommons.Direction.DOWN)
+	var agent : PlayerAgent = GetLocalPlayerAgent()
+	if agent and Launcher.World:
+		var targetMap : WorldMap = Launcher.World.GetMap(mapID)
+		if targetMap:
+			var isInstanceMap : bool = (targetMap.flags & WorldMap.Flags.NO_REJOIN) != 0
+			if not isInstanceMap:
+				for s in targetMap.spawns:
+					if s and s.own_script and "ManaTreeGlobal" in s.own_script.resource_path:
+						isInstanceMap = true
+						break
+			if isInstanceMap:
+				NpcCommons.WarpInstance(agent, mapID, pos, ActorCommons.Direction.DOWN)
+			else:
+				NpcCommons.Warp(agent, mapID, pos, ActorCommons.Direction.DOWN)
 			success = true
 
-	# Client local sync if in the same map or fallback
-	if Launcher.Player and Launcher.Map:
-		if Launcher.Map.currentMapID == mapID or success:
-			Launcher.Player.position = pos
-			if Launcher.Action:
-				Launcher.Action.MoveTo(pos)
-			success = true
+	# Client local sync ONLY if already on the target map!
+	# NEVER force client position to coordinates of another map while still on a different map.
+	if Launcher.Player and Launcher.Map and Launcher.Map.currentMapID == mapID:
+		Launcher.Player.position = pos
+		if Launcher.Action:
+			Launcher.Action.MoveTo(pos)
+		success = true
 
 	if success and not notify.is_empty() and Launcher.GUI and Launcher.GUI.notificationLabel:
 		Launcher.GUI.notificationLabel.AddNotification(notify)

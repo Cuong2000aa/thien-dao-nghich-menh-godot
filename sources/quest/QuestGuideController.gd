@@ -115,6 +115,9 @@ func _OnHudMetaClicked(meta : Variant) -> void:
 			if Launcher.GUI:
 				Launcher.GUI.EnsureQuestAuto()
 				if Launcher.GUI.questAutoController:
+					var activeQ : int = QuestGuidanceClass.FindPrimaryActiveQuest()
+					if activeQ != DB.UnknownHash:
+						Launcher.GUI.questAutoController._preferQuestID = activeQ
 					Launcher.GUI.questAutoController.Toggle()
 					Refresh(true)
 		"skip_quest":
