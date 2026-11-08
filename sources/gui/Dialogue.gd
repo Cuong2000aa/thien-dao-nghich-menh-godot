@@ -8,6 +8,8 @@ extends WindowPanel
 @onready var scrollMargin : MarginContainer	= $FixedHBox/Scrollable/Scroll/Margin
 @onready var scrollbar: VScrollBar		= $FixedHBox/Scrollable/Scroll/_v_scroll
 
+signal text_animation_finished
+
 var lastName : String					= ""
 var lastTween : Tween					= null
 var defaultHeight : float				= 0.0
@@ -76,24 +78,34 @@ func TweenText(label : RichTextLabel):
 	lastTween.tween_property(label, "visible_characters", textSize, textSize * UICommons.DialogueTextSpeed)
 	lastTween.tween_callback(DialogueDisplayed)
 
+func FinishTextAnimation() -> void:
+	if lastTween and is_instance_valid(lastTween):
+		lastTween.kill()
+	lastTween = null
+	if scrollable and scrollable.textContainer:
+		for child in scrollable.textContainer.get_children():
+			if child is RichTextLabel:
+				child.visible_characters = -1
+	DialogueDisplayed()
+
 func DialogueDisplayed():
 	lastTween = null
+	text_animation_finished.emit()
 
 func _KillTween() -> void:
 	if lastTween != null and is_instance_valid(lastTween):
 		lastTween.kill()
 	lastTween = null
+	text_animation_finished.emit()
 
 ## Never await an already-finished tween (Godot hangs forever on that).
 func _AwaitLastTween() -> void:
 	var tw : Tween = lastTween
-	if tw == null or not is_instance_valid(tw):
+	if tw == null or not is_instance_valid(tw) or not tw.is_running():
 		lastTween = null
 		return
-	if tw.is_running():
-		await tw.finished
-	if lastTween == tw:
-		lastTween = null
+	await text_animation_finished
+	lastTween = null
 
 func SetHeight(height : float):
 	var bottom : float = position.y + size.y
@@ -126,7 +138,7 @@ func ToggleButton(enable : bool, text : String):
 
 func ButtonPressed():
 	if lastTween and is_instance_valid(lastTween) and lastTween.is_running():
-		lastTween.custom_step(INF)
+		FinishTextAnimation()
 		return
 
 	if Launcher.Player:

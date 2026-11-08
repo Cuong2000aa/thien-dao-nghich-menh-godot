@@ -79,6 +79,8 @@ const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"thảo phạt", "thao phat", "tuần tra", "tuan tra", "tiếp nhận", "tiep nhan",
 	"đi ngay", "di ngay", "xuất phát", "xuat phat", "đưa", "dua", "trao",
 	"được, ta đi", "duoc, ta di", "ta đi", "ta di",
+	"thu thập", "thu thap", "ta sẽ đi", "ta se di", "nguyên liệu", "nguyen lieu",
+	"giúp gì", "giup gi", "ta có thể giúp",
 	# Mana Tree dialogue progression (ManaTree.gd)
 	"ngươi... là cây", "nguoi... la cay", "ngươi là cây", "nguoi la cay",
 	"giờ ta nên làm gì", "gio ta nen lam gi", "nên làm gì", "nen lam gi",
@@ -195,7 +197,11 @@ func _Step() -> void:
 		Entities.ClearTarget()
 
 	var inDialogue : bool = _IsDialogueOpen()
-	if _wasInDialogue and not inDialogue:
+	if not _wasInDialogue and inDialogue:
+		_lastPickedChoice = ""
+		_sameChoiceStreak = 0
+		_dialogueStuckTicks = 0
+	elif _wasInDialogue and not inDialogue:
 		_OnDialogueClosed()
 	_wasInDialogue = inDialogue
 	if _TryAdvanceDialogue():
@@ -375,6 +381,9 @@ func _MarkTalked(questID : int, state : int, nick : String) -> void:
 	_talkedKeys[_TalkKey(questID, state, nick)] = true
 
 func _OnDialogueClosed() -> void:
+	_lastPickedChoice = ""
+	_sameChoiceStreak = 0
+	_dialogueStuckTicks = 0
 	if _lastNpcNick.is_empty():
 		return
 	_MarkTalked(_dialogueQuestID, _dialogueQuestState, _lastNpcNick)
@@ -777,14 +786,24 @@ func _TryAdvanceDialogue() -> bool:
 
 	# 1. Typewriter fast-forward: finish text animation and yield a tick so buttons / choices mount cleanly
 	if dialogue.get("lastTween") and dialogue.lastTween and is_instance_valid(dialogue.lastTween) and dialogue.lastTween.is_running():
-		dialogue.lastTween.custom_step(INF)
+		if dialogue.has_method("FinishTextAnimation"):
+			dialogue.FinishTextAnimation()
+		else:
+			dialogue.lastTween.kill()
+			dialogue.lastTween = null
+			if dialogue.has_method("DialogueDisplayed"):
+				dialogue.DialogueDisplayed()
 		_dialogueStuckTicks = 0
 		return true
 
 	var choiceMenu = Launcher.GUI.choiceContext
-	if choiceMenu and choiceMenu.is_visible() and choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0:
-		_dialogueStuckTicks = 0
-		return _PickDialogueChoice(choiceMenu)
+	if choiceMenu:
+		if choiceMenu.buffer and not choiceMenu.buffer.is_empty():
+			choiceMenu.FlushDataBuffer()
+		var childCount : int = choiceMenu.contextList.get_child_count() if choiceMenu.contextList else 0
+		if childCount > 0:
+			_dialogueStuckTicks = 0
+			return _PickDialogueChoice(choiceMenu)
 
 	if dialogue.button and dialogue.button.is_visible():
 		_dialogueStuckTicks = 0
@@ -799,42 +818,62 @@ func _TryAdvanceDialogue() -> bool:
 		dialogue.ButtonPressed()
 		return true
 
-	# Stuck: panel open but no Continue / choices (HighlightUI / camera beat).
+	# Stuck watchdog: panel open but no Continue / choices (HighlightUI / camera beat / background tab throttle).
 	_dialogueStuckTicks += 1
 	if _dialogueStuckTicks >= DIALOGUE_STUCK_TICKS:
 		_dialogueStuckTicks = 0
-		Network.TriggerNextContext()
-		return true
+		if choiceMenu and (choiceMenu.contextList and choiceMenu.contextList.get_child_count() > 0 or (choiceMenu.buffer and not choiceMenu.buffer.is_empty())):
+			return _PickDialogueChoice(choiceMenu)
+		elif dialogue.button and dialogue.button.is_visible():
+			dialogue.ButtonPressed()
+			return true
+		else:
+			Network.TriggerNextContext()
+			return true
 	return true
 
 func _PickDialogueChoice(choiceMenu : ContextMenu) -> bool:
 	var now : float = Time.get_ticks_msec() / 1000.0
 	if now - _lastChoiceAt < CHOICE_COOLDOWN_SEC:
 		return true
+	if choiceMenu.buffer and not choiceMenu.buffer.is_empty():
+		choiceMenu.FlushDataBuffer()
+	var children : Array = choiceMenu.contextList.get_children() if choiceMenu.contextList else []
 	var bestIdx : int = -1
 	var bestScore : int = -9999
 	var bestTitle : String = ""
-	var children : Array = choiceMenu.contextList.get_children()
 	var forceExit : bool = _sameChoiceStreak >= 2
-	for i in children.size():
-		var child = children[i]
-		var title : String = ""
-		if child.get("_data") and child._data and child._data.get("_title"):
-			title = str(child._data._title)
-		elif child.has_node("Label"):
-			title = str(child.get_node("Label").get_text())
-		var score : int = _ScoreChoice(title, i, forceExit)
-		# Break loops: heavily penalize repeating the same line
-		if not forceExit and title == _lastPickedChoice:
-			score -= 80
-		if score > bestScore:
-			bestScore = score
-			bestIdx = i
-			bestTitle = title
+
+	if children.is_empty() and choiceMenu.buffer and not choiceMenu.buffer.is_empty():
+		for i in choiceMenu.buffer.size():
+			var bData = choiceMenu.buffer[i]
+			var t : String = str(bData._title) if bData and bData.get("_title") else ""
+			var score : int = _ScoreChoice(t, i, forceExit)
+			if score > bestScore:
+				bestScore = score
+				bestIdx = i
+				bestTitle = t
+	else:
+		for i in children.size():
+			var child = children[i]
+			var title : String = ""
+			if child.get("_data") and child._data and child._data.get("_title"):
+				title = str(child._data._title)
+			elif child.has_node("Label"):
+				title = str(child.get_node("Label").get_text())
+			var score : int = _ScoreChoice(title, i, forceExit)
+			# Break loops: only penalize if we've already repeated this exact non-empty choice
+			if not forceExit and not title.is_empty() and title == _lastPickedChoice and _sameChoiceStreak >= 1:
+				score -= 80
+			if score > bestScore:
+				bestScore = score
+				bestIdx = i
+				bestTitle = title
+
 	if bestIdx < 0:
 		bestIdx = 0
 		bestTitle = ""
-	if bestTitle == _lastPickedChoice:
+	if not bestTitle.is_empty() and bestTitle == _lastPickedChoice:
 		_sameChoiceStreak += 1
 	else:
 		_sameChoiceStreak = 1

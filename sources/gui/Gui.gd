@@ -296,16 +296,20 @@ func EnterGame():
 	RefreshQuestGuidance()
 
 func EnsureQuestGuide() -> void:
-	if questGuideController and is_instance_valid(questGuideController):
+	if questGuideController and is_instance_valid(questGuideController) and questGuideController.is_inside_tree():
 		return
-	questGuideController = QuestGuideControllerClass.new()
-	add_child(questGuideController)
+	if questGuideController == null or not is_instance_valid(questGuideController):
+		questGuideController = QuestGuideControllerClass.new()
+	if not questGuideController.is_inside_tree():
+		add_child.call_deferred(questGuideController)
 
 func EnsureQuestAuto() -> void:
-	if questAutoController and is_instance_valid(questAutoController):
+	if questAutoController and is_instance_valid(questAutoController) and questAutoController.is_inside_tree():
 		return
-	questAutoController = QuestAutoControllerClass.new()
-	add_child(questAutoController)
+	if questAutoController == null or not is_instance_valid(questAutoController):
+		questAutoController = QuestAutoControllerClass.new()
+	if not questAutoController.is_inside_tree():
+		add_child.call_deferred(questAutoController)
 
 func RefreshQuestGuidance() -> void:
 	EnsureQuestGuide()

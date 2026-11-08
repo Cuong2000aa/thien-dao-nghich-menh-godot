@@ -118,5 +118,30 @@ func _ready():
 		print("[FAIL] Attack range tolerance failed!")
 		fails += 1
 
+	# 9. Test Auto-Dialogue choice scoring & non-blocking tween advance
+	var scoreAccept : int = autoCtrl._ScoreChoice("Ta sẽ đi thu thập giúp.", 0)
+	var scoreDecline : int = autoCtrl._ScoreChoice("Để lần khác.", 1)
+	if scoreAccept <= scoreDecline:
+		print("[FAIL] Auto choice scoring failed: accept=%d, decline=%d" % [scoreAccept, scoreDecline])
+		fails += 1
+	else:
+		print("[PASS] Auto choice correctly prioritizes accept (score=%d) over decline (score=%d)" % [scoreAccept, scoreDecline])
+
+	# 10. Test Dialogue text animation fast-forward signal
+	var DialogueScene = preload("res://presets/gui/Dialogue.tscn")
+	var mockDialogue = DialogueScene.instantiate()
+	add_child(mockDialogue)
+	mockDialogue.lastTween = create_tween()
+	mockDialogue.lastTween.tween_interval(10.0)
+	var box : Array[bool] = [false]
+	mockDialogue.text_animation_finished.connect(func(): box[0] = true)
+	mockDialogue.FinishTextAnimation()
+	if not box[0] or mockDialogue.lastTween != null:
+		print("[FAIL] FinishTextAnimation failed to clear lastTween or emit text_animation_finished!")
+		fails += 1
+	else:
+		print("[PASS] FinishTextAnimation cleanly terminated tween and emitted signal immediately")
+	mockDialogue.queue_free()
+
 	print("=== RESULT fails=%d ===" % fails)
 	get_tree().quit(0 if fails == 0 else 1)
