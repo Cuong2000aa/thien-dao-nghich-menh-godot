@@ -472,6 +472,45 @@ func _ready():
 	targetPanel.name = "CombatTargetPanel"
 	add_child(targetPanel)
 
+	_SetupVersionWatermark()
+
+func _SetupVersionWatermark() -> void:
+	var ver : String = str(ProjectSettings.get_setting("application/config/version", "0.1.0"))
+	var platform : String = ""
+	if OS.has_feature("web"):
+		platform = "Web"
+	elif OS.has_feature("android"):
+		platform = "Android"
+	elif OS.has_feature("windows"):
+		platform = "PC"
+	elif OS.has_feature("linux"):
+		platform = "Linux"
+	elif OS.has_feature("macos"):
+		platform = "macOS"
+	else:
+		platform = OS.get_name()
+
+	var watermarkText : String = "v%s" % ver
+	if not platform.is_empty():
+		watermarkText += " · %s" % platform
+
+	var watermarkLabel := Label.new()
+	watermarkLabel.name = "VersionWatermark"
+	watermarkLabel.text = watermarkText
+	watermarkLabel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	watermarkLabel.z_index = 50
+	watermarkLabel.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	watermarkLabel.offset_left = 12
+	watermarkLabel.offset_top = -24
+	watermarkLabel.offset_right = 260
+	watermarkLabel.offset_bottom = -8
+	watermarkLabel.add_theme_font_size_override("font_size", 11)
+	watermarkLabel.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.65))
+	watermarkLabel.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.9))
+	watermarkLabel.add_theme_constant_override("shadow_offset_x", 1)
+	watermarkLabel.add_theme_constant_override("shadow_offset_y", 1)
+	add_child(watermarkLabel)
+
 func ToggleMultiplayerWindow():
 	if multiplayerWindow:
 		multiplayerWindow.Refresh()
