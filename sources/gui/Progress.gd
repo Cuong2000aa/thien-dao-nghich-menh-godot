@@ -186,23 +186,33 @@ func RefreshQuestDescription(questID : int):
 
 	_RefreshActionButtons()
 
-func _RefreshActionButtons() -> void:
-	var canAct : bool = false
+func _GetActiveQuestID() -> int:
 	if currentQuest != DB.UnknownHash and Launcher.Player and Launcher.Player.progress:
 		var st : int = Launcher.Player.progress.GetQuest(currentQuest)
-		canAct = st > ProgressCommons.UnknownProgress and st < ProgressCommons.CompletedProgress
+		if st > ProgressCommons.UnknownProgress and st < ProgressCommons.CompletedProgress:
+			return currentQuest
+	if not activeQuests.is_empty():
+		return int(activeQuests.keys()[0])
+	if QuestGuidanceClass:
+		var prim : int = QuestGuidanceClass.FindPrimaryActiveQuest()
+		if prim != DB.UnknownHash:
+			return prim
+	return DB.UnknownHash
+
+func _RefreshActionButtons() -> void:
+	var targetQuest : int = _GetActiveQuestID()
+	var canAct : bool = (targetQuest != DB.UnknownHash)
 	var autoOn : bool = Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled
 	if questActions:
-		questActions.visible = canAct or autoOn
+		questActions.visible = true
 	if autoButton:
 		autoButton.disabled = false
 		if Launcher.GUI and Launcher.GUI.questAutoController:
 			autoButton.set_pressed_no_signal(Launcher.GUI.questAutoController.enabled)
-			autoButton.text = "Auto NV: BẬT" if Launcher.GUI.questAutoController.enabled else "Auto NV"
-		elif canAct:
-			autoButton.disabled = false
+			autoButton.text = "Auto NV: BẬT" if Launcher.GUI.questAutoController.enabled else "Auto NV: TẮT"
 		else:
-			autoButton.disabled = true
+			autoButton.set_pressed_no_signal(false)
+			autoButton.text = "Auto NV: TẮT"
 	if skipButton:
 		skipButton.disabled = not canAct
 	if abandonButton:
@@ -212,19 +222,27 @@ func _OnAutoPressed() -> void:
 	if Launcher.GUI:
 		Launcher.GUI.EnsureQuestAuto()
 	if Launcher.GUI and Launcher.GUI.questAutoController:
-		var on : bool = autoButton.button_pressed if autoButton else true
+		var on : bool = autoButton.button_pressed if autoButton else not Launcher.GUI.questAutoController.enabled
 		Launcher.GUI.questAutoController.SetEnabled(on)
-		if on and currentQuest != DB.UnknownHash:
-			Launcher.GUI.questAutoController.PreferQuest(currentQuest)
+		if on:
+			var targetQuest : int = _GetActiveQuestID()
+			if targetQuest != DB.UnknownHash:
+				Launcher.GUI.questAutoController.PreferQuest(targetQuest)
 	_RefreshActionButtons()
 
 func _OnSkipPressed() -> void:
+	if currentQuest == DB.UnknownHash:
+		currentQuest = _GetActiveQuestID()
 	_PromptQuestAction(false)
 
 func _OnAbandonPressed() -> void:
+	if currentQuest == DB.UnknownHash:
+		currentQuest = _GetActiveQuestID()
 	_PromptQuestAction(true)
 
 func _PromptQuestAction(abandon : bool) -> void:
+	if currentQuest == DB.UnknownHash:
+		currentQuest = _GetActiveQuestID()
 	if currentQuest == DB.UnknownHash or Launcher.Player == null or Launcher.Player.progress == null:
 		return
 	var st : int = Launcher.Player.progress.GetQuest(currentQuest)
@@ -348,6 +366,14 @@ func _ApplyQuestState(questID : int, state : int, notify : String) -> void:
 	if Launcher.GUI and Launcher.GUI.notificationLabel:
 		Launcher.GUI.notificationLabel.AddNotification(notify)
 
+func _on_visibility_changed() -> void:
+	if is_visible_in_tree():
+		if currentQuest == DB.UnknownHash:
+			var targetQuest : int = _GetActiveQuestID()
+			if targetQuest != DB.UnknownHash:
+				RefreshQuestDescription(targetQuest)
+		_RefreshActionButtons()
+
 func _ready():
 	var tab = get_node_or_null("Layout/Margin/TabBar")
 	if tab and tab is TabContainer:
@@ -365,6 +391,13 @@ func _ready():
 		skipButton.pressed.connect(_OnSkipPressed)
 	if abandonButton and not abandonButton.pressed.is_connected(_OnAbandonPressed):
 		abandonButton.pressed.connect(_OnAbandonPressed)
+	if Launcher.GUI:
+		Launcher.GUI.EnsureQuestAuto()
+		if Launcher.GUI.questAutoController and not Launcher.GUI.questAutoController.auto_toggled.is_connected(_OnAutoStateChanged):
+			Launcher.GUI.questAutoController.auto_toggled.connect(_OnAutoStateChanged)
+	_RefreshActionButtons()
+
+func _OnAutoStateChanged(_on : bool) -> void:
 	_RefreshActionButtons()
 
 func _OnAutoToggled(pressed : bool) -> void:

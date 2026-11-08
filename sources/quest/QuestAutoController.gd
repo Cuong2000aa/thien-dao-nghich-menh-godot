@@ -1,6 +1,8 @@
 extends Node
 class_name QuestAutoController
 
+signal auto_toggled(enabled : bool)
+
 ## Client-side auto quest: path → interact → auto-advance dialogue & pick choices.
 ## Toggle from Progress window. Does not cheat-complete quests (rewards still via NPC/combat).
 
@@ -122,6 +124,7 @@ func SetEnabled(on : bool) -> void:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: BẬT — Tự bay, tự nhận & trả chuỗi nhiệm vụ.")
 		else:
 			Launcher.GUI.notificationLabel.AddNotification("Auto nhiệm vụ: TẮT.")
+	auto_toggled.emit(enabled)
 
 func Toggle() -> void:
 	SetEnabled(not enabled)

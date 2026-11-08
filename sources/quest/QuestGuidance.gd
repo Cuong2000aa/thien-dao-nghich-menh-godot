@@ -54,6 +54,13 @@ const ANCHORS : Array = [
 	{"nick": "Veteran Cave", "map": "Tulimshar Western Cave", "pos": Vector2(1854, 1221)},
 	{"nick": "Bản Đồ Chỉ Dẫn", "map": "Tulimshar Eastern Hills", "pos": Vector2(2650, 1200)},
 	{"nick": "Lời Đồn Tán Tu", "map": "SacredSectHub", "pos": Vector2(1050, 1460)},
+	# Tonori Sandstorm Mines (Thám Hiểm Mỏ Khoáng)
+	{"nick": "Ryan", "map": "Desert Mines", "pos": Vector2(1080, 994)},
+	{"nick": "Nickos", "map": "Desert Abandoned Level", "pos": Vector2(2860, 1832)},
+	{"nick": "Xakelbael", "map": "Desert Deep Level", "pos": Vector2(1331, 1478)},
+	{"nick": "Mana Tree", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
+	{"nick": "ManaTree", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
+	{"nick": "Cây Mana", "map": "Desert Deep Level", "pos": Vector2(1765, 2917)},
 ]
 
 static var _nickIndex : Dictionary = {} # nick -> Array[Dictionary]
@@ -844,6 +851,10 @@ static func GetActiveSteps(player = null) -> Array:
 static func GetPrimaryStep(player = null) -> Dictionary:
 	var steps : Array = GetActiveSteps(player)
 	return steps[0] if not steps.is_empty() else {}
+
+static func FindPrimaryActiveQuest(player = null) -> int:
+	var s : Dictionary = GetPrimaryStep(player)
+	return int(s.get("quest_id", DB.UnknownHash))
 
 static func FormatStepRich(step : Dictionary) -> String:
 	if step.is_empty():

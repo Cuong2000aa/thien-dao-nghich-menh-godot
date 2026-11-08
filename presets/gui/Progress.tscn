@@ -83,7 +83,6 @@ mouse_filter = 1
 bbcode_enabled = true
 
 [node name="QuestActions" type="HBoxContainer" parent="Layout/Margin/TabBar/QuestLog/DetailPane" unique_id=1900845452]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 

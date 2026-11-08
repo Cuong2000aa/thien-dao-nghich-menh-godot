@@ -87,27 +87,81 @@ func _EnsureHud() -> void:
 		hudLabel.fit_content = true
 		hudLabel.scroll_active = false
 		hudLabel.custom_minimum_size = Vector2(280, 0)
-		hudLabel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hudLabel.mouse_filter = Control.MOUSE_FILTER_STOP
 		info.add_child(hudLabel)
 		# Place above progression tracker if possible
 		if Launcher.GUI.progressionTracker:
 			info.move_child(hudLabel, Launcher.GUI.progressionTracker.get_index())
+	else:
+		hudLabel.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	if not hudLabel.meta_clicked.is_connected(_OnHudMetaClicked):
+		hudLabel.meta_clicked.connect(_OnHudMetaClicked)
+
+	if Launcher.GUI and Launcher.GUI.questAutoController:
+		if not Launcher.GUI.questAutoController.auto_toggled.is_connected(_OnAutoToggled):
+			Launcher.GUI.questAutoController.auto_toggled.connect(_OnAutoToggled)
+
 	var ThemeClass = preload("res://sources/gui/XianxiaUiTheme.gd")
 	ThemeClass.AccentRichText(hudLabel)
+
+func _OnAutoToggled(_on : bool) -> void:
+	Refresh(true)
+
+func _OnHudMetaClicked(meta : Variant) -> void:
+	var action : String = str(meta)
+	match action:
+		"toggle_auto":
+			if Launcher.GUI:
+				Launcher.GUI.EnsureQuestAuto()
+				if Launcher.GUI.questAutoController:
+					Launcher.GUI.questAutoController.Toggle()
+					Refresh(true)
+		"skip_quest":
+			if Launcher.GUI:
+				var activeQ : int = QuestGuidanceClass.FindPrimaryActiveQuest()
+				if activeQ != DB.UnknownHash and Launcher.GUI.progressWindow:
+					Launcher.GUI.progressWindow.currentQuest = activeQ
+					Launcher.GUI.progressWindow._PromptQuestAction(false)
+		"open_progress":
+			if Launcher.GUI and Launcher.GUI.progressWindow:
+				Launcher.GUI.progressWindow.EnableControl(not Launcher.GUI.progressWindow.is_visible())
+		"goto_quest":
+			var steps : Array = QuestGuidanceClass.GetActiveSteps()
+			if not steps.is_empty():
+				var s : Dictionary = steps[0]
+				if s.get("resolved", false) and Launcher.Action:
+					Launcher.Action.MoveTo(s.get("position", Vector2.ZERO))
 
 func _RefreshHud(steps : Array) -> void:
 	_EnsureHud()
 	if hudLabel == null:
 		return
+
+	var autoOn : bool = (Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled)
+	var autoBtnText : String = "[color=#55ff88][b][url=toggle_auto][ ⚡ Auto: BẬT ][/url][/b][/color]" if autoOn else "[color=#aaaaaa][url=toggle_auto][ ⚪ Auto: TẮT ][/url][/color]"
+	var skipBtnText : String = "[color=#ffcc44][url=skip_quest][ ⏩ Bỏ qua ][/url][/color]"
+	var logBtnText : String = "[color=#66ccff][url=open_progress][ 📜 Sổ tay ][/url][/color]"
+
 	if steps.is_empty():
-		hudLabel.text = ""
-		hudLabel.visible = false
+		var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+		var nextHint : String = ""
+		if nextAvail != DB.UnknownHash:
+			var nData : QuestData = DB.GetQuest(nextAvail)
+			var nTitle : String = Localization.Get(nData.name, nData.name) if nData else str(nextAvail)
+			nextHint = "\n[color=#88ccff]Có nhiệm vụ mới: [b]%s[/b][/color]" % nTitle
+		else:
+			nextHint = "\n[color=#888888]Tất cả nhiệm vụ đã hoàn tất[/color]"
+		hudLabel.text = "[color=#ffd700]⚔ Ủy thác[/color]" + nextHint + "\n" + autoBtnText + "  " + logBtnText
+		hudLabel.visible = true
 		return
+
 	var primary : Dictionary = steps[0]
 	var extra : int = maxi(0, steps.size() - 1)
 	var body : String = "[color=#ffd700]⚔ Ủy thác[/color]\n" + QuestGuidanceClass.FormatStepRich(primary)
 	if extra > 0:
 		body += "\n[color=#888888]+%d ủy thác khác[/color]" % extra
+	body += "\n" + autoBtnText + "  " + skipBtnText + "  " + logBtnText
 	hudLabel.text = body
 	hudLabel.visible = true
 

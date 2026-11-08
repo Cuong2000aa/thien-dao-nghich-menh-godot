@@ -2,6 +2,10 @@ extends NpcScript
 
 const QUEST_ID : int = ProgressCommons.Quest.MINE_EXPLORATION
 
+func PostInit():
+	if npc and npc.spawnInfo:
+		npc.spawnInfo.trigger_radius = 2000.0
+
 func OnAreaEnter(player : PlayerAgent):
 	var inst : WorldInstance = WorldAgent.GetInstanceFromAgent(npc)
 	if not inst or inst.id != player.get_rid().get_id():

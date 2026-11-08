@@ -21,6 +21,9 @@ func _ready():
 		["Linh Trùng", "SacredSectHub", Vector2(1100, 1350)],
 		["Ngân Linh Thảo", "SacredSectHub", Vector2(1150, 1400)],
 		["Huyền Thiết Khoáng", "Tulimshar Eastern Hills", Vector2(2600, 1300)],
+		["Xakelbael", "Desert Deep Level", Vector2(1331, 1478)],
+		["Nickos", "Desert Abandoned Level", Vector2(2860, 1832)],
+		["Ryan", "Desert Mines", Vector2(1080, 994)],
 	]
 	for c in checks:
 		var nick : String = c[0]
@@ -74,6 +77,15 @@ func _ready():
 		print("[PASS] MatchNickInText Linh Trùng")
 	else:
 		print("[FAIL] MatchNickInText got:", matched)
+		fails += 1
+
+	# 6) MINE_EXPLORATION STRANGER_SPOTTED -> Xakelbael @ Desert Deep Level
+	qid = ProgressCommons.Quest.MINE_EXPLORATION
+	step = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED)
+	if step.get("resolved") and step.get("nick") == "Xakelbael" and step.get("map_internal") == "Desert Deep Level":
+		print("[PASS] MineExploration STRANGER_SPOTTED → Xakelbael @ Desert Deep Level", step.get("position"))
+	else:
+		print("[FAIL] MineExploration STRANGER_SPOTTED step:", step)
 		fails += 1
 
 	print("=== RESULT fails=%d ===" % fails)
