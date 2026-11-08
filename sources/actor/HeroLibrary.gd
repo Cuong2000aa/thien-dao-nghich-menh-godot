@@ -61,6 +61,46 @@ const HEROES : Array[Dictionary] = [
 		"frames": "",
 		"scale": 1.15,
 	},
+	{
+		"id": "hanyue",
+		"name": "Nữ Tu Hàn Nguyệt",
+		"entity": "PlayerHanyue",
+		"folder": "hanyue",
+		"frames": "",
+		"scale": 1.15,
+	},
+	{
+		"id": "baihua",
+		"name": "Nữ Tu Bách Hoa",
+		"entity": "PlayerBaihua",
+		"folder": "baihua",
+		"frames": "",
+		"scale": 1.15,
+	},
+	{
+		"id": "xuanxiao",
+		"name": "Kiếm Tu Huyền Tiêu",
+		"entity": "PlayerXuanxiao",
+		"folder": "xuanxiao",
+		"frames": "",
+		"scale": 1.15,
+	},
+	{
+		"id": "heifeng",
+		"name": "Hắc Phong Trại Chủ",
+		"entity": "PlayerHeifeng",
+		"folder": "heifeng",
+		"frames": "",
+		"scale": 1.15,
+	},
+	{
+		"id": "strawhat",
+		"name": "Đấu Lạp Hiệp Khách",
+		"entity": "PlayerStrawhat",
+		"folder": "strawhat",
+		"frames": "",
+		"scale": 1.15,
+	},
 ]
 
 static var _framesCache : Dictionary = {}  # id -> SpriteFrames

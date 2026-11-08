@@ -915,6 +915,646 @@ const TREES : Dictionary = {
 			},
 		],
 	},
+	"hanyue": {
+		"label": "Nữ Tu Hàn Nguyệt",
+		"summary": "Hàn Nguyệt Cung tiên pháp — Băng Phách kiếm khí, lãnh nguyệt sương hoa, hàn băng thiên kiếm. Phong cách kiếm tu băng hệ, khống chế, bạo kích cực hàn.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Thanh Phong Kiếm Khí",
+						"title": "Hàn Nguyệt Kiếm Khí",
+						"desc": "Kiếm khí mang theo hơi lạnh thấu xương, sắc bén vô song xuyên thấu mục tiêu.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Hàn Băng Thước Bộ",
+						"desc": "Thân pháp lướt trên băng sương, né tránh đòn công và lưu lại hàn khí.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Hàn Băng Thiên Kiếm",
+						"title": "Lãnh Nguyệt Trảm",
+						"desc": "Ngưng tụ hàn băng ngàn năm chém xuống, đóng băng và gây sát thương diện rộng.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Nguyệt Hoa Băng Thuẫn",
+						"desc": "Màn chắn ánh trăng hàn ngọc che chở thân thể, hóa giải ngoại lực.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Trúc Sơn Kiếm Trận",
+						"title": "Hàn Nguyệt Kiếm Trận",
+						"desc": "Trận kiếm hàn băng xoay quanh liên tục phóng thích kiếm mang cực lãnh.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Lãnh Nguyệt Tụ Linh",
+						"desc": "Hấp thu ánh trăng hàn dạ hồi phục khí huyết và thanh lọc tâm thần.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Hàn Nguyệt Phá Thiên",
+						"desc": "Nhất kiếm ngưng tụ toàn bộ hàn khí hư không chém đứt mọi kết giới.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Vạn Kiếm Quy Tông",
+						"title": "Vạn Băng Quy Tông",
+						"desc": "Vạn thanh hàn kiếm giáng từ chín tầng mây đóng băng vạn dặm sơn hà.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Hàn Phách Bạo Bộc",
+						"desc": "Khí tức hàn cực bùng nổ đẩy lùi và làm chậm toàn bộ địch nhân xung quanh.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Archer",
+						"title": "Băng Phách Thần Tiễn",
+						"desc": "Ngưng tụ nguyệt hoa thành tiễn băng tuyệt đỉnh tầm xa.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
+	"baihua": {
+		"label": "Nữ Tu Bách Hoa",
+		"summary": "Bách Hoa Cốc linh pháp — Mộc Linh tụ khí, bách hoa phi diệp, độc chướng hộ thể, thánh quang trị liệu. Phong cách mộc hệ đa dụng, hỗ trợ sinh lực và cấu rỉa tầm xa.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Leaf Blades",
+						"title": "Bách Hoa Phi Diệp",
+						"desc": "Lá hoa sắc bén như phi đao phóng ra liên tục xé rách địch thủ.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Bộ Bộ Sinh Liên",
+						"desc": "Mỗi bước chân nở ra đài sen linh khí, lướt nhanh thoát khỏi hiểm cảnh.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Poison",
+						"title": "Thất Diệp Hoa Độc",
+						"desc": "Rải linh phấn độc thảo bách hoa bào mòn sinh mệnh kẻ địch liên tục.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Thanh Mộc Hộ Thể",
+						"desc": "Vòng bảo hộ đan kết bằng mộc linh chi khí gia tăng sức chống đỡ.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Bách Hoa Tụ Linh Quang",
+						"desc": "Ánh sáng mộc đạo chữa lành mọi vết thương và duy trì thể lực dồi dào.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Trúc Sơn Kiếm Trận",
+						"title": "Vạn Hoa Diệp Trận",
+						"desc": "Vòng xoáy hoa linh bao quanh thân thể càn quét mọi kẻ địch áp sát.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hư Không Hấp Tinh",
+						"title": "Hấp Tinh Đoạt Hoa",
+						"desc": "Hút lấy linh lực địch nhân bồi bổ chân nguyên bản thân.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Vạn Kiếm Quy Tông",
+						"title": "Vạn Hoa Triều Phụng",
+						"desc": "Triệu hoán vạn đóa linh hoa rơi từ trời giáng đòn hủy diệt toàn trận địa.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Mộc Linh Bộc Phát",
+						"desc": "Sóng xung kích từ mộc linh nguyên thủy đẩy lùi tứ phương.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Archer",
+						"title": "Bách Hoa Thần Tiễn",
+						"desc": "Mộc linh tiễn quán thông thiên địa bắn hạ tà ma từ cự ly xa xôi.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
+	"xuanxiao": {
+		"label": "Kiếm Tu Huyền Tiêu",
+		"summary": "Huyền Tiêu Kiếm Tông chính thống — Huyền Thiên kiếm quyết, Tử Lôi liên hoàn, Lôi Phạt cửu thiên, vạn kiếm quy tông. Phong cách kiếm tu lôi hỏa bộc phát cực mạnh.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Thanh Phong Kiếm Khí",
+						"title": "Huyền Tiêu Kiếm Khí",
+						"desc": "Kiếm khí cương trực màu lam điện phóng thẳng, sắc như chớp giật.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Lôi Ảnh Bộ",
+						"desc": "Thân pháp lôi quang lóe lên, nháy mắt né đòn và dời vị trí.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Tử Lôi Liên Hoàn",
+						"title": "Cửu Tiêu Tử Lôi",
+						"desc": "Lôi đình tím giáng liên hoàn đánh tan phòng ngự địch thủ.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Huyền Thiên Kiếm Cương",
+						"desc": "Cương khí hộ thân sắc bén đánh bật đòn hiểm của địch.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Trúc Sơn Kiếm Trận",
+						"title": "Huyền Tiêu Kiếm Trận",
+						"desc": "Kiếm trận tử lôi tung hoành xung quanh thân thể trảm sát kẻ áp sát.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Lôi Phạt Cửu Thiên",
+						"title": "Lôi Đình Phạt Thế",
+						"desc": "Gọi lôi kiếp từ chín tầng trời trừng phạt mọi sinh linh trong vùng ảnh hưởng.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Huyền Tiêu Nhất Kiếm",
+						"desc": "Tuyệt thế kiếm quang khai sơn phá hải tụ hội toàn bộ lôi kiếm lực.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Vạn Kiếm Quy Tông",
+						"title": "Vạn Kiếm Lôi Quy",
+						"desc": "Vạn đạo kiếm quang lôi điện hợp nhất hủy diệt chiến trường.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Lôi Đình Bạo Liệt",
+						"desc": "Phóng thích toàn bộ linh năng lôi hệ xung quanh đẩy lùi quân thù.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Archer",
+						"title": "Lôi Đình Thần Tiễn",
+						"desc": "Xuyên phá hư không bằng mũi tiễn sấm sét mang uy lực diệt thế.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
+	"heifeng": {
+		"label": "Hắc Phong Trại Chủ",
+		"summary": "Hắc Phong Sơn trại chủ — Bá đao khai sơn, Hắc Phong hống thiên, Địa Long phá sơn, cuồng bạo sát phạt. Phong cách chiến sĩ đao pháp uy mãnh, cận chiến áp đảo và chấn động âm ba.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Bát Hoang Liệt Không Quyền",
+						"title": "Hắc Phong Trảm Sơn",
+						"desc": "Đao thế hung bạo bổ xuống xé toạc không khí, gây sát thương chấn động.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Cuồng Phong Bạo Bộ",
+						"desc": "Lao tới như gió lốc hung hãn, áp sát kẻ địch trong chớp mắt.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Địa Long Phá Sơn",
+						"title": "Khai Sơn Liệt Địa",
+						"desc": "Dộng đao xuống đất tạo địa chấn xé nứt mặt đất chấn choáng đối phương.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Bá Giả Cương Khí",
+						"desc": "Khí tức hung hãn ngưng tụ thành hộ giáp vô hình chịu đòn áp đảo.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Sonic Wave",
+						"title": "Hắc Phong Sư Hống",
+						"desc": "Tiếng gầm thét như sấm rền làm chấn động lục phủ ngũ tạng kẻ địch.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Sonic Scream",
+						"title": "Hống Thiên Cuồng Lôi",
+						"desc": "Âm ba kinh thiên động địa phá nát phòng thủ và làm tê liệt toàn trận.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hư Không Hấp Tinh",
+						"title": "Hắc Phong Đoạt Mệnh",
+						"desc": "Hút lấy sinh cơ đối thủ khiến bản thân càng đánh càng thêm cuồng nộ.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Tuyệt Mệnh Khai Thiên Đao",
+						"desc": "Nhát đao uy lực nhất của Hắc Phong: chém đôi hư không, đoạn tuyệt sinh cơ.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Cuồng Bá Nộ Khí",
+						"desc": "Khí huyết ngập trời bùng phát quét sạch mọi vật cản cận thân.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hỏa Long Phun Tức",
+						"title": "Hắc Diễm Phần Thiên",
+						"desc": "Hắc phong cuốn theo ngọn lửa hung tàn thiêu rụi chiến trường.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
+	"strawhat": {
+		"label": "Đấu Lạp Hiệp Khách",
+		"summary": "Giang hồ lãng khách ẩn sĩ — Như Lai Thần Chưởng, Tiêu Diêu lăng ba, Kim Cang hộ thể, vạn phật triều tông. Phong cách quyền chưởng pháp tiêu diêu, công thủ toàn diện.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Bát Hoang Liệt Không Quyền",
+						"title": "Tiêu Diêu Quyền",
+						"desc": "Quyền phong khoáng đạt tự tại giáng thẳng đẩy lùi địch thủ.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Tiêu Diêu Thước Bộ",
+						"desc": "Thân như du long lướt trên làn gió, tự do ra vào trong vòng vây.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Địa Long Phá Sơn",
+						"title": "Phật Quang Sơ Hiện",
+						"desc": "Chưởng lực phát ra kim quang trấn áp mặt đất, uy chấn bát hoang.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Kim Cương Bất Hoại",
+						"desc": "Kim thân tráng kiện hộ thể, bất động như núi trước đao kiếm.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Sonic Wave",
+						"title": "Kim Cang Hống Ba",
+						"desc": "Âm thanh Phật môn gầm vang đẩy lùi tà niệm và làm choáng kẻ thù.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Tiêu Diêu Dưỡng Khí",
+						"desc": "Vận chuyển chân khí ôn hòa tự chữa lành thương tổn và hồi phục thể lực.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Lôi Phạt Cửu Thiên",
+						"title": "Như Lai Thần Chưởng",
+						"desc": "Khổng lồ chưởng ấn từ thiên ngoại giáng xuống mang uy năng vô thượng.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Vạn Phật Triều Tông",
+						"desc": "Tụ hội trọn vẹn hiệp khí giang hồ thành đòn chí mạng quyết định.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Khí Phách Tiêu Diêu",
+						"desc": "Nội lực hùng hậu đẩy bật tất cả công kích tiếp cận xung quanh.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Archer",
+						"title": "Hư Không Tiễn Khí",
+						"desc": "Dùng ngón tay búng ra kình khí xuyên thấu ngàn dặm không thể cản phá.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
 }
 
 static func GetTree(heroId : String) -> Dictionary:

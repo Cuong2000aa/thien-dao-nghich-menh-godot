@@ -1,0 +1,129 @@
+{
+ "name": "baihua",
+ "label": "Nữ Tu Bách Hoa",
+ "gender": "female",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "combo",
+ "anims": {
+  "idle": {
+   "cell": [
+    34,
+    54
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    17,
+    50
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    40,
+    58
+   ],
+   "frames": 8,
+   "fps": 10,
+   "loop": true,
+   "foot_px": [
+    20,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    98,
+    56
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    49,
+    53
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    50,
+    54
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    25,
+    50
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    40,
+    58
+   ],
+   "frames": 8,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    20,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    38,
+    54
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    19,
+    51
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    68,
+    58
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": false,
+   "foot_px": [
+    34,
+    50
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "DQYYY Wuxia Pixel Vol. 2 (百花谷-女弟子)",
+  "desc": "Bách Hoa Cốc Nữ Đệ Tử — Phi Châm Linh Thảo & Mộc Đạo Trị Liệu",
+  "scale": "Anchor-grounded ~46px pixel height, 8-direction cardinal fallback"
+ }
+}

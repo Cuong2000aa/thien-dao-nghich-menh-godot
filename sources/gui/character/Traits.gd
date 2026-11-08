@@ -146,10 +146,11 @@ func RefreshHero():
 	if heroLabel:
 		heroLabel.set_text(String(hero.get("name", "Kiếm Khách")))
 	var heroId : String = String(hero.get("id", ""))
-	if heroId == "sword_fairy" and genderValue != ActorCommons.Gender.FEMALE:
+	var isFemale : bool = heroId in ["sword_fairy", "hanyue", "baihua"]
+	if isFemale and genderValue != ActorCommons.Gender.FEMALE:
 		genderValue = ActorCommons.Gender.FEMALE
 		RefreshGender()
-	elif heroId != "sword_fairy" and genderValue == ActorCommons.Gender.FEMALE:
+	elif not isFemale and genderValue == ActorCommons.Gender.FEMALE:
 		genderValue = ActorCommons.Gender.MALE
 		RefreshGender()
 	heroUpdate.emit()

@@ -577,6 +577,11 @@ def main() -> None:
 		DEMONIC_MAP,
 		"Jianghu / InFreak — Obsidian Shadow & Blood Crimson Demonic Sword variant",
 	)
+	try:
+		from import_wuxia_vol2 import main as import_vol2_main
+		import_vol2_main()
+	except Exception as err:
+		print(f"Notice: Wuxia Vol. 2 import skipped or error: {err}")
 	print("All heroes imported successfully.")
 
 

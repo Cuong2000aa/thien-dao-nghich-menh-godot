@@ -1,0 +1,129 @@
+{
+ "name": "heifeng",
+ "label": "Hắc Phong Trại Chủ",
+ "gender": "male",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "combo",
+ "anims": {
+  "idle": {
+   "cell": [
+    66,
+    56
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    33,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    70,
+    58
+   ],
+   "frames": 8,
+   "fps": 10,
+   "loop": true,
+   "foot_px": [
+    35,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    90,
+    68
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    45,
+    65
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    72,
+    58
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    36,
+    53
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    70,
+    58
+   ],
+   "frames": 8,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    35,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    68,
+    54
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    34,
+    51
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    86,
+    60
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": false,
+   "foot_px": [
+    43,
+    50
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "DQYYY Wuxia Pixel Vol. 2 (黑风寨主)",
+  "desc": "Hắc Phong Trại Bá Chủ — Hắc Phong Trảm Nhạc & Cuồng Bá Đao Cương",
+  "scale": "Anchor-grounded ~46px pixel height, 8-direction cardinal fallback"
+ }
+}

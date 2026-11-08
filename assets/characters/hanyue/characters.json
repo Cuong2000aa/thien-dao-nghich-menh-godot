@@ -1,0 +1,129 @@
+{
+ "name": "hanyue",
+ "label": "Nữ Tu Hàn Nguyệt",
+ "gender": "female",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "combo",
+ "anims": {
+  "idle": {
+   "cell": [
+    58,
+    54
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    29,
+    49
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    62,
+    58
+   ],
+   "frames": 8,
+   "fps": 10,
+   "loop": true,
+   "foot_px": [
+    31,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    84,
+    64
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    42,
+    59
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    68,
+    54
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    34,
+    49
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    62,
+    58
+   ],
+   "frames": 8,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    31,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    56,
+    54
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    28,
+    49
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    72,
+    52
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": false,
+   "foot_px": [
+    36,
+    46
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "DQYYY Wuxia Pixel Vol. 2 (寒月宫-女弟子)",
+  "desc": "Hàn Nguyệt Cung Nữ Đệ Tử — Băng Sương Kiếm Khí & Tuyết Vũ Phi Thiên",
+  "scale": "Anchor-grounded ~46px pixel height, 8-direction cardinal fallback"
+ }
+}

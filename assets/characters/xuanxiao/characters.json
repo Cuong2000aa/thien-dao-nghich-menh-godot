@@ -1,0 +1,129 @@
+{
+ "name": "xuanxiao",
+ "label": "Kiếm Tu Huyền Tiêu",
+ "gender": "male",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "combo",
+ "anims": {
+  "idle": {
+   "cell": [
+    60,
+    54
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    30,
+    50
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    66,
+    58
+   ],
+   "frames": 8,
+   "fps": 10,
+   "loop": true,
+   "foot_px": [
+    33,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    68,
+    66
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    34,
+    56
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    78,
+    54
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    39,
+    50
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    66,
+    58
+   ],
+   "frames": 8,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    33,
+    52
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    60,
+    54
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    30,
+    51
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    74,
+    58
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": false,
+   "foot_px": [
+    37,
+    50
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "DQYYY Wuxia Pixel Vol. 2 (玄霄剑宗-男弟子)",
+  "desc": "Huyền Tiêu Kiếm Tông Nam Đệ Tử — Huyền Thiên Thần Kiếm & Cửu Tiêu Lôi Mang",
+  "scale": "Anchor-grounded ~46px pixel height, 8-direction cardinal fallback"
+ }
+}

@@ -1,0 +1,129 @@
+{
+ "name": "strawhat",
+ "label": "Đấu Lạp Hiệp Khách",
+ "gender": "male",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "combo",
+ "anims": {
+  "idle": {
+   "cell": [
+    44,
+    58
+   ],
+   "frames": 5,
+   "fps": 6,
+   "loop": true,
+   "foot_px": [
+    22,
+    53
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    46,
+    58
+   ],
+   "frames": 9,
+   "fps": 10,
+   "loop": true,
+   "foot_px": [
+    23,
+    53
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    68,
+    60
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    34,
+    53
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    46,
+    54
+   ],
+   "frames": 8,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    23,
+    50
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    46,
+    56
+   ],
+   "frames": 8,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    23,
+    50
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    54,
+    56
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    27,
+    51
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    64,
+    58
+   ],
+   "frames": 8,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    32,
+    51
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "DQYYY Wuxia Pixel Vol. 2 (Original Hero Limited / Straw-hat Hero)",
+  "desc": "Giang Hồ Lãng Khách — Như Lai Thần Chưởng & Tiêu Diêu Du",
+  "scale": "Anchor-grounded ~46px pixel height, 8-direction cardinal fallback"
+ }
+}
