@@ -403,6 +403,518 @@ const TREES : Dictionary = {
 			},
 		],
 	},
+	"bandit": {
+		"label": "Thể Tu",
+		"summary": "Thể phách cường hoành — cận chiến quyền kình, chấn địa, bạo liệt. Phong cách áp sát càn quét, hộ thể kim cương.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Bát Hoang Liệt Không Quyền",
+						"title": "Bát Hoang Quyền",
+						"desc": "Quyền kình cương mãnh như núi lở, áp sát oanh kích gây choáng váng mục tiêu và bạo phá hộ thể.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Bá Vương Bộ",
+						"desc": "Thân pháp cuồng mãnh lướt thẳng tới phía trước, ngắn ngủi miễn nhiễm thương tổn.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Sonic Wave",
+						"title": "Bá Khí Khiếu",
+						"desc": "Tiếng gầm chấn động màng nhĩ, phóng sóng âm bạo kích toàn bộ địch nhân trước mặt.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Kim Cương Hộ Thể",
+						"desc": "Ngưng tụ khí huyết thành hộ thuẫn kim cương bất hoại, hấp thu lượng lớn sát thương cận chiến.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Khí Huyết Hồi Sinh",
+						"desc": "Kích hoạt tiềm năng thể phách, lập tức phục hồi lượng lớn sinh lực khi lâm nguy.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Địa Long Phá Sơn",
+						"title": "Bá Quyền Liệt Địa",
+						"desc": "Nện quyền xuống mặt đất, kích hoạt chấn động Thổ hệ AoE diện rộng hất tung quân địch.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hỏa Long Phun Tức",
+						"title": "Huyết Viêm Bộc",
+						"desc": "Phóng thích huyết khí cuồng bạo hóa thành liệt diễm thiêu đốt hình nón.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Thể Phách Bạo Phát",
+						"desc": "Bạo phát toàn bộ kình lực quanh thân, đẩy lùi và gây sát thương lớn lên đám đông.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Huyền Âm Thôn Hồn",
+						"title": "Đoạt Phách Nộ Trảm",
+						"desc": "Đòn bạo kích hút lấy tinh khí kẻ địch hồi phục bản thân.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hư Không Hấp Tinh",
+						"title": "Bá Vương Phá Hư",
+						"desc": "Tuyệt kỹ Độ Kiếp của Thể Tu — xé rách hư không hút toàn bộ sinh linh vào trung tâm hủy diệt.",
+						"vfx": "pixel",
+					},
+				],
+			},
+		],
+	},
+	"sword_fairy": {
+		"label": "Nữ Kiếm Tiên",
+		"summary": "Phi tiên kiếm pháp — ngọc kiếm thanh nhã, băng phách trảm không, thánh khiết vạn kiếm. Phong cách thanh thoát, tầm xa, hồi phục.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Thanh Phong Kiếm Khí",
+						"title": "Ngọc Phong Kiếm Khí",
+						"desc": "Đạo kiếm khí thanh thuần phóng xa, sắc bén và phiêu dật.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Đạp Tuyết Tầm Mai",
+						"desc": "Thân pháp nhẹ nhàng như tiên nữ đạp mây, thoáng chốc né tránh mọi sát thương.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Trúc Sơn Kiếm Trận",
+						"title": "Bách Hoa Kiếm Trận",
+						"desc": "Lục đạo ngọc kiếm xoay tròn quanh thân kết thành kiếm trận bách hoa sát phạt.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Băng Tinh Hộ Thể",
+						"desc": "Hộ thuẫn băng phách trong suốt hộ vệ ngọc thể khỏi mọi hiểm nguy.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Thánh Khiết Chi Quang",
+						"desc": "Ngưng tụ tiên khí thánh khiết chữa lành vết thương, gia tăng sinh lực.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hàn Băng Thiên Kiếm",
+						"title": "Băng Phách Trảm",
+						"desc": "Kiếm khí ngưng sương cực hàn chém xuống, phong tỏa và sát thương nặng mục tiêu.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Phi Tiên Nhất Kiếm",
+						"desc": "Tuyệt kỹ chấn phái của tiên sơn: một đường kiếm xé rách mây trời, dồn toàn lực một đòn.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Vạn Kiếm Quy Tông",
+						"title": "Vạn Hoa Kiếm Vũ",
+						"desc": "Muôn vàn đóa ngọc kiếm bay lượn trên trời giáng xuống tạo thành biển kiếm sát phạt.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Cửu Thiên Linh Bộc",
+						"desc": "Linh khí cửu thiên bùng nổ giải tỏa áp lực, đẩy lùi vạn vật.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Archer",
+						"title": "Băng Vũ Tiên Tiễn",
+						"desc": "Ngưng băng vũ hóa thành thần tiễn xuyên phá hư không từ khoảng cách vạn trượng.",
+						"vfx": "som",
+					},
+				],
+			},
+		],
+	},
+	"daoist": {
+		"label": "Đạo Sĩ",
+		"summary": "Thái Cực huyền môn — ngũ lôi chính pháp, phù lục hộ thân, thiên kiếp tru tà. Phong cách tầm trung pháp thuật, khống chế, lôi hỏa bạo phát.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Thanh Phong Kiếm Khí",
+						"title": "Phong Phù Kiếm Khí",
+						"desc": "Bắn ra kiếm khí dẫn dụ phong phù, tấn công kẻ địch từ cự ly an toàn.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Bát Quái Bộ",
+						"desc": "Bước chân theo phương vị Bát Quái, lướt đi thoăn thoắt vô tung.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Tử Lôi Liên Hoàn",
+						"title": "Ngũ Lôi Phù",
+						"desc": "Phóng chuỗi tia sét tím liên hoàn nhảy qua các mục tiêu, giật tê liệt.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Thái Cực Bát Quái Thuẫn",
+						"desc": "Đồ hình Thái Cực xoay chuyển trước ngực triệt tiêu pháp thuật và đòn công hiểm độc.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Thánh Quang Hộ Đạo",
+						"title": "Đạo Quang Chiếu Mệnh",
+						"desc": "Chân khí đạo môn ôn nhu hồi phục tâm mạch và sinh lực.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Lôi Phạt Cửu Thiên",
+						"title": "Cửu Thiên Lôi Kiếp",
+						"desc": "Triệu hoán lôi đình từ chín tầng mây đánh thẳng xuống đầu tà ma ngoại đạo.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hỏa Long Phun Tức",
+						"title": "Tam Muội Chân Hỏa",
+						"desc": "Ngọn lửa thuần dương Tam Muội quét sạch chướng khí tà linh phía trước.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Địa Long Phá Sơn",
+						"title": "Trấn Địa Phù Lục",
+						"desc": "Dán phù xuống đất dẫn động địa mạch chấn nhiếp quần yêu.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Thái Cực Hóa Vô",
+						"desc": "Hóa kình lực đối phương thành hư vô, bạo phát phản kích.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hư Không Hấp Tinh",
+						"title": "Cửu Tiêu Lôi Hư",
+						"desc": "Tuyệt kỹ Độ Kiếp dẫn thiên kiếp tạo thành lốc xoáy hư không diệt thế.",
+						"vfx": "pixel",
+					},
+				],
+			},
+		],
+	},
+	"demonic_blade": {
+		"label": "Ma Kiếm",
+		"summary": "Huyết Ma kiếm đạo — kiếm khí huyết sắc, hút phách đoạt hồn, ma diễm sát phạt. Phong cách công kích cuồng bạo, đoạt mệnh, sát thương cực cao.",
+		"nodes": [
+			{
+				"min_level": 1,
+				"realm_label": "Phàm Thân",
+				"skills": [
+					NODE_MELEE,
+					NODE_RUN,
+					{
+						"name": "Thanh Phong Kiếm Khí",
+						"title": "Huyết Ảnh Kiếm Khí",
+						"desc": "Một vệt huyết quang chém ra từ lưỡi kiếm ma tính, xuyên phá hộ thể.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 4,
+				"realm_label": "Tụ Khí • Tầng 3 (Sơ Kỳ)",
+				"skills": [
+					{
+						"name": "Đạp Phong Bộ",
+						"title": "Huyết Độn Thuật",
+						"desc": "Hóa thành huyết ảnh thoắt ẩn thoắt hiện né tránh đòn công kích.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 10,
+				"realm_label": "Tụ Khí • Tầng 9 (Viên Mãn)",
+				"skills": [
+					{
+						"name": "Trúc Sơn Kiếm Trận",
+						"title": "Huyết Ma Kiếm Trận",
+						"desc": "Biển máu xoay vần quanh thân cuộn trào kiếm khí ma đạo khát máu.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 11,
+				"realm_label": "Thông Mạch • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Quy Nguyên Hộ Thể Thuẫn",
+						"title": "Ma Thể Huyết Thuẫn",
+						"desc": "Ngưng tụ huyết sát chi khí thành màng chắn ngăn chặn thương tổn chí mạng.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 19,
+				"realm_label": "Đạo Cơ • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Poison",
+						"title": "U Độc Phệ Cốt",
+						"desc": "Tẩm kịch độc ma môn vào kiếm, khiến mục tiêu trúng độc hao mòn sinh mệnh.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 27,
+				"realm_label": "Huyền Đan • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Huyền Âm Thôn Hồn",
+						"title": "Ma Đạo Đoạt Phách",
+						"desc": "Kích hoạt ma ấn hút cạn hồn phách và sinh lực quân địch để nuôi dưỡng ma kiếm.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 35,
+				"realm_label": "Nguyên Thần • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hỏa Long Phun Tức",
+						"title": "U Minh Ma Diễm",
+						"desc": "Phóng thích ma diễm từ địa ngục thiêu đốt mọi sinh linh ngáng đường.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 43,
+				"realm_label": "Thiên Nhân • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Nhất Kiếm Trảm Thiên Môn",
+						"title": "Ma Thần Nhất Kiếm",
+						"desc": "Một nhát kiếm tụ hội toàn bộ oán khí và ma lực, trảm phá vạn pháp.",
+						"vfx": "pixel",
+					},
+				],
+			},
+			{
+				"min_level": 51,
+				"realm_label": "Quy Hư • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Mana Burst",
+						"title": "Ma Khí Bạo Tán",
+						"desc": "Giải phóng lượng lớn ma khí tích tụ bộc phát đẩy lùi toàn bộ kẻ thù xung quanh.",
+						"vfx": "som",
+					},
+				],
+			},
+			{
+				"min_level": 61,
+				"realm_label": "Độ Kiếp • Sơ Kỳ",
+				"skills": [
+					{
+						"name": "Hư Không Hấp Tinh",
+						"title": "Vô Gian Hấp Tinh",
+						"desc": "Mở ra hắc ám vô gian nuốt chửng linh hồn và sinh cơ của toàn bộ chiến trường.",
+						"vfx": "pixel",
+					},
+				],
+			},
+		],
+	},
 }
 
 static func GetTree(heroId : String) -> Dictionary:

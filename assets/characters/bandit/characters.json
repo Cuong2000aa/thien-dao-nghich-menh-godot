@@ -1,0 +1,127 @@
+{
+ "name": "bandit",
+ "label": "Thể Tu",
+ "rows": [
+  "south",
+  "south-east",
+  "east",
+  "north-east",
+  "north",
+  "north-west",
+  "west",
+  "south-west"
+ ],
+ "mirrored_from": {},
+ "signature": "attack",
+ "anims": {
+  "idle": {
+   "cell": [
+    40,
+    40
+   ],
+   "frames": 4,
+   "fps": 5,
+   "loop": true,
+   "foot_px": [
+    20,
+    37
+   ],
+   "hold_last_ms": null,
+   "sheet": "idle_sheet.png"
+  },
+  "walk": {
+   "cell": [
+    40,
+    40
+   ],
+   "frames": 6,
+   "fps": 9,
+   "loop": true,
+   "foot_px": [
+    20,
+    37
+   ],
+   "hold_last_ms": null,
+   "sheet": "walk_sheet.png"
+  },
+  "attack": {
+   "cell": [
+    64,
+    64
+   ],
+   "frames": 10,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    32,
+    50
+   ],
+   "hold_last_ms": 200,
+   "sheet": "attack_sheet.png"
+  },
+  "combo": {
+   "cell": [
+    64,
+    64
+   ],
+   "frames": 10,
+   "fps": 14,
+   "loop": false,
+   "foot_px": [
+    32,
+    50
+   ],
+   "hold_last_ms": 200,
+   "sheet": "combo_sheet.png"
+  },
+  "qinggong": {
+   "cell": [
+    40,
+    40
+   ],
+   "frames": 6,
+   "fps": 12,
+   "loop": false,
+   "foot_px": [
+    20,
+    37
+   ],
+   "hold_last_ms": null,
+   "sheet": "qinggong_sheet.png"
+  },
+  "hurt": {
+   "cell": [
+    40,
+    40
+   ],
+   "frames": 4,
+   "fps": 8,
+   "loop": false,
+   "foot_px": [
+    20,
+    37
+   ],
+   "hold_last_ms": null,
+   "sheet": "hurt_sheet.png"
+  },
+  "death": {
+   "cell": [
+    40,
+    40
+   ],
+   "frames": 4,
+   "fps": 6,
+   "loop": false,
+   "foot_px": [
+    20,
+    37
+   ],
+   "hold_last_ms": 1200,
+   "sheet": "death_sheet.png"
+  }
+ },
+ "_notes": {
+  "source": "Jianghu Lite v1.0 — InFreak (Enemy Bandit adapted to Player Thể Tu)",
+  "scale": "native Jianghu 40px cell"
+ }
+}
