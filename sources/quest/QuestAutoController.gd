@@ -207,16 +207,46 @@ func _Step() -> void:
 			Entities.InteractHovered(pendingEnt)
 			return
 
+	# 2. Xử lý nhiệm vụ ưu tiên được chọn (chưa nhận -> tới gặp NPC nhận, đã nhận -> tiếp tục làm)
+	if _preferQuestID != DB.UnknownHash and Launcher.Player and Launcher.Player.progress:
+		var preferSt : int = Launcher.Player.progress.GetQuest(_preferQuestID)
+		if preferSt >= ProgressCommons.CompletedProgress:
+			_preferQuestID = DB.UnknownHash
+		elif preferSt <= ProgressCommons.UnknownProgress:
+			var startStep : Dictionary = QuestGuidanceClass.BuildStartStep(_preferQuestID)
+			if startStep.get("resolved", false):
+				SetAutoStatus("Bay tới gặp [%s] nhận nhiệm vụ [%s]" % [str(startStep.get("nick", "")), str(startStep.get("quest_name", ""))])
+				if _EnsureNearObjective(startStep):
+					_pendingInteractNick = str(startStep.get("nick", ""))
+					var ent : Entity = _FindEntityByNick(_pendingInteractNick, false, INTERACT_RANGE * 1.5)
+					if ent:
+						_lastNpcNick = _pendingInteractNick
+						_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+						_pendingInteractNick = ""
+						Entities.InteractHovered(ent)
+					return
+				_DoTalkStep(str(startStep.get("nick", "")), startStep.get("position", Vector2.ZERO))
+				return
+			else:
+				_preferQuestID = DB.UnknownHash
+
 	var questID : int = _ResolveActiveQuest()
 	if questID == DB.UnknownHash:
 		# Không còn active quest -> Tự động tìm nhiệm vụ tiếp theo trong chuỗi hoặc game
 		var nextAvailable : int = QuestGuidanceClass.FindNextAvailableQuest()
 		if nextAvailable != DB.UnknownHash:
+			_preferQuestID = nextAvailable
 			var startStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvailable)
 			if startStep.get("resolved", false):
 				SetAutoStatus("Bay tới gặp [%s] nhận nhiệm vụ mới [%s]" % [str(startStep.get("nick", "")), str(startStep.get("quest_name", ""))])
 				if _EnsureNearObjective(startStep):
 					_pendingInteractNick = str(startStep.get("nick", ""))
+					var ent : Entity = _FindEntityByNick(_pendingInteractNick, false, INTERACT_RANGE * 1.5)
+					if ent:
+						_lastNpcNick = _pendingInteractNick
+						_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+						_pendingInteractNick = ""
+						Entities.InteractHovered(ent)
 					return
 				_DoTalkStep(str(startStep.get("nick", "")), startStep.get("position", Vector2.ZERO))
 				return
@@ -231,11 +261,18 @@ func _Step() -> void:
 		if questID == DB.UnknownHash:
 			var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
 			if nextAvail != DB.UnknownHash:
+				_preferQuestID = nextAvail
 				var sStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvail)
 				if sStep.get("resolved", false):
 					SetAutoStatus("Bay tới gặp [%s] nhận nhiệm vụ [%s]" % [str(sStep.get("nick", "")), str(sStep.get("quest_name", ""))])
 					if _EnsureNearObjective(sStep):
 						_pendingInteractNick = str(sStep.get("nick", ""))
+						var ent : Entity = _FindEntityByNick(_pendingInteractNick, false, INTERACT_RANGE * 1.5)
+						if ent:
+							_lastNpcNick = _pendingInteractNick
+							_lastNpcTalkAt = Time.get_ticks_msec() / 1000.0
+							_pendingInteractNick = ""
+							Entities.InteractHovered(ent)
 						return
 					_DoTalkStep(str(sStep.get("nick", "")), sStep.get("position", Vector2.ZERO))
 			return

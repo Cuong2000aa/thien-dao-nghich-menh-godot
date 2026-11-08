@@ -171,7 +171,13 @@ func _OnHudMetaClicked(meta : Variant) -> void:
 					Launcher.GUI.progressWindow.currentQuest = activeQ
 					Launcher.GUI.progressWindow._PromptQuestAction(false)
 		"skip_next_quest":
-			var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+			var nextAvail : int = DB.UnknownHash
+			if Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController._preferQuestID != DB.UnknownHash:
+				var pSt : int = Launcher.Player.progress.GetQuest(Launcher.GUI.questAutoController._preferQuestID) if Launcher.Player and Launcher.Player.progress else ProgressCommons.UnknownProgress
+				if pSt < ProgressCommons.CompletedProgress:
+					nextAvail = Launcher.GUI.questAutoController._preferQuestID
+			if nextAvail == DB.UnknownHash:
+				nextAvail = QuestGuidanceClass.FindNextAvailableQuest()
 			if nextAvail != DB.UnknownHash and Launcher.GUI and Launcher.GUI.progressWindow:
 				Launcher.GUI.progressWindow.currentQuest = nextAvail
 				Launcher.GUI.progressWindow._PromptQuestAction(false)
@@ -202,7 +208,13 @@ func _RefreshHud(steps : Array) -> void:
 	var logBtnText : String = "[color=#66ccff][url=open_progress][ 📜 Sổ tay ][/url][/color]"
 
 	if steps.is_empty():
-		var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+		var nextAvail : int = DB.UnknownHash
+		if Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController._preferQuestID != DB.UnknownHash:
+			var pSt : int = Launcher.Player.progress.GetQuest(Launcher.GUI.questAutoController._preferQuestID) if Launcher.Player and Launcher.Player.progress else ProgressCommons.UnknownProgress
+			if pSt < ProgressCommons.CompletedProgress:
+				nextAvail = Launcher.GUI.questAutoController._preferQuestID
+		if nextAvail == DB.UnknownHash:
+			nextAvail = QuestGuidanceClass.FindNextAvailableQuest()
 		var nextHint : String = ""
 		if nextAvail != DB.UnknownHash:
 			var nData : QuestData = DB.GetQuest(nextAvail)

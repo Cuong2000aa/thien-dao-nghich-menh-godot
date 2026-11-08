@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=23 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bluestone.jpeg" id="1_bluestone"]
-[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_redclay.jpeg" id="2_redclay"]
-[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bamboo.jpeg" id="3_bambooterrain"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bluestone.png" id="1_bluestone"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_redclay.png" id="2_redclay"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bamboo.png" id="3_bambooterrain"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/shaolin_daxiong_baodian.png" id="4_shaolin"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/kunlun_ice_pavilion.png" id="5_kunlun"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/wudang_mountain_gate.png" id="6_wudang"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/props/stone_lantern.png" id="13_lantern"]
 [ext_resource type="Texture2D" path="res://assets/environment/props/well.png" id="14_well"]
 [ext_resource type="Texture2D" path="res://assets/environment/props/bench.png" id="15_bench"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_cloud.png" id="16_clouds"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tree"]
 radius = 16.0
@@ -45,6 +46,26 @@ normal = Vector2(-1, 0)
 
 [node name="SacredSectHub" type="Node2D"]
 metadata/MapBoundaries = Vector2(2000, 1600)
+
+[node name="Backdrop" type="Node2D" parent="."]
+z_index = -30
+
+[node name="SkyMist" type="ColorRect" parent="Backdrop"]
+offset_left = -800.0
+offset_top = -600.0
+offset_right = 2800.0
+offset_bottom = 2200.0
+color = Color(0.76, 0.84, 0.9, 1)
+
+[node name="CloudLayer1" type="Sprite2D" parent="Backdrop"]
+position = Vector2(1000, 400)
+scale = Vector2(1.8, 1.2)
+texture = ExtResource("16_clouds")
+
+[node name="CloudLayer2" type="Sprite2D" parent="Backdrop"]
+position = Vector2(1000, 1300)
+scale = Vector2(1.8, 1.2)
+texture = ExtResource("16_clouds")
 
 [node name="Ground" type="Node2D" parent="."]
 z_index = -10

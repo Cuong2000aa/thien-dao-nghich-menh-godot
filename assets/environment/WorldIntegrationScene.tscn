@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://assets/environment/WorldIntegrationScene.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bluestone.jpeg" id="2_bluestone"]
+[ext_resource type="Texture2D" path="res://assets/environment/terrain/tr_xianxia_set_bluestone.png" id="2_bluestone"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/shaolin_daxiong_baodian.png" id="3_shaolin"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/wudang_mountain_gate.png" id="4_wudang"]
 [ext_resource type="Texture2D" path="res://assets/buildings/pack3_sacred_sects/kunlun_ice_pavilion.png" id="5_kunlun"]

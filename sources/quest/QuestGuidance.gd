@@ -581,32 +581,7 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 ## Master Quest Chains: defines sequential progression between quests.
 ## When a quest completes or is skipped, game automatically chains to the next quest in the chain.
 const QUEST_CHAINS : Array = [
-	# 1. Main Story Chapters (Chính Tuyến Tiên Hiệp)
-	[
-		"Tỉnh Lạc Dị Giới",
-		"Con Đường Tu Đạo",
-		"Dấu Vết Dị Biến",
-		"Bí Mật Trong Cổ Tích",
-		"Thiên Đạo Có Khuyết",
-	],
-	# 2. Tông Môn Trúc Sơn (Sect Foundation & Discipleship)
-	[
-		"Khảo Nghiệm Nhập Môn",
-		"Thanh Trừ Linh Trùng",
-		"Thu Thập Linh Thảo",
-		"Thu Thập Khoáng Thạch",
-		"Cống Hiến Dược Thảo",
-		"Cống Hiến Khoáng Thạch",
-		"Diệt Trừ Ma Vật",
-		"Luyện Đan Nhập Môn",
-		"Khám Phá Cổ Bi",
-		"Thảo Phạt Thú Vương",
-		"Khảo Hạch Ngoại Môn",
-		"Khảo Hạch Nội Môn",
-		"Truyền Thừa Tông Môn",
-		"Tuần Tra Sơn Môn",
-	],
-	# 3. Chuỗi Khởi Đầu & Cảng Thanh Sa (Tonori / Tulimshar Main Sequence)
+	# 1. Chuỗi Khởi Đầu & Cảng Thanh Sa (Tonori / Tulimshar Main Sequence - Starting Area)
 	[
 		"Tutorial",
 		"Elanore's Potions",
@@ -625,6 +600,31 @@ const QUEST_CHAINS : Array = [
 		"A Biting Thirst",
 		"Splatyna's Offering",
 		"Veteran Cave Explorer",
+	],
+	# 2. Main Story Chapters (Chính Tuyến Tiên Hiệp)
+	[
+		"Tỉnh Lạc Dị Giới",
+		"Con Đường Tu Đạo",
+		"Dấu Vết Dị Biến",
+		"Bí Mật Trong Cổ Tích",
+		"Thiên Đạo Có Khuyết",
+	],
+	# 3. Tông Môn Trúc Sơn (Sect Foundation & Discipleship)
+	[
+		"Khảo Nghiệm Nhập Môn",
+		"Thanh Trừ Linh Trùng",
+		"Thu Thập Linh Thảo",
+		"Thu Thập Khoáng Thạch",
+		"Cống Hiến Dược Thảo",
+		"Cống Hiến Khoáng Thạch",
+		"Diệt Trừ Ma Vật",
+		"Luyện Đan Nhập Môn",
+		"Khám Phá Cổ Bi",
+		"Thảo Phạt Thú Vương",
+		"Khảo Hạch Ngoại Môn",
+		"Khảo Hạch Nội Môn",
+		"Truyền Thừa Tông Môn",
+		"Tuần Tra Sơn Môn",
 	],
 	# 4. NPC Hảo Cảm Chains
 	[
@@ -668,7 +668,7 @@ static func GetNextQuestInChain(questID : int) -> int:
 		var foundIdx : int = -1
 		for i in chain.size():
 			var qName : String = str(chain[i])
-			if qName.hash() == questID:
+			if qName.hash() == questID or (DB.isInitialized and DB.QuestsDB.has(questID) and DB.QuestsDB[questID].name == qName):
 				foundIdx = i
 				break
 		if foundIdx >= 0:
@@ -686,9 +686,55 @@ static func GetNextQuestInChain(questID : int) -> int:
 	return FindNextAvailableQuest()
 
 ## Finds the first uncompleted quest across all major chains in priority order.
+## Seamlessly maintains chain continuity (won't abandon an ongoing chain midway)
+## and respects region/map affinity.
 static func FindNextAvailableQuest() -> int:
 	var questProgress = Launcher.Player.progress if Launcher.Player else null
+
+	# 1. Check if player has an active quest: continue its chain!
+	var currentActiveQ : int = FindPrimaryActiveQuest()
+	if currentActiveQ != DB.UnknownHash:
+		for chain in QUEST_CHAINS:
+			var hasCurrent : bool = false
+			for qName in chain:
+				if str(qName).hash() == currentActiveQ or (DB.isInitialized and DB.QuestsDB.has(currentActiveQ) and DB.QuestsDB[currentActiveQ].name == str(qName)):
+					hasCurrent = true
+					break
+			if hasCurrent:
+				for qName in chain:
+					var qid : int = str(qName).hash()
+					var st : int = questProgress.GetQuest(qid) if questProgress else ProgressCommons.UnknownProgress
+					if st < ProgressCommons.CompletedProgress:
+						return qid
+
+	# 2. Check for any chain that is already partially completed (continuity)
 	for chain in QUEST_CHAINS:
+		var completedCount : int = 0
+		var firstUncompleted : int = DB.UnknownHash
+		for qName in chain:
+			var qid : int = str(qName).hash()
+			var st : int = questProgress.GetQuest(qid) if questProgress else ProgressCommons.UnknownProgress
+			if st >= ProgressCommons.CompletedProgress:
+				completedCount += 1
+			elif firstUncompleted == DB.UnknownHash:
+				firstUncompleted = qid
+		if completedCount > 0 and firstUncompleted != DB.UnknownHash:
+			return firstUncompleted
+
+	# 3. Region affinity: check current map
+	var curMapName : String = ""
+	if Launcher.Map and DB.isInitialized and DB.MapsDB.has(Launcher.Map.currentMapID):
+		var md : MapData = DB.MapsDB[Launcher.Map.currentMapID]
+		if md:
+			curMapName = md._name
+
+	var isSectRegion : bool = curMapName.contains("Sacred") or curMapName.contains("Candor")
+	var evaluatedChains : Array = QUEST_CHAINS
+	if isSectRegion:
+		# If currently in Sect, prioritize Sect/Story chains
+		evaluatedChains = [QUEST_CHAINS[1], QUEST_CHAINS[2], QUEST_CHAINS[0]] + QUEST_CHAINS.slice(3)
+
+	for chain in evaluatedChains:
 		for qName in chain:
 			var qid : int = str(qName).hash()
 			if questProgress:

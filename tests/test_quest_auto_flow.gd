@@ -66,5 +66,42 @@ func _ready():
 	else:
 		print("[PASS] Desert Seed routes properly: Nina -> Hommer")
 
+	# 6. Test Quest Chain progression and Skip behavior
+	var tutQid : int = ProgressCommons.Quest.TUTORIAL
+	var nextAfterTut : int = QuestGuidanceClass.GetNextQuestInChain(tutQid)
+	if nextAfterTut != ProgressCommons.Quest.ELANORE_POTION:
+		print("[FAIL] GetNextQuestInChain(TUTORIAL) should be ELANORE_POTION, got: ", nextAfterTut)
+		fails += 1
+	else:
+		print("[PASS] GetNextQuestInChain(TUTORIAL) correctly yields ELANORE_POTION")
+
+	var nextAfterElanore : int = QuestGuidanceClass.GetNextQuestInChain(ProgressCommons.Quest.ELANORE_POTION)
+	if nextAfterElanore != ProgressCommons.Quest.NINA_HUNGRY:
+		print("[FAIL] GetNextQuestInChain(ELANORE_POTION) should be NINA_HUNGRY, got: ", nextAfterElanore)
+		fails += 1
+	else:
+		print("[PASS] GetNextQuestInChain(ELANORE_POTION) correctly yields NINA_HUNGRY")
+
+	var nextAfterNina : int = QuestGuidanceClass.GetNextQuestInChain(ProgressCommons.Quest.NINA_HUNGRY)
+	if nextAfterNina != ProgressCommons.Quest.MINE_EXPLORATION:
+		print("[FAIL] GetNextQuestInChain(NINA_HUNGRY) should be MINE_EXPLORATION, got: ", nextAfterNina)
+		fails += 1
+	else:
+		print("[PASS] GetNextQuestInChain(NINA_HUNGRY) correctly yields MINE_EXPLORATION")
+
+	# 7. Test FindNextAvailableQuest with partially completed chain
+	if Launcher.Player == null:
+		Launcher.Player = Node.new()
+		Launcher.Player.set("progress", Node.new())
+		Launcher.Player.progress.set_script(load("res://sources/actor/Progress.gd"))
+		Launcher.Player.progress.quests = {}
+	Launcher.Player.progress.SetQuest(tutQid, ProgressCommons.CompletedProgress, false)
+	var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+	if nextAvail != ProgressCommons.Quest.ELANORE_POTION:
+		print("[FAIL] FindNextAvailableQuest after TUTORIAL completion should be ELANORE_POTION, got: ", nextAvail)
+		fails += 1
+	else:
+		print("[PASS] FindNextAvailableQuest correctly continues Starter Chain with ELANORE_POTION")
+
 	print("=== RESULT fails=%d ===" % fails)
 	get_tree().quit(0 if fails == 0 else 1)
