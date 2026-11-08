@@ -22,7 +22,15 @@ func TrackPlayer(player : PlayerAgent):
 	if not trackedTargets.has(rid):
 		peyoteKills[rid] = 0
 		maggotKills[rid] = 0
-		trackedTargets[rid] = DB.UnknownHash
+		trackedTargets[rid] = peyoteID
+		RefreshTracker(player, peyoteID)
+	elif trackedTargets.get(rid, DB.UnknownHash) == DB.UnknownHash:
+		if peyoteKills[rid] < PEYOTE_REQUIRED:
+			trackedTargets[rid] = peyoteID
+			RefreshTracker(player, peyoteID)
+		elif maggotKills[rid] < MAGGOT_REQUIRED:
+			trackedTargets[rid] = maggotID
+			RefreshTracker(player, maggotID)
 
 	if not player.enemy_killed.is_connected(OnEnemyKilled):
 		player.enemy_killed.connect(OnEnemyKilled)
@@ -82,7 +90,15 @@ func OnEnemyKilled(player : PlayerAgent, monsterID : int):
 			if maggotKills[rid] < MAGGOT_REQUIRED:
 				maggotKills[rid] += 1
 
-	if trackedTargets.get(rid, DB.UnknownHash) == monsterID:
+	if peyoteKills[rid] >= PEYOTE_REQUIRED and maggotKills[rid] < MAGGOT_REQUIRED:
+		trackedTargets[rid] = maggotID
+		RefreshTracker(player, maggotID)
+	elif maggotKills[rid] >= MAGGOT_REQUIRED and peyoteKills[rid] < PEYOTE_REQUIRED:
+		trackedTargets[rid] = peyoteID
+		RefreshTracker(player, peyoteID)
+	elif peyoteKills[rid] >= PEYOTE_REQUIRED and maggotKills[rid] >= MAGGOT_REQUIRED:
+		NpcCommons.PushTracker(player, "Báo cáo Kael", 1, 1)
+	elif trackedTargets.get(rid, DB.UnknownHash) == monsterID:
 		RefreshTracker(player, monsterID)
 
 func OnTargetSelected(player : PlayerAgent, target : BaseAgent):

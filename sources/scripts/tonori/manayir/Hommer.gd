@@ -46,4 +46,7 @@ func OnEndPrototype():
 	Mes("Chúc mừng đã tới đây và cảm ơn vì đồng hành cùng chúng ta!")
 	Mes("Ở lại bao lâu cũng được; ghé thăm và chào trên Discord của chúng ta.")
 	Mes("Cho tới lúc đó, Manayir và vùng Tonori thuộc về ngươi để khám phá tiếp.")
+	SetQuest(DESERT_SEED_ID, ProgressCommons.DESERT_SEED.REWARDS_WITHDREW)
+	AddExp(500)
+	AddGP(2000)
 	Choice("Ta ở thêm chút.", Farewell)

@@ -63,6 +63,9 @@ func OnWhatNext():
 func OnTellNina():
 	Mes("Hãy cẩn thận. Điều ngươi phát hiện hôm nay đã được che giấu hàng ngàn năm.")
 	Mes("Theo duyên phận, giờ ngươi là hộ vệ một Nguồn Mana mạnh mẽ.")
+	var kanoID : int = DB.GetCellHash("Sandstorm Kano")
+	if not HasItem(kanoID):
+		AddItem(kanoID)
 	SetQuest(QUEST_ID, ProgressCommons.MINE_EXPLORATION.MANA_TREE_MET)
 	SetQuest(ProgressCommons.Quest.DESERT_SEED, ProgressCommons.DESERT_SEED.SEEK_NINA)
 

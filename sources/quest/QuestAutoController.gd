@@ -83,6 +83,17 @@ const PREFER_CHOICE_KEYS : PackedStringArray = [
 	"giờ ta nên làm gì", "gio ta nen lam gi", "nên làm gì", "nen lam gi",
 	"ta sẽ đến gặp", "ta se den gap", "đến gặp nina", "den gap nina",
 	"gặp nina", "gap nina",
+	# Ryan turn-in & Nickos dialog
+	"tầng dưới ngập nước", "tang duoi ngap nuoc", "ngập nước", "ngap nuoc",
+	"hắn còn sống", "han con song", "choáng váng", "choang vang",
+	"tuần phòng ryan cử", "tuan phong ryan cu", "chuyện gì đã xảy ra", "chuyen gi da xay ra",
+	"ngươi thấy hắn đi đâu", "nguoi thay han di dau",
+	# Nina & Hommer Desert Seed
+	"cậu sẽ không tin", "cau se khong tin", "tìm thấy cái này", "tim thay cai nay",
+	"có cây mana", "co cay mana", "cây mana đáy mỏ", "cay mana day mo",
+	"nó bảo mang đến ngươi", "no bao mang den nguoi",
+	"nina ở tulimshar cử", "nina o tulimshar cu", "nina cử ta đến", "nina cu ta den",
+	"nina bảo có thể tin", "nina bao co the tin", "là gì", "la gi",
 ]
 
 ## End conversation / leave NPC after objective done (Gilgames "Ổn hết!", Ekinu "đi thôi").
@@ -422,6 +433,8 @@ func _DoTalkStep(nick : String, targetPos : Vector2) -> void:
 			return
 	if Launcher.Player.position.distance_to(targetPos) > 48.0:
 		Launcher.Action.MoveTo(targetPos)
+	elif targetEnt == null and Launcher.Player.position.distance_to(targetPos) <= 120.0:
+		Entities.JustInteract()
 
 func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) -> void:
 	var killTargets : Array = step.get("kill_targets", [])
@@ -502,9 +515,17 @@ func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) ->
 	if _noTargetSince <= 0.0:
 		_noTargetSince = now
 
-	if Launcher.Player.position.distance_to(targetPos) > 120.0:
+	# If focus targets are incomplete, patrol towards their spawn position
+	var huntPos : Vector2 = targetPos
+	if not focusTargets.is_empty():
+		var firstFocus : String = str(focusTargets[0])
+		var spawns : Array = QuestGuidanceClass.FindSpawns(firstFocus)
+		if not spawns.is_empty():
+			huntPos = spawns[0].get("position", targetPos)
+
+	if Launcher.Player.position.distance_to(huntPos) > 120.0:
 		if Launcher.Player.state != ActorCommons.State.WALK:
-			Launcher.Action.MoveTo(targetPos)
+			Launcher.Action.MoveTo(huntPos)
 
 func _GoReturnNpc(returnNick : String, fallbackPos : Vector2) -> void:
 	var now : float = Time.get_ticks_msec() / 1000.0

@@ -11,12 +11,15 @@ func OnAreaEnter(player : PlayerAgent):
 	if not inst or inst.id != player.get_rid().get_id():
 		return
 
-	if player.progress.GetQuest(QUEST_ID) != ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED:
-		return
-
-	SpawnXakelbael(inst)
-	npc.RemoveTrigger()
-	NpcCommons.PushNotification(player, "Đạo hữu cảm nhận năng lượng ấm bao bọc, hộ thể.")
+	var qState : int = player.progress.GetQuest(QUEST_ID)
+	if qState == ProgressCommons.MINE_EXPLORATION.STRANGER_SPOTTED:
+		SpawnXakelbael(inst)
+		NpcCommons.PushNotification(player, "Đạo hữu cảm nhận năng lượng ấm bao bọc, hộ thể.")
+	elif qState == ProgressCommons.MINE_EXPLORATION.DEFEATED:
+		if ActorCommons.IsAlive(player) and not player.ownScript:
+			player.AddScript(npc)
+			if player.ownScript:
+				player.ownScript.ApplyStep()
 
 func SpawnXakelbael(inst : WorldInstance):
 	var spawn : SpawnObject = SpawnObject.new()

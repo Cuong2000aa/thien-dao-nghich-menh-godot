@@ -63,11 +63,11 @@ const ANCHORS : Array = [
 	{"nick": "Ryan", "map": "Desert Mines", "pos": Vector2(1080, 994)},
 	{"nick": "Nickos", "map": "Desert Abandoned Level", "pos": Vector2(2860, 1832)},
 	{"nick": "Xakelbael", "map": "Desert Deep Level", "pos": Vector2(1331, 1478)},
-	{"nick": "Mana Tree", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
-	{"nick": "ManaTree", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
-	{"nick": "Cây Mana", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
-	{"nick": "Cây Linh Mộc", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
-	{"nick": "Uru", "map": "Desert Deep Level", "pos": Vector2(1349, 1285)},
+	{"nick": "Mana Tree", "map": "Desert Deep Level", "pos": Vector2(1349, 1349)},
+	{"nick": "ManaTree", "map": "Desert Deep Level", "pos": Vector2(1349, 1349)},
+	{"nick": "Cây Mana", "map": "Desert Deep Level", "pos": Vector2(1349, 1349)},
+	{"nick": "Cây Linh Mộc", "map": "Desert Deep Level", "pos": Vector2(1349, 1349)},
+	{"nick": "Uru", "map": "Desert Deep Level", "pos": Vector2(1349, 1349)},
 ]
 
 static var _nickIndex : Dictionary = {} # nick -> Array[Dictionary]
@@ -139,7 +139,7 @@ static func _EnsureObjectiveTable() -> void:
 		Q.SANDSTORM_NATHAN_WATER: {"do": "Nathan", "return": "Nathan", "kind": "talk", "need": 1},
 		Q.SANDSTORM_NAEM_HELMET: {"do": "Naem", "return": "Naem", "kind": "talk", "need": 1},
 		Q.SANDSTORM_MINE_ABANDONED_TREASURE: {"do": "SandstormMineKey", "return": "Chest", "kind": "go", "need": 1},
-		Q.DESERT_SEED: {"do": "Mana Tree", "return": "Mana Tree", "kind": "talk", "need": 1},
+		Q.DESERT_SEED: {"do": "Nina", "return": "Nina", "kind": "talk", "need": 1},
 		Q.SHIP_PETER_BOUNTY: {"do": "Ratto Ship", "return": "Peter", "kind": "kill", "need": 1},
 
 		Q.SNAKE_PIT_THIEF: {"do": "Snake Pit Clue", "return": "Thiefs Chest", "kind": "go", "need": 1},
@@ -350,12 +350,21 @@ static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
 				return {"do": "Mana Tree", "next_do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": false}
 			if state == ProgressCommons.MINE_EXPLORATION.MANA_TREE_MET:
 				return {"do": "Ryan", "return": "Ryan", "kind": "talk", "need": 1, "force_turn_in": true}
+		ProgressCommons.Quest.DESERT_SEED:
+			if state == ProgressCommons.DESERT_SEED.SEEK_NINA:
+				return {"do": "Nina", "next_do": "Hommer", "return": "Nina", "kind": "talk", "need": 1, "force_turn_in": false}
+			if state == ProgressCommons.DESERT_SEED.SEEK_MANAYIR:
+				return {"do": "Hommer", "return": "Hommer", "kind": "talk", "need": 1, "force_turn_in": true}
 	return {}
 
 static func IsReadyToTurnIn(questID : int, state : int) -> bool:
 	if state <= ProgressCommons.UnknownProgress or state >= ProgressCommons.CompletedProgress:
 		return false
 	_EnsureObjectiveTable()
+
+	if questID == ProgressCommons.Quest.TUTORIAL and state == ProgressCommons.TUTORIAL.KAEL_MET:
+		return _GetLiveKillCount("Peyote") >= 5 and _GetLiveKillCount("Maggot") >= 5
+
 	var phase : Dictionary = _ResolvePhaseOverride(questID, state)
 	if not phase.is_empty() and phase.has("force_turn_in"):
 		return bool(phase.get("force_turn_in", false))
@@ -457,6 +466,23 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	elif not override.is_empty():
 		action = ActionFromKind(str(override.get("kind", "go")))
 		nick = str(override.get("do", ""))
+		# Dynamic target switching for multi-mob kill quests (e.g. 5 Peyote + 5 Maggot):
+		# If the first target is satisfied, advance 'nick' to the next incomplete target!
+		if override.get("need_each", false) and override.has("kill_targets"):
+			var kTargets : Array = override.get("kill_targets", [])
+			var needCount : int = int(override.get("need", 1))
+			var allDone : bool = true
+			for tName in kTargets:
+				var c : int = _GetLiveKillCount(str(tName))
+				if c < needCount:
+					nick = str(tName)
+					allDone = false
+					break
+			if allDone and not kTargets.is_empty():
+				turnIn = true
+				action = Action.RETURN
+				nick = str(override.get("return", questData.giver))
+		override["active_nick"] = nick
 	else:
 		action = InferActionFromText(questData.target)
 		nick = MatchNickInText(questData.target)
@@ -864,6 +890,23 @@ static func _ResolveMapIdFromLocationLabel(label : String) -> int:
 			return aliases[key].hash()
 	return DB.UnknownHash
 
+static func _GetLiveKillCount(tName : String) -> int:
+	if tName.is_empty():
+		return 0
+	var count : int = 0
+	if Launcher.GUI and Launcher.GUI.progressionTracker and Launcher.GUI.progressionTracker.has_method("MatchesTarget"):
+		var t = Launcher.GUI.progressionTracker
+		if t.MatchesTarget(tName):
+			count = maxi(count, t.lastValue)
+	if Launcher.GUI and Launcher.GUI.questAutoController:
+		var autoCtrl = Launcher.GUI.questAutoController
+		if autoCtrl.get("_killCounts") is Dictionary:
+			count = maxi(count, int(autoCtrl._killCounts.get(tName, 0)))
+			for k in autoCtrl._killCounts.keys():
+				if str(k).to_lower() == tName.to_lower():
+					count = maxi(count, int(autoCtrl._killCounts[k]))
+	return count
+
 static func _BuildProgressText(questID : int, state : int, override : Dictionary) -> String:
 	if override.is_empty():
 		return ""
@@ -873,13 +916,9 @@ static func _BuildProgressText(questID : int, state : int, override : Dictionary
 	if IsReadyToTurnIn(questID, state):
 		return "%d/%d ✔" % [need, need]
 	if questID == ProgressCommons.Quest.TUTORIAL:
-		var pDone : int = 0
-		if Launcher.GUI and Launcher.GUI.progressionTracker and Launcher.GUI.progressionTracker.has_method("MatchesTarget"):
-			var t = Launcher.GUI.progressionTracker
-			var doNick : String = str(override.get("do", ""))
-			if t.MatchesTarget(doNick):
-				pDone = mini(t.lastValue, need)
-		return "%d/%d" % [pDone, need]
+		var activeNick : String = str(override.get("active_nick", override.get("do", "")))
+		var pDone : int = _GetLiveKillCount(activeNick)
+		return "%d/%d" % [mini(pDone, need), need]
 	var done : int = maxi(0, state - 1)
 	done = mini(done, need)
 	return "%d/%d" % [done, need]

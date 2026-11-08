@@ -28,6 +28,7 @@ func _ready():
 	_TestQuestGiverNicksResolve()
 	_TestTutorialPhasesNoDialogueLoop()
 	_TestMineExplorationNotStuckOnEkinu()
+	_TestDesertSeedPhases()
 	_TestKillQuestTurnInNotPremature()
 	_TestAutoChoicePrefersExitOverReminder()
 
@@ -205,6 +206,20 @@ func _TestMineExplorationNotStuckOnEkinu() -> void:
 		_fail("MINE completion step should be Ryan")
 	else:
 		_ok("MINE Skip completion → Ryan")
+
+func _TestDesertSeedPhases() -> void:
+	var qid : int = ProgressCommons.Quest.DESERT_SEED
+	var s1 : Dictionary = QuestGuidanceClass.BuildStep(qid, ProgressCommons.DESERT_SEED.SEEK_NINA)
+	if str(s1.get("nick", "")) != "Nina" or int(s1.get("action", -1)) != QuestGuidanceClass.Action.TALK:
+		_fail("DESERT_SEED SEEK_NINA should be Nina TALK, got: %s" % str(s1))
+	else:
+		_ok("DESERT_SEED SEEK_NINA → Nina")
+
+	var s2 : Dictionary = QuestGuidanceClass.BuildStep(qid, ProgressCommons.DESERT_SEED.SEEK_MANAYIR)
+	if str(s2.get("nick", "")) != "Hommer" or not bool(s2.get("turn_in", false)):
+		_fail("DESERT_SEED SEEK_MANAYIR should be Hommer turn_in, got: %s" % str(s2))
+	else:
+		_ok("DESERT_SEED SEEK_MANAYIR → Hommer (turn_in)")
 
 func _TestKillQuestTurnInNotPremature() -> void:
 	## state>need heuristic must not force turn-in mid objective for all active quests.

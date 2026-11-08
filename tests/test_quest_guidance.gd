@@ -24,8 +24,8 @@ func _ready():
 		["Xakelbael", "Desert Deep Level", Vector2(1331, 1478)],
 		["Nickos", "Desert Abandoned Level", Vector2(2860, 1832)],
 		["Ryan", "Desert Mines", Vector2(1080, 994)],
-		["Mana Tree", "Desert Deep Level", Vector2(1349, 1285)],
-		["Cây Linh Mộc", "Desert Deep Level", Vector2(1349, 1285)],
+		["Mana Tree", "Desert Deep Level", Vector2(1349, 1349)],
+		["Cây Linh Mộc", "Desert Deep Level", Vector2(1349, 1349)],
 	]
 	for c in checks:
 		var nick : String = c[0]
@@ -98,10 +98,10 @@ func _ready():
 		print("[FAIL] MineExploration FIGHTING step:", stepFight)
 		fails += 1
 
-	# 8) MINE_EXPLORATION DEFEATED -> Mana Tree @ Desert Deep Level (TALK) at (1349, 1285)
+	# 8) MINE_EXPLORATION DEFEATED -> Mana Tree @ Desert Deep Level (TALK) at (1349, 1349)
 	var stepTree = QuestGuidanceClass.BuildStep(qid, ProgressCommons.MINE_EXPLORATION.DEFEATED)
-	if stepTree.get("resolved") and stepTree.get("nick") == "Mana Tree" and stepTree.get("map_internal") == "Desert Deep Level" and Vector2(stepTree.get("position")).distance_to(Vector2(1349, 1285)) < 1.0 and stepTree.get("action") == QuestGuidanceClass.Action.TALK:
-		print("[PASS] MineExploration DEFEATED → Mana Tree (TALK) @ Desert Deep Level (1349, 1285)", stepTree.get("position"))
+	if stepTree.get("resolved") and stepTree.get("nick") == "Mana Tree" and stepTree.get("map_internal") == "Desert Deep Level" and Vector2(stepTree.get("position")).distance_to(Vector2(1349, 1349)) < 1.0 and stepTree.get("action") == QuestGuidanceClass.Action.TALK:
+		print("[PASS] MineExploration DEFEATED → Mana Tree (TALK) @ Desert Deep Level (1349, 1349)", stepTree.get("position"))
 	else:
 		print("[FAIL] MineExploration DEFEATED step:", stepTree)
 		fails += 1

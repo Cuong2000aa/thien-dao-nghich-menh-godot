@@ -813,9 +813,12 @@
 </data>
  </layer>
  <objectgroup id="5" name="Objects">
-  <object id="36" name="Mana Tree" type="Spawn" x="1344" y="1280" width="10" height="10">
+  <object id="36" name="Mana Tree" type="Spawn" x="1344" y="1344" width="10" height="10">
    <properties>
+    <property name="is_targetable" type="bool" value="true"/>
+    <property name="own_script" value="tonori/sandstorm/ManaTreeGlobal.gd"/>
     <property name="player_script" value="tonori/sandstorm/ManaTree.gd"/>
+    <property name="trigger_radius" type="float" value="160"/>
     <property name="type" value="Npc"/>
    </properties>
   </object>

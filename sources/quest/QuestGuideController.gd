@@ -62,12 +62,13 @@ func _Signature(steps : Array) -> String:
 	var autoOn : bool = (Launcher.GUI and Launcher.GUI.questAutoController and Launcher.GUI.questAutoController.enabled)
 	parts.append("auto:%s" % str(autoOn))
 	for s in steps:
-		parts.append("%s:%s:%d:%d:%d" % [
+		parts.append("%s:%s:%d:%d:%d:%s" % [
 			s.get("quest_id", 0),
 			s.get("nick", ""),
 			s.get("map_id", 0),
 			int(s.get("position", Vector2.ZERO).x),
 			int(s.get("position", Vector2.ZERO).y),
+			str(s.get("progress", "")),
 		])
 	if Launcher.Map:
 		parts.append("map:%d" % Launcher.Map.currentMapID)
@@ -121,6 +122,33 @@ func _EnsureHud() -> void:
 	var ThemeClass = preload("res://sources/gui/XianxiaUiTheme.gd")
 	ThemeClass.AccentRichText(hudLabel)
 
+func _unhandled_input(event : InputEvent) -> void:
+	if not (event is InputEventKey) or not event.is_pressed() or event.is_echo():
+		return
+	var viewport = get_viewport()
+	if viewport:
+		var focused = viewport.gui_get_focus_owner()
+		if focused is LineEdit or focused is TextEdit:
+			return
+	var keyEv : InputEventKey = event as InputEventKey
+	match keyEv.keycode:
+		KEY_F:
+			_OnHudMetaClicked("toggle_auto")
+			if viewport:
+				viewport.set_input_as_handled()
+		KEY_G:
+			var steps : Array = QuestGuidanceClass.GetActiveSteps()
+			if not steps.is_empty():
+				_OnHudMetaClicked("skip_quest")
+			else:
+				_OnHudMetaClicked("skip_next_quest")
+			if viewport:
+				viewport.set_input_as_handled()
+		KEY_Z:
+			_OnHudMetaClicked("open_progress")
+			if viewport:
+				viewport.set_input_as_handled()
+
 func _OnAutoToggled(_on : bool) -> void:
 	Refresh(true)
 
@@ -142,6 +170,11 @@ func _OnHudMetaClicked(meta : Variant) -> void:
 				if activeQ != DB.UnknownHash and Launcher.GUI.progressWindow:
 					Launcher.GUI.progressWindow.currentQuest = activeQ
 					Launcher.GUI.progressWindow._PromptQuestAction(false)
+		"skip_next_quest":
+			var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+			if nextAvail != DB.UnknownHash and Launcher.GUI and Launcher.GUI.progressWindow:
+				Launcher.GUI.progressWindow.currentQuest = nextAvail
+				Launcher.GUI.progressWindow._PromptQuestAction(false)
 		"open_progress":
 			if Launcher.GUI and Launcher.GUI.progressWindow:
 				Launcher.GUI.progressWindow.EnableControl(not Launcher.GUI.progressWindow.is_visible())
@@ -151,6 +184,12 @@ func _OnHudMetaClicked(meta : Variant) -> void:
 				var s : Dictionary = steps[0]
 				if s.get("resolved", false) and Launcher.Action:
 					Launcher.Action.MoveTo(s.get("position", Vector2.ZERO))
+		"goto_next_quest":
+			var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
+			if nextAvail != DB.UnknownHash:
+				var sStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvail)
+				if sStep.get("resolved", false):
+					QuestGuidanceClass.WarpLocalPlayerToStep(sStep)
 
 func _RefreshHud(steps : Array) -> void:
 	_EnsureHud()
@@ -168,10 +207,14 @@ func _RefreshHud(steps : Array) -> void:
 		if nextAvail != DB.UnknownHash:
 			var nData : QuestData = DB.GetQuest(nextAvail)
 			var nTitle : String = Localization.Get(nData.name, nData.name) if nData else str(nextAvail)
-			nextHint = "\n[color=#88ccff]Có nhiệm vụ mới: [b]%s[/b][/color]" % nTitle
+			var sStep : Dictionary = QuestGuidanceClass.BuildStartStep(nextAvail)
+			var giverNick : String = str(sStep.get("nick", "NPC"))
+			nextHint = "\n[color=#88ccff]Có nhiệm vụ mới: [url=goto_next_quest][b]%s[/b] (Gặp %s)[/url][/color]" % [nTitle, giverNick]
+			var skipNextBtnText : String = "[color=#ffcc44][url=skip_next_quest][ ⏩ Bỏ qua ][/url][/color]"
+			hudLabel.text = "[color=#ffd700]⚔ Ủy thác[/color]" + nextHint + "\n" + autoBtnText + "  " + skipNextBtnText + "  " + logBtnText
 		else:
 			nextHint = "\n[color=#888888]Tất cả nhiệm vụ đã hoàn tất[/color]"
-		hudLabel.text = "[color=#ffd700]⚔ Ủy thác[/color]" + nextHint + "\n" + autoBtnText + "  " + logBtnText
+			hudLabel.text = "[color=#ffd700]⚔ Ủy thác[/color]" + nextHint + "\n" + autoBtnText + "  " + logBtnText
 		hudLabel.visible = true
 		return
 

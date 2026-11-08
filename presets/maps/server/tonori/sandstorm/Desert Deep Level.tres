@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="MapServerData" format=3 uid="uid://bwup1kraprcgp"]
+
+[ext_resource type="Script" uid="uid://bb6b4t21kugex" path="res://addons/tiled_importer/MapServerData.gd" id="1_ojae3"]
+[ext_resource type="Script" uid="uid://dsvyjgt4h20g8" path="res://addons/tiled_importer/SpawnObject.gd" id="2_j5dy5"]
+[ext_resource type="Script" uid="uid://dsdwy6lj1sey" path="res://sources/scripts/tonori/sandstorm/ManaTree.gd" id="3_wa2ov"]
+[ext_resource type="Script" uid="uid://ecry5amw5at" path="res://sources/scripts/tonori/sandstorm/ManaTreeGlobal.gd" id="4_ubr0e"]
+[ext_resource type="Script" uid="uid://dpig3bsvwjoxp" path="res://sources/scripts/generic/WarpGlobal.gd" id="5_rjgxa"]
+
+[sub_resource type="Resource" id="Resource_ri3ja"]
+script = ExtResource("2_j5dy5")
+id = 2025440114
+type = 2
+player_script = ExtResource("3_wa2ov")
+own_script = ExtResource("4_ubr0e")
+spawn_position = Vector2i(1349, 1349)
+spawn_offset = Vector2i(5, 5)
+is_persistant = true
+is_targetable = true
+trigger_radius = 160.0
+trigger_polygon = PackedVector2Array()
+
+[sub_resource type="Resource" id="Resource_kckft"]
+script = ExtResource("2_j5dy5")
+id = 2025440114
+type = 2
+player_script = ExtResource("3_wa2ov")
+own_script = ExtResource("4_ubr0e")
+spawn_position = Vector2i(1765, 2917)
+spawn_offset = Vector2i(5, 5)
+is_persistant = true
+trigger_radius = 2000.0
+trigger_polygon = PackedVector2Array()
+
+[sub_resource type="Resource" id="Resource_b01cu"]
+script = ExtResource("2_j5dy5")
+id = 2089709631
+nick = "To Abandoned Level"
+type = 2
+own_script = ExtResource("5_rjgxa")
+spawn_position = Vector2i(1727, 2431)
+respawn_delay = 0.0
+is_persistant = true
+trigger_polygon = PackedVector2Array(2, 81, 33, 49, 64, 81)
+destination_map = 259752832
+destination_pos = Vector2(2864, 2384)
+
+[resource]
+script = ExtResource("1_ojae3")
+name = "Desert Deep Level"
+spawns = Array[ExtResource("2_j5dy5")]([SubResource("Resource_ri3ja"), SubResource("Resource_kckft"), SubResource("Resource_b01cu")])
+flags = 4
