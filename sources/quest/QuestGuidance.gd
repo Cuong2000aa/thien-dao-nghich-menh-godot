@@ -280,11 +280,14 @@ static func MatchNickInText(text : String) -> String:
 static func ResolveLivePosition(nick : String, preferMapID : int = DB.UnknownHash) -> Vector2:
 	if nick.is_empty() or Entities.entities.is_empty():
 		return Vector2.INF
-	var sum : Vector2 = Vector2.ZERO
-	var count : int = 0
+	var playerPos : Vector2 = Launcher.Player.position if Launcher.Player else Vector2.ZERO
+	var nearestPos : Vector2 = Vector2.INF
+	var nearestDist : float = INF
 	var alias : String = str(NAME_ALIASES.get(nick, nick))
 	for entity in Entities.entities.values():
 		if entity == null or not is_instance_valid(entity):
+			continue
+		if entity.type == ActorCommons.Type.MONSTER and entity.state == ActorCommons.State.DEATH:
 			continue
 		var en : String = entity.nick
 		var matchNick : bool = (en == nick or en == alias)
@@ -294,11 +297,13 @@ static func ResolveLivePosition(nick : String, preferMapID : int = DB.UnknownHas
 			continue
 		if preferMapID != DB.UnknownHash and Launcher.Map and Launcher.Map.currentMapID != preferMapID:
 			continue
-		sum += entity.position
-		count += 1
-	if count > 0:
-		return sum / float(count)
-	return Vector2.INF
+		if playerPos == Vector2.ZERO:
+			return entity.position
+		var d : float = playerPos.distance_to(entity.position)
+		if d < nearestDist:
+			nearestDist = d
+			nearestPos = entity.position
+	return nearestPos
 
 ## Multi-phase quests: nick/kind change with state (avoids Auto re-talking giver mid-objective).
 static func _ResolvePhaseOverride(questID : int, state : int) -> Dictionary:
@@ -475,10 +480,18 @@ static func BuildStep(questID : int, state : int) -> Dictionary:
 	if not spawns.is_empty():
 		chosen = spawns[0]
 		if Launcher.Map:
+			var bestDist : float = INF
+			var pPos : Vector2 = Launcher.Player.position if Launcher.Player else Vector2.ZERO
 			for s in spawns:
 				if s.get("map_id", DB.UnknownHash) == Launcher.Map.currentMapID:
-					chosen = s
-					break
+					if pPos != Vector2.ZERO:
+						var d : float = pPos.distance_to(Vector2(s.get("position", Vector2.ZERO)))
+						if d < bestDist:
+							bestDist = d
+							chosen = s
+					else:
+						chosen = s
+						break
 
 	var mapID : int = int(chosen.get("map_id", DB.UnknownHash)) if not chosen.is_empty() else DB.UnknownHash
 	var pos : Vector2 = chosen.get("position", Vector2.ZERO) if not chosen.is_empty() else Vector2.ZERO
@@ -859,6 +872,14 @@ static func _BuildProgressText(questID : int, state : int, override : Dictionary
 		return ""
 	if IsReadyToTurnIn(questID, state):
 		return "%d/%d ✔" % [need, need]
+	if questID == ProgressCommons.Quest.TUTORIAL:
+		var pDone : int = 0
+		if Launcher.GUI and Launcher.GUI.progressionTracker and Launcher.GUI.progressionTracker.has_method("MatchesTarget"):
+			var t = Launcher.GUI.progressionTracker
+			var doNick : String = str(override.get("do", ""))
+			if t.MatchesTarget(doNick):
+				pDone = mini(t.lastValue, need)
+		return "%d/%d" % [pDone, need]
 	var done : int = maxi(0, state - 1)
 	done = mini(done, need)
 	return "%d/%d" % [done, need]

@@ -375,9 +375,9 @@ func _EnsureNearObjective(step : Dictionary) -> bool:
 		return false
 
 	# 3. For KILL and GATHER objectives, the hunting ground is large (e.g. cactus farm).
-	# Do NOT warp if player is within 1600.0px of the hunting waypoint.
+	# Do NOT warp if player is within 650.0px of the hunting waypoint.
 	if action == QuestGuidanceClass.Action.KILL or action == QuestGuidanceClass.Action.GATHER:
-		if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > 1600.0:
+		if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > 650.0:
 			return _WarpToStep(step, "Auto NV: bay tới bãi quái.")
 		return false
 
@@ -407,6 +407,9 @@ func _DoTalkStep(nick : String, targetPos : Vector2) -> void:
 	if nick == _lastNpcNick and (now - _lastNpcTalkAt) < NPC_REINTERACT_COOLDOWN_SEC:
 		return
 	var targetEnt : Entity = _FindEntityByNick(nick, false, 1500.0)
+	# Proximity fallback for tile-based / invisible NPCs (e.g. Mana Tree)
+	if targetEnt == null and targetPos != Vector2.ZERO:
+		targetEnt = _FindEntityNearPosition(targetPos, INTERACT_RANGE, false)
 	if targetEnt:
 		var d : float = Launcher.Player.position.distance_to(targetEnt.position)
 		if d <= INTERACT_RANGE:
@@ -461,10 +464,17 @@ func _DoKillStep(step : Dictionary, targetPos : Vector2, returnNick : String) ->
 		if targetEnt:
 			break
 
-	# 3. If none in 520px, search broader area (up to 1000px across field)
+	# 3. If none in 520px, search broader area (up to 1200px across field)
 	if targetEnt == null:
 		for tName in focusTargets:
-			targetEnt = _FindKillTarget(str(tName), 1000.0)
+			targetEnt = _FindKillTarget(str(tName), 1200.0)
+			if targetEnt:
+				break
+
+	# 3b. Search any live matching monster in loaded entities on map
+	if targetEnt == null:
+		for tName in focusTargets:
+			targetEnt = _FindKillTarget(str(tName), INF)
 			if targetEnt:
 				break
 
@@ -607,9 +617,10 @@ func _MaintainKillTarget(ent : Entity) -> void:
 	var dist : float = playerPos.distance_to(targetPos)
 	var inAttackRange : bool = ActorCommons.IsActorNear(Launcher.Player, ent, walkToDistance)
 
+	if Entities.target != ent:
+		Entities.SetTarget(ent)
+
 	if inAttackRange or dist <= attackRange:
-		if Entities.target != ent:
-			Entities.SetTarget(ent)
 		if Launcher.Player.state != ActorCommons.State.ATTACK:
 			Entities.JustInteract()
 	else:
@@ -854,6 +865,24 @@ func _FindEntityByNick(nick : String, monstersOnly : bool, maxRange : float) -> 
 		if not _NickMatches(ent, nick):
 			continue
 		var d : float = Launcher.Player.position.distance_to(ent.position)
+		if d < bestDist:
+			bestDist = d
+			best = ent
+	return best
+
+func _FindEntityNearPosition(pos : Vector2, maxDist : float, monstersOnly : bool = false) -> Entity:
+	if Launcher.Player == null or Entities.entities.is_empty():
+		return null
+	var best : Entity = null
+	var bestDist : float = maxDist
+	for ent in Entities.entities.values():
+		if ent == null or ent == Launcher.Player or not is_instance_valid(ent):
+			continue
+		if monstersOnly and ent.type != ActorCommons.Type.MONSTER:
+			continue
+		if not monstersOnly and ent.type != ActorCommons.Type.NPC:
+			continue
+		var d : float = ent.position.distance_to(pos)
 		if d < bestDist:
 			bestDist = d
 			best = ent
