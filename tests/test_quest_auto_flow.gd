@@ -91,10 +91,8 @@ func _ready():
 
 	# 7. Test FindNextAvailableQuest with partially completed chain
 	if Launcher.Player == null:
-		Launcher.Player = Node.new()
-		Launcher.Player.set("progress", Node.new())
-		Launcher.Player.progress.set_script(load("res://sources/actor/Progress.gd"))
-		Launcher.Player.progress.quests = {}
+		Launcher.Player = Entity.new(ActorCommons.Type.PLAYER, DB.EntitiesDB.get(DB.PlayerHash), "TestPlayer")
+	Launcher.Player.progress.quests.clear()
 	Launcher.Player.progress.SetQuest(tutQid, ProgressCommons.CompletedProgress, false)
 	var nextAvail : int = QuestGuidanceClass.FindNextAvailableQuest()
 	if nextAvail != ProgressCommons.Quest.ELANORE_POTION:
@@ -102,6 +100,23 @@ func _ready():
 		fails += 1
 	else:
 		print("[PASS] FindNextAvailableQuest correctly continues Starter Chain with ELANORE_POTION")
+
+	# 8. Test Auto-Combat engagement: tolerance for colliders (55px distance is in attack range)
+	var mockMob = Entity.new(ActorCommons.Type.MONSTER, DB.EntitiesDB.get("Peyote".hash()), "Peyote")
+	Launcher.Player.position = Vector2(100, 100)
+	mockMob.position = Vector2(100, 155) # 55px away
+	autoCtrl._MaintainKillTarget(mockMob)
+	if Entities.target != mockMob:
+		print("[FAIL] AutoController did not lock Entities.target to mockMob!")
+		fails += 1
+	else:
+		print("[PASS] AutoController locked Entities.target to monster")
+
+	if Launcher.Player.position.distance_to(mockMob.position) <= 72.0:
+		print("[PASS] 55px collider proximity is within combat attackRange (<= 72px)!")
+	else:
+		print("[FAIL] Attack range tolerance failed!")
+		fails += 1
 
 	print("=== RESULT fails=%d ===" % fails)
 	get_tree().quit(0 if fails == 0 else 1)

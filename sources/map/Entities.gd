@@ -81,10 +81,12 @@ static func SetTarget(newTarget : Entity, interactable : bool = true):
 
 	if target:
 		if interactable and target.type == ActorCommons.Type.NPC:
-			target.interactive.DisplayTarget(ActorCommons.Target.ALLY)
+			if target.interactive:
+				target.interactive.DisplayTarget(ActorCommons.Target.ALLY)
 		elif target.type == ActorCommons.Type.MONSTER:
-			target.interactive.DisplayTarget(ActorCommons.Target.ENEMY)
-			target.interactive.DisplayHP()
+			if target.interactive:
+				target.interactive.DisplayTarget(ActorCommons.Target.ENEMY)
+				target.interactive.DisplayHP()
 		# Preview dummy uses negative agentRID — never hit the network select path
 		if target.agentRID >= 0:
 			Network.TriggerSelect(target.agentRID)

@@ -34,6 +34,7 @@ var _lastPos : Vector2 = Vector2.ZERO
 var _stuckTicks : int = 0
 var _currentAutoStatus : String = ""
 var _lastEngagedTargetPos : Vector2 = Vector2.ZERO
+var _lastAttackAt : float = 0.0
 
 const TICK_SEC : float = 0.25
 const DIALOGUE_TICK_SEC : float = 0.08
@@ -190,6 +191,9 @@ func _IsPlayerInCombat() -> bool:
 	return false
 
 func _Step() -> void:
+	if Entities.target != null and (not is_instance_valid(Entities.target) or not ActorCommons.IsAlive(Entities.target)):
+		Entities.ClearTarget()
+
 	var inDialogue : bool = _IsDialogueOpen()
 	if _wasInDialogue and not inDialogue:
 		_OnDialogueClosed()
@@ -423,9 +427,9 @@ func _EnsureNearObjective(step : Dictionary) -> bool:
 		return false
 
 	# 3. For KILL and GATHER objectives, the hunting ground is large (e.g. cactus farm).
-	# Do NOT warp if player is within 650.0px of the hunting waypoint.
+	# Warp if player is farther than 420.0px from the hunting ground
 	if action == QuestGuidanceClass.Action.KILL or action == QuestGuidanceClass.Action.GATHER:
-		if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > 650.0:
+		if targetPos != Vector2.ZERO and Launcher.Player.position.distance_to(targetPos) > 420.0:
 			return _WarpToStep(step, "Auto NV: bay tới bãi quái.")
 		return false
 
@@ -658,17 +662,19 @@ func _IsMatchingKillTarget(ent : Entity, focusTargets : Array) -> bool:
 func _MaintainKillTarget(ent : Entity) -> void:
 	if ent == null or not is_instance_valid(ent) or not ActorCommons.IsAlive(ent):
 		_lastEngagedTargetPos = Vector2.ZERO
+		if Entities.target == ent:
+			Entities.ClearTarget()
 		return
 
 	if ent.has_signal("entity_died"):
 		if not ent.entity_died.is_connected(_OnKillTargetDied):
 			ent.entity_died.connect(_OnKillTargetDied.bind(ent), ConnectFlags.CONNECT_ONE_SHOT)
 
-	var attackRange : float = 48.0
-	var walkToDistance : int = 24
+	var baseAtkRange : float = 32.0
 	if Launcher.Player and Launcher.Player.stat and Launcher.Player.stat.current:
-		attackRange = maxf(48.0, float(Launcher.Player.stat.current.attackRange))
-		walkToDistance = maxi(24, int(Launcher.Player.stat.current.attackRange / 2.0))
+		baseAtkRange = maxf(32.0, float(Launcher.Player.stat.current.attackRange))
+	var attackRange : float = maxf(72.0, baseAtkRange + 36.0)
+	var walkToDistance : int = maxi(36, int(attackRange * 0.55))
 
 	var playerPos : Vector2 = Launcher.Player.position
 	var targetPos : Vector2 = ent.position
@@ -679,11 +685,20 @@ func _MaintainKillTarget(ent : Entity) -> void:
 		Entities.SetTarget(ent)
 
 	if inAttackRange or dist <= attackRange:
-		if Launcher.Player.state != ActorCommons.State.ATTACK:
-			Entities.JustInteract()
+		# Halt movement so player does not run into colliders or cause client/server position drift
+		if Launcher.Player.state == ActorCommons.State.WALK:
+			Launcher.Action.MoveTo(playerPos)
+			Launcher.Player.velocity = Vector2.ZERO
+		if Launcher.Player.has_method("LookAt"):
+			Launcher.Player.LookAt(ent)
+
+		var now : float = Time.get_ticks_msec() / 1000.0
+		if (now - _lastAttackAt) >= 0.28:
+			_lastAttackAt = now
+			Entities.Interact()
 	else:
 		var isWalking : bool = (Launcher.Player.state == ActorCommons.State.WALK)
-		var targetMoved : bool = (_lastEngagedTargetPos == Vector2.ZERO or _lastEngagedTargetPos.distance_to(targetPos) > 36.0)
+		var targetMoved : bool = (_lastEngagedTargetPos == Vector2.ZERO or _lastEngagedTargetPos.distance_to(targetPos) > 28.0)
 		if not isWalking or targetMoved:
 			_lastEngagedTargetPos = targetPos
 			var targetPosition : Vector2 = targetPos

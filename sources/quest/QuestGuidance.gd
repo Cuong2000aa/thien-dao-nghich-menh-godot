@@ -861,8 +861,11 @@ static func WarpLocalPlayerToStep(step : Dictionary, notify : String = "") -> bo
 	# NEVER force client position to coordinates of another map while still on a different map.
 	if Launcher.Player and Launcher.Map and Launcher.Map.currentMapID == mapID:
 		Launcher.Player.position = pos
-		if Launcher.Action:
-			Launcher.Action.MoveTo(pos)
+		Launcher.Player.entityPosOffset = Vector2.ZERO
+		Launcher.Player.entityVelocity = Vector2.ZERO
+		Launcher.Player.velocity = Vector2.ZERO
+		if Launcher.Camera:
+			Launcher.Camera.LookAt(pos, false)
 		success = true
 
 	if success and not notify.is_empty() and Launcher.GUI and Launcher.GUI.notificationLabel:

@@ -9,6 +9,11 @@ func WarpPlayer(mapID : int, playerPos : Vector2, _peerID : int):
 		var mapData : FileData = DB.MapsDB.get(mapID, null)
 		if mapData:
 			Launcher.Map.EmplaceMapNode(mapID)
+			if Launcher.Player:
+				Launcher.Player.position = playerPos
+				Launcher.Player.entityPosOffset = Vector2.ZERO
+				Launcher.Player.entityVelocity = Vector2.ZERO
+				Launcher.Player.velocity = Vector2.ZERO
 			Launcher.Camera.LookAt(playerPos, false)
 			# Reset input in both the client and server to force re-send a new update once the map is loaded
 			Network.ClearNavigation()

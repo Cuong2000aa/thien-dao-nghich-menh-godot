@@ -8,8 +8,8 @@ var skills : Dictionary[int, int]			= {}
 
 var actor : Actor							= null
 
-var questMutex : Mutex						= null
-var bestiaryMutex : Mutex					= null
+var questMutex : Mutex						= Mutex.new()
+var bestiaryMutex : Mutex					= Mutex.new()
 
 # Quest progress
 func SetQuest(questID : int, state : int, persist : bool = true):
