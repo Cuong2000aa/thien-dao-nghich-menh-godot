@@ -6,12 +6,11 @@ static var commands : Dictionary[StringName, Command]				= {}
 
 # Handling
 static func Register(commandName : StringName, callable : Callable, permission : ActorCommons.Permission, description : String):
-	assert(not commands.has(commandName), "Command '%s' could not be registered as it is already registered" % commandName)
 	commands[commandName] = Command.new(callable, permission, description)
 
 static func Unregister(commandName : StringName):
-	assert(commands.has(commandName), "Command '%s' could not be un-registered as it has not been previously registered" % commandName)
-	commands.erase(commandName)
+	if commands.has(commandName):
+		commands.erase(commandName)
 
 static func Handle(caller : PlayerAgent, commandStr : String):
 	if commandStr.is_empty():

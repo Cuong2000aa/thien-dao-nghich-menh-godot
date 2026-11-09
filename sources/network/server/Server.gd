@@ -485,7 +485,7 @@ func TriggerCommand(command : String, peerID : int):
 # Peer handling
 func ConnectPeer(peerID : int):
 	var transportType : Peers.TransportType = Peers.TransportType.ENET
-	if isOffline:
+	if isOffline or peerID == NetworkCommons.PeerAuthorityID:
 		transportType = Peers.TransportType.OFFLINE
 	elif useWebSocket:
 		transportType = Peers.TransportType.WEBSOCKET
@@ -493,14 +493,17 @@ func ConnectPeer(peerID : int):
 	Peers.AddPeer(peerID, transportType)
 
 	var peer : Peers.Peer = Peers.GetPeer(peerID)
-	if peer and not isOffline:
+	if peer and transportType != Peers.TransportType.OFFLINE:
 		peer.primaryConnected = true
 		peer.ipAddress = Peers.ResolvePeerIP(peerID)
+	elif peer:
+		peer.primaryConnected = true
+		peer.ipAddress = NetworkCommons.LocalServerAddress
 	bulks[peerID] = {}
 
 	Util.PrintInfo("Server", "Peer connected: %d with %s from %s" % [peerID, Peers.GetTransportName(transportType), Peers.GetPeerIP(peerID)])
 
-	if currentPeer and currentPeer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+	if currentPeer and currentPeer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED and peerID != NetworkCommons.PeerAuthorityID:
 		var clientPeer : PacketPeer = currentPeer.get_peer(peerID)
 		if clientPeer and clientPeer is ENetPacketPeer:
 			clientPeer.set_timeout(NetworkCommons.Timeout, NetworkCommons.TimeoutMin, NetworkCommons.TimeoutMax)
@@ -578,6 +581,9 @@ func _OnRtcPeerDisconnected(peerID : int):
 
 #
 func _enter_tree():
+	if is_queued_for_deletion() or currentPeer == null:
+		return
+
 	if isOffline and not SessionManager.isHosting:
 		interfaceID = NetworkCommons.PeerAuthorityID
 		ConnectPeer(interfaceID)

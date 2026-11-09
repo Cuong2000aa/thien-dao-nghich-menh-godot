@@ -109,6 +109,7 @@ func _OnRtcIceCandidate(media : String, index : int, candidateName : String, rem
 func Destroy():
 	if currentPeer:
 		currentPeer.close()
+		currentPeer = null
 	interfaceID = NetworkCommons.PeerUnknownID
 	if is_inside_tree():
 		Launcher.Root.remove_child(self)

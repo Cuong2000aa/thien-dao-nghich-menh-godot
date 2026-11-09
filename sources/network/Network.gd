@@ -637,9 +637,15 @@ func Mode(isClient : bool, isServer : bool):
 		if isOffline and LauncherCommons.isWeb:
 			# Browser: avoid ENet peer object; offline in-process handle via WebSocket NetServer (no listen socket).
 			WebSocketServer = NetServer.new(true, false, true, true)
+		elif SessionManager.isHosting:
+			# Host-based co-op: on Web use WebSocketServer, on Desktop use ENetServer
+			if LauncherCommons.isWeb:
+				WebSocketServer = NetServer.new(true, false, false, NetworkCommons.IsLocal)
+			else:
+				ENetServer = NetServer.new(false, false, false, NetworkCommons.IsLocal)
 		else:
 			if NetworkCommons.UseENet:
-				ENetServer = NetServer.new(false, false, false if SessionManager.isHosting else isOffline, NetworkCommons.IsLocal)
+				ENetServer = NetServer.new(false, false, isOffline, NetworkCommons.IsLocal)
 			if NetworkCommons.UseWebSocket and not isOffline:
 				WebSocketServer = NetServer.new(true, false, isOffline, NetworkCommons.IsLocal)
 			if NetworkCommons.UseWebRTC and not isOffline:

@@ -12,7 +12,7 @@ const Cultivation = preload("res://sources/actor/Cultivation.gd")
 var timer : float = 0.0
 var step : int = 0
 var failed : int = 0
-var test_account : String = "HostDao11"
+var test_account : String = "HostDao11_" + str(int(Time.get_unix_time_from_system()) % 100000)
 var test_pass : String = "HostPass123!"
 var test_char : String = "ChuPhong" + str(int(Time.get_unix_time_from_system()) % 10000)
 var results : Dictionary = {}
@@ -42,29 +42,15 @@ func _ready():
 	print("[Step 1 PASS] Host listen server on port %d (max %d)" % [SessionManager.listenPort, SessionManager.maxPlayers])
 	results["step1_host_listen"] = true
 
-	if Network.Client:
-		if Network.Client.multiplayerAPI.connected_to_server.is_connected(_on_connected) == false \
-				and Network.Client.isOffline == false:
-			Network.Client.multiplayerAPI.connected_to_server.connect(_on_connected)
-		# Host client is offline in-process — kick login after short delay
-		call_deferred("_begin_host_login")
-
-func _begin_host_login():
-	print("[Step 2] Host login / character on authoritative SQLite...")
-	await get_tree().create_timer(0.5).timeout
-	Network.LoginWithPassword(test_account, test_pass, false)
-
-func _on_connected():
-	Network.LoginWithPassword(test_account, test_pass, false)
-
 func _process(delta: float):
 	timer += delta
 
-	if timer > 2.0 and step == 0:
+	if timer > 1.0 and step == 0:
 		step = 1
+		print("[Step 2] Host login on authoritative SQLite: %s" % test_account)
 		Network.LoginWithPassword(test_account, test_pass, false)
 
-	if timer > 4.0 and step == 1:
+	if timer > 3.0 and step == 1:
 		step = 2
 		results["step2_login"] = true
 		print("[Step 2 PASS] Login issued — creating character %s" % test_char)
@@ -87,11 +73,12 @@ func _process(delta: float):
 		}
 		Network.CreateCharacter(test_char, traits, attrs)
 
-	if timer > 6.0 and step == 2:
+	if timer > 5.5 and step == 2:
 		step = 3
+		print("[Step 3] Connecting character: %s" % test_char)
 		Network.ConnectCharacter(test_char)
 
-	if timer > 9.0 and step == 3:
+	if timer > 8.0 and step == 3:
 		step = 4
 		if Launcher.Player:
 			print("[Step 3 PASS] Host character in world: %s @ map %s" % [

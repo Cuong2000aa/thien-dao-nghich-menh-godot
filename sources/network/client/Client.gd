@@ -548,6 +548,9 @@ func ConnectionFailed():
 
 #
 func _enter_tree():
+	if is_queued_for_deletion() or currentPeer == null:
+		return
+
 	if not IsActiveClient():
 		return
 
