@@ -165,6 +165,7 @@ enum DESERT_SEED
 	INACTIVE = ProgressCommons.UnknownProgress,
 	SEEK_NINA,
 	SEEK_MANAYIR,
+	REWARDS_WITHDREW = ProgressCommons.CompletedProgress,
 }
 enum TULIMSHAR_EASTERN_HILLS_CHEST
 {
